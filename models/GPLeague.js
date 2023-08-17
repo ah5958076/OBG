@@ -1,0 +1,15 @@
+const mongoose = require("mongoose");
+
+let schema = new mongoose.Schema({
+    name: {type: String, require: true, default: ""},
+    gameName: {type: String, require: true, default: ""},
+    entryFee: {type: Number, require: true, default: ""},
+    prize: {type: Number, require: true, default: 0},
+    teamSize: {type: Number, require: true, default: 0},
+    totalTeams: {type: Number, require: true, default: 0},
+    startingDate: {type: Date, require: true, default: null},
+    endingDate: {type: Date, require: true, default: null},
+    picture: {type: String, require: true, default: ""}
+}, {timestamps: true});
+
+module.exports=mongoose.model("GPLeagues", schema);
