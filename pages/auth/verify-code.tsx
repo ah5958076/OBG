@@ -3,7 +3,7 @@ import styles from "@/styles/auth.module.css";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { ROUTE_SIGNIN } from "../../constants/constants";
+import { ROUTE_SIGNIN } from "../../constants/routes";
 import { resendCode, verifyCode } from '../../utils/auth';
 import store from '@/Redux/store';
 import { isLoading } from '@/Redux/actions/loader';

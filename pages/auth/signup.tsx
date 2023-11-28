@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import styles from "@/styles/auth.module.css"
 import Link from "next/link";
-import { ROUTE_SIGNIN, ROUTE_SIGNUP } from "@/constants/constants";
+import { ROUTE_SIGNIN, ROUTE_SIGNUP } from "@/constants/routes";
 import { signupHandler } from "@/utils/auth";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import store from "@/Redux/store";

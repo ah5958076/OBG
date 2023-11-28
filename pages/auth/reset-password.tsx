@@ -3,7 +3,7 @@ import styles from "@/styles/auth.module.css";
 import Link from 'next/link';
 
 import { changePasswordAtLoginHandler } from "../../utils/auth";
-import { ROUTE_SIGNIN } from "../../constants/constants";
+import { ROUTE_SIGNIN } from "../../constants/routes";
 import { useRouter } from 'next/navigation';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
 import store from '@/Redux/store';

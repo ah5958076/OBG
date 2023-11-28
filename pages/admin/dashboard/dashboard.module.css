@@ -1,4 +1,4 @@
-.real-time-values {
+.real_time_values {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,7 +7,7 @@
   color: #FF7700;
 }
 
-.real-values {
+.real_values {
   width: 92px;
   height: 92px;
   border: 1px solid #707070;
@@ -18,7 +18,7 @@
 
 }
 
-.real-values p {
+.real_values p {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -28,7 +28,7 @@
   transform: translateY(105%);
 }
 
-.real-values span {
+.real_values span {
   font-weight: bold;
 }
 
@@ -36,7 +36,7 @@
 
 
 @media(max-width: 400px) {
-  .real-time-values {
+  .real_time_values {
     flex-direction: column;
     gap: 50px;
   }

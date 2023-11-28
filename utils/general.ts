@@ -3,7 +3,7 @@ import { isLoading } from "../Redux/actions/loader";
 import store from "../Redux/store";
 import { loadNewData, setLoadedData } from "../Redux/actions/pagination";
 import { hideDialog, showDialog } from "../Redux/actions/dialogs";
-import { DIALOG_CONFIRMATION, OPENED_FOR_DELETION } from "../constants/constants";
+import { DIALOG_CONFIRMATION } from "../constants/dialog-names";
 import axios from "axios";
 
 axios.defaults.baseURL=process.env.BACKEND_BASE_URL || "http://localhost:3001/";
@@ -157,7 +157,7 @@ export const openDeleteDialog = (page_title:any, url:any=null, id:any=null) => {
         pageTitle: page_title,
         url: url,
         ids: ids,
-        mode: OPENED_FOR_DELETION
+        // mode: OPENED_FOR_DELETION
     }
     store.dispatch(showDialog(DIALOG_CONFIRMATION, data));
     store.dispatch(isLoading(false));
@@ -165,7 +165,7 @@ export const openDeleteDialog = (page_title:any, url:any=null, id:any=null) => {
 
 export const confirmationHandler = async (options:any) => {
     store.dispatch(isLoading(true));
-    if(options?.mode===OPENED_FOR_DELETION && options?.ids){
+    if(/*options?.mode===OPENED_FOR_DELETION &&*/ options?.ids){
         let data:any = {ids: options.ids};
         getRequest(options.url).then((response:any) => {
             if(!response.auth)

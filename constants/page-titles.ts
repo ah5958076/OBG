@@ -1,0 +1,13 @@
+export const TITLE_ADMIN_DASHBOARD="Admin Dashboard";
+export const TITLE_ADMIN_GRANDPRIX="Grand Prix";
+export const TITLE_ADMIN_GPLEAGUES="GP Leagues";
+export const TITLE_ADMIN_FANTASY_LEAGUES="Fantasy Leagues";
+export const TITLE_ADMIN_USERS="Users";
+export const TITLE_ADMIN_GAMES="Games";
+export const TITLE_ADMIN_TOURNAMENTS="Tournaments";
+export const TITLE_ADMIN_LADDERS="Ladders";
+export const TITLE_ADMIN_INVENTORY="Inventory";
+export const TITLE_ADMIN_TOURNAMENTS_RESULTS="Tournament Results";
+export const TITLE_ADMIN_TOTAL_WAR_LADDER_RESULTS="Total War Ladder Results";
+export const TITLE_ADMIN_MATCHES_RESULTS="Matches Results";
+export const TITLE_ADMIN_GP_LEAGUE_RESULTS="GP League Results";

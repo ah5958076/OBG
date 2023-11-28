@@ -1,17 +1,22 @@
-import { ROUTE_VERIFY_CODE } from "@/constants/constants";
+import { ROUTE_ADMIN_DASHBOARD, ROUTE_VERIFY_CODE } from "@/constants/routes";
 import store from "../Redux/store"
 let showNotification:any=null; 
 import { isLoading } from "@/Redux/actions/loader";
+import { navigateTo } from "./general";
 // import { makeXMLRequest } from "./general"; 
 
 
 export const loginHandler = async (event:any) => {
-    store.dispatch(isLoading(true));
     event.preventDefault();
-    let data:any = {
-        "email": event.target.email.value,
-        "password": event.target.password.value
-    }
+    navigateTo(event, ROUTE_ADMIN_DASHBOARD);
+    
+    
+    // store.dispatch(isLoading(true));
+    // let data:any = {
+    //     "email": event.target.email.value,
+    //     "password": event.target.password.value
+    // }
+
     // makeXMLRequest("/api/login", "post", data).then((response:any) => {
     //     if(response.isError){
     //         store.dispatch(isLoading(false));

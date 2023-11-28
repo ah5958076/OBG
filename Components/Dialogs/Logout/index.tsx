@@ -2,7 +2,6 @@ import React from 'react'
 
 import store from '../../../Redux/store'
 import { hideDialog } from '../../../Redux/actions/dialogs'
-import { CANCEL_BTN, SITE_CLR } from "../../../constants/colors";
 import { logoutUser } from '../../../utils/auth';
 
 export const Logout = () => {
@@ -17,8 +16,8 @@ export const Logout = () => {
                 <p>Are you want to logout?</p>
                 
                 <div className="controls no-wrap">
-                    <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: CANCEL_BTN}}>Cancel</button>
-                    <button style={{backgroundColor: SITE_CLR}} onClick={ logoutUser }>Logout</button>
+                    <button onClick={()=>{store.dispatch(hideDialog())}}>Cancel</button>
+                    <button onClick={ logoutUser }>Logout</button>
                 </div>
 
             </div>

@@ -1,20 +1,20 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { ConfirmationDialog } from '../Dialogs/Confirmation/ConfirmationDialog'
-import { ChangePassword } from "../Dialogs/ChangePassword/ChangePassword"
-import { Logout } from "../Dialogs/Logout/Logout"
-import { AddGPLeagues, UpdateGPLeagues } from "../Dialogs/GPLeagues/GPLeagues"
-import { AddFantasyLeague, UpdateFantasyLeague } from "../Dialogs/FantasyLeagues/FantasyLeagues"
-import { AddUser } from "../Dialogs/Users/Users"
-import { AddGames } from "../Dialogs/Games/Games"
-import { AddTournaments } from "../Dialogs/Tournaments/Tournaments"
-import { AddLadders } from "../Dialogs/Ladders/Ladders"
-import { AddInventory } from "../Dialogs/Inventory/Inventory"
+import { ConfirmationDialog } from '@/Components/Dialogs/Confirmation'
+import { ChangePassword } from "@/Components/Dialogs/ChangePassword"
+import { Logout } from "@/Components/Dialogs/Logout"
+import { AddGPLeagues, UpdateGPLeagues } from "@/Components/Dialogs/GPLeagues"
+import { AddFantasyLeague, UpdateFantasyLeague } from "@/Components/Dialogs/FantasyLeagues"
+import { AddUser } from "@/Components/Dialogs/Users"
+import { AddGames } from "@/Components/Dialogs/Games"
+import { AddTournaments } from "@/Components/Dialogs/Tournaments"
+import { AddLadders } from "@/Components/Dialogs/Ladders"
+import { AddInventory } from "@/Components/Dialogs/Inventory"
 
 import { 
     DIALOG_ADD_FANTASY_LEAGUES, DIALOG_ADD_GAMES, DIALOG_ADD_GP_LEAGUES, DIALOG_ADD_INVENTORY, DIALOG_ADD_LADDERS, DIALOG_ADD_TOURNAMENTS, DIALOG_ADD_USERS, DIALOG_CHANGE_PASSWORD, DIALOG_CONFIRMATION, DIALOG_LOGOUT, DIALOG_UPDATE_FANTASY_LEAGUES, DIALOG_UPDATE_GP_LEAGUES
-} from '../../constants/constants'
+} from '../../constants/dialog-names'
 
 
 export const DialogRendering = () => {
