@@ -1,0 +1,132 @@
+.dialogs {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 90;
+    backdrop-filter: blur(5px);
+}
+
+.dialogs:has(.dialog.show) {
+    display: flex;
+}
+
+.dialogs .dialog {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    border: 1px solid #1a1a1a;
+    max-width: 400px;
+    min-width: 260px;
+    width: 100%;
+    max-height: 90vh;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.dialogs .dialog::-webkit-scrollbar {
+    width: 15px;
+    border-radius: 10px;
+}
+
+.dialogs .dialog::-webkit-scrollbar-track {
+    background-color: #282828;
+}
+
+.dialogs .dialog::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.dialogs .dialog.show {
+    display: flex;
+}
+
+.dialog form {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    width: 80%;
+    position: relative;
+}
+
+input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.dialog .file-input {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid gray;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    border-radius: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog .file-input img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.dialog .file-input input {
+    position: absolute;
+    scale: 10;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.dialog .controls {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.dialog button {
+    background-color: var(--b-clr);
+    color: white;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 17px;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+.dialog.confirmation-dialog {
+    width: 250px;
+    gap: 30px;
+}
+
+
+
+
+
+
+
+@media(max-width: 350px) {
+    .dialog .controls:not(.no-wrap) {
+        flex-direction: column-reverse;
+    }
+}

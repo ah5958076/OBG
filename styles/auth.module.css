@@ -1,0 +1,132 @@
+.left{
+    background-image: url("/keyboard.png");
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.right{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    background-color: #111213af;
+    backdrop-filter: blur(10px);
+    max-width: 450px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.left .top,
+.left .bottom{
+    width: calc(100% - 450px);
+    padding: 20px 0px 20px 70px;
+}
+
+.navigation{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    top: 50px;
+    padding: 10px;
+    align-items: center;
+    text-align: center;
+}
+.navigation:has(a){
+    flex-direction: row;
+}
+.navigation:has(a)::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 50px;
+    background-color: gray;
+}
+.navigation:has(a)::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--site-clr);
+    width: 50%;
+    height: 4px;
+    border-radius: 50px;
+    transition: 0.5s;
+}
+.navigation:has(a:first-child.active)::after{
+    translate: 0 0;
+}
+.navigation:has(a:last-child.active)::after{
+    translate: 100% 0;
+}
+
+.auth_form {
+    width: 250px;
+}
+.auth_form a.forgot_password {
+    margin: 20px 0px;
+    display: flex;
+    align-self: flex-end;
+    color: gray;
+    transition: 0.3s;
+}
+.auth_form a:hover {
+    color: rgb(0, 98, 255);
+}
+
+p.new_account{
+    font-size: 15px;
+    margin: 0;
+}
+p.new_account a{
+    text-decoration: none;
+    color: gray;
+    transition: 0.3s;
+}
+p.new_account a:hover{
+    text-decoration: underline;
+    color: rgb(0, 98, 255);
+}
+.back_to_login{
+    font-size: 15px;
+    color: gray;
+}
+.back_to_login:hover{
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width: 850px){
+    .left .top,.left .bottom{
+        padding-left: 10px;
+    }
+}
+@media(max-width: 750px){
+    .left .top, .left .bottom{
+        display: none;
+    }
+    .right{
+        width: 100%;
+        max-width: 100%;
+    }
+}

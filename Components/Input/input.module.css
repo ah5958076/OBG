@@ -1,0 +1,45 @@
+.input{
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid #292529;
+    gap: 5px;
+    margin-top: 15px;
+}
+.input>div{
+    position: absolute;
+    display: flex;
+    left: 0;
+    top: 0;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    width: 100%;
+    color: gray;
+    pointer-events: none;
+    transition: 0.5s;
+}
+.input select,
+.input input{
+    padding: 5px;
+    position: relative;
+    color: transparent;
+    background-color: transparent;
+    width: 100%;
+    font-size: 16px;
+}
+.input select:valid,
+.input select:focus,
+.input input:valid,
+.input input:focus{
+    color: white;
+}
+.input select option{
+    background-color: var(--bg);
+}
+.input select:valid ~ div,
+.input select:focus ~ div,
+.input input:valid ~ div,
+.input input:focus ~ div{
+    transform: translateY(-20px);
+    font-size: 15px;
+}

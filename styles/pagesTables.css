@@ -1,0 +1,96 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 100px);
+    padding: 0px 50px;
+}
+
+
+.table {
+    width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th {
+    font-size: 14px;
+    background-color: #1A1A1A;
+}
+
+td,
+th {
+    text-align: left;
+    padding: 12px;
+}
+
+table,
+tr {
+    width: 100%;
+}
+
+table tr:nth-child(2n) {
+    background-color: #282828;
+}
+
+table tr:nth-child(2n+1) {
+    background-color: #707070;
+}
+
+td p{
+    text-overflow: ellipsis; 
+    overflow:hidden;
+    white-space: nowrap;
+    width: 100px;
+}
+td img{
+    width: 50px;
+}
+th input,
+td input {
+    width: 20px;
+    height: 20px;
+}
+
+td:has(button:nth-child(2)) {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+td button {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+@media(max-width: 1000px) {
+    .table {
+        overflow: auto;
+        width: 100%;
+    }
+    table td p{
+        width: 250px;
+        white-space: pre-wrap;
+    }
+}
+
+@media(max-width: 500px) {
+    .container {
+        padding: 0px 10px;
+        width: calc(100% - 20px);
+    }
+}

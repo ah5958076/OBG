@@ -1,0 +1,209 @@
+nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+    width: 100%;
+    border-bottom: 2px solid #f26826;
+    font-family: Roboto, Regular;
+}
+
+nav h1 {
+    font-family: roboto;
+    letter-spacing: 1px;
+    font-size: 30px;
+}
+
+nav img.profile-pic {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border: 1px solid #707070;
+    border-radius: 50%;
+}
+
+nav div div:has(.sub-menu):hover,
+nav a:hover,
+nav div div:has(.sub-menu).active,
+nav a.active {
+    color: #FF7700;
+}
+
+nav>div {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+nav>div>div {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+nav .sub-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--black);
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
+    position: absolute;
+    z-index: 10;
+    top: 30px;
+    right: 0;
+}
+
+nav .sub-menu a {
+    color: #8e8a8a;
+}
+
+nav .sub-menu a.active,
+nav .sub-menu a:hover {
+    color: var(--site-clr);
+}
+
+nav>div>div.show .sub-menu {
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.nav-small {
+    position: relative;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 25px;
+    width: 100%;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #f26826;
+}
+
+.nav-small .nav-open-btn {
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.nav-small .items {
+    display: none;
+    background-color: white;
+    position: absolute;
+    top: 80px;
+    right: 25px;
+    padding: 10px;
+    height: auto;
+    width: calc(300px - 20px);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.nav-small .nav-open-btn.show~.items {
+    display: flex;
+}
+
+.nav-small .items div,
+.nav-small .items a {
+    color: black;
+    width: calc(100% - 10px);
+    transition: 0.2s;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.nav-small .items div:hover,
+.nav-small .items div.active,
+.nav-small .items a:hover,
+.nav-small .items a.active {
+    background-color: var(--site-clr);
+    color: var(--fg);
+}
+
+.nav-small .sub-menu {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    width: 100%;
+    background-color: var(--site-clr);
+    gap: 10px;
+    padding: 10px 10px 10px 30px;
+    justify-content: center;
+    border-radius: 10px;
+    position: absolute;
+    top: 30px;
+}
+
+.nav-small .items div img ~ .sub-menu{
+    top: 55px;
+}
+
+.nav-small .items div .sub-menu.show {
+    display: flex;
+}
+
+.nav-small .sub-menu a {
+    color: var(--fg);
+    padding: 5px;
+    width: calc(100% - 10px);
+}
+
+.nav-small .sub-menu a.active,
+.nav-small .sub-menu a:hover {
+    background-color: var(--fg);
+    color: var(--site-clr);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width: 1250px) {
+    nav {
+        display: none;
+    }
+
+    .nav-small {
+        display: flex;
+    }
+}

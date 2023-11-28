@@ -1,0 +1,49 @@
+table td .Win {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+table .Win span {
+    background-color: #156502;
+    padding: 5px 10px;
+    border-radius: 10px;
+}table td .Win {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  table .Win span {
+    background-color: #156502;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+  
+  table td .Loss {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  table .Loss span {
+    background-color: #610000;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+
+table td .Loss {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+table .Loss span {
+    background-color: #610000;
+    padding: 5px 10px;
+    border-radius: 10px;
+}

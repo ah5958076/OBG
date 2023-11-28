@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12.837" height="18.95" viewBox="0 0 12.837 18.95">
+  <g id="Group_1583" data-name="Group 1583" transform="translate(-1149 -331.505)">
+    <g id="Page-1" transform="translate(1143 330.505)">
+      <g id="icon-116-lock-open" transform="translate(6 1)">
+        <path id="lock-open" d="M12.113,15.008v1.586a.306.306,0,0,0,.611,0V15.008a.917.917,0,1,0-.611,0ZM17,6.2V5.584a4.585,4.585,0,0,0-9.169,0v4.585h0A1.835,1.835,0,0,0,6,12.009v6.1a1.839,1.839,0,0,0,1.839,1.84H17a1.835,1.835,0,0,0,1.839-1.84v-6.1A1.839,1.839,0,0,0,17,10.169H9.685a2.767,2.767,0,0,1-.017-.305V5.584a2.751,2.751,0,0,1,5.5,0V6.2l.086,3.973c0,.633.31,0,.82,0s.928.628.928,0V6.2Z" transform="translate(-6 -1)" fill-rule="evenodd"/>
+        <path id="Path_568" data-name="Path 568" d="M25.993,23.884l-.113.955V23.271l.325,1.237.856.114h.194" transform="translate(-16.243 -15.329)" fill="none" stroke="#000" stroke-width="1"/>
+        <path id="Path_569" data-name="Path 569" d="M12.734,13.572l.412-.312" transform="translate(-3.653 -3.803)" fill="none" stroke="#000" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

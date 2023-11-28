@@ -1,0 +1,43 @@
+.real-time-values {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+  gap: 15px;
+  color: #FF7700;
+}
+
+.real-values {
+  width: 92px;
+  height: 92px;
+  border: 1px solid #707070;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.real-values p {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  transform: translateY(105%);
+}
+
+.real-values span {
+  font-weight: bold;
+}
+
+
+
+
+@media(max-width: 400px) {
+  .real-time-values {
+    flex-direction: column;
+    gap: 50px;
+  }
+}

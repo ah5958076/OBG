@@ -1,0 +1,21 @@
+.credit{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.credit p{
+  font-size: 15px;
+}
+.credit>div{
+  display: flex;
+}
+.credit>div sup{
+  font-size: 20px;
+}
+.credit>div input{
+  width: 100px;
+  border: none;
+  font-size: 30px;
+  background-color: transparent;
+}
