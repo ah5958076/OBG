@@ -1,7 +1,9 @@
 import React from 'react'
-import "./pagination.css"
-import store from '../../Redux/store';
-import { loadNewData } from '../../Redux/actions/pagination';
+import styles from "./pagination.module.css"
+import store from "@/Redux/store";
+import { loadNewData } from '@/Redux/actions/pagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 export const Pagination = (props:any) => {
@@ -13,15 +15,15 @@ export const Pagination = (props:any) => {
     
     return (
     
-        <div className="pagination">
+        <div className={styles.pagination}>
             <p>{(!(props.start && props.end))?total+" Records":start+" - "+end+" of "+total}</p>
 
-            <button onClick={()=>{store.dispatch(loadNewData(props.title, props.page_num-1))}} className="prev-page" disabled={(start && start===1)?true:false}>
-                <i className="fa-solid fa-circle-chevron-left"></i>
+            <button onClick={()=>{store.dispatch(loadNewData(props.title, props.page_num-1))}} className={styles.prev_page} disabled={(start && start===1)?true:false}>
+                <FontAwesomeIcon icon={faCircleChevronLeft} />
             </button>
 
-            <button onClick={()=>{store.dispatch(loadNewData(props.title, props.page_num+1))}} className="next-page" disabled={(end===total)?true:false}>
-                <i className="fa-solid fa-circle-chevron-left fa-rotate-180"></i>
+            <button onClick={()=>{store.dispatch(loadNewData(props.title, props.page_num+1))}} className={styles.next_page} disabled={(end===total)?true:false}>
+                <FontAwesomeIcon icon={faCircleChevronLeft} className="fa-rotate-180" />
             </button>
 
         </div>

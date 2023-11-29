@@ -1,16 +1,18 @@
 import React from 'react'
-import "./GPLeagueResults.css"
+import styles from "./GPLeagueResults.module.css";
 
-import RANDOM_IMAGE from "../../assets/user.jpg";
-import { Navbar } from '../../../../Components/Navbar/Navbar'
-import { NameAndExportData } from '../../../../Components/NameAndExportData/NameAndExportData'
-import { SearchBar } from '../../../../Components/SearchBar/SearchBar'
-import { Pagination } from '../../../../Components/Pagination/Pagination'
-import { DIALOG_CONFIRMATION } from '../../../../constants/constants';
+import images from "@/constants/images";
+import Navbar from '@/Components/Navbar/Navbar'
+import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
+import { SearchBar } from '@/Components/SearchBar/SearchBar'
+import { Pagination } from '@/Components/Pagination/Pagination'
+import { DIALOG_CONFIRMATION } from '@/constants/dialog-names';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 
-export const GPLeagueResults = (props:any) => {
+const GPLeagueResults = (props:any) => {
 
   return (
     
@@ -22,12 +24,12 @@ export const GPLeagueResults = (props:any) => {
 
       <div className="container">
 
-        <NameAndExportData title="GP League Results" />
-        <SearchBar addBtn={false} deleteDialog={DIALOG_CONFIRMATION} />
+        <NameAndExportData url="/api/gp-leagues-results/download-record" title="GP League Results" />
+        <SearchBar url="/api/gp-leagues-results/search" addBtn={false} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className="table">
 
-          <table>
+          <table className={styles.table}>
 
             <thead>
 
@@ -53,11 +55,11 @@ export const GPLeagueResults = (props:any) => {
                 <td>Call of Duty</td>
                 <td>Team4</td>
                 <td>33</td>
-                <td><Image src={ RANDOM_IMAGE } alt="" /></td>
+                <td><Image src={ images.USER } alt="" width={50} height={50} /></td>
                 <td>71</td>
-                <td className="Win">
+                <td className={styles.Win}>
                   <span>Win</span>
-                  <button><i className="fa-solid fa-pen" style={{color:"#89bfeb"}}></i></button>
+                  <button><FontAwesomeIcon icon={faPen} style={{color:"#89bfeb"}} /></button>
                 </td>
 
               </tr>
@@ -68,9 +70,9 @@ export const GPLeagueResults = (props:any) => {
                 <td>Call of Duty</td>
                 <td>Team4</td>
                 <td>33</td>
-                <td><Image src={ RANDOM_IMAGE } alt="" /></td>
+                <td><Image src={ images.USER } alt="" width={50} height={50} /></td>
                 <td>71</td>
-                <td className="Win">
+                <td className={styles.Win}>
                   <span>Win</span>
                   <span style={{backgroundColor:"#610000"}}>Loss</span>
                 </td>
@@ -91,3 +93,6 @@ export const GPLeagueResults = (props:any) => {
   )
 
 }
+
+
+export default GPLeagueResults;

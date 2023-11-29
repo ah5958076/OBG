@@ -1,17 +1,19 @@
 import React from 'react'
-import "./MatchesResults.css"
+import styles from "./MatchesResults.module.css"
 
-import RANDOM_IMAGE from "../../assets/user.jpg";
-import { Navbar } from '../../../../Components/Navbar/Navbar'
-import { NameAndExportData } from '../../../../Components/NameAndExportData/NameAndExportData'
-import { Pagination } from '../../../../Components/Pagination/Pagination'
-import { SearchBar } from '../../../../Components/SearchBar/SearchBar';
-import { DIALOG_CONFIRMATION } from '../../../../constants/constants';
+import images from "@/constants/images";
+import Navbar from '@/Components/Navbar/Navbar'
+import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
+import { Pagination } from '@/Components/Pagination/Pagination'
+import { SearchBar } from '@/Components/SearchBar/SearchBar';
+import { DIALOG_CONFIRMATION } from '@/constants/dialog-names';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
-export const MatchesResults = (props:any) => {
+const MatchesResults = (props:any) => {
 
   return (
     
@@ -23,8 +25,8 @@ export const MatchesResults = (props:any) => {
 
       <div className="container">
 
-        <NameAndExportData title="Matches Results" />
-        <SearchBar addBtn={false} deleteDialog={DIALOG_CONFIRMATION} />
+        <NameAndExportData url="/api/matches-results/download-record" title="Matches Results" />
+        <SearchBar url="/api/matches-results/search" addBtn={false} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className="table">
 
@@ -45,20 +47,20 @@ export const MatchesResults = (props:any) => {
 
 
 
-            <thead className="nested-heading">
+            <thead className={styles.nested_heading}>
               
               <tr>
                 <th><input type="checkbox" /></th>
-                <th><Link href="#" onClick={()=>{}}><i className="fa-solid fa-angle-down"></i> Click Me</Link></th>
+                <th><Link href="#" onClick={()=>{}}><FontAwesomeIcon icon={faAngleDown}/> Click Me</Link></th>
                 <th colSpan={2}>G.Team2</th>
                 <th colSpan={2}>PUBG</th>
                 <th colSpan={2}>33</th>
-                <th><i className="fa-solid fa-trash"></i></th>
+                <th><FontAwesomeIcon icon={faTrash}/></th>
               </tr>
 
             </thead>
 
-            <tbody className="nested-elems">
+            <tbody className={`${styles.tbody} ${styles.nested_elems}`}>
 
               <tr>
                 <th>Player</th>
@@ -80,7 +82,7 @@ export const MatchesResults = (props:any) => {
                 <td>N/A</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td><Image src={ RANDOM_IMAGE } alt="..." /></td>
+                <td><Image src={ images.USER } alt="..." width={50} height={50} /></td>
                 <td><button className="win">Win</button></td>
               </tr>
 
@@ -92,7 +94,7 @@ export const MatchesResults = (props:any) => {
                 <td>N/A</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td><Image src={ RANDOM_IMAGE } alt="..." /></td>
+                <td><Image src={ images.USER } alt="..." width={50} height={50} /></td>
                 <td><button className="win">Win</button></td>
               </tr>
 
@@ -100,20 +102,20 @@ export const MatchesResults = (props:any) => {
 
 
 
-            <thead className="nested-heading">
+            <thead className={styles.nested_heading}>
               
               <tr>
                 <th><input type="checkbox" /></th>
-                <th><button onClick={()=>{}}><i className="fa-solid fa-angle-down"></i> Click Me</button></th>
+                <th><Link href="#" onClick={()=>{}}><FontAwesomeIcon icon={faAngleDown}/> Click Me</Link></th>
                 <th colSpan={2}>G.Team2</th>
                 <th colSpan={2}>PUBG</th>
                 <th colSpan={2}>33</th>
-                <th><i className="fa-solid fa-trash"></i></th>
+                <th><FontAwesomeIcon icon={faTrash}/></th>
               </tr>
 
             </thead>
 
-            <tbody className="nested-elems">
+            <tbody className={`${styles.tbody} ${styles.nested_elems}`}>
 
               <tr>
                 <th>Player</th>
@@ -135,7 +137,7 @@ export const MatchesResults = (props:any) => {
                 <td>N/A</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td><Image src={ RANDOM_IMAGE } alt="..." /></td>
+                <td><Image src={ images.USER } alt="..." width={50} height={50} /></td>
                 <td><button className="win">Win</button></td>
               </tr>
 
@@ -147,7 +149,7 @@ export const MatchesResults = (props:any) => {
                 <td>N/A</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td><Image src={ RANDOM_IMAGE } alt="..." /></td>
+                <td><Image src={ images.USER } alt="..." width={50} height={50} /></td>
                 <td><button className="win">Win</button></td>
               </tr>
 
@@ -155,20 +157,20 @@ export const MatchesResults = (props:any) => {
 
 
 
-            <thead className="nested-heading">
+            <thead className={styles.nested_heading}>
 
               <tr>
                 <th><input type="checkbox" /></th>
-                <th><button onClick={()=>{}}><i className="fa-solid fa-angle-down"></i> Click Me</button></th>
+                <th><Link href="#" onClick={()=>{}}><FontAwesomeIcon icon={faAngleDown}/> Click Me</Link></th>
                 <th colSpan={2}>G.Team2</th>
                 <th colSpan={2}>PUBG</th>
                 <th colSpan={2}>33</th>
-                <th><i className="fa-solid fa-trash"></i></th>
+                <th><FontAwesomeIcon icon={faTrash}/></th>
               </tr>
 
             </thead>
 
-            <tbody className="nested-elems">
+            <tbody className={`${styles.tbody} ${styles.nested_elems}`}>
 
               <tr>
                 <th>Player</th>
@@ -190,7 +192,7 @@ export const MatchesResults = (props:any) => {
                 <td>N/A</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td><Image src={ RANDOM_IMAGE } alt="..." /></td>
+                <td><Image src={ images.USER } alt="..." width={50} height={50} /></td>
                 <td><button className="win">Win</button></td>
               </tr>
 
@@ -202,7 +204,7 @@ export const MatchesResults = (props:any) => {
                 <td>N/A</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td><Image src={ RANDOM_IMAGE } alt="..." /></td>
+                <td><Image src={ images.USER } alt="..." width={50} height={50} /></td>
                 <td><button className="win">Win</button></td>
               </tr>
               
@@ -221,3 +223,6 @@ export const MatchesResults = (props:any) => {
   )
 
 }
+
+
+export default MatchesResults;

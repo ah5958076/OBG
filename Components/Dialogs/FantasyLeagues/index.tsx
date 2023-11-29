@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import store from '../../../Redux/store'
-import { hideDialog } from '../../../Redux/actions/dialogs'
-import { addNewHandler, updateLeagueHanlder } from '../../../utils/fantasyLeagues'
+import store from '@/Redux/store'
+import { hideDialog } from '@/Redux/actions/dialogs'
+import { addNewHandler, updateLeagueHanlder } from '@/utils/fantasyLeagues'
 
 
 export const AddFantasyLeague = (props:any) => {
 
     return (
-        <div className="dialogs">
+        <div id='dialogs' className="dialogs">
 
-            <div className="dialog create-fantasy-league show">
+            <div id='dialog' className="dialog create-fantasy-league show">
 
                 <h2>Add Fantasy League</h2>
 
@@ -83,9 +83,9 @@ export const UpdateFantasyLeague = (props:any) => {
     const [year, setYear] = useState(props.data.year)
 
     return (
-        <div className="dialogs">
+        <div id='dialogs' className="dialogs">
 
-            <div className="dialog update-fantasy-league show">
+            <div id='dialog' className="dialog update-fantasy-league show">
 
                 <h2>Update Fantasy League</h2>
 

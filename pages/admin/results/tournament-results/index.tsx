@@ -1,15 +1,17 @@
 import React from 'react'
 
-import RANDOM_IMAGE from "../../assets/user.jpg"
-import { Navbar } from '../../../../Components/Navbar/Navbar'
-import { NameAndExportData } from '../../../../Components/NameAndExportData/NameAndExportData'
-import { SearchBar } from '../../../../Components/SearchBar/SearchBar'
-import { Pagination } from '../../../../Components/Pagination/Pagination'
-import { DIALOG_CONFIRMATION } from '../../../../constants/constants'
+import images from "@/constants/images"
+import Navbar from '@/Components/Navbar/Navbar'
+import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
+import { SearchBar } from '@/Components/SearchBar/SearchBar'
+import { Pagination } from '@/Components/Pagination/Pagination'
+import { DIALOG_CONFIRMATION } from '@/constants/dialog-names'
 import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 
-export const TournamentsResults = (props:any) => {
+const TournamentsResults = (props:any) => {
   
   return (
     
@@ -25,8 +27,8 @@ export const TournamentsResults = (props:any) => {
       
       <div className="container">
 
-        <NameAndExportData title="Tournament Results" />
-        <SearchBar addBtn={false} deleteDialog={DIALOG_CONFIRMATION} />
+        <NameAndExportData url="/api/tournament-results/download-record" title="Tournament Results" />
+        <SearchBar url="/api/tournament-results/search" addBtn={false} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className="table">
 
@@ -53,13 +55,13 @@ export const TournamentsResults = (props:any) => {
                 <td>Call of Duty</td>
                 <td>Call of Duty Championship</td>
                 <td>33</td>
-                <td><Image src={ RANDOM_IMAGE } alt="" /></td>
+                <td><Image src={ images.USER } alt="" width={50} height={50} /></td>
                 <td className="Win">
                   <span>Win</span>
-                  <button><i className="fa-solid fa-pen" style={{color: "#89bfeb"}}></i></button>
+                  <button><FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/></button>
                 </td>
                 <td>
-                  <button><i className="fa-solid fa-trash-can" style={{color: "#df4646"}}></i></button>
+                  <button><FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/></button>
                 </td>
               </tr>
 
@@ -69,13 +71,13 @@ export const TournamentsResults = (props:any) => {
                 <td>Call of Duty</td>
                 <td>Call of Duty Championship</td>
                 <td>33</td>
-                <td><Image src={ RANDOM_IMAGE } alt="" /></td>
+                <td><Image src={ images.USER } alt="" width={50} height={50} /></td>
                 <td className="Loss">
                   <span>Loss</span>
-                  <button><i className="fa-solid fa-pen" style={{color: "#89bfeb"}}></i></button>
+                  <button><FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/></button>
                 </td>
                 <td>
-                  <button><i className="fa-solid fa-trash-can" style={{color: "#df4646"}}></i></button>
+                  <button><FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/></button>
                 </td>
               </tr>
 
@@ -95,3 +97,4 @@ export const TournamentsResults = (props:any) => {
 
 }
 
+export default TournamentsResults;

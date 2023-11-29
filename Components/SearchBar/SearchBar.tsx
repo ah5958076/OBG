@@ -1,8 +1,10 @@
 import React from 'react'
-import "./searchBar.css"
-import { showDialog } from "../../Redux/actions/dialogs"
-import store from "../../Redux/store";
-import { openDeleteDialog, searchData } from '../../utils/general';
+import styles from "./searchBar.module.css";
+import { showDialog } from "@/Redux/actions/dialogs"
+import store from "@/Redux/store";
+import { openDeleteDialog, searchData } from "@/utils/general";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
 export const SearchBar = (props:any) => {
@@ -12,24 +14,28 @@ export const SearchBar = (props:any) => {
 
     return (
     
-        <div className="search">
+        <div className={styles.search}>
 
             <div>
                 
                 <input type="text" name="search" placeholder="Search" onInput={ (e)=>{searchData(e, props.title, props.url)} } />
-                <i className="fa-solid fa-magnifying-glass"></i>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
 
             </div>
 
-            <div className="controls">
+            <div className={styles.controls}>
 
                 {(props && props.addBtn===false)? 
                     "" : 
-                    <button onClick={(e)=>{props.AddNewHandler?props.AddNewHandler.call():store.dispatch(showDialog(props.addDialog))}} style={{color: 'black'}}><i className="fa-solid fa-plus"></i></button> }
+                    <button onClick={(e)=>{props.AddNewHandler?props.AddNewHandler.call():store.dispatch(showDialog(props.addDialog))}} style={{color: 'black'}}>
+                        <FontAwesomeIcon icon={faPlus} />
+                    </button> }
                     
                 {(props && props.deleteAll===false)?
                     "":
-                    <button onClick={()=>{openDeleteDialog(props.title,deleteURL)}} style={{color: "red"}}><i className="fa-solid fa-trash-can"></i></button>}
+                    <button onClick={()=>{openDeleteDialog(props.title,deleteURL)}} style={{color: "red"}}>
+                        <FontAwesomeIcon icon={faTrashCan} />
+                    </button>}
 
             </div>
 

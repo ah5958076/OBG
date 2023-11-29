@@ -49,6 +49,7 @@
   border: none;
   outline: none;
   cursor: pointer;
+  background-color: var(--dark-bg);
 }
 
 .inventories .inventory .data .controls button:last-child {

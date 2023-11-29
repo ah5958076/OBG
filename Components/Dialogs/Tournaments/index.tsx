@@ -1,18 +1,18 @@
 import React from 'react'
 
-import IMAGE_PLACEHOLDER from "../../../assets/photo-placeholder.svg";
-import store from '../../../Redux/store';
-import { hideDialog } from '../../../Redux/actions/dialogs';
-import { upload_image_preview } from "../../../utils/general"
+import images from "@/constants/images";
+import store from '@/Redux/store';
+import { hideDialog } from '@/Redux/actions/dialogs';
+import { upload_image_preview } from "@/utils/general"
 
 
 export const AddTournaments = () => {
 
     return (
 
-        <div className="dialogs">
+        <div id='dialogs' className="dialogs">
 
-            <div className="dialog add-league show">
+            <div id='dialog' className="dialog add-league show">
 
                 <form action="#" method="post">
 
@@ -72,7 +72,7 @@ export const AddTournaments = () => {
                     <div className="league-photo">
                         <label>Tournament Photo*</label>
                         <div className="file-input">
-                            <img src={ IMAGE_PLACEHOLDER } alt="..." />
+                            <img src={ images.PHOTO_PLACEHOLDER } alt="..." />
                             <input type="file" name="picture" onChange={upload_image_preview} accept="image/*" />
                         </div>
                     </div>
@@ -159,7 +159,7 @@ export const UpdateTournaments = () => {
                     <div className="league-photo">
                         <label>Tournament Photo*</label>
                         <div className="file-input">
-                            <img src={ IMAGE_PLACEHOLDER } alt="..." />
+                            <img src={ images.PHOTO_PLACEHOLDER } alt="..." />
                             <input type="file" name="picture" onChange={upload_image_preview} accept="image/*" />
                         </div>
                     </div>

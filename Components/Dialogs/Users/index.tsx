@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import "./User.css"
+// import "./User.css"
 
-import RANDOM_IMAGE from "../../../assets/user.jpg";
-import GOLD_CUP from "../../../assets/golden-cup.svg";
-import RED_CROSS from "../../../assets/red-cross.svg";
-import store from '../../../Redux/store';
-import { hideDialog } from '../../../Redux/actions/dialogs';
+import images from "@/constants/images";
+import store from '@/Redux/store';
+import { hideDialog } from '@/Redux/actions/dialogs';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -15,9 +13,9 @@ export const AddUser = () => {
 
     return (
 
-        <div className="dialogs">
+        <div id='dialogs' className="dialogs">
 
-            <div className="dialog add-user-dialog show">
+            <div id='dialog' className="dialog add-user-dialog show">
 
                 <form action="#" method="post">
 
@@ -204,7 +202,7 @@ export const UserProfileDialog = () => {
                 <form action="#" method="post">
 
                     <div className="crim-img">
-                        <Image src={ RANDOM_IMAGE } alt="" layout='fill' />
+                        <Image src={ images.USER } alt="" layout='fill' />
                     </div>
 
                     <div className="below-img">
@@ -315,11 +313,11 @@ export const UserProfileDialog = () => {
                         </tr>
 
                         <tr>
-                            <td><Image src={ RANDOM_IMAGE } alt="" layout='fill' />Elizabeth</td>
+                            <td><Image src={ images.USER } alt="" layout='fill' />Elizabeth</td>
                             <td>call of Duty</td>
                             <td>50 Credits</td>
                             <td className="result-box" style={{backgroundColor: "#33582d"}}>
-                                <div> <img src={ GOLD_CUP } alt="" />Won</div>
+                                <div> <img src={ images.GOLDEN_CUP } alt="" />Won</div>
                                 <div id="more-info">
                                     More Info
                                     <div className="drop-down" id="more-info-drop-down-won">
@@ -332,11 +330,11 @@ export const UserProfileDialog = () => {
                         </tr>
 
                         <tr>
-                            <td><Image src={ RANDOM_IMAGE } alt="" layout='fill' /> Hamza</td>
+                            <td><Image src={ images.USER } alt="" layout='fill' /> Hamza</td>
                             <td>call of Duty</td>
                             <td>50 Credits</td>
                             <td className="result-box" style={{backgroundColor:"#FF2E2E"}}>
-                                <div><img src={ RED_CROSS } alt="" /> Lost</div>
+                                <div><img src={ images.RED_CROSS } alt="" /> Lost</div>
                                 <div id="more-info">
                                     More info
                                     <div className="drop-down" id="more-info-drop-down-lost">

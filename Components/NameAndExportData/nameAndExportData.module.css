@@ -1,4 +1,4 @@
-.controls-under-nav {
+.controls_under_nav {
     display: flex;
     justify-content: space-between;
     padding: 20px 50px;
@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.controls-under-nav a {
+.controls_under_nav a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,17 +14,22 @@
     transition: 0.3s;
 }
 
-.controls-under-nav a i {
+.controls_under_nav a i {
     color: var(--site-clr);
 }
 
-.controls-under-nav a:hover {
+.controls_under_nav a:hover {
     text-decoration: underline;
     color: var(--site-clr);
 }
 
+
+
+
+
+
 @media(max-width: 500px) {
-    .controls-under-nav {
+    .controls_under_nav {
         padding: 20px 10px;
         width: calc(100% - 20px);
     }

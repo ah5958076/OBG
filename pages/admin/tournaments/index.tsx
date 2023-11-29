@@ -1,15 +1,15 @@
 import React from 'react'
 
-import RANDOM_IMAGE from "../../assets/user.jpg";
-import { Navbar } from '../../../../Components/Navbar/Navbar'
-import { NameAndExportData } from '../../../../Components/NameAndExportData/NameAndExportData'
-import { SearchBar } from '../../../../Components/SearchBar/SearchBar'
-import { Pagination } from '../../../../Components/Pagination/Pagination'
-import { DIALOG_ADD_TOURNAMENTS, DIALOG_CONFIRMATION } from '../../../../constants/constants'
+import images from "@/constants/images";
+import Navbar from '@/Components/Navbar/Navbar'
+import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
+import { SearchBar } from '@/Components/SearchBar/SearchBar'
+import { Pagination } from '@/Components/Pagination/Pagination'
+import { DIALOG_ADD_TOURNAMENTS, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
 import Image from 'next/image';
 
 
-export const Tournaments = (props:any) => {
+const Tournaments = (props:any) => {
 
   return (
     
@@ -25,8 +25,8 @@ export const Tournaments = (props:any) => {
 
       <div className="container">
 
-        <NameAndExportData title="Tournaments" />
-        <SearchBar addDialog={DIALOG_ADD_TOURNAMENTS} deleteDialog={DIALOG_CONFIRMATION} />
+        <NameAndExportData url="/api/tournaments/download-record" title="Tournaments" />
+        <SearchBar url="/api/tournaments/search" addDialog={DIALOG_ADD_TOURNAMENTS} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className="table">
 
@@ -54,7 +54,7 @@ export const Tournaments = (props:any) => {
                 <td>Call of Duty 5*5 tournament</td>
                 <td>General</td>
                 <td>Call of Duty</td>
-                <td className="td-pic"><Image src={ RANDOM_IMAGE } alt="" /></td>
+                <td className="td-pic"><Image src={ images.USER } alt="" width={50} height={50} /></td>
                 <td>$500</td>
                 <td>$500</td>
                 <td>06</td>
@@ -71,7 +71,7 @@ export const Tournaments = (props:any) => {
                 <td>PUBG ThunderStorm</td>
                 <td>Grand Prix</td>
                 <td>PUBG</td>
-                <td className="td-pic"><Image src={ RANDOM_IMAGE } alt="" /></td>
+                <td className="td-pic"><Image src={ images.USER } alt="" width={50} height={50} /></td>
                 <td>$500</td>
                 <td>$500</td>
                 <td>02</td>
@@ -97,3 +97,6 @@ export const Tournaments = (props:any) => {
   )
 
 }
+
+
+export default Tournaments;

@@ -1,4 +1,4 @@
-import { ROUTE_ADMIN_DASHBOARD, ROUTE_VERIFY_CODE } from "@/constants/routes";
+import { ROUTE_ADMIN_DASHBOARD, ROUTE_SIGNIN, ROUTE_VERIFY_CODE } from "@/constants/routes";
 import store from "../Redux/store"
 let showNotification:any=null; 
 import { isLoading } from "@/Redux/actions/loader";
@@ -56,9 +56,8 @@ export const signupHandler = async (event:any) => {
     // });
 }
 
-export const logoutUser = async (event:any) => {
-    store.dispatch(isLoading(true));
-    event.preventDefault();
+export const logoutUser = async (event:any) => {    
+    navigateTo(event, ROUTE_SIGNIN);
     // makeXMLRequest("/api/logout", "get").then((response:any) => {
     //     if(response.auth){
     //         store.dispatch(isLoading(false));

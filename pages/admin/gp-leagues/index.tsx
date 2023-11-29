@@ -1,41 +1,37 @@
 import React, { useEffect } from 'react'
 
-import NO_PIC from "../../assets/no-pic.png";
-import { Navbar } from '../../../../Components/Navbar/Navbar'
-import { SearchBar } from '../../../../Components/SearchBar/SearchBar'
-import { NameAndExportData } from '../../../../Components/NameAndExportData/NameAndExportData'
-import { Pagination } from '../../../../Components/Pagination/Pagination'
-import { DIALOG_ADD_GP_LEAGUES, DIALOG_CONFIRMATION, TITLE_ADMIN_GPLEAGUES } from '../../../../constants/constants'
-import { useRouter } from 'next/navigation';
+import images from "@/constants/images";
+import Navbar from '@/Components/Navbar/Navbar'
+import { SearchBar } from '@/Components/SearchBar/SearchBar'
+import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
+import { Pagination } from '@/Components/Pagination/Pagination'
+import { DIALOG_ADD_GP_LEAGUES, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
+import { TITLE_ADMIN_GPLEAGUES } from '@/constants/page-titles'
 import { useSelector } from 'react-redux'
-import store from '../../../../Redux/store'
-import { isLoading } from '../../../../Redux/actions/loader'
-import { computeDate, makeXMLRequest, openDeleteDialog, select_all, select_individual } from '../../../../utils/general'
-import { setLoadedData } from '../../../../Redux/actions/pagination'
-import { fetchGamesforEditDialog, openAddNewDialog } from '../../../../utils/gpLeagues';
+import { computeDate, openDeleteDialog, select_all, select_individual } from '@/utils/general'
+import { fetchGamesforEditDialog, openAddNewDialog } from '@/utils/gpLeagues';
 import Image from 'next/image';
 
 
-export const GPLeagues = (props:any) => {
-  const data = useSelector((state:any) => {return state.PagesLoading.title===TITLE_ADMIN_GPLEAGUES?state.PagesLoading:null});
-  const router = useRouter();
+const GPLeagues = (props:any) => {
+  const data = useSelector((state:any) => {return state.pagination?.title===TITLE_ADMIN_GPLEAGUES?state.pagination:null});
 
   useEffect(() => {
-    if(!data?.data){
-      store.dispatch(isLoading(true));
-      makeXMLRequest(`/api/gp-league/list?page_num=${data?data.page_num:1}`, "get").then((response:any) => {
-        if(response.auth===true){
-          store.dispatch(setLoadedData(TITLE_ADMIN_GPLEAGUES, response, data?data.page_num:1));
-          store.dispatch(isLoading(false));
-        }else
-          router.push("/");
-      }).catch((e) => {
-        console.log(e)
-        store.dispatch(isLoading(false));
-        // store.dispatch(showNotification("Something went wrong. Please try again", true));
-      });
-    }
-  }, [router, data]);
+    // if(!data?.data){
+    //   store.dispatch(isLoading(true));
+    //   makeXMLRequest(`/api/gp-league/list?page_num=${data?data.page_num:1}`, "get").then((response:any) => {
+    //     if(response.auth===true){
+    //       store.dispatch(setLoadedData(TITLE_ADMIN_GPLEAGUES, response, data?data.page_num:1));
+    //       store.dispatch(isLoading(false));
+    //     }else
+    //       router.push("/");
+    //   }).catch((e) => {
+    //     console.log(e)
+    //     store.dispatch(isLoading(false));
+    //     // store.dispatch(showNotification("Something went wrong. Please try again", true));
+    //   });
+    // }
+  }, [data]);
 
 
   return (
@@ -44,7 +40,7 @@ export const GPLeagues = (props:any) => {
 
       <Navbar index={2}/>
 
-      <title>{props.title}</title>
+      <title>{TITLE_ADMIN_GPLEAGUES}</title>
 
       <div className="container">
 
@@ -77,7 +73,7 @@ export const GPLeagues = (props:any) => {
                     <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual}/></td>
                     <td>{obj.name}</td>
                     <td>{obj.gameName.name}</td>
-                    <td className="td-pic"><Image src={ obj.picture?"/"+obj.picture:NO_PIC } alt="" /></td>
+                    <td className="td-pic"><Image src={ obj.picture?"/"+obj.picture:images.NO_PIC } alt="" /></td>
                     <td>{obj.entryFee}</td>
                     <td>{obj.prize}</td>
                     <td>{obj.teamSize}</td>
@@ -108,3 +104,6 @@ export const GPLeagues = (props:any) => {
   )
 
 }
+
+
+export default GPLeagues;

@@ -1,54 +1,44 @@
 import React, { useEffect } from 'react'
 
-import OPEN_LOCK from "../../assets/open-lock.svg";
-import CLOSE_LOCK from "../../assets/close-lock.svg";
-import RED_CROSS from "../../assets/red-cross.svg";
-import GREEN_TICK from "../../assets/green-tick.svg";
-
-import { SearchBar } from '../../../../Components/SearchBar/SearchBar'
-import { Navbar } from '../../../../Components/Navbar/Navbar'
-import { NameAndExportData } from '../../../../Components/NameAndExportData/NameAndExportData'
-import { Pagination } from '../../../../Components/Pagination/Pagination'
-import { useRouter } from 'next/navigation';
-import store from '../../../../Redux/store'
-import { isLoading } from '../../../../Redux/actions/loader'
-import { setLoadedData } from '../../../../Redux/actions/pagination'
-import { makeXMLRequest } from '../../../../utils/general'
-import { block, unblock } from '../../../../utils/grandprix'
-import {select_all, select_individual} from "../../../../utils/general"
+import images from "@/constants/images";
+import { SearchBar } from '@/Components/SearchBar/SearchBar'
+import Navbar from '@/Components/Navbar/Navbar'
+import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
+import { Pagination } from '@/Components/Pagination/Pagination'
+import { block, unblock } from '@/utils/grandprix'
+import {select_all, select_individual} from "@/utils/general"
 import { useSelector } from 'react-redux';
-import { TITLE_ADMIN_GRANDPRIX } from '../../../../constants/constants';
+import { TITLE_ADMIN_GRANDPRIX } from '@/constants/page-titles';
 
 
-export const GrandPrix = (props:any) => {
-  const data = useSelector((state:any) => {return state.PagesLoading.title===TITLE_ADMIN_GRANDPRIX?state.PagesLoading:null});
-  const router = useRouter();
+const GrandPrix = (props:any) => {
+  const data = useSelector((state:any) => { return state.pagination.title===TITLE_ADMIN_GRANDPRIX?state.pagination:null });
 
   useEffect(() => {
-    if(!data?.data){
-      store.dispatch(isLoading(true));
-      makeXMLRequest(`/api/grand-prix/list?page_num=${data?data.page_num:1}`, "get").then((response:any) => {
-        if(response.auth===true){
-          store.dispatch(setLoadedData(TITLE_ADMIN_GRANDPRIX, response, data?data.page_num:1));
-          store.dispatch(isLoading(false));
-        }else
-          router.push("/");
-      }).catch((e) => {
-        console.log(e)
-        store.dispatch(isLoading(false));
-        // store.dispatch(showNotification("Something went wrong. Please try again", true));
-      });
-    }
-  }, [router, data]);
+    // if(!data?.data){
+    //   store.dispatch(isLoading(true));
+    //   makeXMLRequest(`/api/grand-prix/list?page_num=${data?data.page_num:1}`, "get").then((response:any) => {
+    //     if(response.auth===true){
+    //       store.dispatch(setLoadedData(TITLE_ADMIN_GRANDPRIX, response, data?data.page_num:1));
+    //       store.dispatch(isLoading(false));
+    //     }else
+    //       router.push("/");
+    //   }).catch((e) => {
+    //     console.log(e)
+    //     store.dispatch(isLoading(false));
+    //     // store.dispatch(showNotification("Something went wrong. Please try again", true));
+    //   });
+    // }
+  }, [data]);
 
 
   return (
     <>
-      {data?.data?
+      {/* {data?.data? */}
         <>
           <Navbar index={1}/>
 
-          <title>{props.title}</title>
+          <title>{TITLE_ADMIN_GRANDPRIX}</title>
 
           <div className="container">
 
@@ -84,15 +74,15 @@ export const GrandPrix = (props:any) => {
                       <td>{obj.ownerYearlyIncome+"$"}</td>
                       <td>{obj.ownerAddress}</td>
                       <td style={{textAlign: "center"}}>
-                        <img style={{width:"25px", height:"25px"}} src={obj.isBlocked?CLOSE_LOCK:OPEN_LOCK} alt="" />
+                        <img style={{width:"25px", height:"25px"}} src={obj.isBlocked?images.CLOSE_LOCK:images.OPEN_LOCK} alt="" />
                       </td>
                       <td>
                         {obj.isBlocked?
                           <button onClick={ (e)=>{unblock(e, `${obj._id}`, data?data.page_num:1)} }>
-                            <img src={GREEN_TICK} alt="" style={{width:"30px", height: "30px"}} />
+                            <img src={images.GREEN_TICK} alt="" style={{width:"30px", height: "30px"}} />
                           </button>: 
                           <button onClick={ (e)=>{block(e, `${obj._id}`, data?data.page_num:1)} }>
-                            <img src={RED_CROSS} alt="" style={{width:"30px", height: "30px"}} />
+                            <img src={images.RED_CROSS} alt="" style={{width:"30px", height: "30px"}} />
                           </button>}
                       </td>
                     </tr>))}
@@ -106,10 +96,13 @@ export const GrandPrix = (props:any) => {
             <Pagination title={TITLE_ADMIN_GRANDPRIX} page_num={data?data.page_num:1} start={data?.data.start} end={data?.data.end} total={(!(data?.data.start && data?.data.end))?data?.data.data.length:data?.data.total} />
 
             </div>
-        </>:
-        null
-      }
+        </>
+        {/* : */}
+        {/* null */}
+      {/* } */}
     
     </>
   )
 }
+
+export default GrandPrix;

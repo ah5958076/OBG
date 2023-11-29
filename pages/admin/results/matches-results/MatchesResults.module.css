@@ -1,11 +1,11 @@
-#g-win span {
+/* .g-win span {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #156502;
   padding: 5px 1px;
   border-radius: 10px;
-}
+} */
 
 th .open-btn {
   display: flex;
@@ -26,41 +26,41 @@ th .open-btn {
 
 
 
-tbody {
+.tbody {
   width: 100%;
 }
 
-.nested-elems * {
+.nested_elems * {
   background-color: black;
   text-align: center;
 }
 
-.nested-heading th a {
+.nested_heading th a {
   text-decoration: none;
   color: white;
 }
 
-.nested-elems button {
+.nested_elems button {
   border-radius: 10px;
   padding: 5px 10px;
   color: white;
   background-color: green;
 }
 
-.nested-elems button.loss {
+.nested_elems button.loss {
   background-color: red;
 }
 
-tbody tr img {
+.tbody tr img {
   width: 50px;
   height: 50px;
 }
 
-.nested-elems {
+.nested_elems {
   display: none;
 }
 
-tbody:has(.nested-heading.show)+.nested-elems {
+.tbody:has(.nested-heading.show)+.nested_elems {
   display: table-row-group;
 }
 

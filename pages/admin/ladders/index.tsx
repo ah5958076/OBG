@@ -1,16 +1,17 @@
 import React from 'react'
 
-import { Navbar } from '../../../../Components/Navbar/Navbar'
-import { NameAndExportData } from '../../../../Components/NameAndExportData/NameAndExportData'
-import { SearchBar } from '../../../../Components/SearchBar/SearchBar'
-import { Pagination } from '../../../../Components/Pagination/Pagination'
+import Navbar from '@/Components/Navbar/Navbar'
+import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
+import { SearchBar } from '@/Components/SearchBar/SearchBar'
+import { Pagination } from '@/Components/Pagination/Pagination'
 
-import RANDOM_IMAGE from "../../assets/user.jpg";
-import { DIALOG_ADD_LADDERS, DIALOG_CONFIRMATION } from '../../../../constants/constants'
+import images from "@/constants/images";
+import { DIALOG_ADD_LADDERS, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
 import Image from 'next/image'
+import { TITLE_ADMIN_LADDERS } from '@/constants/page-titles'
 
 
-export const Ladders = (props:any) => {
+const Ladders = (props:any) => {
 
   return (
     
@@ -18,12 +19,12 @@ export const Ladders = (props:any) => {
 
       <Navbar index={7} />
 
-      <title>{props.title}</title>
+      <title>{TITLE_ADMIN_LADDERS}</title>
 
       <div className="container">
         
-        <NameAndExportData title="Ladders" />
-        <SearchBar addDialog={DIALOG_ADD_LADDERS} deleteDialog={DIALOG_CONFIRMATION} />
+        <NameAndExportData url="/api/ladders/download-record" title="Ladders" />
+        <SearchBar url="/api/ladders/search" addDialog={DIALOG_ADD_LADDERS} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className="table">
 
@@ -54,7 +55,7 @@ export const Ladders = (props:any) => {
                 <td>Call of Duty 5*5 tournament</td>
                 <td>General</td>
                 <td>Call of Duty</td>
-                <td className="td-pic"><Image src={ RANDOM_IMAGE } alt="" /></td>
+                <td className="td-pic"><Image src={ images.USER } alt="" width={50} height={50} /></td>
                 <td>$500</td>
                 <td>$500</td>
                 <td>06</td>
@@ -71,7 +72,7 @@ export const Ladders = (props:any) => {
                 <td>PUBG ThunderStorm</td>
                 <td>Grand Prix</td>
                 <td>PUBG</td>
-                <td className="td-pic"><Image src={ RANDOM_IMAGE } alt="" /></td>
+                <td className="td-pic"><Image src={ images.USER } alt="" width={50} height={50} /></td>
                 <td>$500</td>
                 <td>$500</td>
                 <td>02</td>
@@ -98,3 +99,6 @@ export const Ladders = (props:any) => {
   )
 
 }
+
+
+export default Ladders;

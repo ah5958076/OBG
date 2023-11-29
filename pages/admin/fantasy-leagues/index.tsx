@@ -1,39 +1,37 @@
 import React, { useEffect } from 'react'
 
-import { NameAndExportData } from "../../../../Components/NameAndExportData/NameAndExportData"
-import { Navbar } from "../../../../Components/Navbar/Navbar"
-import { SearchBar } from "../../../../Components/SearchBar/SearchBar"
-import { Pagination } from '../../../../Components/Pagination/Pagination'
-import { DIALOG_ADD_FANTASY_LEAGUES, DIALOG_CONFIRMATION, TITLE_ADMIN_FANTASY_LEAGUES } from '../../../../constants/constants'
+import { NameAndExportData } from "@/Components/NameAndExportData/NameAndExportData"
+import Navbar from "@/Components/Navbar/Navbar"
+import { SearchBar } from "@/Components/SearchBar/SearchBar"
+import { Pagination } from '@/Components/Pagination/Pagination'
+import { DIALOG_ADD_FANTASY_LEAGUES, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
+import { TITLE_ADMIN_FANTASY_LEAGUES } from '@/constants/page-titles'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
-import store from '../../../../Redux/store'
-import { isLoading } from '../../../../Redux/actions/loader'
-import { computeDate, makeXMLRequest, openDeleteDialog, select_all, select_individual } from '../../../../utils/general'
-import { setLoadedData } from '../../../../Redux/actions/pagination'
-import { fetchGrandPrixforEditDialog, openAddNewDialog } from '../../../../utils/fantasyLeagues';
+import { computeDate, openDeleteDialog, select_all, select_individual } from '@/utils/general'
+import { fetchGrandPrixforEditDialog, openAddNewDialog } from '@/utils/fantasyLeagues';
 
 
-export const FantasyLeagues = (props:any) => {
-  const data = useSelector((state:any) => {return state.PagesLoading.title===TITLE_ADMIN_FANTASY_LEAGUES?state.PagesLoading:null});
+const FantasyLeagues = (props:any) => {
+  const data = useSelector((state:any) => {return state.pagination.title===TITLE_ADMIN_FANTASY_LEAGUES?state.pagination:null});
   const router = useRouter();
 
   useEffect(() => {
-    if(!data?.data){
-      store.dispatch(isLoading(true));
-      makeXMLRequest(`/api/fantasy-league/list?page_num=${data?data.page_num:1}`, "get").then((response:any) => {
-        if(response.auth===true){
-          store.dispatch(setLoadedData(TITLE_ADMIN_FANTASY_LEAGUES, response, data?data.page_num:1));
-          store.dispatch(isLoading(false));
-        }else
-          router.push("/");
-      }).catch((e) => {
-        console.log(e)
-        store.dispatch(isLoading(false));
-        // store.dispatch(showNotification("Something went wrong. Please try again", true));
-      });
-    }
-  }, [router, data]);
+    // if(!data?.data){
+    //   store.dispatch(isLoading(true));
+    //   makeXMLRequest(`/api/fantasy-league/list?page_num=${data?data.page_num:1}`, "get").then((response:any) => {
+    //     if(response.auth===true){
+    //       store.dispatch(setLoadedData(TITLE_ADMIN_FANTASY_LEAGUES, response, data?data.page_num:1));
+    //       store.dispatch(isLoading(false));
+    //     }else
+    //       router.push("/");
+    //   }).catch((e) => {
+    //     console.log(e)
+    //     store.dispatch(isLoading(false));
+    //     // store.dispatch(showNotification("Something went wrong. Please try again", true));
+    //   });
+    // }
+  }, [data]);
 
 
   return (
@@ -42,7 +40,7 @@ export const FantasyLeagues = (props:any) => {
     
       <Navbar index={3}/>
 
-      <title>{props.title}</title>
+      <title>{TITLE_ADMIN_FANTASY_LEAGUES}</title>
 
       <div className="container">
 
@@ -105,3 +103,5 @@ export const FantasyLeagues = (props:any) => {
   )
 
 }
+
+export default FantasyLeagues;

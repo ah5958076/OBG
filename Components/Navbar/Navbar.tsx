@@ -13,6 +13,7 @@ import { showDialog } from '../../Redux/actions/dialogs';
 import Image from 'next/image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faAngleDown, faBars} from "@fortawesome/free-solid-svg-icons"
+import { navigateTo } from '@/utils/general';
 
 
 const Navbar = (props:any) => {
@@ -55,25 +56,51 @@ const Navbar = (props:any) => {
                 <h1>ONLINE<br />BATTLEGROUND</h1>
 
                 <div>
-                    <Link href={ ROUTE_ADMIN_DASHBOARD } className={props.index===0?styles.active:""}>Dashboard</Link>
-                    <Link href={ ROUTE_ADMIN_GRAND_PRIX } className={props.index===1?styles.active:""}>Grand Prix</Link>
-                    <Link href={ ROUTE_ADMIN_GP_LEAGUES } className={props.index===2?styles.active:""}>GP Leagues</Link>
-                    <Link href={ ROUTE_ADMIN_FANTASY_LEAGUES } className={props.index===3?styles.active:""}>Fantasy Leagues</Link>
-                    <Link href={ ROUTE_ADMIN_USERS } className={props.index===4?styles.active:""}>Users</Link>
-                    <Link href={ ROUTE_ADMIN_GAMES } className={props.index===5?styles.active:""}>Games</Link>
-                    <Link href={ ROUTE_ADMIN_TOURNAMENTS } className={props.index===6?styles.active:""}>Tournaments</Link>
-                    <Link href={ ROUTE_ADMIN_LADDERS } className={props.index===7?styles.active:""}>Ladders</Link>
-                    <Link href={ ROUTE_ADMIN_INVENTORY } className={props.index===8?styles.active:""}>Inventory</Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_DASHBOARD)}} className={props.index===0?styles.active:""}>
+                        Dashboard
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_GRAND_PRIX)}} className={props.index===1?styles.active:""}>
+                        Grand Prix
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_GP_LEAGUES)}} className={props.index===2?styles.active:""}>
+                        GP Leagues
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_FANTASY_LEAGUES)}} className={props.index===3?styles.active:""}>
+                        Fantasy Leagues
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_USERS)}} className={props.index===4?styles.active:""}>
+                        Users
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_GAMES)}} className={props.index===5?styles.active:""}>
+                        Games
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_TOURNAMENTS)}} className={props.index===6?styles.active:""}>
+                        Tournaments
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_LADDERS)}} className={props.index===7?styles.active:""}>
+                        Ladders
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_INVENTORY)}} className={props.index===8?styles.active:""}>
+                        Inventory
+                    </Link>
 
                     <div onClick={() => {isShowingResultsMenu(!showResultsMenu);isShowingUserMenu(false)}} className={`${(props.index>=9 && props.index<=12)?styles.active:""} ${showResultsMenu?styles.show:""}`} ref={resultSubMenuButton}>
                         <span>Results</span>
                         <span><FontAwesomeIcon icon={faAngleDown} /></span>
 
                         <div className={styles.sub_menu} ref={resultSubMenu}>
-                            <Link href={ ROUTE_ADMIN_TOURNAMENT_RESULTS } className={props.index===9?styles.active:""}>Tournament Results</Link>
-                            <Link href={ ROUTE_ADMIN_TOTAL_WAR_LADDER_RESULTS } className={props.index===10?styles.active:""}>Total War Ladder Results</Link>
-                            <Link href={ ROUTE_ADMIN_MATCH_RESULTS } className={props.index===11?styles.active:""}>Matches Results</Link>
-                            <Link href={ ROUTE_ADMIN_GP_LEAGUE_RESULTS } className={props.index===12?styles.active:""}>GP League Results</Link>
+                            <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_TOURNAMENT_RESULTS)}} className={props.index===9?styles.active:""}>
+                                Tournament Results
+                            </Link>
+                            <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_TOTAL_WAR_LADDER_RESULTS)}} className={props.index===10?styles.active:""}>
+                                Total War Ladder Results
+                            </Link>
+                            <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_MATCH_RESULTS)}} className={props.index===11?styles.active:""}>
+                                Matches Results
+                            </Link>
+                            <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_GP_LEAGUE_RESULTS)}} className={props.index===12?styles.active:""}>
+                                GP League Results
+                            </Link>
                         </div>
                     </div>
 
@@ -82,8 +109,12 @@ const Navbar = (props:any) => {
                         <FontAwesomeIcon icon={faAngleDown} />
 
                         <div className={styles.sub_menu} ref={userSubMenu}>
-                            <Link href="#" onClick={()=>{store.dispatch(showDialog(DIALOG_CHANGE_PASSWORD))}}>Change Password</Link>
-                            <Link href='#' onClick={()=>{store.dispatch(showDialog(DIALOG_LOGOUT))}}>logout</Link>
+                            <Link href="#" onClick={()=>{store.dispatch(showDialog(DIALOG_CHANGE_PASSWORD))}}>
+                                Change Password
+                            </Link>
+                            <Link href='#' onClick={()=>{store.dispatch(showDialog(DIALOG_LOGOUT))}}>
+                                logout
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -98,25 +129,51 @@ const Navbar = (props:any) => {
                     </button>
 
                 <div ref={navRef} className={styles.items}>
-                    <Link href="/admin/dashboard" className={props.index===0?styles.active:""}>Dashboard</Link>
-                    <Link href="/admin/grand-prix" className={props.index===1?styles.active:""}>Grand Prix</Link>
-                    <Link href="/admin/gp-leagues" className={props.index===2?styles.active:""}>GP Leagues</Link>
-                    <Link href="/admin/fantasy-leagues" className={props.index===3?styles.active:""}>Fantasy Leagues</Link>
-                    <Link href="/admin/users" className={props.index===4?styles.active:""}>Users</Link>
-                    <Link href="/admin/games" className={props.index===5?styles.active:""}>Games</Link>
-                    <Link href="/admin/tournaments" className={props.index===6?styles.active:""}>Tournaments</Link>
-                    <Link href="/admin/ladders" className={props.index===7?styles.active:""}>Ladders</Link>
-                    <Link href="/admin/inventory" className={props.index===8?styles.active:""}>Inventory</Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_DASHBOARD)}} className={props.index===0?styles.active:""}>
+                        Dashboard
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_GRAND_PRIX)}} className={props.index===1?styles.active:""}>
+                        Grand Prix
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_GP_LEAGUES)}} className={props.index===2?styles.active:""}>
+                        GP Leagues
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_FANTASY_LEAGUES)}} className={props.index===3?styles.active:""}>
+                        Fantasy Leagues
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_USERS)}} className={props.index===4?styles.active:""}>
+                        Users
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_GAMES)}} className={props.index===5?styles.active:""}>
+                        Games
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_TOURNAMENTS)}} className={props.index===6?styles.active:""}>
+                        Tournaments
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_LADDERS)}} className={props.index===7?styles.active:""}>
+                        Ladders
+                    </Link>
+                    <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_INVENTORY)}} className={props.index===8?styles.active:""}>
+                        Inventory
+                    </Link>
 
                     <div onClick={() => {isShowingResultsMenu(!showResultsMenu);isShowingUserMenu(false)}} className={`${(props.index>=9 && props.index<=12)?styles.active:""}`} ref={smallnav_resultSubMenuButton}>
                         <span>Results</span>
                         <span><FontAwesomeIcon icon={faAngleDown} /></span>
 
                         <div className={`${styles.sub_menu} ${showResultsMenu?styles.show:""}`} ref={smallnav_resultSubMenu}>
-                            <Link href="/admin/results/tournament-results" className={props.index===9?styles.active:""}>Tournament Results</Link>
-                            <Link href="/admin/results/total-war-ladder-results" className={props.index===10?styles.active:""}>Total War Ladder Results</Link>
-                            <Link href="/admin/results/match-results" className={props.index===11?styles.active:""}>Matches Results</Link>
-                            <Link href="/admin/results/gp-league-results" className={props.index===12?styles.active:""}>GP League Results</Link>
+                            <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_TOURNAMENT_RESULTS)}} className={props.index===9?styles.active:""}>
+                                Tournament Results
+                            </Link>
+                            <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_TOTAL_WAR_LADDER_RESULTS)}} className={props.index===10?styles.active:""}>
+                                Total War Ladder Results
+                            </Link>
+                            <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_MATCH_RESULTS)}} className={props.index===11?styles.active:""}>
+                                Matches Results
+                            </Link>
+                            <Link href="#" onClick={(e)=>{navigateTo(e,ROUTE_ADMIN_GP_LEAGUE_RESULTS)}} className={props.index===12?styles.active:""}>
+                                GP League Results
+                            </Link>
                         </div>
                     </div>
 
@@ -125,8 +182,12 @@ const Navbar = (props:any) => {
                         <FontAwesomeIcon icon={faAngleDown} />
 
                         <div className={`${styles.sub_menu} ${showUserMenu?styles.show:""}`} ref={smallnav_userSubMenu}>
-                            <Link href="#" onClick={()=>{store.dispatch(showDialog(DIALOG_CHANGE_PASSWORD));isShowingSmallNav(false)}}>Change Password</Link>
-                            <Link href="#" onClick={()=>{store.dispatch(showDialog(DIALOG_LOGOUT));isShowingSmallNav(false)}}>logout</Link>
+                            <Link href="#" onClick={()=>{store.dispatch(showDialog(DIALOG_CHANGE_PASSWORD));isShowingSmallNav(false)}}>
+                                Change Password
+                            </Link>
+                            <Link href="#" onClick={()=>{store.dispatch(showDialog(DIALOG_LOGOUT));isShowingSmallNav(false)}}>
+                                logout
+                            </Link>
                         </div>
                     </div>
 

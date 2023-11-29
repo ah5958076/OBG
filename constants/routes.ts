@@ -18,8 +18,6 @@ export const ROUTE_ADMIN_LADDERS="/admin/ladders";
 export const ROUTE_ADMIN_INVENTORY="/admin/inventory";
 export const ROUTE_ADMIN_TOURNAMENT_RESULTS="/admin/results/tournament-results";
 export const ROUTE_ADMIN_TOTAL_WAR_LADDER_RESULTS="/admin/results/total-war-ladder-results";
-export const ROUTE_ADMIN_MATCH_RESULTS="/admin/results/match-results";
+export const ROUTE_ADMIN_MATCH_RESULTS="/admin/results/matches-results";
 export const ROUTE_ADMIN_GP_LEAGUE_RESULTS="/admin/results/gp-league-results";
-export const ROUTE_ADMIN_CHANGE_PASSWORD="/admin/change-password";
-export const ROUTE_ADMIN_LOGOUT="/admin/logout";
 // ...

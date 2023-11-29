@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
-import "../../../css/dialogs.css"
 
-import IMAGE_PLACEHOLDER from "../../../assets/photo-placeholder.svg";
-import store from "../../../Redux/store";
-import { hideDialog } from "../../../Redux/actions/dialogs";
-import { upload_image_preview } from "../../../utils/general";
-import { addNewHandler, updateLeagueHanlder } from '../../../utils/gpLeagues';
+import images from "@/constants/images";
+import store from "@/Redux/store";
+import { hideDialog } from "@/Redux/actions/dialogs";
+import { upload_image_preview } from "@/utils/general";
+import { addNewHandler, updateLeagueHanlder } from '@/utils/gpLeagues';
 
 
 export const AddGPLeagues = (props:any) => {
 
     return (
 
-        <div className="dialogs">
+        <div id='dialogs' className="dialogs">
 
-            <div className="dialog add-league-dialog show">
+            <div id='dialog' className="dialog add-league-dialog show">
 
                 <h2>Add League</h2>
 
@@ -79,7 +78,7 @@ export const AddGPLeagues = (props:any) => {
                     <div>
                         <label>League Photo*</label>
                         <div className="file-input">
-                            <img src={ IMAGE_PLACEHOLDER } alt="..." />
+                            <img src={ images.PHOTO_PLACEHOLDER } alt="..." />
                             <input type="file" name="picture" accept="image/*" onChange={ upload_image_preview } required />
                         </div>
                     </div>
@@ -112,9 +111,9 @@ export const UpdateGPLeagues = (props:any) => {
 
     return (
         
-        <div className="dialogs">
+        <div id='dialogs' className="dialogs">
 
-            <div className="dialog update-league-dialog show">
+            <div id='dialog' className="dialog update-league-dialog show">
 
                 <h1>Update League</h1>
 
@@ -182,7 +181,7 @@ export const UpdateGPLeagues = (props:any) => {
                     <div>
                         <label>League Photo*</label>
                         <div className="file-input">
-                            <img src={ props.data.picture?`/${props.data.picture}`:IMAGE_PLACEHOLDER } alt="..." />
+                            <img src={ props.data.picture?`/${props.data.picture}`:images.PHOTO_PLACEHOLDER } alt="..." />
                             <input type="file" name="picture" accept="image/*" onChange={ upload_image_preview } />
                         </div>
                     </div>

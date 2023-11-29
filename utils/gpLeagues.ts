@@ -1,27 +1,28 @@
-import { hideDialog, showDialog } from "../Redux/actions/dialogs";
+import { showDialog } from "../Redux/actions/dialogs";
 import { isLoading } from "../Redux/actions/loader";
-import { loadNewData } from "../Redux/actions/pagination";
 import store from "../Redux/store";
-import { ALLOWED_EXTENSIONS, DIALOG_ADD_GP_LEAGUES, DIALOG_UPDATE_GP_LEAGUES, TITLE_ADMIN_GPLEAGUES } from "../constants/constants";
-import { makeFormRequest, makeXMLRequest, openEditDialog } from "./general";
-let showNotification:any=null
+import { DIALOG_ADD_GP_LEAGUES, DIALOG_UPDATE_GP_LEAGUES } from "../constants/dialog-names";
+
+let ALLOWED_EXTENSIONS:string = process.env.ALLOWED_EXTENSIONS || "";
 
 
 export const openAddNewDialog = () => {
     store.dispatch(isLoading(true));
-    makeXMLRequest("/api/game/list?page_num=-1", "get").then((response:any) => {
-        store.dispatch(isLoading(false));
-        if(!response.auth)
-            window.location.replace("/");
-        else if(response?.data)
-            store.dispatch(showDialog(DIALOG_ADD_GP_LEAGUES, response.data));
-        else
-            store.dispatch(showNotification("There is unexpected error. Please refresh and try again", true));
-    }).catch((err) => {
-        console.log(err)
-        store.dispatch(isLoading(false));
-        store.dispatch(showNotification("Something went wrong. Please try again", true));
-    });
+    store.dispatch(showDialog(DIALOG_ADD_GP_LEAGUES))
+    store.dispatch(isLoading(false));
+    // makeXMLRequest("/api/game/list?page_num=-1", "get").then((response:any) => {
+    //     store.dispatch(isLoading(false));
+    //     if(!response.auth)
+    //         window.location.replace("/");
+    //     else if(response?.data)
+    //         store.dispatch(showDialog(DIALOG_ADD_GP_LEAGUES, response.data));
+    //     else
+    //         store.dispatch(showNotification("There is unexpected error. Please refresh and try again", true));
+    // }).catch((err) => {
+    //     console.log(err)
+    //     store.dispatch(isLoading(false));
+    //     store.dispatch(showNotification("Something went wrong. Please try again", true));
+    // });
 }
 
 export const addNewHandler = (e:any) => {
@@ -42,47 +43,47 @@ export const addNewHandler = (e:any) => {
     const ext:any = formData?.get("picture").name.split(".").pop().toLowerCase();
     if(!ALLOWED_EXTENSIONS.toLowerCase().includes(ext)) {
         store.dispatch(isLoading(false));
-        store.dispatch(showNotification("Only Images with ("+ALLOWED_EXTENSIONS+") extensions are allowed", true));
+        // store.dispatch(showNotification("Only Images with ("+ALLOWED_EXTENSIONS+") extensions are allowed", true));
         return;
     }
 
-    makeFormRequest("/api/gp-league/store/", "post", formData).then((response:any) => {
-        if(!response.auth)
-            window.location.replace("/")
-        else if(response.isError){
-            store.dispatch(isLoading(false));
-            store.dispatch(showNotification(response.data, response.isError));
-        }else{
-            store.dispatch(hideDialog());
-            store.dispatch(loadNewData(TITLE_ADMIN_GPLEAGUES, store.getState().PagesLoading.page_num));
-        }
-    }).catch(async (err) => {
-        let error = await err;
-        if(error.includes("Only Images are allowed")){
-            store.dispatch(isLoading(false));
-            store.dispatch(showNotification("Only "+ALLOWED_EXTENSIONS+" are allowed", true));
-        }else{
-            store.dispatch(isLoading(false));
-            store.dispatch(showNotification("Something went wrong. Please try again", true));
-        }
-    });
+    // makeFormRequest("/api/gp-league/store/", "post", formData).then((response:any) => {
+    //     if(!response.auth)
+    //         window.location.replace("/")
+    //     else if(response.isError){
+    //         store.dispatch(isLoading(false));
+    //         store.dispatch(showNotification(response.data, response.isError));
+    //     }else{
+    //         store.dispatch(hideDialog());
+    //         store.dispatch(loadNewData(TITLE_ADMIN_GPLEAGUES, store.getState().PagesLoading.page_num));
+    //     }
+    // }).catch(async (err) => {
+    //     let error = await err;
+    //     if(error.includes("Only Images are allowed")){
+    //         store.dispatch(isLoading(false));
+    //         store.dispatch(showNotification("Only "+ALLOWED_EXTENSIONS+" are allowed", true));
+    //     }else{
+    //         store.dispatch(isLoading(false));
+    //         store.dispatch(showNotification("Something went wrong. Please try again", true));
+    //     }
+    // });
 }
 
 export const fetchGamesforEditDialog = (id:any) => {
     store.dispatch(isLoading(true));
-    makeXMLRequest("/api/game/list?page_num=-1", "get").then((response:any) => {
-        if(!response.auth)
-            window.location.replace("/")
-        else if(response.isError){
-            store.dispatch(isLoading(false));
-            store.dispatch(showNotification(response.data, true));
-        }else
-            openEditDialog(DIALOG_UPDATE_GP_LEAGUES, id, "/api/gp-league/show", {games: response.data});
-    }).catch((err) => {
-        console.log(err);
-        store.dispatch(isLoading(false));
-        store.dispatch(showNotification("Something went wrong. Please try again", true));
-    });
+    // makeXMLRequest("/api/game/list?page_num=-1", "get").then((response:any) => {
+    //     if(!response.auth)
+    //         window.location.replace("/")
+    //     else if(response.isError){
+    //         store.dispatch(isLoading(false));
+    //         store.dispatch(showNotification(response.data, true));
+    //     }else
+    //         openEditDialog(DIALOG_UPDATE_GP_LEAGUES, id, "/api/gp-league/show", {games: response.data});
+    // }).catch((err) => {
+    //     console.log(err);
+    //     store.dispatch(isLoading(false));
+    //     store.dispatch(showNotification("Something went wrong. Please try again", true));
+    // });
 }
 
 export const updateLeagueHanlder = (e:any) => {
@@ -103,19 +104,19 @@ export const updateLeagueHanlder = (e:any) => {
     formData.set("picture", data.picture.files[0]);
     formData.set("old_picture", data.old_picture.value);
 
-    makeFormRequest("/api/gp-league/update", "post", formData).then((response:any) => {
-        if(!response.auth)
-            window.location.replace("/");
-        else if(response.isError){
-            store.dispatch(isLoading(false));
-            store.dispatch(showNotification(response.data, response.isError));
-        }else{
-            store.dispatch(hideDialog());
-            store.dispatch(loadNewData(TITLE_ADMIN_GPLEAGUES, store.getState().PagesLoading.page_num));
-        }
-    }).catch((err) => {
-        console.log(err);
-        store.dispatch(isLoading(false));
-        store.dispatch(showNotification("Something went wrong. Please try again", true));
-    })
+    // makeFormRequest("/api/gp-league/update", "post", formData).then((response:any) => {
+    //     if(!response.auth)
+    //         window.location.replace("/");
+    //     else if(response.isError){
+    //         store.dispatch(isLoading(false));
+    //         store.dispatch(showNotification(response.data, response.isError));
+    //     }else{
+    //         store.dispatch(hideDialog());
+    //         store.dispatch(loadNewData(TITLE_ADMIN_GPLEAGUES, store.getState().PagesLoading.page_num));
+    //     }
+    // }).catch((err) => {
+    //     console.log(err);
+    //     store.dispatch(isLoading(false));
+    //     store.dispatch(showNotification("Something went wrong. Please try again", true));
+    // })
 }

@@ -1,25 +1,25 @@
 import React from 'react'
+import dialogStyles from "@/styles/dialogs.module.css";
 
-import store from '../../../Redux/store'
-import { hideDialog } from '../../../Redux/actions/dialogs'
-import { confirmationHandler } from '../../../utils/general'
+import store from '@/Redux/store'
+import { hideDialog } from '@/Redux/actions/dialogs'
+import { confirmationHandler } from '@/utils/general'
 
 export const ConfirmationDialog = (props:any) => {
-    if(!props.data?.mode)
-        return;
+
     return (
         
-        <div className="dialogs">
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div className="dialog confirmation-dialog show">
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.confirmation_dialog} ${dialogStyles.show}`}>
 
                 <h2>Confirmation Dialog</h2>
 
                 <p>Are you Sure?</p>
                 
-                <div className="controls no-wrap">
+                <div className={`${dialogStyles.controls} no-wrap`}>
                     <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "#4A4A4A"}}>Cancel</button>
-                    <button onClick={()=>confirmationHandler(props.data)} style={{backgroundColor: "#f26826"}}>Yes</button>
+                    <button onClick={()=>confirmationHandler(props.data)} style={{backgroundColor: "var(--site-clr)"}}>Yes</button>
                 </div>
 
             </div>
