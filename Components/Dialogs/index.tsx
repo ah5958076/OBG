@@ -21,7 +21,6 @@ import { hideDialog, showDialog } from '@/Redux/actions/dialogs'
 
 const DialogRendering = () => {
     const state = useSelector((state:any) => {return state.dialogs})
-    console.log(state);
 
     useEffect(()=>{
         window.addEventListener("click", (e:any)=> {
