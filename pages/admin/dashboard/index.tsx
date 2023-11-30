@@ -5,6 +5,7 @@ import styles from "./dashboard.module.css";
 import Navbar from "@/Components/Navbar/Navbar";
 import store from '@/Redux/store';
 import { isLoading } from '@/Redux/actions/loader';
+import { TITLE_ADMIN_DASHBOARD } from '@/constants/page-titles';
 // import { getRequest } from '../../../../utils/general';
 
 const Dashboard = (props:any) => {
@@ -34,7 +35,7 @@ const Dashboard = (props:any) => {
         
           <Navbar index={0}/>
           
-          <title>{props.title}</title>
+          <title>{TITLE_ADMIN_DASHBOARD}</title>
 
           <div className={styles.real_time_values}>
             <div className={styles.real_values}>

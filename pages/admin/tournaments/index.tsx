@@ -7,6 +7,7 @@ import { SearchBar } from '@/Components/SearchBar/SearchBar'
 import { Pagination } from '@/Components/Pagination/Pagination'
 import { DIALOG_ADD_TOURNAMENTS, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
 import Image from 'next/image';
+import { TITLE_ADMIN_TOURNAMENTS } from '@/constants/page-titles';
 
 
 const Tournaments = (props:any) => {
@@ -21,7 +22,7 @@ const Tournaments = (props:any) => {
 
       <Navbar index={6} />
 
-      <title>{props.title}</title>
+      <title>{TITLE_ADMIN_TOURNAMENTS}</title>
 
       <div className="container">
 

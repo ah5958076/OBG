@@ -5,6 +5,7 @@ import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportD
 import { SearchBar } from '@/Components/SearchBar/SearchBar'
 import Navbar from '@/Components/Navbar/Navbar'
 import { DIALOG_ADD_GAMES, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
+import { TITLE_ADMIN_GAMES } from '@/constants/page-titles'
 
 
 const Games = (props:any) => {
@@ -14,7 +15,7 @@ const Games = (props:any) => {
 
       <Navbar index={5} />
 
-      <title>{props.title}</title>
+      <title>{TITLE_ADMIN_GAMES}</title>
 
       <div className="container">
 

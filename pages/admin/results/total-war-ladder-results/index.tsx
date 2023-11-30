@@ -10,6 +10,7 @@ import { DIALOG_CONFIRMATION } from '@/constants/dialog-names';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { TITLE_ADMIN_TOTAL_WAR_LADDER_RESULTS } from '@/constants/page-titles';
 
 
 const TotalWarLadderResults = (props:any) => {
@@ -20,7 +21,7 @@ const TotalWarLadderResults = (props:any) => {
     
       <Navbar index={10} />
 
-      <title>{props.title}</title>
+      <title>{TITLE_ADMIN_TOTAL_WAR_LADDER_RESULTS}</title>
 
       <div className="container">
 

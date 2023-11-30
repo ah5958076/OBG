@@ -10,6 +10,7 @@ import { DIALOG_CONFIRMATION } from '@/constants/dialog-names';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { TITLE_ADMIN_GP_LEAGUE_RESULTS } from '@/constants/page-titles';
 
 
 const GPLeagueResults = (props:any) => {
@@ -20,7 +21,7 @@ const GPLeagueResults = (props:any) => {
 
       <Navbar index={12} />
 
-      <title>{props.title}</title>
+      <title>{TITLE_ADMIN_GP_LEAGUE_RESULTS}</title>
 
       <div className="container">
 

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { TITLE_ADMIN_MATCHES_RESULTS } from '@/constants/page-titles';
 
 
 const MatchesResults = (props:any) => {
@@ -21,7 +22,7 @@ const MatchesResults = (props:any) => {
     
       <Navbar index={11} />
 
-      <title>{props.title}</title>
+      <title>{TITLE_ADMIN_MATCHES_RESULTS}</title>
 
       <div className="container">
 
