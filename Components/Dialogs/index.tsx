@@ -33,23 +33,27 @@ const DialogRendering = () => {
     }, [state])
 
 
+
+    if(!state.isShowing)
+        return null;
+
     return (
 
         <>
 
-            {(state.name===DIALOG_CONFIRMATION && state.isShowing)? <ConfirmationDialog data={state.data} /> : null}
-            {(state.name===DIALOG_CHANGE_PASSWORD && state.isShowing)?<ChangePassword />:null}
-            {(state.name===DIALOG_LOGOUT && state.isShowing)?<Logout />:null}
+            {state.name===DIALOG_CONFIRMATION? <ConfirmationDialog data={state.data} /> : null}
+            {state.name===DIALOG_CHANGE_PASSWORD?<ChangePassword />:null}
+            {state.name===DIALOG_LOGOUT?<Logout />:null}
 
-            {(state.name===DIALOG_ADD_GP_LEAGUES && state.isShowing)? <AddGPLeagues data={state.data} /> : null }
-            {(state.name===DIALOG_UPDATE_GP_LEAGUES && state.isShowing)? <UpdateGPLeagues data={state.data} /> : null }
-            {(state.name===DIALOG_ADD_FANTASY_LEAGUES && state.isShowing)? <AddFantasyLeague data={state.data} /> : null }
-            {(state.name===DIALOG_UPDATE_FANTASY_LEAGUES && state.isShowing)? <UpdateFantasyLeague data={state.data} /> : null }
-            {(state.name===DIALOG_ADD_USERS && state.isShowing)? <AddUser /> : null }
-            {(state.name===DIALOG_ADD_GAMES && state.isShowing)? <AddGames /> : null }
-            {(state.name===DIALOG_ADD_TOURNAMENTS && state.isShowing)? <AddTournaments /> : null }
-            {(state.name===DIALOG_ADD_LADDERS && state.isShowing)? <AddLadders /> : null }
-            {(state.name===DIALOG_ADD_INVENTORY && state.isShowing)? <AddInventory /> : null }
+            {state.name===DIALOG_ADD_GP_LEAGUES? <AddGPLeagues data={state.data} /> : null }
+            {state.name===DIALOG_UPDATE_GP_LEAGUES? <UpdateGPLeagues data={state.data} /> : null }
+            {state.name===DIALOG_ADD_FANTASY_LEAGUES? <AddFantasyLeague data={state.data} /> : null }
+            {state.name===DIALOG_UPDATE_FANTASY_LEAGUES? <UpdateFantasyLeague data={state.data} /> : null }
+            {state.name===DIALOG_ADD_USERS? <AddUser /> : null }
+            {state.name===DIALOG_ADD_GAMES? <AddGames /> : null }
+            {state.name===DIALOG_ADD_TOURNAMENTS? <AddTournaments /> : null }
+            {state.name===DIALOG_ADD_LADDERS? <AddLadders /> : null }
+            {state.name===DIALOG_ADD_INVENTORY? <AddInventory /> : null }
 
         </>   
 
