@@ -45,7 +45,7 @@ const FantasyLeagues = (props:any) => {
       <div className="container">
 
         <NameAndExportData url="/api/fantasy-league/download-record" title="Fantasy Leagues" />
-        <SearchBar AddNewHandler={ openAddNewDialog } url="/api/fantasy-league/search" title={TITLE_ADMIN_FANTASY_LEAGUES} addDialog={DIALOG_ADD_FANTASY_LEAGUES} deleteDialog={DIALOG_CONFIRMATION} />
+        <SearchBar AddNewHandler={ null } url="/api/fantasy-league/search" title={TITLE_ADMIN_FANTASY_LEAGUES} addDialog={DIALOG_ADD_FANTASY_LEAGUES} deleteDialog={DIALOG_CONFIRMATION} />
         
 
         <div className="table">

@@ -1,89 +1,53 @@
 import React, { useState } from 'react'
+import dialogStyles from "@/styles/dialogs.module.css";
 
 import images from "@/constants/images";
 import store from "@/Redux/store";
 import { hideDialog } from "@/Redux/actions/dialogs";
 import { upload_image_preview } from "@/utils/general";
 import { addNewHandler, updateLeagueHanlder } from '@/utils/gpLeagues';
+import Input from '@/Components/Input';
+import Image from 'next/image';
+import Select from '@/Components/Select';
 
+let gameNames = [
+    {"1":"Takken 3"},
+    {"2":"Takken 5"},
+    {"3":"Sand and Riaz"},
+    {"4":"Snake Game"},
+    {"5":"OBG"}
+]
 
 export const AddGPLeagues = (props:any) => {
 
     return (
 
-        <div id='dialogs' className="dialogs">
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className="dialog add-league-dialog show">
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <h2>Add League</h2>
 
-                <form action="#" method="post" onSubmit={ addNewHandler }>
+                <form method="post" onSubmit={ addNewHandler }>
 
-                    <div className="input">
-                        <div>
-                            <input type="text" name="name" required />
-                            <span>League Name *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <select name="gameName" required>
-                                {props?.data?
-                                    props.data.map((obj:any, index:number) => (
-                                        <option key={index} value={obj._id}>{obj.name}</option>
-                                    )):
-                                    <option value="">Select Game</option>
-                                }
-                            </select>
-                            <span>Select Game *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="text" name="entryFee" required />
-                            <span>Entry Fee *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="text" name="prize" required />
-                            <span>Prize *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="text" name="teamSize" required />
-                            <span>Team Size *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="text" name="totalTeams" required />
-                            <span>Total Teams *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="date" name="startingDate" required />
-                            <span>Starting Date *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="date" name="endingDate" required />
-                            <span>Ending Date *</span>
-                        </div>
-                    </div>
+                    <Input title='League Name *' name='name' required={true} />
+                    <Select title='Select Game *' name='gameName' required={true} options={gameNames} />                    
+                    <Input title='Entry Fee *' name='entryFee' required={true} />
+                    <Input title='Prize *' name='prize' required={true} />
+                    <Input title='Team Size *' name='teamSize' required={true} />
+                    <Input title='Total Teams *' name='totalTeams' required={true} />
+                    <Input type='date' title='Starting Date *' name='startingDate' required={true} />
+                    <Input type='date' title='Ending Date *' name='endingDate' required={true} />
 
                     <div>
                         <label>League Photo*</label>
-                        <div className="file-input">
-                            <img src={ images.PHOTO_PLACEHOLDER } alt="..." />
+                        <div className={dialogStyles.file_input}>
+                            <Image src={ images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
                             <input type="file" name="picture" accept="image/*" onChange={ upload_image_preview } required />
                         </div>
                     </div>
 
-                    <div className="controls">
+                    <div className={dialogStyles.controls}>
                         <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type="button">Cancel</button>
                         <button style={{backgroundColor: "#f26826"}} type="submit">ADD LEAGUE</button>
                     </div>
@@ -111,85 +75,40 @@ export const UpdateGPLeagues = (props:any) => {
 
     return (
         
-        <div id='dialogs' className="dialogs">
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className="dialog update-league-dialog show">
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <h1>Update League</h1>
 
-                <form action="#" method="post" onSubmit={ updateLeagueHanlder }>
+                <form method="post" onSubmit={ updateLeagueHanlder }>
 
 
                     <input type="hidden" name="id" value={props.data._id} />
 
-                    <div className="input">
-                        <div>
-                            <input type="text" name="name" value={name} onChange={(e) => {setName(e.target.value)}} required />
-                            <span>League Name *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <select name="gameName" value={gameName} onChange={(e)=>setGameName(e.target.value)} required>
-                                {props?.data?
-                                    props.data.games.map((obj:any, index:number) => (
-                                        <option key={index} value={obj._id}>{obj.name}</option>
-                                    )):
-                                    <option value="">Select Game</option>
-                                }
-                            </select>
-                            <span>Select Game *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="text" name="entryFee" value={entryFee} onChange={(e)=>setEntryFee(e.target.value)} required />
-                            <span>Entry Fee *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="text" name="prize" value={prize} onChange={(e)=>setPrize(e.target.value)} required />
-                            <span>Prize *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="text" name="teamSize" value={teamSize} onChange={(e)=>setTeamSize(e.target.value)} required />
-                            <span>Team Size *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="text" name="totalTeams" value={totalTeams} onChange={(e)=>setTotalTeams(e.target.value)} required />
-                            <span>Total Teams *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="date" name="startingDate" value={startingDate.substring(0, 10)} onChange={(e)=>setStartingDate(e.target.value)} required />
-                            <span>Starting Date *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input type="date" name="endingDate" value={endingDate.substring(0, 10)} onChange={(e)=>setEndingDate(e.target.value)} required />
-                            <span>Ending Date *</span>
-                        </div>
-                    </div>
+                    <Input name='name' title='League Name *' value={name} onChnage={(e:any)=>{setName(e.target.value)}} required={true} />
+                    
+                    <Select title='Select Game *' name='gameName' required={true} options={gameNames} value={gameName} onChnage={(e:any)=>setGameName(e.target.value)} />                    
+                    
+                    <Input name='entryFee' title='Entry Fee *' value={entryFee} onChnage={(e:any)=>{setEntryFee(e.target.value)}} required={true} />
+                    <Input name='prize' title='Prize *' value={prize} onChnage={(e:any)=>{setPrize(e.target.value)}} required={true} />
+                    <Input name='teamSize' title='Team Size *' value={teamSize} onChnage={(e:any)=>{setTeamSize(e.target.value)}} required={true} />
+                    <Input name='totalTeams' title='Total Teams *' value={totalTeams} onChnage={(e:any)=>{setTotalTeams(e.target.value)}} required={true} />
+                    <Input type='date' name='startingDate' title='Starting Date *' value={startingDate.substring(0, 10)} onChnage={(e:any)=>{setStartingDate(e.target.value)}} required={true} />
+                    <Input type='date' name='endingDate' title='Ending Date *' value={endingDate.substring(0, 10)} onChnage={(e:any)=>{setEndingDate(e.target.value)}} required={true} />
 
                     <div>
                         <label>League Photo*</label>
-                        <div className="file-input">
-                            <img src={ props.data.picture?`/${props.data.picture}`:images.PHOTO_PLACEHOLDER } alt="..." />
+                        <div className={dialogStyles.file_input}>
+                            <Image src={ props.data.picture?`/${props.data.picture}`:images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
                             <input type="file" name="picture" accept="image/*" onChange={ upload_image_preview } />
                         </div>
                     </div>
                     <input type="hidden" name="old_picture" value={props.data.picture} required />
 
-                    <div className="controls">
-                        <button onClick={()=>{store.dispatch(hideDialog());}} style={{backgroundColor:"gray"}} type="button">Cancel</button>
-                        <button style={{backgroundColor:"#f26826"}} type="submit">UPDATE LEAGUE</button>
+                    <div className={dialogStyles.controls}>
+                        <button onClick={()=>store.dispatch(hideDialog())} style={{backgroundColor:"gray"}} type="button">Cancel</button>
+                        <button style={{backgroundColor:"var(--site-clr"}} type="submit">UPDATE LEAGUE</button>
                     </div>
 
                 </form>

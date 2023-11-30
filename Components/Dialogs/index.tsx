@@ -16,7 +16,7 @@ import {
     DIALOG_ADD_FANTASY_LEAGUES, DIALOG_ADD_GAMES, DIALOG_ADD_GP_LEAGUES, DIALOG_ADD_INVENTORY, DIALOG_ADD_LADDERS, DIALOG_ADD_TOURNAMENTS, DIALOG_ADD_USERS, DIALOG_CHANGE_PASSWORD, DIALOG_CONFIRMATION, DIALOG_LOGOUT, DIALOG_UPDATE_FANTASY_LEAGUES, DIALOG_UPDATE_GP_LEAGUES
 } from '../../constants/dialog-names'
 import store from '@/Redux/store'
-import { hideDialog } from '@/Redux/actions/dialogs'
+import { hideDialog, showDialog } from '@/Redux/actions/dialogs'
 
 
 const DialogRendering = () => {
@@ -30,6 +30,7 @@ const DialogRendering = () => {
             if(dialogContainer && e.target===dialogContainer && e.target!==dialog)
                 store.dispatch(hideDialog());
         });
+
     }, [state])
 
 

@@ -1,68 +1,47 @@
 import React, { useState } from 'react'
+import dialogStyles from "@/styles/dialogs.module.css";
+
 import store from '@/Redux/store'
 import { hideDialog } from '@/Redux/actions/dialogs'
 import { addNewHandler, updateLeagueHanlder } from '@/utils/fantasyLeagues'
+import Input from '@/Components/Input';
+import Select from '@/Components/Select';
 
+let dummy_leagues = [
+    {"1":"League 1"},
+    {"2":"League 2"},
+    {"3":"League 3"},
+    {"4":"League 4"},
+    {"5":"League 5"},
+]
+
+let teamSize = [
+    {"4":"4"},
+    {"8":"8"},
+    {"16":"16"},
+    {"32":"32"},
+]
 
 export const AddFantasyLeague = (props:any) => {
 
     return (
-        <div id='dialogs' className="dialogs">
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className="dialog create-fantasy-league show">
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <h2>Add Fantasy League</h2>
 
                 <form method="post" onSubmit={addNewHandler}>
 
-                    <div className='input'>
-                        <div>
-                            <input type="text" name="name" required />
-                            <span>Fantasy League Name *</span>
-                        </div>
-                    </div>
-                    <div className='input'>
-                        <div>
-                            <select name="grandPrix_league" required>
-                                {
-                                    props?.data?
-                                    props.data.map((obj:any, index:number) => {
-                                        return <option value={obj._id} key={index}>{obj.name}</option>
-                                    }):
-                                    <option value="">Select Grand Prix</option>
-                                }
-                            </select>
-                            <span>Grand Prix League *</span>
-                        </div>
-                    </div>
-                    <div className='input'>
-                        <div>
-                            <input type="text" name="total_teams" required />
-                            <span>Total Teams *</span>
-                        </div>
-                    </div>
-                    <div className='input'>
-                        <div>
-                            <select name="team_size" required>
-                                <option value="-" defaultChecked>Select Team Size</option>
-                                <option value="4">4</option>
-                                <option value="8">8</option>
-                                <option value="16">16</option>
-                                <option value="32">32</option>
-                            </select>
-                            <span>Team Size *</span>
-                        </div>
-                    </div>
-                    <div className='input'>
-                        <div>
-                            <input type="number" name="year" min="0" required />
-                            <span>Year *</span>
-                        </div>
-                    </div>
+                    <Input name='name' title='Fantasy League Name *' required={true} />
+                    <Select options={dummy_leagues} name='grandPrix_league' title='Grand Prix League *' required={true} />
+                    <Input name='total_teams' title='Total Teams *' required={true} />
+                    <Select options={teamSize} name='team_size' title='Team Size *' required={true} />
+                    <Input type='number' name='year' title='Year *' required={true} />
 
-                    <div className="controls">
+                    <div className={dialogStyles.controls}>
                         <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type='button'>Cancel</button>
-                        <button style={{backgroundColor: "#f26826"}} type="submit">Create</button>
+                        <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Create</button>
                     </div>
 
                 </form>
@@ -83,9 +62,9 @@ export const UpdateFantasyLeague = (props:any) => {
     const [year, setYear] = useState(props.data.year)
 
     return (
-        <div id='dialogs' className="dialogs">
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className="dialog update-fantasy-league show">
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <h2>Update Fantasy League</h2>
 
@@ -93,54 +72,15 @@ export const UpdateFantasyLeague = (props:any) => {
 
                     <input type="hidden" name="id" value={props.data._id}/>
 
-                    <div className='input'>
-                        <div>
-                            <input type="text" name="name" value={name} onChange={(e)=>setName(e.target.value)} required />
-                            <span>Fantasy League Name *</span>
-                        </div>
-                    </div>
-                    <div className='input'>
-                        <div>
-                            <select name="grandPrix_league" value={grandPrix} onChange={(e)=>setGrandPrix(e.target.value)} required>
-                            {
-                                props.data?
-                                props.data?.grandPrix.map((obj:any, index:number) => {
-                                    return <option value={obj._id} key={index}>{obj.name}</option>
-                                }):
-                                <option value="">Select Grand Prix</option>
-                            }
-                            </select>
-                            <span>Grand Prix League *</span>
-                        </div>
-                    </div>
-                    <div className='input'>
-                        <div>
-                            <input type="text" name="total_teams" value={totalTeams} onChange={(e)=>setTotalTeams(e.target.value)} required />
-                            <span>Total Teams *</span>
-                        </div>
-                    </div>
-                    <div className='input'>
-                        <div>
-                            <select name="team_size" value={teamSize} onChange={(e)=>setTeamSize(e.target.value)} required>
-                                <option value="-" defaultChecked>Select Team Size</option>
-                                <option value="4">4</option>
-                                <option value="8">8</option>
-                                <option value="16">16</option>
-                                <option value="32">32</option>
-                            </select>
-                            <span>Team Size *</span>
-                        </div>
-                    </div>
-                    <div className='input'>
-                        <div>
-                            <input type="number" name="year" min="0" value={year} onChange={(e)=>setYear(e.target.value)} required />
-                            <span>Year *</span>
-                        </div>
-                    </div>
-
-                    <div className="controls">
+                    <Input name='name' title='Fantasy League Name *' required={true} value={name} onChnage={(e:any)=>{setName(e.target.value)}}/>
+                    <Select name='grandPrix_league' title='Grand Prix League *' required={true} value={grandPrix} onChnage={(e:any)=>setGrandPrix(e.target.value)} options={dummy_leagues} />
+                    <Input name='total_teams' title='Total Teams *' required={true} value={totalTeams} onChnage={(e:any)=>{setTotalTeams(e.target.value)}}/>
+                    <Select name='team_size' title='Team Size *' required={true} value={teamSize} onChnage={(e:any)=>setTeamSize(e.target.value)} options={teamSize} />
+                    <Input type='number' name='year' title='Year *' required={true} value={year} onChnage={(e:any)=>{setYear(e.target.value)}}/>
+                    
+                    <div className={dialogStyles.controls}>
                         <button onClick={()=>store.dispatch(hideDialog())} style={{backgroundColor: "gray"}} type='button'>Cancel</button>
-                        <button style={{backgroundColor: "#f26826"}} type="submit">Update</button>
+                        <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Update</button>
                     </div>
 
                 </form>

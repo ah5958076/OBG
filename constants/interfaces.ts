@@ -28,3 +28,12 @@ export interface TYPE_INPUT {
     onChnage?:any,
     value?:string
 }
+export interface TYPE_SELECT {
+    title: string,
+    options: any[]
+    name:string, 
+    required:boolean,
+    icon?:any,
+    onChnage?:any,
+    value?:string,
+}

@@ -1,25 +1,32 @@
 import React, { useState } from 'react'
-// import "./User.css"
+import dialogStyles from "@/styles/dialogs.module.css";
+import userStyles from "./User.module.css";
 
 import images from "@/constants/images";
 import store from '@/Redux/store';
 import { hideDialog } from '@/Redux/actions/dialogs';
 import Link from 'next/link';
 import Image from 'next/image';
+import Input from '@/Components/Input';
+
+const addUserHandler = (e:any) => {};
+const updateUserHandler = (e:any) => {};
+const userProfileHandler = (e:any) => {};
 
 export const AddUser = () => {
+    
     const [credit, setCredit] = useState(50);
 
 
     return (
 
-        <div id='dialogs' className="dialogs">
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className="dialog add-user-dialog show">
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
-                <form action="#" method="post">
+                <form method="post" onSubmit={addUserHandler}>
 
-                    <div className="credit">
+                    <div className={userStyles.credit}>
                         <div>
                             <sup>$</sup>
                             <input autoComplete='off' type="number" min="0" value={credit} onChange={(e:any)=>{setCredit(e.target.value)}} name="credit" required />
@@ -27,40 +34,15 @@ export const AddUser = () => {
                         <p style={{fontSize:"10px"}}>Enter only numbers</p>
                     </div>
 
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="text" name="name" required />
-                            <span>Full Name *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="text" name="username" required />
-                            <span>Username *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="password" name="password" required />
-                            <span>Password *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="email" name="email" required />
-                            <span>Email *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="text" name="about" required />
-                            <span>About *</span>
-                        </div>
-                    </div>
+                    <Input name='name' title='Full Name *' required={true} />
+                    <Input name='username' title='Username *' required={true} />
+                    <Input type='password' name='password' title='Password *' required={true} />
+                    <Input type='email' name='email' title='Email *' required={true} />
+                    <Input name='about' title='About *' required={true} />
 
-                    <div className="controls no-wrap">
+                    <div className={dialogStyles.controls}>
                         <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type='button'>Cancel</button>
-                        <button style={{backgroundColor: "#ff7700"}} type="submit">Add User</button>
+                        <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Add User</button>
                     </div>
 
                 </form>
@@ -79,13 +61,13 @@ export const UpdateUser = () => {
 
     return (
 
-        <div className="dialogs">
+        <div className={dialogStyles.dialogs}>
 
-            <div className="dialog update-user-dialog show">
+            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
                 
-                <form action="#" method="post">
+                <form method="post" onSubmit={updateUserHandler}>
 
-                    <div className="credit">
+                    <div className={userStyles.credit}>
                         <div>
                             <sup>$</sup>
                             <input  autoComplete='off' type="number" min="0" value={credit} onChange={(e:any)=>{setCredit(e.target.value)}} name="credit" required />
@@ -93,33 +75,14 @@ export const UpdateUser = () => {
                         <p style={{fontSize: "10px"}}>Enter only numbers</p>
                     </div>
 
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="text" name="name" required />
-                            <span>Full Name *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="text" name="username" required />
-                            <span>Username *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="email" name="email" required />
-                            <span>Email *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <input autoComplete='on' type="text" name="about" required />
-                            <span>About *</span>
-                        </div>
-                    </div>
+                    <Input name='name' title='Full Name *' required={true} />
+                    <Input name='username' title='Username *' required={true} />
+                    <Input type='password' name='password' title='Password *' required={true} />
+                    <Input type='email' name='email' title='Email *' required={true} />
+                    <Input name='about' title='About *' required={true} />
 
-                    <div className="controls no-wrap">
-                        <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type="button">Cancel</button>
+                    <div className={dialogStyles.controls}>
+                        <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type='button'>Cancel</button>
                         <button style={{backgroundColor: "#ff7700"}} type="submit">Update User</button>
                     </div>
 
@@ -138,9 +101,9 @@ export const AddUserInventoryDialog = () => {
 
     return (
 
-        <div className="dialogs">
+        <div className={dialogStyles.dialogs}>
 
-            <div className="dialog add-inventory-award show">
+            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <div className="main-box">
 
@@ -195,11 +158,11 @@ export const UserProfileDialog = () => {
 
     return (
 
-        <div className="dialogs">
+        <div className={dialogStyles.dialogs}>
 
-            <div className="dialog Crimsix show">
+            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
-                <form action="#" method="post">
+                <form method="post" onSubmit={userProfileHandler}>
 
                     <div className="crim-img">
                         <Image src={ images.USER } alt="" layout='fill' />

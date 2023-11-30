@@ -5,12 +5,14 @@ import Navbar from '@/Components/Navbar/Navbar'
 import { SearchBar } from '@/Components/SearchBar/SearchBar'
 import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
 import { Pagination } from '@/Components/Pagination/Pagination'
-import { DIALOG_ADD_GP_LEAGUES, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
+import { DIALOG_ADD_GP_LEAGUES, DIALOG_CONFIRMATION, DIALOG_UPDATE_GP_LEAGUES } from '@/constants/dialog-names'
 import { TITLE_ADMIN_GPLEAGUES } from '@/constants/page-titles'
 import { useSelector } from 'react-redux'
 import { computeDate, openDeleteDialog, select_all, select_individual } from '@/utils/general'
 import { fetchGamesforEditDialog, openAddNewDialog } from '@/utils/gpLeagues';
 import Image from 'next/image';
+import store from '@/Redux/store';
+import { showDialog } from '@/Redux/actions/dialogs';
 
 
 const GPLeagues = (props:any) => {

@@ -1,56 +1,55 @@
 import React from 'react'
+import dialogStyles from "@/styles/dialogs.module.css";
 
 import images from "@/constants/images";
 import store from '@/Redux/store';
 import { hideDialog } from '@/Redux/actions/dialogs';
 import { upload_image_preview } from "@/utils/general"
+import Input from '@/Components/Input';
+import Select from '@/Components/Select';
+import Image from 'next/image';
 
+const addGameHandler = (e:any) => {}
+const updateGameHandler = (e:any) => {}
+
+let dummy_game_types = [
+    {"1":"Franchise1"},
+    {"2":"Franchise2"},
+    {"3":"Franchise3"},
+    {"4":"Franchise4"},
+]
+let dummy_platforms = [
+    {"1":"IoS"},
+    {"2":"Windows"},
+    {"3":"Mac"},
+    {"4":"Android"},
+]
 
 export const AddGames = () => {
 
     return (
 
-        <div id='dialogs' className="dialogs">
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className="dialog add-league show">
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
-                <form action="#" method="post">
+                <form method="post" onSubmit={addGameHandler}>
 
-                    <div className='input'>
-                        <div>
-                            <input type="text" name="name" required />
-                            <span>Game Name *</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <select name="type" required>
-                                <option value="-" defaultChecked>Select Game Type</option>
-                                <option value="Franchise">Franchise</option>
-                            </select>
-                            <span>Game Type</span>
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            <select name="platform" required>
-                                <option value="-" defaultChecked>Select Game Platform</option>
-                                <option value="IoS">IoS</option>
-                            </select>
-                            <span>Game Platform</span>
-                        </div>
-                    </div>
+                    <Input name='name' title='Game Name *' required={true} />
+                    <Select options={dummy_game_types} name='type' title='Game Type *' required={true} />
+                    <Select options={dummy_platforms} name='platform' title='Game Platform' required={true} />
+
                     <div>
                         <label>Game Photo*</label>
-                        <div className="file-input">
-                            <img src={ images.PHOTO_PLACEHOLDER } alt="..." />
-                            <input type="file" name="" accept="image/*" onChange={upload_image_preview} />
+                        <div className={dialogStyles.file_input}>
+                            <Image src={ images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
+                            <input type="file" name="game_photo" accept="image/*" onChange={upload_image_preview} />
                         </div>
                     </div>
 
-                    <div className="controls">
+                    <div className={dialogStyles.controls}>
                         <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type="button">Cancel</button>
-                        <button style={{backgroundColor: "#F26826"}} type="submit">Add League</button>
+                        <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Add League</button>
                     </div>
 
                 </form>
@@ -68,51 +67,28 @@ export const UpdateGames = () => {
 
     return (
 
-        <div className="dialogs">
+        <div className={dialogStyles.dialogs}>
         
-            <div className="dialog update-league">
+            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
-                <form action="#" method="post">
+                <form method="post" onSubmit={updateGameHandler}>
 
-                    <div className='input'>
-                        <div>
-                            <input type="text" name="name" required />
-                            <span>Game Name *</span>
-                        </div>
-                    </div>
-
-                    <div className="input">
-                        <div>
-                            <select name="type" required>
-                                <option value="-" selected>Select Game Type</option>
-                                <option value="Franchise">Franchise</option>
-                            </select>
-                            <span>Game Type</span>
-                        </div>
-                    </div>
-
-                    <div className="input">
-                        <div>
-                            <select name="platform" required>
-                                <option value="-" selected>Select Game Platform</option>
-                                <option value="IoS" selected>IoS</option>
-                            </select>
-                            <span>Game Platform</span>
-                        </div>
-                    </div>
+                    <Input name='name' title='Game Name *' required={true} />
+                    <Select options={dummy_game_types} name='type' title='Game Type *' required={true} />
+                    <Select options={dummy_platforms} name='platform' title='Game Platform' required={true} />
 
                     <div>
                         <label htmlFor="imageInput">Game Photo*</label>
-                        <div className="file-input">
-                            <img src={ images.PHOTO_PLACEHOLDER } alt="..." />
-                            <input type="file" name="" accept="image/*" onChange={upload_image_preview} />
+                        <div className={dialogStyles.file_input}>
+                            <Image src={ images.PHOTO_PLACEHOLDER } alt="..." />
+                            <input type="file" name="game_photo" accept="image/*" onChange={upload_image_preview} />
                         </div>
                     </div>
 
 
-                    <div className="controls">
+                    <div className={dialogStyles.controls}>
                         <button style={{backgroundColor: "gray"}} type="button">Cancel</button>
-                        <button style={{backgroundColor: "#F26826"}} type="submit">Update League</button>
+                        <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Update League</button>
                     </div>
 
                 </form>
