@@ -1,6 +1,8 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+let cors = require("cors");
 require("dotenv").config();
 
 var authenticationRouter = require('./routes/authentication');
@@ -28,6 +30,8 @@ mongoose.connect(process.env.DB_URL || "mongodb:127.0.0.1:27017/obg").then((val)
 
 var app = express();
 app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 
 

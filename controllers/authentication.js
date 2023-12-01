@@ -2,6 +2,11 @@ const authentication = require("../services/authentication");
 const user = require("../services/user");
 
 
+module.exports.verifyToken = async(req, res) => {
+    if(!req.auth)
+        return res.send({auth: false});
+    return res.send({auth: true});
+}
 
 module.exports.login = async (req, res) => {
     let [email, password] = [req.body.email, req.body.password];
@@ -19,6 +24,11 @@ module.exports.forgotPassword = async (req, res) => {
 module.exports.verifyCode = async (req, res) => {
     let [email, code]=[req.body.email, req.body.reset_code];
     res.send(await authentication.verifyResetCode(email, code));
+}
+
+module.exports.changePassword = (req, res) => {
+    let [email, password] = [req.body.email, req.body.password]
+    return res.json(authentication.changePassword(email, password))
 }
 
 module.exports.logout = async (req, res) => {

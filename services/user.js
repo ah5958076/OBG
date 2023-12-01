@@ -6,51 +6,33 @@ const exceljs = require("exceljs");
 
 
 module.exports.store = async (userObject) => {
-    if(!(userObject.userName && userObject.fullName && userObject.password && userObject.email))
-        return constantMsgs.FIELD_EMPTY;
-
+    if(!userObject.username) {return {isError:true, data: "Username is empty"}};
+    if(!userObject.fullName) {return {isError:true, data: "Full Name is empty"}};
+    if(!userObject.password) {return {isError:true, data: "Password is empty"}};
+    if(!userObject.email) {return {isError:true, data: "Email is empty"}};
+    
     if(userObject.password){
-        let salt = await bcrypt.genSalt().catch((e) => {
-            console.log(e);
-        });
+        let salt = await bcrypt.genSalt().catch((e) => {console.log(e)});
         if(salt){
-            let hashedPassword = await bcrypt.hash(userObject.password, salt).catch((e) => {
-                console.log(e);
-            });
-            if(hashedPassword){
-                userObject.password=hashedPassword;
-            }
+            let hashedPassword = await bcrypt.hash(userObject.password, salt).catch((e) => {console.log(e)});
+            if(hashedPassword) userObject.password=hashedPassword;
+        }else{
+            return {isError:true, data: constantMsgs.UNEXPECTED_ERROR};
         }
     }
 
-    let returnStatus=constantMsgs.USER_ADDED;
-    let value = await UserModel.findOne({email: userObject.email}).catch((e) => {
-        returnStatus=constantMsgs.UNEXPECTED_ERROR;
-        console.log(e);
-    });
+    let value = await UserModel.findOne({email: userObject.email}).catch((e) => {console.log(e)});
+    let value2=await UserModel.find({role: "Admin"}).catch((e) => {console.log(e)});
+    
+    if(value2.length>0){ userObject.role="User" }
+    else{ userObject.role="Admin" }
 
-    let value2=await UserModel.find({role: "Admin"}).catch((e) => {
-        returnStatus=constantMsgs.UNEXPECTED_ERROR;
-        console.log(e);
-    });
-    if(value2){
-        userObject.role="User";
-    }else{
-        userObject.role="Admin";
+    if(value){ return {isError:true, data:constantMsgs.USER_ALREADY_EXIST} }
+    else{
+        let result = await new UserModel(userObject).save().catch((e) => {console.log(e)});
+        if(!result){ return {isError: true, data:constantMsgs.UNEXPECTED_ERROR}}
     }
-
-    if(value){
-        returnStatus = constantMsgs.USER_ALREADY_EXIST;
-    }else{
-        let result = await new UserModel(userObject).save().catch((e) => {
-            returnStatus=constantMsgs.UNEXPECTED_ERROR;
-            console.log(e);
-        });
-        if(!result){
-            returnStatus=constantMsgs.UNEXPECTED_ERROR;
-        }
-    }
-    return returnStatus;
+    return {isError:false, data: constantMsgs.USER_ADDED};
 }
 
 module.exports.update = async (email, objToEdit) => {
