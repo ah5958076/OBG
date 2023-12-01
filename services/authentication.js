@@ -38,7 +38,8 @@ module.exports.forgotPassword = async (email) => {
                 pass: password
             }
         });
-        let code = Date.now()%10000;
+        let code = Math.round(Math.random()*10000);
+        if(code.toString().length<4) {code*=10}
         const config={
             from: username,
             to: email,
@@ -57,7 +58,7 @@ module.exports.forgotPassword = async (email) => {
             return {isError:true, data: constantMsgs.UNEXPECTED_ERROR};
         }
     }
-    return USER_NOT_FOUND;
+    return {isError:true, data:constantMsgs.USER_NOT_FOUND};
 }
 
 module.exports.verifyResetCode = async (email, code) => {
@@ -77,17 +78,29 @@ module.exports.verifyResetCode = async (email, code) => {
 }
 
 module.exports.logout = async (email) => {
-    if(!email)
-        return constantMsgs.FIELD_EMPTY;
+    if(!email) return {isError: true, data:constantMsgs.UNEXPECTED_ERROR}
 
-    let value = await UserModel.updateOne({email: email}, {status: "Inactive"}).catch((e) => {
-        console.log(e);
-    });
+    let value = await UserModel.updateOne({email: email}, {status: "Inactive"}).catch((e) => {console.log(e)});
     if(value.modifiedCount)
-        return constantMsgs.LOGOUT_SUCCESS;
-    return UNEXPECTED_ERROR;
+        return {isError:false, data:constantMsgs.LOGOUT_SUCCESS};
+    return {isError: true, data:constantMsgs.UNEXPECTED_ERROR};
 }
 
-module.exports.changePassword = (email, password) => {
-    
+module.exports.changePassword = async (email, password) => {
+    if(!email) return {isError:true, data: constantMsgs.UNEXPECTED_ERROR};
+    if(!password) return {isError:true, data: "Password is Empty"};
+
+    let value = await UserModel.findOne({email: email}).catch((e) => {console.log(e)})
+    if(value){
+        let salt = await bcrypt.genSalt().catch((e) => {console.log(e)});
+        if(salt){
+            let hashedPassword = await bcrypt.hash(password, salt).catch((e) => {console.log(e)});
+            if(hashedPassword) {
+                let result = await UserModel.updateOne({email:value.email}, {password: hashedPassword}).catch((e) => console.log(e))
+                if(result.modifiedCount) {return {isError:false, data:constantMsgs.PASSWORD_CHANGED}}
+                else {return {isError:true, data:constantMsgs.PASSWORD_NOT_CHANGED}}
+            } else {return {isError:true, data: constantMsgs.UNEXPECTED_ERROR}}
+        } else {return {isError:true, data: constantMsgs.UNEXPECTED_ERROR}}
+    }
+    return {isError:true, data:constantMsgs.UNEXPECTED_ERROR}; 
 }

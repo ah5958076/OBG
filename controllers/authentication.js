@@ -14,7 +14,7 @@ module.exports.login = async (req, res) => {
 }
 
 module.exports.SignupUser = async (req, res) => {
-    res.send(await user.SignupUser(req.body));
+    res.send(await user.store(req.body));
 }
 
 module.exports.forgotPassword = async (req, res) => {
@@ -26,11 +26,11 @@ module.exports.verifyCode = async (req, res) => {
     res.send(await authentication.verifyResetCode(email, code));
 }
 
-module.exports.changePassword = (req, res) => {
+module.exports.changePassword = async (req, res) => {
     let [email, password] = [req.body.email, req.body.password]
-    return res.json(authentication.changePassword(email, password))
+    return res.json(await authentication.changePassword(email, password));
 }
 
 module.exports.logout = async (req, res) => {
-    res.send(await authentication.logout(req.params.email))
+    res.send(await authentication.logout(req.user?.email))
 }

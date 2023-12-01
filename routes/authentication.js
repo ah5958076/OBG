@@ -10,7 +10,7 @@ router.post("/signup", userController.store);
 router.post("/forgot-password", authentication.forgotPassword);
 router.post("/verify-code", authentication.verifyCode);
 router.post("/change-password", authentication.changePassword);
-router.get("/logout/:email", authentication.logout);
+router.get("/logout", authenticateUser, authentication.logout);
 
 
 module.exports = router;

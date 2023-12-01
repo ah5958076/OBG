@@ -10,7 +10,7 @@ module.exports.authenticateUser = (req, res, next) => {
     
     jwt.verify(token, process.env.JWT_SECRET, async (err, decode) => {
         if(err) req.auth=false;
-        else if(decode) req.auth=true;
+        else if(decode) {req.auth=true; req.user=decode}
         else req.auth=false;
     });
     next();
