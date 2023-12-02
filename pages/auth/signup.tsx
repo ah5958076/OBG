@@ -49,8 +49,8 @@ const Auth = () => {
                 <Input name="name" title="Full Name" required={true} icon={faUser} />
                 <Input name="username" title="Username" required={true} icon={faUser} />
                 <Input name="email" title="Email" required={true} icon={faEnvelope} />
-                <Input name="new_password" title="New Password" required={true} icon={faLock} />
-                <Input name="confirm_password" title="Confirm Password" required={true} icon={faLock} />
+                <Input type="password" name="new_password" title="New Password" required={true} icon={faLock} />
+                <Input type="password" name="confirm_password" title="Confirm Password" required={true} icon={faLock} />
 
                 <button type="submit">Sign up</button>
                 <p className={styles.new_account}>

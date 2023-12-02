@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: calc(100% - 100px);
+    width: 100%;
     padding: 0px 50px;
 }
 
@@ -12,56 +12,63 @@
     width: 100%;
 }
 
-table {
+.table table {
     border-collapse: collapse;
 }
-
-table th {
+.table table .center{
+    text-align: center;
+}
+.table table .left{
+    text-align: left;
+}
+.table table .right{
+    text-align: right;
+}
+.table table th {
     font-size: 14px;
     background-color: #1A1A1A;
 }
 
-td,
-th {
+.table table td,
+.table table th {
     text-align: left;
-    padding: 12px;
+    padding: 10px;
 }
 
-table,
-tr {
+.table table,
+.table table tr {
     width: 100%;
 }
+.table table input[type='checkbox']{
+    accent-color: var(--site-clr);
+}
 
-table tr:nth-child(2n) {
+.table table tr:nth-child(2n) {
     background-color: #282828;
 }
 
-table tr:nth-child(2n+1) {
+.table table tr:nth-child(2n+1) {
     background-color: #707070;
 }
 
-td p{
+.table table td p{
     text-overflow: ellipsis; 
     overflow:hidden;
     white-space: nowrap;
     width: 100px;
 }
-td img{
-    width: 50px;
-}
-th input,
-td input {
+.table table th input,
+.table table td input {
     width: 20px;
     height: 20px;
 }
 
-td:has(button:nth-child(2)) {
+.table table td:has(button:nth-child(2)) {
     display: flex;
     gap: 5px;
-    flex-wrap: wrap;
 }
 
-td button {
+.table table td button {
     background: transparent;
     border: none;
     outline: none;
@@ -69,6 +76,17 @@ td button {
     font-size: 20px;
 }
 
+
+.table .Win span {
+    background-color: #156502;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.table .Loss span {
+    background-color: #610000;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
 
 
 
@@ -82,7 +100,7 @@ td button {
         overflow: auto;
         width: 100%;
     }
-    table td p{
+    .table table td p{
         width: 250px;
         white-space: pre-wrap;
     }
@@ -91,6 +109,5 @@ td button {
 @media(max-width: 500px) {
     .container {
         padding: 0px 10px;
-        width: calc(100% - 20px);
     }
 }

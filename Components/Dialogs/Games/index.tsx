@@ -67,9 +67,9 @@ export const UpdateGames = () => {
 
     return (
 
-        <div className={dialogStyles.dialogs}>
+        <div id='dialogs' className={dialogStyles.dialogs}>
         
-            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <form method="post" onSubmit={updateGameHandler}>
 

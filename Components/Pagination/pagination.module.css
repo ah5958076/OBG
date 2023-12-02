@@ -1,16 +1,16 @@
 .pagination {
-    width: calc(100% - 60px);
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background-color: #282828;
+    background-color: #373737;
     padding: 5px 30px;
     gap: 10px;
     margin-bottom: 100px;
 }
 
 .pagination button {
-    background-color: #282828;
+    background-color: transparent;
     border: none;
     font-size: 20px;
     display: flex;
@@ -21,11 +21,4 @@
 .pagination button:disabled{
     color: gray;
     cursor: initial;
-}
-
-
-@media (max-width: 500px) {
-    .pagination{
-        width: calc(100% - 20px);
-    }
 }

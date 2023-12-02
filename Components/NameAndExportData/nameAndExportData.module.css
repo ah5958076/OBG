@@ -1,9 +1,36 @@
 .controls_under_nav {
+    position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 20px 50px;
+    padding: 20px 10px;
     align-items: center;
     width: 100%;
+}
+.controls_under_nav>div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.controls_under_nav>div>div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.controls_under_nav>div button{
+    background-color: transparent;
+    border: 1px solid var(--site-clr);
+    border-radius: 50px;
+    white-space: nowrap;
+    padding: 5px 20px;
+    width: fit-content;
+    font-size: 15px;
+    transition: 0.3s;
+}
+.controls_under_nav>div>div button[data-active='yes']{
+    background-color: var(--site-clr);
+}
+.controls_under_nav>div button:hover{
+    background-color: var(--site-clr);
 }
 
 .controls_under_nav a {
@@ -28,9 +55,29 @@
 
 
 
+
+
+
+
+@media(max-width: 700px) {
+    .controls_under_nav:has(div button) {
+        margin-bottom: 30px;
+    }
+    .controls_under_nav>div>div {
+        position: absolute;
+        left: 10px;
+        bottom: 0;
+        transform: translateY(60%);
+    }
+}
 @media(max-width: 500px) {
     .controls_under_nav {
         padding: 20px 10px;
         width: calc(100% - 20px);
+    }
+}
+@media(max-width: 400px){
+    .controls_under_nav>div>div{
+        left: 0;
     }
 }

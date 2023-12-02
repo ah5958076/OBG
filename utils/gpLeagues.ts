@@ -1,6 +1,7 @@
-import { showDialog } from "../Redux/actions/dialogs";
+import { hideDialog, showDialog } from "../Redux/actions/dialogs";
 import { isLoading } from "../Redux/actions/loader";
 import store from "../Redux/store";
+import {toast} from "react-toastify";
 import { DIALOG_ADD_GP_LEAGUES, DIALOG_UPDATE_GP_LEAGUES } from "../constants/dialog-names";
 
 let ALLOWED_EXTENSIONS:string = process.env.ALLOWED_EXTENSIONS || "";
@@ -71,6 +72,22 @@ export const addNewHandler = (e:any) => {
 
 export const fetchGamesforEditDialog = (id:any) => {
     store.dispatch(isLoading(true));
+    
+    let dummyData = {
+        "name": "name",
+        "gameName": {
+            "_id": "-"
+        },
+        "entryFee": "10",
+        "prize": "100",
+        "teamSize": "4",
+        "totalTeams": "3",
+        "startingDate": Date.now().toLocaleString(),
+        "endingDate": Date.now().toLocaleString(),
+    }
+    
+    store.dispatch(showDialog(DIALOG_UPDATE_GP_LEAGUES, dummyData));
+    store.dispatch(isLoading(false));
     // makeXMLRequest("/api/game/list?page_num=-1", "get").then((response:any) => {
     //     if(!response.auth)
     //         window.location.replace("/")
@@ -89,7 +106,7 @@ export const fetchGamesforEditDialog = (id:any) => {
 export const updateLeagueHanlder = (e:any) => {
     e.preventDefault();
     store.dispatch(isLoading(true));
-
+    
     let data = e.target.elements;
     let formData:any = new FormData();
     formData.set("id", data.id.value);
@@ -103,6 +120,10 @@ export const updateLeagueHanlder = (e:any) => {
     formData.set("endingDate", data.endingDate.value);
     formData.set("picture", data.picture.files[0]);
     formData.set("old_picture", data.old_picture.value);
+
+    store.dispatch(hideDialog())
+    toast.success("Updated successfully. Its prototype 😊")
+    store.dispatch(isLoading(false));
 
     // makeFormRequest("/api/gp-league/update", "post", formData).then((response:any) => {
     //     if(!response.auth)

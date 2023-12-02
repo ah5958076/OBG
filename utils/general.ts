@@ -4,6 +4,7 @@ import store from "../Redux/store";
 import { loadNewData, setLoadedData } from "../Redux/actions/pagination";
 import { hideDialog, showDialog } from "../Redux/actions/dialogs";
 import { DIALOG_CONFIRMATION } from "../constants/dialog-names";
+import {toast} from "react-toastify";
 import axios from "axios";
 
 axios.defaults.baseURL=process.env.BACKEND_BASE_URL || "http://localhost:3001/";
@@ -120,21 +121,26 @@ export const computeDate = (date:any) => {
 export const openEditDialog = (dialog_name:any, id:any, url:any=null, extendedData:any=null) => {
     store.dispatch(isLoading(true));
     let data:any = {id: id}
-    getRequest(url).then((response:any) => {
-        if(!response.auth)
-            window.location.replace("/")
-        else if(!response.isError){
-            store.dispatch(showDialog(dialog_name, {...extendedData, ...response.data}));
-            store.dispatch(isLoading(false));
-        }else{
-            store.dispatch(isLoading(false));
-            // store.dispatch(showNotification(response.data, true));
-        }
-    }).catch((err) => {
-        console.log(err)
-        store.dispatch(isLoading(false));
-        // store.dispatch(showNotification("Something went wrong. Please try again", true));
-    })
+    
+    store.dispatch(showDialog(dialog_name))
+    store.dispatch(isLoading(false));
+
+
+    // postRequest(url, data).then((response:any) => {
+    //     if(!response.auth)
+    //         window.location.replace("/")
+    //     else if(!response.isError){
+    //         store.dispatch(showDialog(dialog_name, {...extendedData, ...response.data}));
+    //         store.dispatch(isLoading(false));
+    //     }else{
+    //         store.dispatch(isLoading(false));
+    //         // store.dispatch(showNotification(response.data, true));
+    //     }
+    // }).catch((err) => {
+    //     console.log(err)
+    //     store.dispatch(isLoading(false));
+    //     // store.dispatch(showNotification("Something went wrong. Please try again", true));
+    // })
 }
 
 export const openDeleteDialog = (page_title:any, url:any=null, id:any=null) => {
@@ -165,36 +171,53 @@ export const openDeleteDialog = (page_title:any, url:any=null, id:any=null) => {
 
 export const confirmationHandler = async (options:any) => {
     store.dispatch(isLoading(true));
-    if(/*options?.mode===OPENED_FOR_DELETION &&*/ options?.ids){
-        let data:any = {ids: options.ids};
-        getRequest(options.url).then((response:any) => {
-            if(!response.auth)
-                window.location.replace("/")
-            else if(response.isError){
-                store.dispatch(isLoading(false));
-                // store.dispatch(showNotification(response.data, response.isError));
-            }else{
-                store.dispatch(hideDialog());
-                // store.dispatch(loadNewData(options.pageTitle, store.getState().PagesLoading.page_num));
+    toast.success("Deleted Successfully. Its prototype 😊")
+    // if(/*options?.mode===OPENED_FOR_DELETION &&*/ options?.ids){
+    //     let data:any = {ids: options.ids};
+    //     getRequest(options.url).then((response:any) => {
+    //         if(!response.auth)
+    //         window.location.replace("/")
+    //         else if(response.isError){
+    //             store.dispatch(isLoading(false));
+    //             // store.dispatch(showNotification(response.data, response.isError));
+    //         }else{
+    //             store.dispatch(hideDialog());
+    //             // store.dispatch(loadNewData(options.pageTitle, store.getState().PagesLoading.page_num));
+    //         }
+    //     }).catch((err) => {console.log(err)});
+    // }else{
+    //     store.dispatch(isLoading(false));
+    //     // store.dispatch(showNotification("Nothing to do with dialog. Please refresh and try again", true));
+    //     store.dispatch(hideDialog());
+    // }
+    store.dispatch(hideDialog());
+    store.dispatch(isLoading(false));
+}
+
+export const getRequest = (url:string) => {
+    return new Promise(async (resolve, reject) => {
+        let token = localStorage.getItem("token") || "";
+        let response:any = await axios.get(url, {
+            headers: {
+                "Authorization": `${token}`
             }
-        }).catch((err) => {console.log(err)});
-    }else{
-        store.dispatch(isLoading(false));
-        // store.dispatch(showNotification("Nothing to do with dialog. Please refresh and try again", true));
-        store.dispatch(hideDialog());
-    }
+        }).catch((e:any)=>console.log(e));
+        if(response?.status===200)
+            resolve(response?.data);
+        reject(response?.message);
+    });
 }
 
-export const getRequest = async (url:string) => {
-    let response:any = await axios.get(url).catch((e:any)=>console.log(e));
-    if(response.status===200)
-        return response.data;
-    return response.message;
-}
-
-export const postRequest = async (url:any, data=null) => {
-    let response:any = await axios.post(url, data).catch((e:any)=>console.log(e));
-    if(response.status===200)
-        return response.data;
-    return response.message;
+export const postRequest = (url:any, data=null) => {
+    return new Promise(async (resolve, reject) => {
+        let token = localStorage.getItem("token") || "";
+        let response:any = await axios.post(url, data, {
+            headers: {
+                "Authorization": `${token}`
+            }
+        }).catch((e:any)=>console.log(e));
+        if(response?.status===200)
+            resolve(response?.data);
+        reject(response?.message);
+    });
 }

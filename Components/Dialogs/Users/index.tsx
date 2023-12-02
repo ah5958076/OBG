@@ -61,9 +61,9 @@ export const UpdateUser = () => {
 
     return (
 
-        <div className={dialogStyles.dialogs}>
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
                 
                 <form method="post" onSubmit={updateUserHandler}>
 
@@ -101,9 +101,9 @@ export const AddUserInventoryDialog = () => {
 
     return (
 
-        <div className={dialogStyles.dialogs}>
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <div className="main-box">
 
@@ -158,9 +158,9 @@ export const UserProfileDialog = () => {
 
     return (
 
-        <div className={dialogStyles.dialogs}>
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <form method="post" onSubmit={userProfileHandler}>
 

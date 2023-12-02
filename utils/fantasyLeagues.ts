@@ -61,6 +61,20 @@ export const addNewHandler = (e:any) => {
 
 export const fetchGrandPrixforEditDialog = (id:any) => {
     store.dispatch(isLoading(true));
+
+    // let dummyData = {
+    //     "name":"Name",
+    //     "grandPrixLeague": {
+    //         "_id":"-"
+    //     },
+    //     "totalTeams":"4",
+    //     "teamSize":"4",
+    //     "year":"2022"
+    // }
+    // store.dispatch(showDialog(DIALOG_UPDATE_FANTASY_LEAGUES, dummyData))
+
+    store.dispatch(isLoading(false));
+    
     // makeXMLRequest("/api/grand-prix/list?page_num=-1", "get").then((response) => {
     //     if(!response.auth)
     //         window.location.replace("/")

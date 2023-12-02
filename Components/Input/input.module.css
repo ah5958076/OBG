@@ -18,8 +18,9 @@
     pointer-events: none;
     transition: 0.5s;
 }
-.input select,
 .input input{
+    border: none;
+    outline: none;
     padding: 5px;
     position: relative;
     color: transparent;
@@ -27,19 +28,18 @@
     width: 100%;
     font-size: 16px;
 }
-.input select:valid,
-.input select:focus,
 .input input:valid,
 .input input:focus{
     color: white;
 }
-.input select option{
-    background-color: var(--bg);
-}
-.input select:valid ~ div,
-.input select:focus ~ div,
 .input input:valid ~ div,
 .input input:focus ~ div{
     transform: translateY(-20px);
     font-size: 15px;
+}
+.input input::-webkit-inner-spin-button{
+  display: none;
+}
+.input input[type='date']::-webkit-calendar-picker-indicator{
+    filter: invert(1);
 }

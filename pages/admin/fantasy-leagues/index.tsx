@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import tableStyles from "@/styles/pagesTables.module.css";
 
 import { NameAndExportData } from "@/Components/NameAndExportData/NameAndExportData"
 import Navbar from "@/Components/Navbar/Navbar"
@@ -10,6 +11,8 @@ import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 import { computeDate, openDeleteDialog, select_all, select_individual } from '@/utils/general'
 import { fetchGrandPrixforEditDialog, openAddNewDialog } from '@/utils/fantasyLeagues';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
 const FantasyLeagues = (props:any) => {
@@ -42,13 +45,13 @@ const FantasyLeagues = (props:any) => {
 
       <title>{TITLE_ADMIN_FANTASY_LEAGUES}</title>
 
-      <div className="container">
+      <div className={tableStyles.container}>
 
         <NameAndExportData url="/api/fantasy-league/download-record" title="Fantasy Leagues" />
         <SearchBar AddNewHandler={ null } url="/api/fantasy-league/search" title={TITLE_ADMIN_FANTASY_LEAGUES} addDialog={DIALOG_ADD_FANTASY_LEAGUES} deleteDialog={DIALOG_CONFIRMATION} />
         
 
-        <div className="table">
+        <div className={tableStyles.table}>
           <table>
 
             <thead>
@@ -67,6 +70,50 @@ const FantasyLeagues = (props:any) => {
             </thead>
 
             <tbody>
+
+
+              <tr>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
+                <td>Name 1</td>
+                <td>Grand Prix 1</td>
+                <td>Type</td>
+                <td>2001</td>
+                <td>4</td>
+                <td>4</td>
+                <td>{computeDate(Date.now())}</td>
+                <td>Yes</td>
+                <td>
+                  <button className='not-a-button' onClick={()=>{fetchGrandPrixforEditDialog("")}}>
+                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
+                  </button>
+                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", "")}}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
+                <td>Name 1</td>
+                <td>Grand Prix 1</td>
+                <td>Type</td>
+                <td>2001</td>
+                <td>4</td>
+                <td>4</td>
+                <td>{computeDate(Date.now())}</td>
+                <td>Yes</td>
+                <td>
+                  <button className='not-a-button' onClick={()=>{fetchGrandPrixforEditDialog("")}}>
+                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
+                  </button>
+                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", "")}}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
+                  </button>
+                </td>
+              </tr>
+
+
+
               {data?.data?
                 data?.data.data.map((obj:any, index:number) => (
                   <tr key={index}>

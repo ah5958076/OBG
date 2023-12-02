@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from "./nameAndExportData.module.css";
+
 import Link from 'next/link';
 import { export_data } from "@/utils/general";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +12,13 @@ export const NameAndExportData = (props:any) => {
       
         <div className={styles.controls_under_nav}>
 
-            <p>{props.title}</p>
+            <div>
+                <p>{props.title}</p>
+                <div>
+                    {props.children}
+                </div>
+            </div>
+
             <Link href={props.url} onClick={ export_data } id="export_data" title={props.title}>
                 <span>Export Data</span> 
                 <FontAwesomeIcon icon={faArrowDownLong} />

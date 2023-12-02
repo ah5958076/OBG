@@ -3,7 +3,7 @@ export const ROUTE_SIGNIN="/auth/login";
 export const ROUTE_SIGNUP="/auth/signup";
 export const ROUTE_FORGOT_PASSWORD="/auth/forgot-password";
 export const ROUTE_VERIFY_CODE="/auth/verify-code";
-export const ROUTE_RESET_PASSWORD="/forgot-password/verify-code/reset";
+export const ROUTE_RESET_PASSWORD="/auth/reset-password";
 // ...
 
 // Admin routes

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images";
 import Navbar from '@/Components/Navbar/Navbar'
@@ -13,6 +14,8 @@ import { fetchGamesforEditDialog, openAddNewDialog } from '@/utils/gpLeagues';
 import Image from 'next/image';
 import store from '@/Redux/store';
 import { showDialog } from '@/Redux/actions/dialogs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
 const GPLeagues = (props:any) => {
@@ -44,12 +47,12 @@ const GPLeagues = (props:any) => {
 
       <title>{TITLE_ADMIN_GPLEAGUES}</title>
 
-      <div className="container">
+      <div className={tableStyles.container}>
 
         <NameAndExportData url="/api/gp-league/download-record" title="GP Leagues" />
         <SearchBar AddNewHandler={ openAddNewDialog } url="/api/gp-league/search" title={TITLE_ADMIN_GPLEAGUES} addDialog={DIALOG_ADD_GP_LEAGUES} deleteDialog={DIALOG_CONFIRMATION} />
 
-        <div className="table">
+        <div className={tableStyles.table}>
           <table>
 
             <thead>
@@ -69,6 +72,56 @@ const GPLeagues = (props:any) => {
             </thead>
 
             <tbody>
+
+
+              <tr>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
+                <td>Name 1</td>
+                <td>Game Name 1</td>
+                <td>
+                  <Image src={ images.NO_PIC } alt="..." width={50} height={50} />
+                </td>
+                <td>10$</td>
+                <td>100$</td>
+                <td>4</td>
+                <td>8</td>
+                <td>{computeDate(Date.now())}</td>
+                <td>{computeDate(Date.now())}</td>
+                <td>
+                  <button className='not-a-button' onClick={()=>{fetchGamesforEditDialog("")}}>
+                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
+                  </button>
+                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_GPLEAGUES, "/api/gp-league/delete", "")}}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
+                  </button>
+                </td>
+              </tr>
+              
+              <tr>
+                <td><input type="checkbox" name="selection-box" value={2} onChange={select_individual}/></td>
+                <td>Name 1</td>
+                <td>Game Name 1</td>
+                <td>
+                  <Image src={ images.NO_PIC } alt="..." width={50} height={50} />
+                </td>
+                <td>10$</td>
+                <td>100$</td>
+                <td>4</td>
+                <td>8</td>
+                <td>{computeDate(Date.now())}</td>
+                <td>{computeDate(Date.now())}</td>
+                <td>
+                  <button className='not-a-button' onClick={()=>{fetchGamesforEditDialog("")}}>
+                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
+                  </button>
+                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_GPLEAGUES, "/api/gp-league/delete", "")}}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
+                  </button>
+                </td>
+              </tr>
+
+
+
               {data?.data?
                 data?.data.data.map((obj:any, index:any) => (
                   <tr key={index}>

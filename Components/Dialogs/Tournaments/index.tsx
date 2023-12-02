@@ -59,9 +59,9 @@ export const UpdateTournaments = () => {
 
     return (
 
-        <div className={dialogStyles.dialogs}>
+        <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
+            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <form method="post" onSubmit={updateTournamentHandler}>
 
@@ -82,7 +82,7 @@ export const UpdateTournaments = () => {
                         </div>
                     </div>
 
-                    <div className="controls">
+                    <div className={dialogStyles.controls}>
                         <button style={{backgroundColor: "gray"}} type="button">Cancel</button>
                         <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Update Tournament</button>
                     </div>

@@ -20,6 +20,8 @@ export const AddLadders = () => {
 
             <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
+                <h2>Add Ladder</h2>
+
                 <form method="post" onSubmit={addLadderHandler}>
 
                     <Input name='name' title='Ladder Name *' required={true} />
@@ -60,9 +62,11 @@ export const UpdateLadders = () => {
 
     return (
 
-    <div className={dialogStyles.dialogs}>
+    <div id='dialogs' className={dialogStyles.dialogs}>
 
-        <div className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
+        <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
+
+            <h2>Update Ladders</h2>
 
             <form method="post" onSubmit={updateLadderHandler}>
 

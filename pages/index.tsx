@@ -1,11 +1,21 @@
-import { ROUTE_SIGNIN } from "@/constants/routes";
-import { navigateTo } from "@/utils/general";
+import { isLoading } from "@/Redux/actions/loader";
+import store from "@/Redux/store";
+import { VERIFY_TOKEN_ROUTE } from "@/constants/backend-routes";
+import { ROUTE_ADMIN_DASHBOARD, ROUTE_SIGNIN } from "@/constants/routes";
+import { getRequest, navigateTo } from "@/utils/general";
 import { useEffect } from "react";
 
 export default function Home() {
 
   useEffect(()=>{
-    navigateTo(null, ROUTE_SIGNIN);
+    store.dispatch(isLoading(true));
+    getRequest(VERIFY_TOKEN_ROUTE).then((data:any) => {
+      if(data.auth) {navigateTo(null, ROUTE_ADMIN_DASHBOARD)}
+      else {navigateTo(null, ROUTE_SIGNIN)}
+    }).catch((e) =>{
+      console.log(e);
+      navigateTo(null, ROUTE_SIGNIN);
+    });
   });
 
   return (<></>)

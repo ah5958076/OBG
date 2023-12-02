@@ -1,13 +1,17 @@
 import React from 'react'
+import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images";
 import Navbar from '@/Components/Navbar/Navbar'
 import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
 import { SearchBar } from '@/Components/SearchBar/SearchBar'
 import { Pagination } from '@/Components/Pagination/Pagination'
-import { DIALOG_ADD_TOURNAMENTS, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
+import { DIALOG_ADD_TOURNAMENTS, DIALOG_CONFIRMATION, DIALOG_UPDATE_TOURNAMENTS } from '@/constants/dialog-names'
 import Image from 'next/image';
 import { TITLE_ADMIN_TOURNAMENTS } from '@/constants/page-titles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { openDeleteDialog, openEditDialog, select_all, select_individual } from '@/utils/general';
 
 
 const Tournaments = (props:any) => {
@@ -24,18 +28,18 @@ const Tournaments = (props:any) => {
 
       <title>{TITLE_ADMIN_TOURNAMENTS}</title>
 
-      <div className="container">
+      <div className={tableStyles.container}>
 
         <NameAndExportData url="/api/tournaments/download-record" title="Tournaments" />
         <SearchBar url="/api/tournaments/search" addDialog={DIALOG_ADD_TOURNAMENTS} deleteDialog={DIALOG_CONFIRMATION} />
 
-        <div className="table">
+        <div className={tableStyles.table}>
 
           <table>
 
             <thead>
               <tr>
-                <th><input type="checkbox" /></th>
+                <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
                 <th>Tournament</th>
                 <th>Category</th>
                 <th>Game</th>
@@ -50,8 +54,9 @@ const Tournaments = (props:any) => {
             </thead>
 
             <tbody>
+
               <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>Call of Duty 5*5 tournament</td>
                 <td>General</td>
                 <td>Call of Duty</td>
@@ -62,13 +67,17 @@ const Tournaments = (props:any) => {
                 <td>04</td>
                 <td>2022-02-13,06:30AM</td>
                 <td>
-                  <button><i className="fa-solid fa-pen" style={{color: "#89bfeb"}}></i></button>
-                  <button><i className="fa-solid fa-trash-can" style={{color: "#df4646"}}></i></button>
+                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_TOURNAMENTS, "", "/api/gp-league/show")}}>
+                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}} />
+                  </button>
+                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, "/api/gp-league/delete", "")}}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
+                  </button>
                 </td>
               </tr>
 
               <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name="selection-box" value={2} onChange={select_individual} /></td>
                 <td>PUBG ThunderStorm</td>
                 <td>Grand Prix</td>
                 <td>PUBG</td>
@@ -79,8 +88,12 @@ const Tournaments = (props:any) => {
                 <td>02</td>
                 <td>2023-02-13,10:30AM</td>
                 <td>
-                  <button title="Edit"><i className="fa-solid fa-pen" style={{color: "#89bfeb"}}></i></button>
-                  <button title="Delete"><i className="fa-solid fa-trash-can" style={{color: "#df4646"}}></i></button>
+                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_TOURNAMENTS, "", "/api/gp-league/show")}}>
+                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
+                  </button>
+                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, "/api/gp-league/delete", "")}}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
+                  </button>
                 </td>
               </tr>
             </tbody>

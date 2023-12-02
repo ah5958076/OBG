@@ -39,15 +39,15 @@ const Dashboard = (props:any) => {
 
           <div className={styles.real_time_values}>
             <div className={styles.real_values}>
-              <span>{data.users}</span>
+              <span>{data.users || 0}</span>
               <p>Total Users</p>
             </div>
             <div className={styles.real_values}>
-              <span>{data.active_users}</span>
+              <span>{data.active_users || 0}</span>
               <p>Active Users</p>
             </div>
             <div className={styles.real_values}>
-              <span>{data.games}</span>
+              <span>{data.games || 0}</span>
               <p>Total Games</p>
             </div>
           </div>

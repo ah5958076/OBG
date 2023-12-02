@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images";
 import { SearchBar } from '@/Components/SearchBar/SearchBar'
@@ -9,6 +10,7 @@ import { block, unblock } from '@/utils/grandprix'
 import {select_all, select_individual} from "@/utils/general"
 import { useSelector } from 'react-redux';
 import { TITLE_ADMIN_GRANDPRIX } from '@/constants/page-titles';
+import Image from 'next/image';
 
 
 const GrandPrix = (props:any) => {
@@ -40,12 +42,12 @@ const GrandPrix = (props:any) => {
 
           <title>{TITLE_ADMIN_GRANDPRIX}</title>
 
-          <div className="container">
+          <div className={tableStyles.container}>
 
-            <NameAndExportData url="/api/grand-prix/download-record" title="Grand Prix" />
+            <NameAndExportData url="/api/grand-prix/download-record" title={TITLE_ADMIN_GRANDPRIX} />
             <SearchBar url="/api/grand-prix/search" title={TITLE_ADMIN_GRANDPRIX} deleteAll={false} addBtn={false} />
 
-            <div className="table">
+            <div className={tableStyles.table}>
 
               <table>
 
@@ -58,12 +60,56 @@ const GrandPrix = (props:any) => {
                     <th>Owner's Occupation</th>
                     <th>Owner's Yearly Income($)</th>
                     <th>Owner's Address</th>
-                    <th>Block/Unblock</th>
+                    <th className={tableStyles.center}>Block/Unblock</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
 
                 <tbody>
+
+                  <tr>
+                    <td><input type="checkbox" name="selection-box" value={1} onChange={ select_individual } /></td>
+                    <td>Name 1</td>
+                    <td>Owner 1</td>
+                    <td>4</td>
+                    <td>Occupation 1</td>
+                    <td>10,000$</td>
+                    <td>Address 1</td>
+                    <td className={tableStyles.center}>
+                      <Image width={25} height={25} src={images.CLOSE_LOCK} alt="" />
+                    </td>
+                    <td>
+                        <button className='not-a-button' onClick={ (e)=>{unblock(e, ``, data?data.page_num:1)} }>
+                          <Image src={images.GREEN_TICK} alt="..." width={30} height={30} />
+                        </button>
+                        <button className='not-a-button' onClick={ (e)=>{block(e, ``, data?data.page_num:1)} }>
+                          <Image src={images.RED_CROSS} alt="..." width={30} height={30} />
+                        </button>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td><input type="checkbox" name="selection-box" value={1} onChange={ select_individual } /></td>
+                    <td>Name 1</td>
+                    <td>Owner 1</td>
+                    <td>4</td>
+                    <td>Occupation 1</td>
+                    <td>10,000$</td>
+                    <td>Address 1</td>
+                    <td className={tableStyles.center}>
+                      <Image width={25} height={25} src={images.CLOSE_LOCK} alt="" />
+                    </td>
+                    <td>
+                        <button className='not-a-button' onClick={ (e)=>{unblock(e, ``, data?data.page_num:1)} }>
+                          <Image src={images.GREEN_TICK} alt="..." width={30} height={30} />
+                        </button>
+                        <button className='not-a-button' onClick={ (e)=>{block(e, ``, data?data.page_num:1)} }>
+                          <Image src={images.RED_CROSS} alt="..." width={30} height={30} />
+                        </button>
+                    </td>
+                  </tr>
+
+
                   { data?.data.data.map((obj:any, index:number) => (
                     <tr key={index}>
                       <td><input type="checkbox" name="selection-box" value={obj._id} onChange={ select_individual } /></td>

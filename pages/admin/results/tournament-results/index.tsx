@@ -1,4 +1,5 @@
 import React from 'react'
+import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images"
 import Navbar from '@/Components/Navbar/Navbar'
@@ -10,15 +11,12 @@ import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { TITLE_ADMIN_TOURNAMENTS_RESULTS } from '@/constants/page-titles'
+import { openDeleteDialog, select_all, select_individual } from '@/utils/general';
 
 
 const TournamentsResults = (props:any) => {
   
   return (
-    
-    // <button>All</button>
-    //   <button>General</button>
-    //   <button>Grand Prix</button>
 
     <>
     
@@ -26,24 +24,28 @@ const TournamentsResults = (props:any) => {
 
       <title>{TITLE_ADMIN_TOURNAMENTS_RESULTS}</title>
       
-      <div className="container">
+      <div className={tableStyles.container}>
 
-        <NameAndExportData url="/api/tournament-results/download-record" title="Tournament Results" />
+        <NameAndExportData url="/api/tournament-results/download-record" title="Tournament Results">
+          <button data-active="yes">All</button>
+          <button data-active="no">General</button>
+          <button data-active="no">Grand Prix</button>
+        </NameAndExportData>
         <SearchBar url="/api/tournament-results/search" addBtn={false} deleteDialog={DIALOG_CONFIRMATION} />
 
-        <div className="table">
+        <div className={tableStyles.table}>
 
           <table>
 
             <thead>
               <tr>
-                <th><input type="checkbox" /></th>
+                <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
                 <th>User/Team</th>
                 <th>Game</th>
                 <th>Tournament</th>
                 <th>Score</th>
-                <th>Video/Image</th>
-                <th>Win/Loss</th>
+                <th className={tableStyles.center}>Video/Image</th>
+                <th colSpan={2}>Win/Loss</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -51,34 +53,50 @@ const TournamentsResults = (props:any) => {
             <tbody>
 
               <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>XYZ</td>
                 <td>Call of Duty</td>
                 <td>Call of Duty Championship</td>
                 <td>33</td>
-                <td><Image src={ images.USER } alt="" width={50} height={50} /></td>
-                <td className="Win">
+                <td className={tableStyles.center}>
+                  <Image src={ images.USER } alt="" width={50} height={50} />
+                </td>
+                <td className={tableStyles.Win} style={{width: "60px"}}>
                   <span>Win</span>
-                  <button><FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/></button>
                 </td>
                 <td>
-                  <button><FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/></button>
+                  <button className='not-a-button'>
+                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
+                  </button>
+                </td>
+                <td>
+                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_TOURNAMENTS_RESULTS, "/api/tournament-results/delete", "")}}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
+                  </button>
                 </td>
               </tr>
 
               <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name="selection-box" value={2} onChange={select_individual} /></td>
                 <td>XYZ</td>
                 <td>Call of Duty</td>
                 <td>Call of Duty Championship</td>
                 <td>33</td>
-                <td><Image src={ images.USER } alt="" width={50} height={50} /></td>
-                <td className="Loss">
+                <td className={tableStyles.center}>
+                  <Image src={ images.USER } alt="" width={50} height={50} />
+                </td>
+                <td className={tableStyles.Loss} style={{width: "60px"}}>
                   <span>Loss</span>
-                  <button><FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/></button>
                 </td>
                 <td>
-                  <button><FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/></button>
+                  <button className='not-a-button'>
+                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
+                  </button>
+                </td>
+                <td>
+                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_TOURNAMENTS_RESULTS, "/api/tournament-results/delete", "")}}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
+                  </button>
                 </td>
               </tr>
 

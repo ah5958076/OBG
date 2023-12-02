@@ -1,23 +1,34 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import styles from "@/styles/auth.module.css";
 
 import Link from "next/link";
-import { ROUTE_FORGOT_PASSWORD, ROUTE_SIGNIN, ROUTE_SIGNUP } from '@/constants/routes';
+import { ROUTE_ADMIN_DASHBOARD, ROUTE_FORGOT_PASSWORD, ROUTE_SIGNIN, ROUTE_SIGNUP } from '@/constants/routes';
 import { loginHandler } from "@/utils/auth";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import store from "@/Redux/store";
 import { isLoading } from "@/Redux/actions/loader";
-import { navigateTo } from "@/utils/general";
+import { getRequest, navigateTo } from "@/utils/general";
 import Input from "@/Components/Input"; 
+import { VERIFY_TOKEN_ROUTE } from "@/constants/backend-routes";
 
 
 
 const Login = () => {
 
     useEffect(() => {
-        store.dispatch(isLoading(false));
+        store.dispatch(isLoading(true));
         localStorage.removeItem("reset-data");
-    });
+        getRequest(VERIFY_TOKEN_ROUTE).then((data:any) => {
+            store.dispatch(isLoading(false));
+            if(data.auth) {navigateTo(null, ROUTE_ADMIN_DASHBOARD)}
+            else {localStorage.removeItem("token")}
+        }).catch((e) =>{
+            console.log(e);
+            store.dispatch(isLoading(false));
+            localStorage.removeItem("token");
+        });
+
+    }, []);
     
 
     return (
