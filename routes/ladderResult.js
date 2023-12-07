@@ -19,7 +19,9 @@ router.get("/delete/:id", ladderResult.delete);
 router.get("/show/:id", ladderResult.show);
 router.get("/list", ladderResult.list);
 
+
 router.post("/search", ladderResult.searchData);
+router.get("/download-report", ladderResult.downloadExcel);
 
 
 module.exports=router;

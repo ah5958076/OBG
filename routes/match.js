@@ -19,7 +19,9 @@ router.get("/delete/:id", match.delete);
 router.get("/show/:id", match.show);
 router.get("/list", match.list);
 
+
 router.post("/search", match.searchData);
+router.get("/download-report", match.downloadExcel);
 
 
 module.exports=router;

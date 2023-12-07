@@ -8,9 +8,13 @@ router.post("/update", grandPrix.update);
 router.post("/delete", grandPrix.delete);
 router.post("/show", grandPrix.show);
 router.get("/list", grandPrix.list);
-router.get("/download-report", grandPrix.downloadExcel);
+
 
 router.post("/search", grandPrix.searchData);
+router.get("/download-report", grandPrix.downloadExcel);
+
+
+router.post("/update/status", grandPrix.updateStatus);
 
 
 module.exports=router;

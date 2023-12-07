@@ -9,7 +9,8 @@ router.get("/show/:id", team.show);
 router.get("/list", team.list);
 
 
-router.get("/search", team.search);
+router.post("/search", team.search);
+router.get("/download-report", team.downloadExcel);
 
 
 module.exports=router;

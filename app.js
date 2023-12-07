@@ -19,9 +19,10 @@ var ladderResultRouter = require("./routes/ladderResult");
 var tournamentResultRouter = require("./routes/tournamentResult");
 var matchResultRouter = require("./routes/matchResult");
 var matchRouter = require("./routes/match");
+const { authenticateUser } = require("./middlewares/auth");
 
 
-mongoose.connect(process.env.DB_URL || "mongodb:127.0.0.1:27017/obg").then((val) => {
+mongoose.connect(process.env.DB_URL || "mongodb:127.0.0.1:27017").then((val) => {
   console.log("Database connected");
 }).catch((e) => {
   console.error(e);
@@ -37,19 +38,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.use('/api', authenticationRouter);
-app.use('/api/user', userRouter);
-app.use('/api/teams', teamRouter);
-app.use("/api/game", gameRouter);
-app.use("/api/gp-league", GPLeagueRouter);
-app.use("/api/fantasy-league", fantasyLeagueRouter);
-app.use("/api/grand-prix", grandPrixRouter);
-app.use("/api/inventory", inventoryRouter); 
-app.use("/api/tournament", tournamentRouter);
-app.use("/api/tournament-result", tournamentResultRouter);
-app.use("/api/ladder", ladderRouter);
-app.use("/api/ladder-result", ladderResultRouter);
-app.use("/api/match", matchRouter);
-app.use("/api/match-result", matchResultRouter);
+app.use('/api/user', authenticateUser, userRouter);
+app.use('/api/teams', authenticateUser, teamRouter);
+app.use("/api/game", authenticateUser, gameRouter);
+app.use("/api/gp-league", authenticateUser, GPLeagueRouter);
+app.use("/api/fantasy-league", authenticateUser, fantasyLeagueRouter);
+app.use("/api/grand-prix", authenticateUser, grandPrixRouter);
+app.use("/api/inventory", authenticateUser, inventoryRouter); 
+app.use("/api/tournament", authenticateUser, tournamentRouter);
+app.use("/api/tournament-result", authenticateUser, tournamentResultRouter);
+app.use("/api/ladder", authenticateUser, ladderRouter);
+app.use("/api/ladder-result", authenticateUser, ladderResultRouter);
+app.use("/api/match", authenticateUser, matchRouter);
+app.use("/api/match-result", authenticateUser, matchResultRouter);
 
 
 const PORT = process.env.PORT || 3000;

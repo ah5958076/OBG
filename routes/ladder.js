@@ -19,9 +19,9 @@ router.post("/delete", ladder.delete);
 router.post("/show", ladder.show);
 router.post("/list", ladder.list);
 
-router.get("/download-report", ladder.downloadExcel);
 
 router.post("/search", ladder.searchData);
+router.get("/download-report", ladder.downloadExcel);
 
 
 module.exports=router;

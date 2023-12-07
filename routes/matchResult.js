@@ -8,7 +8,9 @@ router.get("/delete/:id", matchResult.delete);
 router.get("/show/:id", matchResult.show);
 router.get("/list", matchResult.list);
 
+
 router.post("/search", matchResult.searchData);
+router.get("/download-report", matchResult.downloadExcel);
 
 
 module.exports=router;

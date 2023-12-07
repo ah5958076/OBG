@@ -19,7 +19,9 @@ router.get("/delete/:id", tournamentResult.delete);
 router.get("/show/:id", tournamentResult.show);
 router.get("/list", tournamentResult.list);
 
+
 router.post("/search", tournamentResult.searchData);
+router.get("/download-report", tournamentResult.downloadExcel);
 
 
 module.exports=router;

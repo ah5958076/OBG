@@ -4,28 +4,27 @@ const GrandPrixModel = require("../models/GrandPrix");
 const exceljs = require("exceljs");
 
 
-module.exports.store = async (objToInsert) => {
-    if(!(objToInsert.name && objToInsert.grandPrixOwner && objToInsert.totalTeams && objToInsert.ownerOccupation && objToInsert.ownerYearlyIncome && objToInsert.ownerAddress))
-        return constantMsgs.FIELD_EMPTY;
-    
+module.exports.store = async (objToInsert, auth) => {
+    if(!objToInsert.name)
+        return {auth: auth, isError: true, data: "Name is empty"};
+    if(!objToInsert.grandPrixOwner)
+        return {auth: auth, isError: true, data: "Grand Prix Owner is empty"};
+    if(!objToInsert.totalTeams)
+        return {auth: auth, isError: true, data: "Total Teams is empty"};
+    if(!objToInsert.ownerOccupation)
+        return {auth: auth, isError: true, data: "Owner Occupation is empty"};
+    if(!objToInsert.ownerYearlyIncome)
+        return {auth: auth, isError: true, data: "Owner Yearly Income is empty"};
+    if(!objToInsert.ownerAddress)
+        return {auth: auth, isError: true, data: "Owner Address is empty"};
 
 
-    let value = await GrandPrixModel.findOne({name: objToInsert.name.toLowerCase()}).catch((e) => {
-        console.log(e);
-    });
-
+    let value = await new GrandPrixModel(objToInsert).save().catch((e) => {console.log(e)});
     if(value)
-        return constantMsgs.GRAND_PRIX_ALREADY_EXISTS;
-
-    objToInsert.name=objToInsert.name.toLowerCase();
-    value = await new GrandPrixModel(objToInsert).save().catch((e) => {
-        console.log(e);
-    });
-    
-    if(value)
-        return constantMsgs.GRAND_PRIX_ADDED;
-    return constantMsgs.UNEXPECTED_ERROR;
+        return {auth:auth, isError:false, data:constantMsgs.GRAND_PRIX_ADDED};
+    return {auth:auth, isError:true, data:constantMsgs.UNEXPECTED_ERROR};
 }
+
 module.exports.update = async (objToEdit) => {
     let name = objToEdit.name;
     delete objToEdit.name;
@@ -36,6 +35,7 @@ module.exports.update = async (objToEdit) => {
         return constantMsgs.GRAND_PRIX_UPDATED;
     return constantMsgs.UNEXPECTED_ERROR;
 }
+
 module.exports.delete = async (name) => {
     if(!name)
         return constantMsgs.GRAND_PRIX_NOT_FOUND;
@@ -48,6 +48,7 @@ module.exports.delete = async (name) => {
         return constantMsgs.GRAND_PRIX_DELETED;
     return constantMsgs.UNEXPECTED_ERROR;
 }
+
 module.exports.show = async (name) => {
     if(!name)
         return constantMsgs.GRAND_PRIX_NOT_FOUND;
@@ -58,20 +59,28 @@ module.exports.show = async (name) => {
     });
     return value;
 }
-module.exports.list = async (page_number=1) => {
-    let value = await GrandPrixModel.find({}).catch((e) => {
-        console.log(e);
-    });
-    
-    let startingIndex=(PAGINATION_MAX_RECORD_SIZE*(page_number-1));   
-    let data=[];
-    if(startingIndex<value.length){
-        for(let i=0; (i<startingIndex+PAGINATION_MAX_RECORD_SIZE && i<value.length); i++){
-            data.push(value[i]);
-        }
+
+module.exports.list = async (auth, page_number=1) => {
+    let value=null;
+    let startingIndex=(PAGINATION_MAX_RECORD_SIZE*(page_number-1));
+    let endingIndex= startingIndex+PAGINATION_MAX_RECORD_SIZE;
+
+    if(page_number===-1){
+        value = await GrandPrixModel.find({}).catch((e) => {console.log(e)});
+        startingIndex=-1;
+        endingIndex=-1;
+    }else{
+        value = await GrandPrixModel.find({}).skip(startingIndex).limit(PAGINATION_MAX_RECORD_SIZE).catch((e) => {console.log(e)});
     }
-    return data;
+    let total=await GrandPrixModel.count({}).catch((e)=>{console.log(e)});
+    if(endingIndex>total)
+        endingIndex=total;
+    
+    return {auth: auth, data:value, start: startingIndex+1, end: endingIndex, total:total};
 }
+
+
+
 
 module.exports.downloadExcel = async (res) => {
     let workbook = new exceljs.Workbook();
@@ -128,4 +137,14 @@ module.exports.searchData = async (searchText) => {
     });
 
     return data; 
+}
+
+module.exports.updateStatus = async (body, auth) => {
+    if(!(body.id && (body.isBlock!==true && body.isBlock!==false)))
+        return {auth:auth, isError:true, data:constantMsgs.UNEXPECTED_ERROR}
+    
+    let value = await GrandPrixModel.updateOne({_id:body.id}, {isBlock: body.isBlocked}).catch((e)=>{console.log(e)});
+    if(value.modifiedCount)
+        return {auth:auth, isError:false, data:constantMsgs.GRAND_PRIX_UPDATED}
+    return {auth:auth, isError:true, data:constantMsgs.UNEXPECTED_ERROR}
 }

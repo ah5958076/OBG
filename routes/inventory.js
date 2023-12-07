@@ -19,7 +19,9 @@ router.post("/delete", inventory.delete);
 router.post("/show", inventory.show);
 router.post("/list", inventory.list);
 
+
 router.post("/search", inventory.searchData);
+router.get("/download-report", inventory.downloadExcel);
 
 
 module.exports=router;

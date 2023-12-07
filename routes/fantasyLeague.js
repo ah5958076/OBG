@@ -10,7 +10,9 @@ router.post("/show", fantasyLeague.show);
 router.post("/list", fantasyLeague.list);
 router.get("/download-report", fantasyLeague.downloadExcel);
 
+
 router.post("/search", fantasyLeague.searchData);
+router.get("/download-report", fantasyLeague.downloadExcel);
 
 
 module.exports=router;

@@ -19,9 +19,9 @@ router.post("/delete", GPLeague.delete);
 router.post("/show", GPLeague.show);
 router.post("/list", GPLeague.list);
 
-router.get("/download-report", GPLeague.downloadExcel);
 
 router.post("/search", GPLeague.searchData);
+router.get("/download-report", GPLeague.downloadExcel);
 
 
 module.exports=router;
