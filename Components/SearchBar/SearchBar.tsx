@@ -18,7 +18,7 @@ export const SearchBar = (props:any) => {
 
             <div>
                 
-                <input type="text" name="search" placeholder="Search" onInput={ (e)=>{searchData(e, props.title, props.url)} } />
+                <input type="text" name="search" placeholder="Search" onInput={ (e:any)=>{searchData(e.target?.value, props.title, props.url)} } />
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
 
             </div>

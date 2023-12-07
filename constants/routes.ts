@@ -21,3 +21,6 @@ export const ROUTE_ADMIN_TOTAL_WAR_LADDER_RESULTS="/admin/results/total-war-ladd
 export const ROUTE_ADMIN_MATCH_RESULTS="/admin/results/matches-results";
 export const ROUTE_ADMIN_GP_LEAGUE_RESULTS="/admin/results/gp-league-results";
 // ...
+
+// User Routes
+export const ROUTE_USER_DASHBOARD = "/user/dashboard";

@@ -1,0 +1,288 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+}
+
+/* Main Picture */
+.main-pic {
+    width: 100%;
+    position: relative; /* Ensure relative positioning for absolute child */
+  }
+  
+  .main-pic img {
+    width: 100%;
+    height: auto; 
+  }
+  
+  .main-pic h3 {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 6px 5px;
+    background-image: linear-gradient(to right,#f26826 ,transparent);
+    position: absolute;
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    margin: auto;
+    font-family: roboto;
+  }
+  .main-pic label{
+    display: flex;
+    position: absolute;
+    right: 0;
+    margin-top: -25px;
+    margin-right: 17px;
+    font-family: roboto;
+    font-size: 12px;
+  }
+  
+  #color-span1 {
+    font-size: 8px;
+    /* font-weight: bold; */
+  }
+  #color-span2 {
+    color: #f26826;
+    font-size: 11px;
+  }
+/*  */
+
+
+
+/* Lower Table Boxes */
+.main-box{
+    width: calc(100% - 10px);
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    display: flex;
+    position: relative;
+}
+.left-box{
+    width: calc(75% - 5px);
+    border: 1px solid#707070;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: roboto;   
+    
+}
+.left-box-data {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px; 
+}
+.color-txt{
+    color: #707070;
+}
+
+
+/* Right Box */
+.right1{
+    width: calc(25% - 10px);
+    border: 1px solid #707070;
+    border-radius: 5px;
+    font-family: roboto;
+}
+.right1 span{
+    padding-top: 10px;
+    margin-left: 5px;
+}
+.right1 p{
+    padding: 5px  ;
+    margin-left: 5px;
+    font-family: roboto;
+    font-size: 12px;
+}
+
+
+
+/* Lower Navigation Buttons */
+.lower-nav-tabs{    
+    width: calc(100% - 10px);
+    padding: 20px 5px;
+    border: none;
+    font-family: roboto;
+    font-size: 13px;
+    display: flex;
+    }
+  .lower-nav-tabs a{
+      text-decoration: none;
+      color: white;
+       padding: 10px 5px;
+       font-size: 13px;
+       white-space: nowrap;
+  }
+  
+  .active{
+    color: #F26826 !important;
+  }
+/* Team Buttons */
+.tournaments{
+    width: 100%;
+    padding: 10px 0px;
+    position: relative;
+    font-family: roboto;
+}
+.tournaments span{
+    margin-top: 10px;
+}
+.tournament-buttons{
+    padding: 10px 5px;
+    position: absolute;
+   background-color: #1A1A1A;
+    right: 0;
+    top: 10px;
+}
+.tournament-buttons button{
+    background-color: transparent;
+    color: #F26826; 
+    outline: none;    
+    border: 1px solid #F26826;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 0px;
+    padding: 5px;
+}
+.tournament-buttons button:hover{
+    color: white;
+    background-color: #F26826;
+}
+
+
+/* Last Div Box */
+.last-box{
+    display: flex;
+    width: calc(100% - 10px);
+    margin: 20px 0px;
+    padding: 10px 0px ;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;  
+    font-family: roboto;
+    margin-left: 3px;
+}
+.card1{
+   
+    display: flex;
+    position: relative; 
+    background-color: #232323;    
+    padding: 0;
+    width: 200px;
+    /* flex-wrap: wrap;   */
+}
+.card1 h4{
+    text-align: center;
+    padding-top: 5px;
+}
+
+#green{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    /* position: relative; */
+     padding: 40px 10px;
+    /* padding-left: 20px; */
+}
+.card1 .sub-text-port{
+    display: flex;
+    gap: 15px;
+    padding: 10px 30px;
+}
+.card1 .sub-text-port  span{
+    display: flex;
+    /* flex-direction: row; */
+}
+#right-corn{
+    display: flex;
+    position: absolute;
+    right: 7px;
+    top: 7px;
+}
+
+.small-gray{
+    font-size: 9px;
+    color: #767676;
+    font-weight: bold;
+}
+.no{
+    font-size: 9px;
+
+}
+
+
+
+
+
+
+
+
+/*  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 577px) {
+    .main-pic h3, h3 #color-span  {
+      font-size: 10px; 
+      padding: 10px 5px; 
+    }
+    .main-pic h3 #color-span {
+        font-size: 8px;
+    }
+  }
+
+
+
+@media (max-width:865px){
+    .left-box-data{
+        gap: 20px;
+    }
+}
+
+
+@media (max-width:704px){
+    .main-box{
+        flex-direction: column;
+    }
+    .left-box {
+        width: 100%;
+      }
+    
+      .right1 {
+        width: 100%;
+      }
+}
+
+@media (max-width:865px){
+    .container {
+      margin: 0;
+      width: 100%;
+    }
+  }

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules General</title>
+    <link rel="stylesheet" href="./Rules General.css">
+    <link rel="stylesheet" href="./nav.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link  rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"  />
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+           <!-- Nav Bars -->
+           <nav class="top-nav">
+            <h1>Online<br>BattleGround</h1>
+        
+            <div class="right login">
+                <a href="#" class="before-login active">Home</a>
+                <a href="#">Games</a>
+                <a href="#">Grand Prix</a>
+                <a href="#">Rules</a>
+                <div class="after-login search">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search..." name="search">
+                </div>
+                <div class="after-login notifications">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <a href="#" class="after-login"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                <a href="#" class="after-login site-clr">Support</a>
+                <button class="after-login site-clr">TOUR</button>
+            </div>
+        
+            <div class="small-nav login">
+                <div class="after-login search">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search..." name="search">
+                </div>
+        
+                <button class="nav-opener" onclick="this.parentElement.classList.toggle('show');" onblur="this.parentElement.classList.remove('show');"><i class="fa-solid fa-bars"></i></button>
+        
+                <div class="drop-down">
+                    <a href="#" class="before-login active">Home</a>
+                    <a href="#">Games</a>
+                    <a href="#">Grand Prix</a>
+                    <a href="#">Rules</a>
+                    <div class="after-login notifications">
+                        <i class="fa-solid fa-bell"></i>
+                        &nbsp;&nbsp;Notifications
+                    </div>
+                    <a href="#" class="after-login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Logout</a>
+                    <a href="#" class="after-login site-clr">Support</a>
+                    <button class="after-login site-clr">TOUR</button>
+                </div>
+            </div>
+        
+        </nav>
+        
+        
+        <nav class="left-nav">
+            <span class="hide-close-left-nav" onclick="this.children[0].classList.toggle('fa-angle-left');"><i class="fa-solid fa-angle-right fa-angle-left"></i></span>
+        
+            <div class="profile">
+                <img src="./images/Ellipse 5@2x.png" alt="...">
+                <p>Crimsix101</p>
+            </div>
+            
+            <span class="divider"><!-- nothing here --></span>
+            
+            <div class="items">
+                <a href="#">
+                    <img src="./images/MY Matches@2x.png" alt="">
+                    <span>My Matches</span>
+                </a>
+                <a href="#">
+                    <img src="./images/My Team@2x.png" alt="">
+                    <span>My Teams</span>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-people-pulling"></i>
+                    <span>Invites</span>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-building-flag"></i>
+                    <span>Fantasy League</span>
+                </a>
+                <a href="#">
+                    <img src="./images/money@2x.png" alt="">
+                    <span>Transactions</span>
+                </a>
+                <a href="#">
+                    <img src="./images/MY Matches@2x.png" alt="">
+                    <span>Inventory</span>
+                </a>
+            </div>
+        
+            <span class="divider"><!-- nothing here --></span>
+        
+            <div class="balance">
+                <p>Platform Credits</p>
+                <h1>$300</h1>
+                <a href="#">Winthdraw</a>
+                <a href="#">Add</a>
+            </div>
+        
+        </nav>
+        
+        
+        <nav class="right-nav">
+            
+            <div class="public-private">
+                <a class="active" href="#" onclick="toggleChats('chats', 'public-chats'); this.parentElement.children[0].classList.add('active'); this.parentElement.children[1].classList.remove('active')">Private</a>
+                <a href="#" onclick="toggleChats('public-chats', 'chats'); this.parentElement.children[0].classList.remove('active'); this.parentElement.children[1].classList.add('active')">Public</a>
+
+                <!-- <a class="active" href="#" onclick="this.parentElement.children[0].classList.add('active');this.parentElement.children[1].classList.remove('active')">Private</a>
+                <a href="#" onclick="this.parentElement.children[0].classList.remove('active');this.parentElement.children[1].classList.add('active')">Public</a> -->
+            </div>
+
+            <div class="top">
+                
+                <span onclick="this.children[0].classList.toggle('fa-angle-left');">
+                    <i class="fa-solid fa-angle-right"></i>
+                </span>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #707070;"></i>
+                    <input  type="text" placeholder="search">
+                </div>
+                <img src="./images/Mask Group 281@2x.png" alt="">
+            </div>
+            
+            <div class="chats" id="chats">
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+                    <p>Random</p>
+                </a>
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Delta Babes.png" alt=""></span>
+                    <p>Random</p>
+                </a>
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Dr pickachu (1).png" alt=""></span>
+                    <p>Random</p>
+                </a>
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Gamer Girl (1).png" alt=""></span>
+                    <p>Random</p>
+                </a>
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Dr pickachu (1).png" alt=""></span>
+                    <p>Random</p>
+                </a>
+            </div>
+
+            <!-- Public Chats -->
+            <div class="public-chats" id="public-chats">
+                 <div class="main-public-chats">
+                    
+                  <div class="group-message">
+                    <span  class="border"><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="green" >Nymo  <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+                  <div class="group-message">
+                    <span  class="border" ><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="orange">Dynamo <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+                  <div class="group-message">
+                    <span  class="border"><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="red">Gamer  <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+
+                  <div class="divider">Today</div>                             
+
+                  <div class="group-message">
+                    <span  class="border" ><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="orange">Dynamo <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+                  <div class="group-message">
+                    <span  class="border"><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="red">Gamer<span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right-eye-chat">
+                    
+                 <button class="eye-button" id="eye-button"  onclick="hideShow()"><i class="fa-solid fa-eye-slash"></i></button>
+                 <div class="eye-chats" id="eye-chats" >
+                    <a href="#" ><img src="./images/Dr pickachu (1).png" alt=""></a>
+                    <a href="#"><img src="./images/Gamer Girl (1).png" alt=""></a>
+                    <a href="#"><img src="./images/Ellipse 5.png" alt=""></a>
+                    <a href="#"><img src="./images/Dynamo large.png" alt=""></a>
+                 </div>
+                </div> 
+            </div>
+        
+        </nav>
+
+    
+        <nav class="chat-container">
+            
+            <div class="heading">
+                <span onclick="this.children[0].classList.toggle('fa-angle-left');"><i class="fa-solid fa-angle-right fa-angle-left"></i></span>
+                <img src="./images/Dynamo.png" alt="">
+                <p>Dynamo</p>
+            </div>
+           
+            <div class="messages">
+                
+                <div class="message">
+                    <img src="./images/Ellipse 5.png" alt="">
+                    <p>Hey whats up! How are you? I am fine and How are you? I am alos fine and how was your day? I am fine and how w<span>2d</span></p>
+                </div>
+                      
+            </div>
+
+            <div  class="send-message">
+                <input type="text" placeholder="Enter message" >
+                <img src="./images/send message.svg" alt="">
+            </div>
+            
+        </nav>      
+
+
+        <script>
+            const open_chat = (e) => {
+                e.preventDefault();
+                document.querySelector(".chat-container .heading span i").classList.remove("fa-angle-left")
+            }
+        </script>
+
+
+        <script>
+            function toggleChats(showDivId, hideDivId) {
+                const showDiv = document.getElementById(showDivId);
+                const hideDiv = document.getElementById(hideDivId);
+                
+                showDiv.style.display = 'flex';
+                hideDiv.style.display = 'none';
+            }
+         </script>          
+
+        <script>
+            const eyebutton= document.querySelector('#eye-button');
+            const divlist = document.querySelector('.eye-chats');
+
+            eyebutton.addEventListener('click',() =>{
+                if(divlist. style.display === 'none'){
+                    divlist.style.display = 'flex';
+                    eyebutton.innerHTML='<i class="fa-solid fa-eye-slash"></i>'
+                }
+                else{
+                    divlist.style.display = 'none';
+                    eyebutton.innerHTML='<i class="fa-regular fa-eye"></i>';
+                }
+            })
+        </script> 
+
+        
+     <!-- End Nav BArs --> 
+
+
+     <div class="container">
+          <!-- A tabs -->
+       <div class="a-tabs">
+        <a class="active" href="#">General</a>
+        <a href="#">Leagues & Ladders</a>
+        <a href="#">Fantasy Leagues General</a>
+       </div>
+       <!--  -->
+
+       <!-- Paragraphs -->
+       <div class="paragraph">
+        <p>1.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae incidunt odio officia exercitationem eum! A sapiente quam perspiciatis, ipsam delectus quos quaerat aliquam possimus impedit, accusantium cumque corporis laborum. Eum.</p>
+            <!--  -->
+            <br>
+        <p>2.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae incidunt odio officia exercitationem eum!</p>    
+            <!--  -->
+             <br>
+        <p>3.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut recusandae eos, quisquam tempora saepe eveniet nostrum harum adipisci ducimus culpa doloribus aspernatur debitis repellat veniam deserunt, repellendus dolorum molestias at.</p>
+         <!--  -->
+         <br>
+         <p>4. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est perspiciatis accusantium pariatur? Quis maiores natus repellendus ratione fugit aut quisquam vero itaque iusto, non nemo illo mollitia sequi dolores.</p>
+       </div>
+       
+
+
+       <!-- End Container -->
+     </div>
+</body>
+</html>

@@ -70,14 +70,11 @@ export const export_data = (e:any) => {
     });
 }
 
-export const searchData = (e:any, title:any, url:any) => {
-    e.preventDefault();
-    // const page_num = store.getState().PagesLoading.page_num;
-    let query=e.target.value;
+export const searchData = (value:string, title:any, url:any) => {
     let data:any = {
-        filter: query,
+        filter: value,
     }
-    if(query){
+    if(value){
         getRequest(url).then((response:any) => {
             if(response.auth){
                 if(response.isError){

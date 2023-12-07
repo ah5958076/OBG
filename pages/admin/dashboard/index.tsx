@@ -6,26 +6,28 @@ import Navbar from "@/Components/Navbar/Navbar";
 import store from '@/Redux/store';
 import { isLoading } from '@/Redux/actions/loader';
 import { TITLE_ADMIN_DASHBOARD } from '@/constants/page-titles';
-// import { getRequest } from '../../../../utils/general';
+import { getRequest, navigateTo } from '@/utils/general';
+import { ROUTE_SIGNIN } from '@/constants/routes';
+import { ADMIN_DASHBOARD_ROUTE } from '@/constants/backend-routes';
 
 const Dashboard = (props:any) => {
-  const [data, setData]:any = useState("hello");
+  const [data, setData]:any = useState();
 
-  useEffect(() => {
-    store.dispatch(isLoading(false));
-
-    // getRequest("/api/dashboard/list").then((data:any) => {
-    //   store.dispatch(isLoading(false));
-    //   if(data.auth===true)
-    //     setData(data);
-    //   else
-    //     router.push("/");
-    // }).catch((e) => {
-    //   console.log(e);
-    //   store.dispatch(isLoading(false));
-    //   // store.dispatch(showNotification("Something went wrong. Please try again", true));
-    // })
-  });
+  useEffect(() => {    
+    store.dispatch(isLoading(true));
+    getRequest(ADMIN_DASHBOARD_ROUTE).then((data:any) => {
+      if(data.auth?.auth===true){
+        setData(data);
+      }else{
+        navigateTo(null, ROUTE_SIGNIN);
+      }
+      store.dispatch(isLoading(false));
+    }).catch((e) => {
+      console.log(e);
+      navigateTo(null, ROUTE_SIGNIN);
+      store.dispatch(isLoading(false));
+    });
+  }, []);
 
   return (
     <>
@@ -39,15 +41,15 @@ const Dashboard = (props:any) => {
 
           <div className={styles.real_time_values}>
             <div className={styles.real_values}>
-              <span>{data.users || 0}</span>
+              <span>{data.totalUsers || 0}</span>
               <p>Total Users</p>
             </div>
             <div className={styles.real_values}>
-              <span>{data.active_users || 0}</span>
+              <span>{data.activeUsers || 0}</span>
               <p>Active Users</p>
             </div>
             <div className={styles.real_values}>
-              <span>{data.games || 0}</span>
+              <span>{data.totalGames || 0}</span>
               <p>Total Games</p>
             </div>
           </div>

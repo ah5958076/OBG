@@ -1,0 +1,225 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+}
+
+
+/* Create Button */
+.tournaments{
+    width:calc(100% - 20px) ;
+    padding: 10px ;
+    position: relative;
+    font-family: roboto;
+    margin-top: 20px;
+}
+.tournaments a{
+    gap: 10px;
+    text-decoration: none;
+    margin-left: 10px;
+    color: #F26826;
+    border: 1px solid #F26826;
+    padding: 3px 7px;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    font-size: 14px;
+
+}
+.tournament-buttons{
+    color: #F26826; 
+    background-color: #1A1A1A;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.tournament-buttons button{
+    border: 1px solid #F26826;
+    outline: none;    
+    color: #F26826;
+    background-color: #1A1A1A;
+    border-radius: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+#active1{
+    background-color: #F26826;
+    color: white;
+}
+
+/*  */
+
+
+
+
+
+
+
+
+
+
+/* Cards */
+/* featured-tournament */
+.cards{
+    width: calc(100% - 15px);
+    display: flex;
+    background-color: #1A1A1A;
+    margin-top: 15px;
+    border: 1px solid #707070;
+   border-radius: 5px;
+    
+}
+.card-line{
+    width: 100%;    
+    display: flex;
+    gap: 15px;
+    padding-top: 15px;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    margin-left: 35px;
+}
+
+.card{
+    background-color: #232323;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.card-data span{
+    font-size: 15px;
+    font-family: roboto;
+}
+.card-data table{
+    border: none;
+}
+
+table  td ,th{
+    font-size: 10px;
+    color: #767676;
+
+    
+}
+
+
+
+.card-data{
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+/* Dialogs */
+
+.dialogs {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;
+    border: 2px solid #f26826;
+}
+
+.dialogs .dialog {
+    display: flex;
+    background-color: #1A1A1A;
+    max-width: 400px;
+    min-width: 260px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid #767676;
+}
+
+.dialog form {
+    display: flex;
+    flex-direction: column; /* Changed to column */
+    gap: 30px;
+    width: 100%; /* Ensure form takes full width */
+}
+
+form .main {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center; /* Center content horizontally */
+   
+}
+.main input ,select {
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color:transparent;
+    color: #707070;
+    border-bottom: 1px solid #ffff;
+    width: 250px; /* Input fields take full width */
+}
+
+
+.main button {
+    border: none;
+    outline: none;
+    background-color: #f26826;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 3px;
+    width: 200px; /* Button takes full width */
+}
+
+
+
+
+@media (max-width:500px){
+    .dialogs .dialog{
+        max-width: 330px;
+    }
+}
+@media (max-width:420px){
+    .dialogs .dialog{
+        max-width: 260px;
+    }
+}
+
+
+@media (max-width:830px){
+    .container {
+        margin: 0;
+        width: 100%;
+    }
+    .tournament-buttons{
+        margin-right: 30px;
+    }
+    .tournaments a{
+        margin-left: 10px;
+    }
+    .card-line{
+        justify-content: center;
+    }
+}
+
+  @media(max-width:795px){
+    .tournaments{
+        display: flex;
+    }
+    .tournaments a{
+        margin-top: 30px;
+
+    }
+  }

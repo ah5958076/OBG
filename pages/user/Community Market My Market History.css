@@ -1,0 +1,305 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: #1a1a1a;
+}
+.container {
+  margin-left: 250px;
+  margin-right: 100px;
+  width: calc(100% - 250px - 100px);
+
+}
+
+
+
+.heading{
+  margin-left: 20px;
+  padding: 20px 10px;
+  font-family: roboto;
+
+}
+
+.heading{
+  margin-left: 20px;
+  padding: 20px 10px;
+  font-family: roboto;
+
+}
+.heading span{
+  margin-top: 20px;
+  font-size: 12px;
+  margin-left: 10px;
+
+}
+/*  */
+
+
+
+
+
+/* A Tags */
+.a-navs{
+  margin-top: 25px;
+  padding: 15px;
+  font-family: roboto;
+  flex-wrap: wrap;
+  background-color: #232323;
+  position: relative;
+  padding-left: 0px;
+}
+.a-navs a{
+  padding: 10px 6px;
+  text-decoration: none;
+  color: white;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.a-navs a.active{
+background-color: #f26826;
+color: white;
+}
+.a-navs button{
+  padding: 13px;
+  color: white;
+  background-color: #f26826;
+  border: none;
+  outline: none;
+  position: absolute;
+  right: 70px;
+  top: 2px;
+
+}
+
+/*  */
+/*  */
+
+
+
+
+/* Table */
+table{
+  width: calc(100% - 10px);
+  justify-content: center;
+  align-items: center;
+  border-collapse: collapse;
+  overflow: auto;
+  margin-top: 20px;
+  font-family: roboto;
+}
+
+
+table th{
+  padding: 15px 0px;
+  background-color: #4A4A4A;
+  padding-left: 10px;
+  font-size: 10px;
+}
+table tr{
+  padding-top: 15px;
+  margin-bottom: 10px;
+}
+table td{
+  font-size: 11px;
+}
+#img-td{
+  display: flex;
+  margin-top: 10px;
+}
+#img-td span{
+  padding-top: 10px;
+
+}
+td button{
+  border: none;
+  outline: none;
+  background-color: #f26826;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 3px;
+}
+.left-align {
+  text-align: left;
+}
+
+#border-row{
+  border: 1px solid #f26826;
+}
+
+/*  */
+
+
+/*  */
+
+.my-order{
+  margin-top: 20px;
+  font-family: roboto;
+  margin-left: 10px;
+}
+.last2{
+  margin-top: 20px;
+  background-color: #232323;
+  padding: 10px 0px;
+  font-family: roboto;
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Dialogs */
+/*  */
+.dialogs {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  font-family: roboto;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+}
+
+.dialogs .dialog {
+  display: flex;
+  background-color: #1a1a1a;
+  max-width: 450px;
+  min-width: 200px;
+  width: 100%;
+  padding: 10px 30px;
+  border-radius: 10px;
+}
+
+.dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+form .main {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  align-items: center;
+}
+
+
+
+
+.main input {
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: #232323;
+  border-bottom: 1px solid #ffff;
+  width: 100%;
+}
+.main .confirm-btns button{
+  padding: 10px 5px;
+  cursor: pointer;
+}
+
+.main button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  padding: 5px 10px;
+  border: 1px solid #707070;
+  border-radius: 3px;
+  width: 100px;
+  cursor: pointer;
+}
+
+.main .active{
+background-color: #f26826;
+
+}
+
+/*  */
+
+
+#buy-item{
+  display: none;
+}
+
+
+/* Purchase Succeeded */
+
+#purchase-succeed{
+  display: none;
+}
+
+
+.img-top {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+.img-container {
+  flex: 0 0 auto;
+  padding-right: 15px;
+}
+
+.img-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.text-container {
+  flex: 1 1 auto;
+}
+
+
+
+#green{
+  color: #156502;
+  font-size: 12 px;
+}
+
+#gray-text{
+  color: #707070;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+@media (max-width:520px){
+  .dialogs.dialog{
+    width: 350px;
+  }
+}
+
+
+@media (max-width:560px){
+  .a-navs button{
+    margin-right: -50px;
+  }
+}
+
+@media (max-width:900px){
+  .container {
+    margin: 0;
+    width: 100%;
+  }
+}

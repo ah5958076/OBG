@@ -1,0 +1,268 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+}
+
+
+
+
+
+
+.a-tabs{
+    padding: 15px 0px;
+    border: none;
+    outline: none;
+    font-family: roboto;
+    text-decoration: none;
+}
+.a-tabs a{
+    padding: 25px 10px;
+    color: white;
+    text-decoration: none;  
+
+}
+.a-tabs a.hover{
+    cursor: pointer;
+}
+.active{
+    color: #f26826;
+    border-bottom: 1px solid #f26826;
+
+}
+.paragraph{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-top: 10px;
+    padding: 15px;
+}
+
+
+
+/* Dialogs */
+
+.dialogs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;    
+  }
+
+  .dialogs .dialog{
+    display: flex;
+    background-color: black;
+    max-width: 400px;
+    min-width: 260px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  .dialog form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .dialog form .main-form{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .dialog form .main-form div:first-child{
+    width: 100%;
+    position: relative;
+  }
+  .dialog input,
+  .dialog select{
+    background-color: black;
+    margin-top: 10px;
+    border: none;
+    border-bottom: 2px solid #808080;
+    width: 100%;
+    outline: none;
+    padding: 4px 0px;
+    color: white;
+  }
+  .dialog .league-photo{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: 150px;
+  }
+  .dialog .file-input{
+    position: relative;
+    overflow: hidden;
+    border: 1px solid gray;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  .dialog .file-input input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    scale: 10;  
+    opacity: 0;
+  }
+  .dialog .file-input img{
+    object-fit: contain;
+  }
+  .dialog form button{
+    color: white;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding: 10px;
+  }
+ 
+  #add-league{
+    display: none;
+  }
+
+  #update-league{
+    display: flex;
+  }
+
+  #delete-league{
+    padding: 15px 30px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: auto;
+    display: none;
+  }
+  #delete-league button{
+    width: 80px;
+  }
+
+  /*  */
+  /*  */
+.dialogs-same{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+  
+}
+
+.dialogs-same .dialog-same{
+  display: flex;
+  background-color: black;
+  max-width: 400px;
+  min-width: 260px;
+  width: 100%;
+  padding: 30px;
+  border-radius: 10px;
+}
+.dialog-same form{
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+}
+.dialog-same form .main-form{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.dialog-same form .main-form div:first-child{
+  width: 100%;
+  position: relative;
+}
+.dialog-same input,
+.dialog-same select{
+  background-color: black;
+  margin-top: 10px;
+  border: none;
+  border-bottom: 2px solid #808080;
+  width: 100%;
+  outline: none;
+  padding: 4px 0px;
+  color: white;
+}
+
+.dialog-same .file-input{
+  position: relative;
+  overflow: hidden;
+  border: 1px solid gray;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.dialog-same .file-input input{
+  position: absolute;
+  top: 0;
+  left: 0;
+  scale: 10;  
+  opacity: 0;
+}
+
+.dialog-same form button{
+  color: white;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  padding: 10px;
+}
+ /* Top Value in dialog */
+ .top-value1{
+  display: flex;
+  justify-content: center;
+  padding: 0; 
+}
+.top-value1 p{
+  margin-top: 20px;
+  margin-left: -50px;  
+
+}
+/* ------- */
+
+
+ #update-pass{
+  display: flex;
+}
+#log-out{
+  padding: 15px 30px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: auto;
+  display: flex;
+}
+#log-out button{
+  width: 80px;
+}
+
+
+
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,146 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: calc(100% - 250px - 70px);
+}
+
+
+
+
+
+
+
+
+
+
+.main .personal_info{
+    background-image: url("/user-banner-placeholder.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 250px;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.main .personal_info .replace{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -10px;
+    right: -5px;
+    background-color: var(--site-clr);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;    
+}
+
+.main .personal_info .replace.banner{
+    top: 10px;
+    right: 20px;
+}
+
+.main .personal_info .replace input{
+    position: absolute;
+    scale: 5;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.main .personal_info .myself{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+}
+
+.main .personal_info .myself .dp_image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.main .personal_info .myself .dp_image img{
+    border-radius: 50%;
+}
+
+.main .personal_info .myself .name{
+    display: flex;
+    gap: 10px;
+    background-color: var(--bg);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.main .personal_info .myself .name span{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+.data{
+    display: grid;
+    grid-gap: 30px;
+    grid-template-areas: 'overview overview about' 'my_inventory my_inventory my_inventory';
+    width: 100%;
+    height: 500px;
+    padding-top: 20px;
+    overflow: auto;
+}
+.data .overview{ grid-area: overview;}
+.data .about{grid-area: about;}
+.data .my_inventory{grid-area: my_inventory;}
+
+.data .datum{
+    border: 1px solid var(--secondary-clr);
+    border-radius: 10px;
+    position: relative;
+    padding: 5px;
+}
+.data .datum h3{
+    color: var(--secondary-clr);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-105%);
+}
+.data .datum.about h3{
+    position: initial;
+    transform: translateY(0);
+    width: 100%;
+}
+.data .datum.about h3 span{
+    color: var(--fg);
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+@media(max-width:700px){
+    .main{
+        width: calc(100% - 70px - 70px);
+    }
+}

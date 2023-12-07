@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import styles from "@/styles/auth.module.css";
 
 import Link from "next/link";
-import { ROUTE_ADMIN_DASHBOARD, ROUTE_FORGOT_PASSWORD, ROUTE_SIGNIN, ROUTE_SIGNUP } from '@/constants/routes';
+import { ROUTE_ADMIN_DASHBOARD, ROUTE_FORGOT_PASSWORD, ROUTE_SIGNIN, ROUTE_SIGNUP, ROUTE_USER_DASHBOARD } from '@/constants/routes';
 import { loginHandler } from "@/utils/auth";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import store from "@/Redux/store";
@@ -19,8 +19,14 @@ const Login = () => {
         store.dispatch(isLoading(true));
         localStorage.removeItem("reset-data");
         getRequest(VERIFY_TOKEN_ROUTE).then((data:any) => {
+            console.log(data);
             store.dispatch(isLoading(false));
-            if(data.auth) {navigateTo(null, ROUTE_ADMIN_DASHBOARD)}
+            if(data.auth?.auth) {
+            if(data.auth?.role==="Admin")
+                navigateTo(null, ROUTE_ADMIN_DASHBOARD);
+            else if(data.auth?.role==="User")
+                navigateTo(null, ROUTE_USER_DASHBOARD);
+            }
             else {localStorage.removeItem("token")}
         }).catch((e) =>{
             console.log(e);

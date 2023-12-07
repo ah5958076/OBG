@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Call of Duty  Tournament Detail Page</title>
+    <link rel="stylesheet" href="./Call of Duty Tournament Detail Page.css" />
+    <link rel="stylesheet" href="./nav.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+
+          <!-- Nav Bars -->
+          <nav class="top-nav">
+            <h1>Online<br>BattleGround</h1>
+        
+            <div class="right login">
+                <a href="#" class="before-login active">Home</a>
+                <a href="#">Games</a>
+                <a href="#">Grand Prix</a>
+                <a href="#">Rules</a>
+                <div class="after-login search">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search..." name="search">
+                </div>
+                <div class="after-login notifications">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <a href="#" class="after-login"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                <a href="#" class="after-login site-clr">Support</a>
+                <button class="after-login site-clr">TOUR</button>
+            </div>
+        
+            <div class="small-nav login">
+                <div class="after-login search">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search..." name="search">
+                </div>
+        
+                <button class="nav-opener" onclick="this.parentElement.classList.toggle('show');" onblur="this.parentElement.classList.remove('show');"><i class="fa-solid fa-bars"></i></button>
+        
+                <div class="drop-down">
+                    <a href="#" class="before-login active">Home</a>
+                    <a href="#">Games</a>
+                    <a href="#">Grand Prix</a>
+                    <a href="#">Rules</a>
+                    <div class="after-login notifications">
+                        <i class="fa-solid fa-bell"></i>
+                        &nbsp;&nbsp;Notifications
+                    </div>
+                    <a href="#" class="after-login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Logout</a>
+                    <a href="#" class="after-login site-clr">Support</a>
+                    <button class="after-login site-clr">TOUR</button>
+                </div>
+            </div>
+        
+        </nav>
+        
+        
+        <nav class="left-nav">
+            <span class="hide-close-left-nav" onclick="this.children[0].classList.toggle('fa-angle-left');"><i class="fa-solid fa-angle-right fa-angle-left"></i></span>
+        
+            <div class="profile">
+                <img src="./images/Ellipse 5@2x.png" alt="...">
+                <p>Crimsix101</p>
+            </div>
+            
+            <span class="divider"><!-- nothing here --></span>
+            
+            <div class="items">
+                <a href="#">
+                    <img src="./images/MY Matches@2x.png" alt="">
+                    <span>My Matches</span>
+                </a>
+                <a href="#">
+                    <img src="./images/My Team@2x.png" alt="">
+                    <span>My Teams</span>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-people-pulling"></i>
+                    <span>Invites</span>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-building-flag"></i>
+                    <span>Fantasy League</span>
+                </a>
+                <a href="#">
+                    <img src="./images/money@2x.png" alt="">
+                    <span>Transactions</span>
+                </a>
+                <a href="#">
+                    <img src="./images/MY Matches@2x.png" alt="">
+                    <span>Inventory</span>
+                </a>
+            </div>
+        
+            <span class="divider"><!-- nothing here --></span>
+        
+            <div class="balance">
+                <p>Platform Credits</p>
+                <h1>$300</h1>
+                <a href="#">Winthdraw</a>
+                <a href="#">Add</a>
+            </div>
+        
+        </nav>
+        
+        
+        <nav class="right-nav">
+            
+            <div class="public-private">
+                <a class="active" href="#" onclick="toggleChats('chats', 'public-chats'); this.parentElement.children[0].classList.add('active'); this.parentElement.children[1].classList.remove('active')">Private</a>
+                <a href="#" onclick="toggleChats('public-chats', 'chats'); this.parentElement.children[0].classList.remove('active'); this.parentElement.children[1].classList.add('active')">Public</a>
+
+                <!-- <a class="active" href="#" onclick="this.parentElement.children[0].classList.add('active');this.parentElement.children[1].classList.remove('active')">Private</a>
+                <a href="#" onclick="this.parentElement.children[0].classList.remove('active');this.parentElement.children[1].classList.add('active')">Public</a> -->
+            </div>
+
+            <div class="top">
+                
+                <span onclick="this.children[0].classList.toggle('fa-angle-left');">
+                    <i class="fa-solid fa-angle-right"></i>
+                </span>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #707070;"></i>
+                    <input  type="text" placeholder="search">
+                </div>
+                <img src="./images/Mask Group 281@2x.png" alt="">
+            </div>
+            
+            <div class="chats" id="chats">
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+                    <p>Random</p>
+                </a>
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Delta Babes.png" alt=""></span>
+                    <p>Random</p>
+                </a>
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Dr pickachu (1).png" alt=""></span>
+                    <p>Random</p>
+                </a>
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Gamer Girl (1).png" alt=""></span>
+                    <p>Random</p>
+                </a>
+                <a href="#" onclick="open_chat(event)">
+                    <span><img src="./images/Dr pickachu (1).png" alt=""></span>
+                    <p>Random</p>
+                </a>
+            </div>
+
+            <!-- Public Chats -->
+            <div class="public-chats" id="public-chats">
+                 <div class="main-public-chats">
+                    
+                  <div class="group-message">
+                    <span  class="border"><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="green" >Nymo  <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+                  <div class="group-message">
+                    <span  class="border" ><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="orange">Dynamo <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+                  <div class="group-message">
+                    <span  class="border"><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="red">Gamer  <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+
+                  <div class="divider">Today</div>                             
+
+                  <div class="group-message">
+                    <span  class="border" ><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="orange">Dynamo <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+                  <div class="group-message">
+                    <span  class="border"><img src="./images/Ellipse 5.png" alt=""></span>
+                    <div class="name-time">
+                        <a  href="#" id="red">Gamer<span id="small-gray-time">Yesterday at 1:20 PM</span></a>
+                        <p>Hyy! New Message</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right-eye-chat">
+                    
+                 <button class="eye-button" id="eye-button"  onclick="hideShow()"><i class="fa-solid fa-eye-slash"></i></button>
+                 <div class="eye-chats" id="eye-chats" >
+                    <a href="#" ><img src="./images/Dr pickachu (1).png" alt=""></a>
+                    <a href="#"><img src="./images/Gamer Girl (1).png" alt=""></a>
+                    <a href="#"><img src="./images/Ellipse 5.png" alt=""></a>
+                    <a href="#"><img src="./images/Dynamo large.png" alt=""></a>
+                 </div>
+                </div> 
+            </div>
+        
+        </nav>
+
+    
+        <nav class="chat-container">
+            
+            <div class="heading">
+                <span onclick="this.children[0].classList.toggle('fa-angle-left');"><i class="fa-solid fa-angle-right fa-angle-left"></i></span>
+                <img src="./images/Dynamo.png" alt="">
+                <p>Dynamo</p>
+            </div>
+           
+            <div class="messages">
+                
+                <div class="message">
+                    <img src="./images/Ellipse 5.png" alt="">
+                    <p>Hey whats up! How are you? I am fine and How are you? I am alos fine and how was your day? I am fine and how w<span>2d</span></p>
+                </div>
+                      
+            </div>
+
+            <div  class="send-message">
+                <input type="text" placeholder="Enter message" >
+                <img src="./images/send message.svg" alt="">
+            </div>
+            
+        </nav>      
+
+
+        <script>
+            const open_chat = (e) => {
+                e.preventDefault();
+                document.querySelector(".chat-container .heading span i").classList.remove("fa-angle-left")
+            }
+        </script>
+
+
+        <script>
+            function toggleChats(showDivId, hideDivId) {
+                const showDiv = document.getElementById(showDivId);
+                const hideDiv = document.getElementById(hideDivId);
+                
+                showDiv.style.display = 'flex';
+                hideDiv.style.display = 'none';
+            }
+         </script>          
+
+        <script>
+            const eyebutton= document.querySelector('#eye-button');
+            const divlist = document.querySelector('.eye-chats');
+
+            eyebutton.addEventListener('click',() =>{
+                if(divlist. style.display === 'none'){
+                    divlist.style.display = 'flex';
+                    eyebutton.innerHTML='<i class="fa-solid fa-eye-slash"></i>'
+                }
+                else{
+                    divlist.style.display = 'none';
+                    eyebutton.innerHTML='<i class="fa-regular fa-eye"></i>';
+                }
+            })
+        </script> 
+
+        
+     <!-- End Nav BArs --> 
+
+
+
+    <div class="container">
+      <div class="main-pic">
+        <img src="./images/War-zone-wide.png" alt="" />
+        <span>STARTING FROM <label id="yellow-text">MAY 14,2022</label></span>
+        <span id="may">MAY 14, 2022 JUN 14,2022</span>
+        <br>
+        <button>Join Tournament</button>
+      </div>
+
+      <!-- Call of duty Tournament -->
+      <div class="call-of-duty">
+        <h2>Call of Duty Tournament</h2>
+        <span>Hosted by: <span id="color-text"> Nuroten 201</span> </span>
+        <span id="right-side">Game: &nbsp;<span id="color-text">Call of Duty</span></span>
+      </div>
+      <!--  -->
+
+
+       <!-- Lower Navigation bUttons -->
+       <div class="lower-nav-tabs">
+         <a href="#" class="active">Games</a>
+        <a href="./Call of Duty Tournament Detail Page Rules.html">Rules</a>
+      </div>
+      <!--  -->
+
+
+
+
+
+          <!-- Last Div Box -->
+           <div class="last-main-box">
+
+            <div class="first-box">
+                  <p><img src="./images/win.png" alt=""> Win</p> 
+                  <p>Micheal 034</p>
+                  <img id="main-img" src="./images/small pink man.png" alt="">
+
+                  <div class="table-content">
+                    <p><span><img src="./images/game.png"></span>&nbsp; <span class="gray-text">Matches</span> &nbsp;  <span >159</span></p>
+                    <p><span><img src="./images/win per.png" alt=""></span>&nbsp; &nbsp; &nbsp; <span  class="gray-text">Win</span> &nbsp; &nbsp; &nbsp; &nbsp; <span >100</span></p>
+                    <p><span><img src="./images/win per.png" alt=""></span>&nbsp;  &nbsp;<span class="gray-text">Win%</span> &nbsp; &nbsp; &nbsp; &nbsp; <span >70%</span></p>
+                    <p><span><img src="./images/loss.png" alt=""></span>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<span class="gray-text">Loss</span> &nbsp;&nbsp; &nbsp; &nbsp;  <span >59</span></p>
+
+                  </div>
+            </div>
+
+            <div class="second-box">
+                 <img id="trophy" src="./images/Trophy.svg" alt="">
+                 <p><img src="./images/Coin@2x.png" alt="">500</p>
+            </div>
+
+            <div class="third-box">
+              <p><img src="./images/loss.png" alt=""> Loss</p> 
+              <p>James 47</p>
+              <img id="main-img" src="./images/small pink man.png" alt="">
+
+              <div class="table-content">
+                <p><span><img src="./images/game.png"></span>&nbsp; <span class="gray-text">Matches</span> &nbsp;  <span >159</span></p>
+                <p><span><img src="./images/win per.png" alt=""></span>&nbsp; &nbsp; &nbsp; <span  class="gray-text">Win</span> &nbsp; &nbsp; &nbsp; &nbsp;  <span >100</span></p>
+                <p><span><img src="./images/win per.png" alt=""></span>&nbsp;  &nbsp;<span class="gray-text">Win%</span> &nbsp; &nbsp; &nbsp; &nbsp;  <span >70%</span></p>
+                <p><span><img src="./images/loss.png" alt=""></span>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<span class="gray-text">Loss</span> &nbsp; &nbsp; &nbsp; &nbsp;  <span >59</span></p>
+
+              </div> 
+            </div>
+
+           </div>
+
+
+      <!-- End of Container -->
+    </div>
+
+    <!-- Dialogs -->
+<div class="dialogs">
+  <!--  -->
+  <div class="dialog">
+    <form action="#" method="post">
+      <div class="main-form">
+        <!-- Picture -->
+        <div class="file-input">
+          <img src="./images/dialoge-war-zone.png" width="100%">
+        </div>
+        <!--  -->
+        <!-- Input fields -->
+        <input type="text" name="" placeholder="Score*" required />
+
+
+        <select  name="" placeholder="Result*" required>
+          <option value="">Games</option>
+        </select>
+
+
+        <input type="text" name="" placeholder="Map Score1*" />
+        <input type="text" name="" placeholder="Map Score2*" />
+        <input type="text" name="" placeholder="Map Score3*" />
+        <input type="text" name="" placeholder="Map Score4*" />
+        <input type="text" name="" placeholder="Map Score5*" />
+
+        <label for="customFile" class="custom-file-upload" >
+          <span> <i class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp; File/image Upload</span>
+        </label>
+        <input type="file" name="imageInput" id="customFile" accept="image/*"  style="display: none;" onchange="upload_image(this.parentElement);"/>
+
+      </div>
+      <button style="background-color: #ff7700;" type="submit">SUBMIT</button>
+    </form>
+  </div>
+</div>
+  </body>
+</html>

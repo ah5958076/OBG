@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <link rel="stylesheet" href="./Test.css">
+    <link rel="stylesheet" href="./nav.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+      <!-- Nav Bars -->
+      <nav class="top-nav">
+        <h1>Online<br>BattleGround</h1>
+    
+        <div class="right login">
+            <a href="#" class="before-login active">Home</a>
+            <a href="#">Games</a>
+            <a href="#">Grand Prix</a>
+            <a href="#">Rules</a>
+            <div class="after-login search">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search..." name="search">
+            </div>
+            <div class="after-login notifications">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <a href="#" class="after-login"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <a href="#" class="after-login site-clr">Support</a>
+            <button class="after-login site-clr">TOUR</button>
+        </div>
+    
+        <div class="small-nav login">
+            <div class="after-login search">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search..." name="search">
+            </div>
+    
+            <button class="nav-opener" onclick="this.parentElement.classList.toggle('show');" onblur="this.parentElement.classList.remove('show');"><i class="fa-solid fa-bars"></i></button>
+    
+            <div class="drop-down">
+                <a href="#" class="before-login active">Home</a>
+                <a href="#">Games</a>
+                <a href="#">Grand Prix</a>
+                <a href="#">Rules</a>
+                <div class="after-login notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    &nbsp;&nbsp;Notifications
+                </div>
+                <a href="#" class="after-login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Logout</a>
+                <a href="#" class="after-login site-clr">Support</a>
+                <button class="after-login site-clr">TOUR</button>
+            </div>
+        </div>
+    
+    </nav>
+    
+    
+    <nav class="left-nav">
+        <span class="hide-close-left-nav" onclick="this.children[0].classList.toggle('fa-angle-left');"><i class="fa-solid fa-angle-right fa-angle-left"></i></span>
+    
+        <div class="profile">
+            <img src="./images/Ellipse 5@2x.png" alt="...">
+            <p>Crimsix101</p>
+        </div>
+        
+        <span class="divider"><!-- nothing here --></span>
+        
+        <div class="items">
+            <a href="#">
+                <img src="./images/MY Matches@2x.png" alt="">
+                <span>My Matches</span>
+            </a>
+            <a href="#">
+                <img src="./images/My Team@2x.png" alt="">
+                <span>My Teams</span>
+            </a>
+            <a href="#">
+                <img src="./images/My Team@2x-1.png" alt="">
+                <span>Invites</span>
+            </a>
+            <a href="#">
+                <img src="./images/My Team@2x-1.png" alt="">
+                <span>Profile</span>
+            </a>
+            <a href="#">
+                <i class="fa-solid fa-building-flag"></i>
+                <span>Fantasy League</span>
+            </a>
+            <a href="#">
+                <img src="./images/money@2x.png" alt="">
+                <span>Transactions</span>
+            </a>
+            <a href="#">
+                <img src="./images/MY Matches@2x.png" alt="">
+                <span>Inventory</span>
+            </a href="#">
+        </div>
+    
+        <span class="divider"><!-- nothing here --></span>
+    
+        <div class="balance">
+            <p>Platform Credits</p>
+            <h1>$300</h1>
+            <a href="#">Winthdraw</a>
+            <a href="#">Add</a>
+        </div>
+    
+    </nav>
+    
+    
+    <nav class="right-nav">
+        <span class="nav-opener" onclick="this.children[0].classList.toggle('fa-angle-left');">
+            <i class="fa-solid fa-angle-right"></i>
+        </span>
+        
+        <img src="./images/Mask Group 281@2x.png" alt="">
+    
+        <div class="chats">
+            <span class="border"><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span class="online"><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+            <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+        </div>
+    
+    </nav>
+    
+       <!-- End Nav BArs --> 
+
+
+     <div class="container">
+          <!-- A tabs -->
+       <div class="a-tabs">
+        <a class="active" href="#">General</a>
+        <a href="#">Leagues & Ladders</a>
+        <a href="#">Fantasy Leagues General</a>
+       </div>
+       <!--  -->
+
+       <!-- Paragraphs -->
+       <div class="paragraph">
+        <p>1.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae incidunt odio officia exercitationem eum! A sapiente quam perspiciatis, ipsam delectus quos quaerat aliquam possimus impedit, accusantium cumque corporis laborum. Eum.</p>
+            <!--  -->
+            <br>
+        <p>2.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae incidunt odio officia exercitationem eum!</p>    
+            <!--  -->
+             <br>
+        <p>3.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut recusandae eos, quisquam tempora saepe eveniet nostrum harum adipisci ducimus culpa doloribus aspernatur debitis repellat veniam deserunt, repellendus dolorum molestias at.</p>
+         <!--  -->
+         <br>
+         <p>4. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est perspiciatis accusantium pariatur? Quis maiores natus repellendus ratione fugit aut quisquam vero itaque iusto, non nemo illo mollitia sequi dolores.</p>
+       </div>
+       
+
+
+       <!-- End Container -->
+     </div>
+     <!--  -->
+         <!-- Dialogue Box -->
+    <div class="dialogs">
+
+        <div class="dialog" id="add-league">
+          <form action="#" method="post">
+            <div class="main-form">
+              <div>
+                <!--  -->
+                <label for="imageInput">League Photo*</label>
+                <div class="file-input">
+                  <img src="./images/upload-photo-placeholder.svg" alt="...">
+                  <input type="file" name="" id="imageInput" accept="image/*" onchange="upload_image(this.parentElement);" />
+                </div>
+                <!--  -->
+                <input type="text" name="" placeholder="League Name*" required />
+                <select  name="" placeholder="Game*" required>
+                  <option value="">--SELECT--</option>
+                </select>
+                <input type="text" name="" placeholder="Entry Fee*" required />
+                <input type="text" name="" placeholder="Prize*" required />
+                <input type="text" name="" placeholder="Teams Size*" required />
+                <input type="text" name="" placeholder="Total Teams*" required/>
+                <input type="date" name="" placeholder="Starting Date*" />
+                <input type="date" name="" placeholder="Ending Date*" />
+              </div>
+    
+              <div class="league-photo">
+               
+              </div>
+            </div>
+  
+            <button style="background-color: #ff7700;" type="submit">ADD LEAGUE</button>
+  
+          </form>
+        </div>
+        <!--  -->
+        
+        <!-- Update League -->
+        <div class="dialog" id="update-league">
+          <form action="#" method="post">
+            <div class="main-form">
+              <div>
+                <input type="text" name="" placeholder="League Name*" required />
+                <select  name="" placeholder="Game*" required>
+                  <option value="">--SELECT--</option>
+                </select>
+                <input type="text" name="" placeholder="Entry Fee*" required />
+                <input type="text" name="" placeholder="Prize*" required />
+                <input type="text" name="" placeholder="Teams Size*" required />
+                <input type="text" name="" placeholder="Total Teams*" required/>
+                <input type="date" name="" placeholder="Starting Date*" />
+                <input type="date" name="" placeholder="Ending Date*" />
+              </div>
+    
+              <div class="league-photo">
+                <label for="imageInput">League Photo*</label>
+                <div class="file-input">
+                  <img src="./images/upload-photo-placeholder.svg" alt="...">
+                  <input type="file" name="" id="imageInput" accept="image/*" onchange="upload_image(this.parentElement);" />
+                </div>
+              </div>
+            </div>
+  
+            <button style="background-color: #ff7700;" type="submit">UPDATE LEAGUE</button>
+  
+          </form>
+        </div>
+        <!--  -->
+        <!-- Delete Dialog -->
+        <div class="dialog" id="delete-league">
+          <form action="#" method="post">
+            <div class="main-form">
+              <div>
+                <p>Are you Sure?</p>
+              </div>
+    
+              </div>
+              
+          <pre><button style="background-color: #4A4A4A;">Cancel</button>  <button style="background-color: #ff7700;" type="submit">Yes</button></pre>
+          </form>
+        </div>
+        <!--  -->
+  
+      </div>
+  
+  
+       <!-- Dialogue Box -->
+       <div class="dialogs-same">
+  
+    
+        <!--  -->
+        
+        <!-- Update Password -->
+        <div class="dialog-same" id="update-pass"  style="border: 1px solid #1a1a1a;">
+          
+            <form action="#" method="post">
+              <div class="top-value1">
+              
+                <p style="font-size: 20px;">Change Password</p>
+              </div>
+              <div class="main-form">
+                  <div>
+                  <input type="password" name="" placeholder=" Old Password*" required />
+                  <input type="password" name="" placeholder="New Password*" required />
+                  <input type="password" name="" placeholder="Confirm New Password*" required />
+                                
+                </div>    
+              </div>    
+              <button style="background-color: #ff7700; padding:10px 25px " type="submit">UPDATE PASSWORD</button>    
+            </form>   
+          
+        </div>
+        <!--  -->
+        <!-- Logout -->
+        <div class="dialog-same" id="log-out">
+          <form action="#" method="post">
+            <div class="main-form">
+              <div>
+                <p>Are you Sure?</p>
+              </div>
+    
+              </div>
+              
+          <pre><button style="background-color: #4A4A4A;">Cancel</button>  <button style="background-color: #ff7700;" type="submit">Yes</button></pre>
+          </form>
+        </div>
+        <!--  -->
+  
+      </div>
+  
+  
+      <script>
+        const upload_image = (parentElem) => {
+          let input = parentElem.querySelector("input");
+          let image = parentElem.querySelector("img");
+  
+          image.src=URL.createObjectURL(input.files[0]);
+  
+        }
+      </script>
+</body>
+</html>

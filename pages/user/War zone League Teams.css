@@ -1,0 +1,319 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+    font-family: roboto;
+}
+
+/* Main Picture */
+.main-pic{
+      width: 100%;
+      border-bottom: 1px solid #F26826;
+      position: relative;
+}
+.main-pic img{
+    width: 100%;
+}
+.main-pic span{
+    color:white;
+    display: flex;
+    position: absolute;
+    margin-top: -70px;
+    justify-content: center;
+    padding-left: 30px;
+    font-family: roboto;
+    padding: 6px 5px;
+    flex-wrap: wrap;
+   
+}
+#yellow-text{
+    color: #F26826;
+}
+
+#right-side{
+    color:white;
+    display: flex;
+    position: absolute;
+    right: 10px;
+    margin-top: -30px;
+    justify-content: center;
+    padding-right: 30px;
+    font-family: roboto;
+    padding: 6px 5px;
+    flex-wrap: wrap;  
+    font-size: 12px;
+}
+#may{
+    display: flex;
+    position: absolute;
+    margin-top: -40px; 
+    font-size: 10px; 
+}
+.main-pic button{
+    color:white;
+    font-family: roboto;
+    background: #F26826;
+    display: flex;
+    position: absolute;
+    right: 0;
+    margin-top: -40px;
+    margin-right: 150px;
+    justify-content: center;
+    padding-right: 30px;
+    font-family: roboto;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+
+
+
+/* Call of Duty Tournament */
+.call-of-duty{
+    width: 100%;
+    font-family: roboto;
+    padding: 10px 0px;
+    position: relative;
+    margin-left: 10px
+}
+.call-of-duty span{
+    font-size: 10px;
+}
+#color-text{
+    color: #F26826;
+    margin-top: 2px;
+}
+/*  */
+
+
+
+/* Table */
+table{
+    width: calc(100% - 10px);
+    padding: 20px 10px;
+    border: 1px solid #707070;
+    border-radius: 8px;
+    font-family: roboto;
+    margin-left: 5px;
+  }
+  table th{
+    color: #707070;
+    font-size: 11px;
+  }
+table td{
+  font-size: 11px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/*  */
+/* Lower Navigation Buttons */
+.lower-nav-tabs{    
+  width: calc(100% - 20px);
+  padding: 20px 10px;
+  border: none;
+  font-family: roboto;
+  display: flex;
+  }
+.lower-nav-tabs a{
+    text-decoration: none;
+    color: white;
+     padding: 10px 6px;
+     font-size: 14px;
+     white-space: nowrap;
+}
+
+.active{
+  color: #F26826 !important;
+}
+
+
+
+
+
+
+
+
+/* Main Div Box */
+
+.main-div-box {
+  display: flex;
+    width: calc(100% - 20px);
+    padding: 10px 5px;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    margin-left: 3px;
+}
+.left{
+    display: grid;
+    grid-template-columns: repeat(auto-fill ,200px);
+    width: 100%;
+    grid-gap: 20px;
+    justify-content: center;
+}
+
+.div1 {
+    margin: 10px 0;
+    display: flex;
+    position: relative;
+    width: 200px;
+    flex-direction: row;     
+    justify-content: space-between; 
+    align-items: center; 
+    font-family: roboto;
+    padding: 10px 2px;
+    background-color: #232323;
+
+}
+#border-div{
+    border: 1px solid #56955D;
+}
+
+.span-part {
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    padding-left: 10px;
+    font-size: 10px;
+}
+
+.gray-text{
+    color: #707070;
+}
+.white-text{
+    color: white;
+}
+
+.img {
+  
+    display: flex;
+    justify-content: center; /* Align image to the center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 10px;
+}
+/*  */
+
+
+
+
+
+
+
+
+/* Dialog */
+.dialogs{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;    
+    border: 2px solid #f26826;
+    font-family: roboto;
+  }
+
+  .dialogs .dialog{
+    display: flex;
+    background-color: #101010;
+    max-width: 400px;
+    min-width: 260px;
+    width: 100%;
+    padding: 30px 5px;
+    border-radius: 10px;
+    justify-content: center;
+  }
+  .dialog form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    color: #FFFFFF;
+  }
+
+  .dialog form .main-form{   
+    align-items: center;
+  }
+
+  .dialog select{
+    background-color: black;
+    margin-top: 10px;
+    border: none;
+    border-bottom: 1px solid #808080;
+    width: 100%;
+    outline: none;
+    padding: 4px 0px;
+    color: #4B4B4B;
+  }
+.dialog form button{
+    color: white;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding: 10px 60px;
+    background-color: #F26826;
+    width: 250px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 444px){
+    .main-pic span{
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 426px){
+    .main-pic span{
+        padding-top: 10px;
+    }
+    .main-pic button{
+        margin-top: -90px;
+        margin-left: 100px;
+        font-size: 11px;
+    }
+}
+
+
+
+
+
+@media (max-width: 640px) {
+    .main-div-box {
+      flex-direction: column; 
+    }
+    
+    .left {
+      max-width: 100%;    }
+    
+    .right {
+      width: 100%; 
+    }
+    
+  }
+  
+  @media (max-width:770px){
+    .container {
+      margin: 0;
+      width: 100%;
+    }
+  }

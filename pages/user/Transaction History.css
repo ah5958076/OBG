@@ -1,0 +1,61 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+}
+
+
+
+ .trans-history h2{
+    font-family: roboto;
+    margin-top: 40px;
+    padding-left: 20px;
+    font-size: 17px;
+ }
+ table{
+   width: 100%;
+    font-family: roboto;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border: 1px solid #707070 ;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    overflow: auto;
+ }
+
+table  th{
+     background-color: #f26826;
+     font-size: 14px;
+ }
+ table th, td{
+    text-align: left;
+    padding: 10px 10px;
+    text-align: center;
+ } 
+ 
+
+
+
+
+
+
+/*  */
+@media (max-width:520px){
+    .dialogs.dialog{
+      width: 350px;
+    }
+  }
+  
+  
+  @media (max-width:780px){
+    .container {
+      margin: 0;
+      width: 100%;
+    }
+  }

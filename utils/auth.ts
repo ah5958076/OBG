@@ -1,4 +1,4 @@
-import { ROUTE_ADMIN_DASHBOARD, ROUTE_RESET_PASSWORD, ROUTE_SIGNIN, ROUTE_VERIFY_CODE } from "@/constants/routes";
+import { ROUTE_ADMIN_DASHBOARD, ROUTE_RESET_PASSWORD, ROUTE_SIGNIN, ROUTE_USER_DASHBOARD, ROUTE_VERIFY_CODE } from "@/constants/routes";
 import store from "../Redux/store"
 import { isLoading } from "@/Redux/actions/loader";
 import { getRequest, navigateTo, postRequest } from "./general";
@@ -21,10 +21,13 @@ export const loginHandler = async (event:any) => {
             store.dispatch(isLoading(false));
             toast.error(response.data);
         } else {
-            localStorage.setItem("token", response.data);
+            localStorage.setItem("token", response.data?.token);
             store.dispatch(isLoading(false));
             toast.success("Login Successfuly");
-            navigateTo(null, ROUTE_ADMIN_DASHBOARD);
+            if(response.data?.role==="Admin")
+                navigateTo(null, ROUTE_ADMIN_DASHBOARD);
+            else if(response.data?.role==="User")
+                navigateTo(null, ROUTE_USER_DASHBOARD);
         }
     }).catch((e) => {
         store.dispatch(isLoading(false));

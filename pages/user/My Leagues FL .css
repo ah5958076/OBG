@@ -1,0 +1,116 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+    overflow-x: hidden;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+}
+
+
+/* Create Button */
+.tournaments{
+  width:calc(100% - 20px) ;
+  padding: 10px ;
+  position: relative;
+  font-family: roboto;
+  margin-top: 20px;
+}
+.tournaments a{
+  gap: 10px;
+  text-decoration: none;
+  margin-left: 10px;
+  color: #F26826;
+  border: 1px solid #F26826;
+  padding: 3px 7px;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+.tournament-buttons{
+  color: #F26826; 
+  background-color: #1A1A1A;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.tournament-buttons button{
+  border: 1px solid #F26826;
+  outline: none;    
+  color: #F26826;
+  background-color: #1A1A1A;
+  border-radius: 5px;
+  padding: 5px 15px;
+
+}
+#active1{
+  background-color: #F26826;
+  color: white;
+}
+/*  */
+
+
+
+  
+  
+  
+
+  
+
+  
+div.two{
+    font-family: roboto;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+div.last span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    font-family: roboto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:830px){
+  .container {
+      margin: 0;
+      width: 100%;
+  }
+  .tournament-buttons{
+      margin-right: 30px;
+  }
+  .tournaments a{
+      margin-left: 10px;
+  }
+ 
+}
+
+@media(max-width:795px){
+  .tournaments{
+      display: flex;
+  }
+  .tournaments a{
+      margin-top: 30px;
+
+  }
+}
+
+

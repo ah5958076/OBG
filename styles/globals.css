@@ -12,7 +12,7 @@
   --black: #000000;
   --fg: #F8F8F8;
   --heading: #FFFFFF;
-  --secodary-clr: #767676;
+  --secondary-clr: #767676;
   --site-clr: #F26826;
   --red: #E07979;
   --green: #4BB543;
@@ -62,9 +62,12 @@ button:not(.Toastify__close-button) {
   border: none;
   outline: none;
   text-decoration: none;
+  border-radius: 5px;
   color: var(--fg);
 }
-
+.site_clr{
+  color: var(--site-clr);
+}
 
 
 
@@ -97,4 +100,20 @@ input::-webkit-inner-spin-button{
   display: none;
   border: none;
   outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+.container{
+  display: flex;
+  width: 100%;
+  height: auto;
+  gap: 20px;
 }

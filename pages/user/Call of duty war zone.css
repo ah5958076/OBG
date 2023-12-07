@@ -1,0 +1,127 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+    font-family: roboto;
+}
+
+/* Main Picture */
+.main-pic{
+      width: 100%;
+}
+.main-pic span{
+    color: white;
+    display: flex;
+    position: absolute;
+    margin-top: -40px;
+    justify-content: center;
+    padding-left: 30px;
+    padding: 6px 5px;
+    background-image: linear-gradient(to right,#f26826 ,transparent);
+}
+
+
+.main-pic img{
+    width: 100%;
+}
+
+
+/* Lower Navigation Buttons */
+
+.lower-nav-buttons{    
+    width: calc(100% - 10px);
+    padding: 20px 5px;
+    border: none;
+    font-family: roboto;
+    display: flex;
+    }
+  .lower-nav-buttons a{
+      text-decoration: none;
+      color: white;
+       padding: 10px 5px;
+       font-size: 16px;
+       white-space: nowrap;
+  }
+  
+  .active{
+    color: #F26826 !important;
+  }
+
+
+/* Cards */
+/* featured-tournament */
+.cards{
+    width: 100%;
+    display: flex;
+
+}
+.card-line{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding-top: 15px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+ #ope{
+    display: flex;
+    position: absolute;
+    margin-top: -70px;
+    color: #F26826;
+    font-size: 10px;
+    margin-left: 5px;
+}
+#may-14{
+    display: flex;
+    position: absolute;
+    margin-top: -50px;   
+    font-size: 10px;
+    margin-left: 5px;
+
+}
+#start{
+    display: flex;
+    position: absolute;
+    margin-top: -30px;
+    font-size: 10px; 
+    margin-left: 5px; 
+}
+#time{
+    color: #F26826;
+
+}
+
+.card-data{
+    font-size: 11px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+table tr{
+    margin-top: 200px;
+}
+table th{
+    color: #767676;
+}
+
+
+
+
+@media ( max-width:419px){
+    .lower-nav-buttons{
+        justify-content: center;
+    }
+}
+
+@media (max-width:812px){
+    .container {
+      margin: 0;
+      width: 100%;
+    }
+  }

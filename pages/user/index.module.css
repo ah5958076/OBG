@@ -1,0 +1,317 @@
+.main_img{
+  width: 100%;
+  height: 60vh;
+  background-image: url("/index-1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.main_img>div {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main_img h1 {
+  font-size: 50px;
+  color: var(--site-clr);
+}
+
+.main_img h2{
+  color: var(--fg);
+  font-size: 35px;
+}
+
+
+
+
+
+
+
+
+
+
+.container{
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding: 30px 70px;
+  flex-direction: column;
+}
+
+.cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+  background-color: var(--bg);
+}
+
+.card{
+  background-color: #232323;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+}
+
+.card .card_img{
+  position: relative;
+}
+
+.card .card_img>div{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card .card_img>div span{
+  font-size: 14px;
+}
+
+.card .footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.card .footer div{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2px;
+}
+
+.card .footer div p.footer_heading{
+  color: var(--secondary-clr);
+}
+
+.card .footer div p{
+  display: flex;
+  gap: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+.updates{
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  background-color: black;
+}
+
+.updates button{
+  background-color: var(--site-clr);
+  color: var(--fg);
+  width: fit-content;
+  padding: 10px 30px;
+  border-radius: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+.WinToEarn{
+  margin-top: 20px;
+}
+
+.WinToEarn .cards{
+  margin-top: 50px;
+}
+
+.WinToEarn .cards .card{
+  align-items: flex-start;
+  padding: 30px;
+  gap: 15px;
+  border: 2px solid var(--clr);
+}
+
+.WinToEarn .card span.body {
+  color: var(--secondary-clr);
+  font-size: 13px;
+}
+
+.WinToEarn .card button{
+  width: fit-content;
+  display: flex;
+  align-self: center;
+  margin-top: 10px;
+  border: 2px solid var(--fg);
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.WinToEarn .card button:hover{
+  background-color: var(--site-clr);
+  border: none;
+}
+
+.WinToEarn .card:nth-child(1) {--clr:var(--site-clr);}
+.WinToEarn .card:nth-child(2) {--clr:#004981;}
+.WinToEarn .card:nth-child(3) {--clr:#9E8E00;}
+
+
+
+
+
+
+
+
+
+
+.banner{
+  background-image: url("/index-4.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  padding-right: 50px;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.banner img{
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+}
+
+.banner>div{
+  width: calc(100% - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.banner>div h1{
+  font-size: 25px;
+}
+
+.banner>div h1 span{
+  -webkit-text-stroke: 1px var(--fg);
+  color: transparent;
+}
+
+.banner>div button{
+  width: fit-content;
+  padding: 10px 40px;
+}
+
+.card .img-text{
+  font-family: roboto;
+}
+
+
+
+
+
+
+
+
+
+
+.featured_games .card{
+  background-color: transparent;
+  padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:800px){
+  .main_img h2{
+    font-size: 28px;
+  }
+  .banner {
+    margin-top: 100px;
+    flex-direction: column;
+    height: fit-content;
+    gap: 20px;
+    padding: 20px;
+  }
+  .banner img{
+    position: relative;
+    margin-top: -20%;
+  }
+  .banner>div{
+    width: 100%;
+    flex-direction: column;
+  }
+  .banner>div h1{
+    text-align: center;
+  }
+}
+@media(max-width:600px){
+  .updates h2{
+    font-size: 18px;
+  }
+}
+@media(max-width:650px){
+  .main_img h1{
+    font-size: 30px;
+  }
+  .main_img h2{
+    font-size: 19px;
+  }
+}
+@media(max-width:500px){
+  .container{
+    padding: 30px;
+  }
+  .banner{
+    margin-top: 60px;
+  }
+}
+@media(max-width:450px){
+  .main_img>div{
+    padding: 10px;
+  }
+  .main_img h1{
+    font-size: 25px;
+  }
+  .main_img h2{
+    font-size: 14px;
+  }
+  .updates{
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .updates h2{
+    text-align: center;
+  }
+  .updates button{
+    width:100% !important;
+  }
+}

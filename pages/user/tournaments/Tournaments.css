@@ -1,0 +1,295 @@
+body{
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: #1A1A1A;
+    overflow-x: hidden;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+}
+
+
+
+/*  */
+/* Main Picture */
+.main-pic {
+    width: 100%;
+    position: relative; /* Ensure relative positioning for absolute child */
+  }
+  
+  .main-pic img {
+    width: 100%;
+    height: auto; /* To maintain image aspect ratio */
+  }
+  
+  .main-pic h3 {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 6px 5px;
+    background-image: linear-gradient(to right,#f26826 ,transparent);
+    position: absolute;
+    bottom: 0; /* Position at the bottom */
+    left: 0; /* Align to the left */
+    right: 0; /* Align to the right */
+    margin: auto; /* Center horizontally */
+    font-family: roboto;
+  }
+  .main-pic label{
+    display: flex;
+    position: absolute;
+    right: 0;
+    margin-top: -25px;
+    margin-right: 17px;
+    font-family: roboto;
+    font-size: 12px;
+  }
+  
+  #color-span1 {
+    font-size: 8px;
+    /* font-weight: bold; */
+  }
+  #color-span2 {
+    color: #f26826;
+    font-size: 11px;
+    /* font-weight: bold; */
+  }
+/*  */
+
+
+
+
+
+/* Lower Table Boxes */
+.main-box{
+    width: calc(100% - 10px);
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    display: flex;
+    position: relative;
+}
+.left-box{
+    width: calc(75% - 5px);
+    border: 1px solid#707070;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: roboto;   
+    
+}
+.left-box-data {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    flex-direction: column;
+    gap: 10px; 
+}
+.color-txt{
+    color: #707070;
+}
+
+
+/* Right Box */
+.right1{
+    width: calc(25% - 5px);
+    border: 1px solid #707070;
+    border-radius: 5px;
+    font-family: roboto;
+}
+.right1 span{
+    padding-top: 10px;
+    margin-left: 5px;
+}
+.right1 p{
+    margin-left: 5px;
+    padding: 5px 0px ;
+    font-family: roboto;
+    font-size: 12px;
+}
+
+
+
+/* Lower Navigation Buttons */
+.lower-nav-tabs{    
+    width: calc(100% - 10px);
+    padding: 20px 5px;
+    border: none;
+    font-family: roboto;
+    font-size: 14px;
+    display: flex;
+    }
+  .lower-nav-tabs a{
+      text-decoration: none;
+      color: white;
+       padding: 10px 5px;
+       font-size: 13px;
+       white-space: nowrap;
+  }
+  
+  .active{
+    color: #F26826 !important;
+  }
+
+
+/* Tournament Buttons */
+.tournaments{
+    width:calc(100% - 20px) ;
+    padding: 10px ;
+    position: relative;
+    font-family: roboto;
+    margin-top: 20px;
+}
+
+.tournament-buttons{
+    color: #F26826; 
+    background-color: #1A1A1A;
+    /* padding: 15px 30px; */
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 10px;
+}
+.tournament-buttons button{
+    border: 1px solid #F26826;
+    outline: none;    
+    color: #F26826;
+    background-color: #1A1A1A;
+    border-radius: 15px;
+    padding: 5px 15px;
+    margin-right:30px;
+}
+#active1{
+    background-color: #F26826;
+    color: white;
+}
+
+
+
+
+
+
+/*  */
+
+
+
+/* Cards */
+/* featured-tournament */
+.cards{
+    width: 100%;
+    display: flex;
+    background-color: #1A1A1A;
+    margin-top: 20px;
+    border: 1px solid #707070;
+   border-radius: 5px;
+    font-family: roboto;
+}
+.card-line{
+    width: 100%;    
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.card{
+    background-color: #232323;
+    border-radius: 10px;
+}
+.card-data span{
+    font-size: 15px;
+    font-family: roboto;
+}
+
+table{
+    font-family: roboto;
+}
+table  td ,th{
+    font-size: 10px;
+    color: #767676;
+    
+}
+
+ #ope{
+    display: flex;
+    position: absolute;
+    margin-top: -70px;
+    color: #F26826;
+    font-size: 10px;
+}
+#may-14{
+    display: flex;
+    position: absolute;
+    margin-top: -50px;   
+    font-size: 10px;
+}
+#start{
+    display: flex;
+    position: absolute;
+    margin-top: -30px;
+    font-size: 10px;  
+}
+#time{
+    color: #F26826;
+
+}
+
+.card-data{
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 577px) {
+    .main-pic h3, h3 #color-span  {
+      font-size: 10px; 
+      padding: 10px 5px; 
+    }
+    .main-pic h3 #color-span {
+        font-size: 8px;
+    }
+  }
+
+
+
+@media (max-width:865px){
+    .left-box-data{
+        gap: 20px;
+    }
+}
+
+
+@media (max-width:704px){
+    .main-box{
+        flex-direction: column;
+    }
+    .left-box {
+        width: 100%;
+      }
+    
+      .right1 {
+        width: 100%;
+      }
+}
+
+@media (max-width:865px){
+    .container {
+      margin: 0;
+      width: 100%;
+    }
+  }
+

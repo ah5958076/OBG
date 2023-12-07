@@ -37,3 +37,7 @@ export interface TYPE_SELECT {
     onChnage?:any,
     value?:string,
 }
+
+export interface TYPE_USER_NAVBAR{
+    auth: boolean
+}

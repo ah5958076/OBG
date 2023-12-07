@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leagues</title>
+    <link rel="stylesheet" href="./Leagues.css" />
+     <link rel="stylesheet" href="./nav.css">
+    <link  rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"  />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link  href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap"  rel="stylesheet" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"   />
+  </head>
+  <body>
+
+     <!-- Nav Bars -->
+     <nav class="top-nav">
+      <h1>Online<br>BattleGround</h1>
+  
+      <div class="right login">
+          <a href="#" class="before-login active">Home</a>
+          <a href="#">Games</a>
+          <a href="#">Grand Prix</a>
+          <a href="#">Rules</a>
+          <div class="after-login search">
+              <i class="fa-solid fa-search"></i>
+              <input type="text" placeholder="Search..." name="search">
+          </div>
+          <div class="after-login notifications">
+              <i class="fa-solid fa-bell"></i>
+          </div>
+          <a href="#" class="after-login"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+          <a href="#" class="after-login site-clr">Support</a>
+          <button class="after-login site-clr">TOUR</button>
+      </div>
+  
+      <div class="small-nav login">
+          <div class="after-login search">
+              <i class="fa-solid fa-search"></i>
+              <input type="text" placeholder="Search..." name="search">
+          </div>
+  
+          <button class="nav-opener" onclick="this.parentElement.classList.toggle('show');" onblur="this.parentElement.classList.remove('show');"><i class="fa-solid fa-bars"></i></button>
+  
+          <div class="drop-down">
+              <a href="#" class="before-login active">Home</a>
+              <a href="#">Games</a>
+              <a href="#">Grand Prix</a>
+              <a href="#">Rules</a>
+              <div class="after-login notifications">
+                  <i class="fa-solid fa-bell"></i>
+                  &nbsp;&nbsp;Notifications
+              </div>
+              <a href="#" class="after-login"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Logout</a>
+              <a href="#" class="after-login site-clr">Support</a>
+              <button class="after-login site-clr">TOUR</button>
+          </div>
+      </div>
+  
+  </nav>
+  
+  
+  <nav class="left-nav">
+      <span class="hide-close-left-nav" onclick="this.children[0].classList.toggle('fa-angle-left');"><i class="fa-solid fa-angle-right fa-angle-left"></i></span>
+  
+      <div class="profile">
+          <img src="./images/Ellipse 5@2x.png" alt="...">
+          <p>Crimsix101</p>
+      </div>
+      
+      <span class="divider"><!-- nothing here --></span>
+      
+      <div class="items">
+          <a href="#">
+              <img src="./images/MY Matches@2x.png" alt="">
+              <span>My Matches</span>
+          </a>
+          <a href="#">
+              <img src="./images/My Team@2x.png" alt="">
+              <span>My Teams</span>
+          </a>
+          <a href="#">
+              <img src="./images/My Team@2x-1.png" alt="">
+              <span>Invites</span>
+          </a>
+          <a href="#">
+              <img src="./images/My Team@2x-1.png" alt="">
+              <span>Profile</span>
+          </a>
+          <a href="#">
+              <i class="fa-solid fa-building-flag"></i>
+              <span>Fantasy League</span>
+          </a>
+          <a href="#">
+              <img src="./images/money@2x.png" alt="">
+              <span>Transactions</span>
+          </a>
+          <a href="#">
+              <img src="./images/MY Matches@2x.png" alt="">
+              <span>Inventory</span>
+          </a href="#">
+      </div>
+  
+      <span class="divider"><!-- nothing here --></span>
+  
+      <div class="balance">
+          <p>Platform Credits</p>
+          <h1>$300</h1>
+          <a href="#">Winthdraw</a>
+          <a href="#">Add</a>
+      </div>
+  
+  </nav>
+  
+  
+  <nav class="right-nav">
+      <span class="nav-opener" onclick="this.children[0].classList.toggle('fa-angle-left');">
+          <i class="fa-solid fa-angle-right"></i>
+      </span>
+      
+      <img src="./images/Mask Group 281@2x.png" alt="">
+  
+      <div class="chats">
+          <span class="border"><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span class="online"><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+          <span><img src="./images/Ellipse 5@2x.png" alt=""></span>
+      </div>
+  
+  </nav>
+  
+     <!-- End Nav BArs -->
+
+
+
+    <div class="container">
+      <!--  -->
+      <div class="main-pic">
+        <img src="./images/Call of duty war zone.png" alt="" />
+        <h3>
+          MANCHESTER UNITED &nbsp;
+          <span id="color-span"> Since August 8, 2022 </span>
+        </h3>
+      </div>
+      <!--  -->
+      <!-- Lower Table Boxes -->
+      <div class="main-box">
+        <div class="left-box">
+          <!--  -->
+          <div class="left-box-data">
+            <img src="./images/game.png" width="30x" height="30px" alt="" />
+            <span class="color-txt">Matches</span>
+            <span>159</span>
+          </div>
+          <!--  -->
+          <!--  -->
+          <div class="left-box-data">
+            <img src="./images/My Team.svg" width="30x" height="30px" alt="" />
+            <span class="color-txt">Total Teams</span>
+            <span>10</span>
+          </div>
+          <!--  -->
+          <!--  -->
+          <div class="left-box-data">
+            <img src="./images/hot-sale.png" width="30x" height="30px" alt="" />
+            <span class="color-txt">Franchise Status</span>
+            <span style="color: #c28322"
+              >For Sale
+              <i class="fa-solid fa-angle-down" style="color: white"></i
+            ></span>
+          </div>
+          <!--  -->
+        </div>
+        <!--  -->
+        <div class="right">
+          <span class="color-txt" style="font-weight: bold"
+            >About &nbsp;<i
+              class="fa-solid fa-pencil"
+              style="color: #f26826"
+            ></i
+          ></span>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br />
+            Porro eveniet sed sint fuga earum eius, veritatis ex a consectetur
+            quas eligendi itaque ad dolorem commodi asperiores voluptatem
+            officia ducimus ipsa.
+          </p>
+        </div>
+      </div>
+      <!--  -->
+
+      <!-- Lower Navigation bUttons -->
+      <div class="lower-nav-tabs">
+        <a href="#">Teams</a>
+        <a href="#">Tournaments</a>
+        <a href="#">Leagues</a>
+        <a href="#">Games</a>
+        <a href="#">Market Place</a>
+      </div>
+      <!--  -->
+
+      <!--League Buttons   -->
+      <div class="league-buttons">
+        <span style="font-weight: bold;">Leagues</span>
+        <button type="submit">All</button>
+        <button type="submit">Joined</button>
+      </div>
+      <!--  -->
+
+      <!-- Last Div Box -->
+     
+        <!-- Cards -->
+        <!-- Featured Tournaments -->
+        <div class="cards">
+          <!--  -->
+          <div class="card-line">
+            <!--  -->
+            <div class="card">
+              <img
+                src="./images/Call of duty war zone.png"
+                height="200px"
+                width="200px"
+                alt=""/>
+
+              <span id="start" >STARTING AT <span id="time">10:00 AM EST</span></span>
+              <span id="may-14">May 14</span>
+              
+              <div class="card-data">
+                <span>Call of Duty Tournament</span>
+                <table>
+                  <tr>
+                    <th>Prize Pool</th>
+                    <th>Team Size</th>
+                    <th>Entry Fee</th>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                    <td><i class="fa-solid fa-angle-down"></i> 5x5</td>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="card">
+              <img
+                src="./images/Fifa.png"
+                height="200px"
+                width="200px"
+                alt=""
+              />
+
+              <span id="may-14">May 14</span>
+              <span id="start"
+                >STARTING AT <span id="time">10:00 AM EST</span></span
+              >
+              <div class="card-data">
+                <span>Call of Duty Tournament</span>
+                <table>
+                  <tr>
+                    <th>Prize Pool</th>
+                    <th>Team Size</th>
+                    <th>Entry Fee</th>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                    <td><i class="fa-solid fa-angle-down"></i> 5x5</td>
+                    <!-- <td><img src="./images/Coin.png" alt="" />500</td> -->
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="card">
+              <img
+                src="./images/Street Fighter.png"
+                height="200px"
+                width="200px"
+                alt=""
+              />
+
+              <span id="may-14">May 14</span>
+              <span id="start"
+                >STARTING AT <span id="time">10:00 AM EST</span></span
+              >
+              <div class="card-data">
+                <span>Call of Duty Tournament</span>
+                <table>
+                  <tr>
+                    <th>Prize Pool</th>
+                    <th>Team Size</th>
+                    <th>Entry Fee</th>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                    <td><i class="fa-solid fa-angle-down"></i> 5x5</td>
+                    <!-- <td><img src="./images/Coin.png" alt="" />500</td> -->
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="card">
+              <img
+                src="./images/Call of duty war zone.png"
+                height="200px"
+                width="200px"
+                alt=""
+              />
+
+              <span id="may-14">May 14</span>
+              <span id="start"
+                >STARTING AT <span id="time">10:00 AM EST</span></span
+              >
+              <div class="card-data">
+                <span>Call of Duty Tournament</span>
+                <table>
+                  <tr>
+                    <th>Prize Pool</th>
+                    <th>Team Size</th>
+                    <th>Entry Fee</th>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                    <td><i class="fa-solid fa-angle-down"></i> 5x5</td>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="card">
+              <img
+                src="./images/Street Fighter.png"
+                height="200px"
+                width="200px"
+                alt=""
+              />
+
+              <span id="may-14">May 14</span>
+              <span id="start"
+                >STARTING AT <span id="time">10:00 AM EST</span></span
+              >
+              <div class="card-data">
+                <span>Call of Duty Tournament</span>
+                <table>
+                  <tr>
+                    <th>Prize Pool</th>
+                    <th>Team Size</th>
+                    <th>Entry Fee</th>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                    <td><i class="fa-solid fa-angle-down"></i> 5x5</td>
+                    <!-- <td><img src="./images/Coin.png" alt="" />500</td> -->
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="card">
+              <img
+                src="./images/Fifa.png"
+                height="200px"
+                width="200px"
+                alt=""
+              />
+
+              <span id="may-14">May 14</span>
+              <span id="start"
+                >STARTING AT <span id="time">10:00 AM EST</span></span
+              >
+              <div class="card-data">
+                <span>Call of Duty Tournament</span>
+                <table>
+                  <tr>
+                    <th>Prize Pool</th>
+                    <th>Team Size</th>
+                    <th>Entry Fee</th>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                    <td><i class="fa-solid fa-angle-down"></i> 5x5</td>
+                    <!-- <td><img src="./images/Coin.png" alt="" />500</td> -->
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="card">
+              <img
+                src="./images/Counter Strike.png"
+                height="200px"
+                width="200px"
+                alt=""
+              />
+
+              <span id="may-14">May 14</span>
+              <span id="start"
+                >STARTING AT <span id="time">10:00 AM EST</span></span
+              >
+              <div class="card-data">
+                <span>Call of Duty Tournament</span>
+                <table>
+                  <tr>
+                    <th>Prize Pool</th>
+                    <th>Team Size</th>
+                    <th>Entry Fee</th>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./images/dollar note.png" alt="" />500</td>
+                    <td><i class="fa-solid fa-angle-down"></i> 5x5</td>
+                    <!-- <td><img src="./images/Coin.png" alt="" />500</td> -->
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="card">
+              <img
+                src="./images/Call of duty war zone.png"
+                height="200px"
+                width="200px"
+                alt=""
+              />
+
+              <span id="may-14">May 14</span>
+              <span id="start"
+                >STARTING AT <span id="time">10:00 AM EST</span></span
+              >
+              <div class="card-data">
+                <span>Call of Duty Tournament</span>
+                <table>
+                  <tr>
+                    <th>Prize Pool</th>
+                    <th>Team Size</th>
+                    <th>Entry Fee</th>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                    <td><i class="fa-solid fa-angle-down"></i> 5x5</td>
+                    <td><img src="./images/Coin.png" alt="" />500</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--  -->
+          </div>
+          <!--  -->
+
+          <!-- Second Line -->
+        </div>
+        <!--  -->
+     
+
+      <!-- End of Container  -->
+    </div>
+  </body>
+</html>

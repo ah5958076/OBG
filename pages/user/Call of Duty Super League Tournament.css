@@ -1,0 +1,325 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+ 
+}
+
+/* Main Picture */
+.main-pic{
+      width: 100%;
+      border-bottom: 1px solid #F26826;
+}
+.main-pic img{
+    width: 100%;
+}
+.main-pic span{
+    color:white;
+    display: flex;
+    position: absolute;
+    margin-top: -70px;
+    justify-content: center;
+    padding-left: 30px;
+    font-family: roboto;
+    padding: 6px 5px;
+    flex-wrap: wrap;
+   
+}
+#yellow-text{
+    color: #F26826;
+}
+#right-side{
+    color:white;
+    display: flex;
+    position: absolute;
+    right: 10px;
+    margin-top: -30px;
+    justify-content: center;
+    padding-right: 30px;
+    font-family: roboto;
+    padding: 6px 5px;
+    flex-wrap: wrap;  
+    font-size: 12px;
+}
+
+#may{
+    display: flex;
+    position: absolute;
+    margin-top: -40px; 
+    font-size: 10px; 
+}
+.main-pic button{
+    color:white;
+
+    font-family: roboto;
+    background: #F26826;
+    display: flex;
+    position: absolute;
+    right: 0;
+    margin-top: -40px;
+    margin-right: 150px;
+    justify-content: center;
+    padding-right: 30px;
+    font-family: roboto;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+}
+
+
+
+
+/* Call of Duty Tournament */
+.call-of-duty{
+    width: 100%;
+    font-family: roboto;
+    padding: 10px 0px;
+    position: relative;
+    margin-left: 5px;
+}
+.call-of-duty span{
+    font-size: 10px;
+}
+#color-text{
+    color: #F26826;
+}
+/*  */
+
+
+
+/* Table */
+table{
+    width: calc(100% - 5px);
+    padding: 20px 10px;
+    border: 1px solid #707070;
+    border-radius: 8px; 
+    font-family: roboto; 
+  }
+
+table td{
+    text-align: center;
+    white-space: nowrap;
+    color: white !important;
+}
+
+/*  */
+/* Lower Navigation Buttons */
+
+.lower-nav-tabs{    
+    width: calc(100% - 10px);
+    padding: 20px 5px;
+    border: none;
+    font-family: roboto;
+    font-size: 13px;
+    display: flex;
+    }
+  .lower-nav-tabs a{
+      text-decoration: none;
+      color: white;
+       padding: 10px 5px;
+       font-size: 13px;
+       white-space: nowrap;
+  }
+  
+  .active{
+    color: #F26826 !important;
+  }
+/*  */
+
+
+
+
+/* Tournament Buttons */
+
+.tournaments{
+    width:calc(100% - 20px) ;
+    padding: 10px ;
+    position: relative;
+    font-family: roboto;
+    margin-top: 20px;
+}
+
+.tournament-buttons{
+    color: #F26826; 
+    background-color: #1A1A1A;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.tournament-buttons button{
+    border: 1px solid #F26826;
+    outline: none;    
+    color: #F26826;
+    background-color: #1A1A1A;
+    border-radius: 15px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+#active1{
+    background-color: #F26826;
+    color: white;
+}
+
+
+
+/* Cards */
+/* featured-tournament */
+.cards{
+    width: calc(100% - 10px);
+    display: flex;
+    background-color: #1A1A1A;
+    margin-top: 15px;
+    border: 1px solid #707070;
+   border-radius: 5px;
+   font-family: roboto;
+    
+}
+.card-line{
+    width: 100%;    
+    display: flex;
+    gap: 15px;
+    padding-top: 15px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.card{
+    background-color: #232323;
+    border-radius: 10px;
+}
+.card-data span{
+    font-size: 15px;
+    font-family: roboto;
+}
+.card-data table{
+    border: none;
+}
+
+.card-data table{
+    padding: 5px 0px !important;
+}
+table  td ,th{
+    font-size: 10px;
+    color: #767676;
+    padding: 5px 0px ;
+    
+}
+
+ #ope{
+    display: flex;
+    position: absolute;
+    margin-top: -70px;
+    color: #F26826;
+    font-size: 10px;
+}
+#may-14{
+    display: flex;
+    position: absolute;
+    margin-top: -50px;   
+    font-size: 10px;
+}
+#start{
+    display: flex;
+    position: absolute;
+    margin-top: -30px;
+    font-size: 10px;  
+}
+#time{
+    color: #F26826;
+
+}
+
+.card-data{
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:461px){
+    .lower-nav-tabsa {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+
+
+
+
+@media (max-width: 444px){
+    .main-pic span{
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 426px){
+    .main-pic span{
+        padding-top: 10px;
+    }
+    .main-pic button{
+        margin-top: -90px;
+        margin-left: 100px;
+        font-size: 11px;
+    }
+}
+
+
+
+
+
+@media (max-width: 640px) {
+    .main-div-box {
+      flex-direction: column; 
+    }
+    
+    .left {
+      max-width: 100%; 
+    }
+    
+    .right {
+      width: 100%;
+    }
+    
+    .div1 {
+      flex-direction: column; 
+    }
+    
+    .right-sub-div {
+      flex-direction: column; 
+      align-items: center;
+    }
+    
+    #table2 {
+      width: 100%; 
+    }
+  }
+  
+
+
+  @media (max-width:860px){
+    .container {
+      margin: 0;
+      width: 100%;
+    }
+  }

@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: #1a1a1a;
+}
+.container {
+  margin-left: 250px;
+  margin-right: 100px;
+  width: calc(100% - 250px - 100px);
+  display: flex;
+}
+
+/*  Table*/
+table {
+  font-family: roboto;
+  margin-top: 10px;
+border-collapse: collapse;
+}
+table th{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+}
+table td {
+  border: 2px solid #707070;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+
+}
+#col-2nd{
+    border-right: none;
+}
+#col-3rd{
+    border-left: none;
+}
+
+table td span {
+    font-size: 10px;
+    color: #767676;
+}
+#accepted{
+    color: #77F226;
+    font-size: 14px;
+}
+#rejected{
+    font-size: 14px;
+    color: #D50C0C;
+}
+
+
+
+
+@media (max-width:500px){
+  .container {
+    margin: 0;
+    width: 100%;
+  }
+}

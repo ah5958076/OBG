@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_739" data-name="Rectangle 739" width="15" height="15" transform="translate(0.086 0.086)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Group_1956" data-name="Group 1956" transform="translate(-325 -766)">
+    <circle id="karsten-winegeart-Qb7D1xw28Co-unsplash" cx="15" cy="15" r="15" transform="translate(325 766)" fill="#f26826"/>
+    <g id="Mask_Group_261" data-name="Mask Group 261" transform="translate(332.914 773.914)" clip-path="url(#clip-path)">
+      <g id="gallery_1_" data-name="gallery (1)" transform="translate(0 0.94)">
+        <g id="Group_1342" data-name="Group 1342">
+          <g id="Group_1341" data-name="Group 1341">
+            <path id="Path_483" data-name="Path 483" d="M17.729,14.845A1.552,1.552,0,1,0,19.281,16.4,1.552,1.552,0,0,0,17.729,14.845Zm0,2.366a.813.813,0,0,1,0-1.626h0a.813.813,0,0,1,0,1.626Z" transform="translate(-10.022 -10.137)" fill="#fff"/>
+            <path id="Path_484" data-name="Path 484" d="M13.9,3.63,3.808,2.485a1.386,1.386,0,0,0-1.09.314,1.4,1.4,0,0,0-.536.961L2,5.275H1.424A1.485,1.485,0,0,0,0,6.809v7.559a1.4,1.4,0,0,0,1.367,1.441h10.2a1.517,1.517,0,0,0,1.552-1.441v-.3a1.848,1.848,0,0,0,.7-.3,1.534,1.534,0,0,0,.536-1l.85-7.5A1.5,1.5,0,0,0,13.9,3.63ZM12.383,14.368a.778.778,0,0,1-.813.7H1.424a.665.665,0,0,1-.685-.645q0-.028,0-.057V13L3.6,10.893a.887.887,0,0,1,1.146.055l2.014,1.774a1.737,1.737,0,0,0,1.09.407,1.682,1.682,0,0,0,.887-.24l3.641-2.107v3.585Zm0-4.454L8.354,12.261a.943.943,0,0,1-1.09-.092L5.231,10.376A1.645,1.645,0,0,0,3.179,10.3L.74,12.076V6.809a.746.746,0,0,1,.684-.795H11.569a.85.85,0,0,1,.813.795Zm2.089-4.738v.007l-.869,7.5a.628.628,0,0,1-.24.5c-.074.074-.24.111-.24.148V6.809a1.589,1.589,0,0,0-1.552-1.534H2.736L2.9,3.834a.85.85,0,0,1,.277-.481.85.85,0,0,1,.554-.148L13.806,4.37A.739.739,0,0,1,14.472,5.175Z" transform="translate(0 -2.471)" fill="#fff"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

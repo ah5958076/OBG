@@ -1,0 +1,257 @@
+body{
+    margin: 0;
+    padding: 0;
+      color: white;
+    background-color: #1A1A1A;
+}
+.container{
+    margin-left: 250px;
+    margin-right: 100px;
+    width: calc(100% - 250px - 100px); 
+ 
+}
+
+/* Main Picture */
+.main-pic{
+      width: 100%;
+      border-bottom: 1px solid #F26826;
+}
+.main-pic img{
+    width: 100%;
+}
+.main-pic span{
+    color:white;
+    display: flex;
+    position: absolute;
+    margin-top: -70px;
+    justify-content: center;
+    padding-left: 30px;
+    font-family: roboto;
+    padding: 6px 5px;
+    flex-wrap: wrap;
+   
+}
+#yellow-text{
+    color: #F26826;
+}
+#right-side{
+    color:white;
+    display: flex;
+    position: absolute;
+    right: 10px;
+    margin-top: -30px;
+    justify-content: center;
+    padding-right: 30px;
+    font-family: roboto;
+    padding: 6px 5px;
+    flex-wrap: wrap;  
+    font-size: 12px;
+}
+
+#may{
+    display: flex;
+    position: absolute;
+    margin-top: -40px; 
+    font-size: 10px; 
+}
+.main-pic button{
+    color:white;
+
+    font-family: roboto;
+    background: #F26826;
+    display: flex;
+    position: absolute;
+    right: 0;
+    margin-top: -40px;
+    margin-right: 150px;
+    justify-content: center;
+    padding-right: 30px;
+    font-family: roboto;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+}
+
+
+
+
+/* Call of Duty Tournament */
+.call-of-duty{
+    width: 100%;
+    font-family: roboto;
+    padding: 10px 0px;
+    position: relative;
+    margin-left: 5px;
+}
+.call-of-duty span{
+    font-size: 10px;
+}
+#color-text{
+    color: #F26826;
+}
+/*  */
+
+
+/* Lower Navigation Buttons */
+
+.lower-nav-tabs{    
+    width: calc(100% - 10px);
+    padding: 20px 5px;
+    border: none;
+    font-family: roboto;
+    font-size: 13px;
+    display: flex;
+    }
+  .lower-nav-tabs a{
+      text-decoration: none;
+      color: white;
+       padding: 10px 5px;
+       font-size: 15px;
+       white-space: nowrap;
+  }
+  
+  .active{
+    color: #F26826 !important;
+    border-bottom: 1px solid #F26826;
+  }
+/*  */
+
+
+
+/* last-main-box */
+.last-main-box{
+    width: calc(100% - 20px);
+    border: 1px solid #707070;
+    margin: 30px 0px;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    font-family: roboto;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+.last-main-box p{
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 12px;
+}
+
+#main-rule{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* Dialog */
+.dialogs{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;    
+    border: 2px solid #f26826;
+    font-family: roboto;
+  }
+
+  .dialogs .dialog{
+    display: flex;
+    background-color: #101010;
+    max-width: 350px;
+    min-width: 260px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  .dialog form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    color: #FFFFFF;
+  }
+
+  .dialog form .main-form{
+       align-items: center;
+  }
+
+  .dialog input,
+  .dialog select{
+    background-color: #101010;
+    margin-top: 10px;
+    border: none;
+    border-bottom: 1px solid #808080;
+    width: 100%;
+    outline: none;
+    padding: 4px 0px;
+    color: #4B4B4B;
+  }
+  label {
+    margin-top: 5px;
+    cursor: pointer;
+  }
+
+
+.dialog form button{
+    color: white;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: 200px;
+  }
+
+
+
+
+@media (max-width: 475px) {
+    .dialogs.dialog{
+        width: 280px;
+    }
+}
+
+
+@media (max-width:461px){
+    .lower-nav-tabsa {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+
+
+
+
+@media (max-width: 444px){
+    .main-pic span{
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 426px){
+    .main-pic span{
+        padding-top: 10px;
+    }
+    .main-pic button{
+        margin-top: -90px;
+        margin-left: 100px;
+        font-size: 11px;
+    }
+}
+
+
+
+
+
+
+  @media (max-width:860px){
+    .container {
+      margin: 0;
+      width: 100%;
+    }
+  }
