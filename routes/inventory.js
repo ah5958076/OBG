@@ -1,27 +1,18 @@
 const inventory = require("../controllers/inventory");
 const router = require("express").Router();
-const multer = require("multer");
+const { uploadImageConfigs } = require("../services/general");
 
 
-let multerStorage = multer.diskStorage({
-    destination: "./uploads/",
-    filename: (req, file, callback) => {
-        let extension = file.originalname.split(".").pop();
-        callback(null, Date.now()+"."+extension);
-    }
-})
-let uploads = multer({storage: multerStorage});
-
+let uploads = uploadImageConfigs();
 
 router.post("/store", uploads.single("picture"), inventory.store);
 router.post("/update", uploads.single("picture"), inventory.update);
-router.post("/delete", inventory.delete);
-router.post("/show", inventory.show);
-router.post("/list", inventory.list);
+router.get("/delete/:id", inventory.delete);
+router.get("/show/:id", inventory.show);
+router.get("/list", inventory.list);
 
 
 router.post("/search", inventory.searchData);
-router.get("/download-report", inventory.downloadExcel);
 
 
 module.exports=router;

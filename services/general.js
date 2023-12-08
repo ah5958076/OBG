@@ -2,7 +2,8 @@ const bcrypt = require("bcrypt");
 const mailer = require("nodemailer");
 const multer = require("multer");
 const exceljs = require("exceljs");
-const { PAGINATION_MAX_RECORD_SIZE } = require("../constants/constants");
+const { PAGINATION_MAX_RECORD_SIZE, INVALID, OK } = require("../constants/constants");
+const { IMAGE_NOT_UPLOADED, EXTENSION_NOT_ALLOWED } = require("../constants/messages");
 
 
 
@@ -133,4 +134,14 @@ module.exports.searchDataWithPopulate = async (model, filterText, fieldsBasedOnS
         }
     });
     return data;
+}
+
+module.exports.checkFile = (fileObject) => {
+    if(fileObject){
+        if(ALLOWED_EXTENSIONS.toLowerCase().includes(req.file.originalname.split(".").pop().toLowerCase()))
+            return {code: OK, data: fileObject.path}
+        unlinkSync(fileObject.path);
+        return {code: INVALID, data: EXTENSION_NOT_ALLOWED}
+    }
+    return {code: INVALID, data: IMAGE_NOT_UPLOADED}
 }

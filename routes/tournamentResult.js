@@ -1,17 +1,9 @@
 const router = require("express").Router();
 const tournamentResult=require("../controllers/tournamentResult");
-const multer = require("multer");
+const { uploadImageConfigs } = require("../services/general");
 
 
-let multerStorage = multer.diskStorage({
-    destination: "./uploads/",
-    filename: (req, file, callback) => {
-        let extension = file.originalname.split(".").pop();
-        callback(null, Date.now()+"."+extension);
-    }
-})
-let uploads = multer({storage: multerStorage});
-
+let uploads = uploadImageConfigs();
 
 router.post("/store", uploads.single('video'), tournamentResult.store);
 router.post("/update", uploads.single('video'), tournamentResult.update);

@@ -41,7 +41,9 @@ module.exports.update = async (req, res) => {
     if(!givenObject.platform) return res.status(INVALID).send(makeResponse("Platform is empty"));
     if(!givenObject.picture) return res.status(INVALID).send(makeResponse(IMAGE_NOT_UPLOADED));
 
-    let value = await GameModel.updateOne({_id: req.body?.id}, givenObject).catch((e)=>{console.log(e)});
+    let value=await GameModel.findOne({_id: req.body?.id}).catch((e) => {console.log(e)});
+    if(value && value.picture) unlinkSync(value.picture);
+    value = await GameModel.updateOne({_id: req.body?.id}, givenObject).catch((e)=>{console.log(e)});
     if(value.modifiedCount) return res.status(OK).send(makeResponse(GAME_UPDATED));
     return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
 }
@@ -66,7 +68,7 @@ module.exports.show = async (req, res) => {
     let id = req.params?.id || "";
     if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
 
-    let value = await GameModel.findOne({id: id}).catch((e) => {console.log(e)});
+    let value = await GameModel.findOne({_id: id}).catch((e) => {console.log(e)});
     return res.status(OK).send(makeResponse("", value));
 }
 
@@ -89,4 +91,13 @@ module.exports.searchData = async (req, res) => {
     return res.status(OK).send(makeResponse("", {searchedData: await searchData(GameModel, filter, fields)}));
 }
 
-module.exports.downloadExcel = async (req, res) => {}
+module.exports.downloadExcel = async (req, res) => {
+    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
+
+    let value = await GameModel.find({}).catch((e) => {console.log(e)});
+    if(!value) return res.status(OK).send(makeResponse(NO_DATA));
+
+    let response = await writeExcelFile(value, ["name", "size"]);
+    if(response) return res.status(OK).send(makeResponse("File written successfully", response));
+    return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+}

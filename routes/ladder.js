@@ -1,23 +1,15 @@
 const router = require("express").Router();
 const ladder=require("../controllers/ladder");
-const multer = require("multer");
+const { uploadImageConfigs } = require("../services/general");
 
 
-let multerStorage = multer.diskStorage({
-    destination: "./uploads/",
-    filename: (req, file, callback) => {
-        let extension = file.originalname.split(".").pop();
-        callback(null, Date.now()+"."+extension);
-    }
-})
-let uploads = multer({storage: multerStorage});
-
+let uploads = uploadImageConfigs();
 
 router.post("/store", uploads.single("picture"), ladder.store);
 router.post("/update", uploads.single("picture"), ladder.update);
-router.post("/delete", ladder.delete);
-router.post("/show", ladder.show);
-router.post("/list", ladder.list);
+router.get("/delete/:id", ladder.delete);
+router.get("/show/:id", ladder.show);
+router.get("/list", ladder.list);
 
 
 router.post("/search", ladder.searchData);
