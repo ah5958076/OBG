@@ -3,6 +3,7 @@ const { AUTH_FAILED, GPLEAGUE_ADDED, UNEXPECTED_ERROR, GPLEAGUE_UPDATED, GPLEAGU
 const {unlinkSync} = require("fs");
 const GPLeagueModel = require("../models/GPLeague");
 const { makeResponse, checkFile, listData, searchData, writeExcelFile } = require("../services/general");
+const { isObjectIdOrHexString } = require("mongoose");
 
 
 
@@ -71,7 +72,11 @@ module.exports.update = async (req, res) => {
         if(!givenObject.endingDate) return res.status(INVALID).send(makeResponse("Ending date is empty"));
         
         let value=await GPLeagueModel.findOne({_id: givenObject.id}).catch((e) => {console.log(e)});
-        if(value && value.picture){ unlinkSync(value.picture)}
+        if(value && value.picture){ 
+            try{
+                unlinkSync(value.picture)
+            }catch(e){}
+        }
     
         value = await GPLeagueModel.updateOne({_id:givenObject.id}, givenObject).catch((e) => {console.log(e)});
         if(value) return res.status(OK).send(makeResponse(GPLEAGUE_UPDATED));
@@ -85,7 +90,8 @@ module.exports.delete = async (req, res) => {
 
     let id = req.params?.id;
     if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
-    
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
+
     let value=await GPLeagueModel.findOne({_id: id}).catch((e) => {console.log(e)});
     if(value && value.picture){ unlinkSync(value.picture) }
     value = await GPLeagueModel.deleteOne({_id: id}).catch((e) => {console.log(e)});
@@ -97,17 +103,19 @@ module.exports.show = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
     let id = req.params?.id;
-    if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));    
+    if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR)); 
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));   
 
     let value = await GPLeagueModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    return res.status(OK).send("", value);
+    if(value) return res.status(OK).send(makeResponse("", value));
+    return res.status(NOT_FOUND).send(makeResponse("No data found"));
 }
 
 module.exports.list = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
     let page_number = req.query?.pageNum || 1;
-    return res.status(OK).send(makeResponse("", listData(GPLeagueModel, page_number)));
+    return res.status(OK).send(makeResponse("", await listData(GPLeagueModel, page_number)));
 }
 
 
@@ -116,10 +124,10 @@ module.exports.list = async (req, res) => {
 module.exports.searchData = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let filter = req.body?.filter.toLowerCase() || "";
+    let filter = req.body?.filter?.toLowerCase() || "";
     let fields = ["name", "gameName"];
 
-    res.status(OK).send(makeResponse("", searchData(GPLeagueModel, filter, fields)));
+    res.status(OK).send(makeResponse("", await searchData(GPLeagueModel, filter, fields)));
 }
 
 module.exports.downloadExcel = async (req, res) => {

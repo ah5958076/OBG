@@ -1,8 +1,9 @@
-const { INVALID, OK, NOT_FOUND } = require("../constants/constants");
-const { TOURNAMENT_ADDED, UNEXPECTED_ERROR, TOURNAMENT_UPDATED, TOURNAMENT_DELETED } = require("../constants/messages");
+const { INVALID, OK, NOT_FOUND, UNAUTHORIZED } = require("../constants/constants");
+const { TOURNAMENT_ADDED, UNEXPECTED_ERROR, TOURNAMENT_UPDATED, TOURNAMENT_DELETED, AUTH_FAILED } = require("../constants/messages");
 const { checkFile, makeResponse, listData, writeExcelFile, searchData } = require("../services/general");
 const TournamentModel = require("../models/Tournament");
 const {unlinkSync} = require("fs");
+const { isObjectIdOrHexString } = require("mongoose");
 
 
 
@@ -12,7 +13,7 @@ module.exports.store = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
     let response = checkFile(req.file);
-    if(response){
+    if(response.code===OK){
         let givenObject={
             name: req.body?.name || "",
             gameName: req.body?.gameName || "",
@@ -81,10 +82,15 @@ module.exports.delete = async (req, res) => {
 
     let id = req.params?.id || "";
     if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
-
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
+    
     let value=await TournamentModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    if(value && value.picture){ unlinkSync(value.picture) }
-
+    if(value && value.picture){ 
+        try{
+            unlinkSync(value.picture); 
+        }catch(e){}
+    }
+    
     value = await TournamentModel.deleteOne({_id: id}).catch((e) => {console.log(e)});
     if(value.deletedCount) return res.status(OK).send(makeResponse(TOURNAMENT_DELETED));
     return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
@@ -92,12 +98,14 @@ module.exports.delete = async (req, res) => {
 
 module.exports.show = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
+    
     let id = req.params?.id || ""
     if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));    
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
 
     let value = await TournamentModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    return res.status(OK).send(makeResponse("", value));
+    if(value) return res.status(OK).send(makeResponse("", value));
+    return res.status(NOT_FOUND).send(makeResponse("No data found"));
 }
 
 module.exports.list = async (req, res) => {
@@ -116,7 +124,7 @@ module.exports.list = async (req, res) => {
 module.exports.searchData = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let filter = req.body.filter.toLowerCase() || "";
+    let filter = req.body?.filter?.toLowerCase() || "";
     let fields = ["name", "catagory", "gameName"];
     res.status(OK).send(makeResponse("", await searchData(TournamentModel, filter, fields)));
 }
@@ -125,6 +133,6 @@ module.exports.downloadExcel = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
     let fields = ["name", "type", "gameName", "entryFee", "prize", "teamSize", "totalTeams", "startingDate"];
-    let value = TournamentModel.find().catch((e) => {console.log(e)});
+    let value = await TournamentModel.find({}).catch((e) => {console.log(e)});
     return res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(value, fields)));
 }

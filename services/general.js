@@ -2,8 +2,9 @@ const bcrypt = require("bcrypt");
 const mailer = require("nodemailer");
 const multer = require("multer");
 const exceljs = require("exceljs");
-const { PAGINATION_MAX_RECORD_SIZE, INVALID, OK } = require("../constants/constants");
-const { IMAGE_NOT_UPLOADED, EXTENSION_NOT_ALLOWED } = require("../constants/messages");
+const {unlinkSync} = require("fs")
+const { PAGINATION_MAX_RECORD_SIZE, INVALID, OK, ALLOWED_EXTENSIONS, ALLOWED_VIDEO_EXTENSIONS } = require("../constants/constants");
+const { IMAGE_NOT_UPLOADED, VIDEO_EXTENSION_NOT_ALLOWED } = require("../constants/messages");
 
 
 
@@ -57,7 +58,7 @@ module.exports.sendMail = async (mail, subject, body) => {
     return await transporter.sendMail(config).catch((e) => {console.log(e)});
 }
 
-module.exports.writeExcelFile = async (data, fields=[]) => {
+module.exports.writeExcelFile = async (data=[], fields=[]) => {
     let workbook = new exceljs.Workbook();
     let worksheet = workbook.addWorksheet("sheet 1");
     let row=1, col="A";
@@ -73,18 +74,29 @@ module.exports.writeExcelFile = async (data, fields=[]) => {
     });
 
     let name_of_file = Date.now()+".xlsx";
-    let path = "./uploads/"+name_of_file;
-    let value = await workbook.xlsx.writeFile(name_of_file).catch((e) => {console.log(e)});
-    if(value)
-        return {fileName: name_of_file, path: path};
+    let path = "uploads/"+name_of_file;
+    let value = await workbook.xlsx.writeFile(path).catch((e) => {console.log(e)});
+    if(!value) return {fileName: name_of_file, path: path};
     return null;
 }
 
-module.exports.listData = async (model, pageNum) => {
+module.exports.listData = async (model, pageNum, query) => {
     let start = (PAGINATION_MAX_RECORD_SIZE*(pageNum-1));
     let end = start+PAGINATION_MAX_RECORD_SIZE;
 
-    let value = await model.find({}).skip(start).limit(end).catch((e) => {console.log(e)});
+    let value = await model.find({...query}).skip(start).limit(end).catch((e) => {console.log(e)});
+    let count = await model.count({...query}).catch((e) => {console.log(e)});
+
+    if(end>count) end=count;
+
+    return {data: value, start:start, end:end, total:count};
+}
+
+module.exports.listDataWithPopulate = async (model, pageNum, population_fields=[], query) => {
+    let start = (PAGINATION_MAX_RECORD_SIZE*(pageNum-1));
+    let end = start+PAGINATION_MAX_RECORD_SIZE;
+
+    let value = await model.find({...query}).skip(start).limit(end).populate(population_fields).catch((e) => {console.log(e)});
     let count = await model.count({}).catch((e) => {console.log(e)});
 
     if(end>count) end=count;
@@ -92,26 +104,14 @@ module.exports.listData = async (model, pageNum) => {
     return {data: value, start:start, end:end, total:count};
 }
 
-module.exports.listDataWithPopulate = async (model, pageNum, population_fields=[]) => {
-    let start = (PAGINATION_MAX_RECORD_SIZE*(pageNum-1));
-    let end = start+PAGINATION_MAX_RECORD_SIZE;
-
-    let value = await model.find({}).skip(start).limit(end).populate(population_fields).catch((e) => {console.log(e)});
-    let count = await model.count({}).catch((e) => {console.log(e)});
-
-    if(end>count) end=count;
-
-    return {data: value, start:start, end:end, total:count};
-}
-
-module.exports.searchData = async (model, filterText, fieldsBasedOnSearchApplied=[]) => {
-    let value = await model.find().catch((e) => {console.log(e)});
+module.exports.searchData = async (model, filterText, fieldsBasedOnSearchApplied=[], query={}) => {
+    let value = await model.find({...query}).catch((e) => {console.log(e)});
 
     let data=[];
     value.forEach((elem) => {
         for(let i=0; i<fieldsBasedOnSearchApplied.length; i++){
-            let field = elem[`${fieldsBasedOnSearchApplied[i]}`].toLowerCase();
-            if(field.includes(filterText)) {
+            let field = elem[`${fieldsBasedOnSearchApplied[i]}`]?.toLowerCase();
+            if(field?.includes(filterText)) {
                 data.push(elem);
                 break;
             }
@@ -120,8 +120,8 @@ module.exports.searchData = async (model, filterText, fieldsBasedOnSearchApplied
     return data;
 }
 
-module.exports.searchDataWithPopulate = async (model, filterText, fieldsBasedOnSearchApplied=[], population_fields=[]) => {
-    let value = await model.find(population_fields).populate().catch((e) => {console.log(e)});
+module.exports.searchDataWithPopulate = async (model, filterText, fieldsBasedOnSearchApplied=[], population_fields=[], query={}) => {
+    let value = await model.find({...query}).populate(population_fields).catch((e) => {console.log(e)});
 
     let data=[];
     value.forEach((elem) => {
@@ -138,10 +138,11 @@ module.exports.searchDataWithPopulate = async (model, filterText, fieldsBasedOnS
 
 module.exports.checkFile = (fileObject) => {
     if(fileObject){
-        if(ALLOWED_EXTENSIONS.toLowerCase().includes(req.file.originalname.split(".").pop().toLowerCase()))
+        let ext = fileObject.originalname.split(".").pop().toLowerCase();
+        if(ALLOWED_EXTENSIONS.toLowerCase().includes(ext) || ALLOWED_VIDEO_EXTENSIONS.toLowerCase().includes(ext))
             return {code: OK, data: fileObject.path}
-        unlinkSync(fileObject.path);
-        return {code: INVALID, data: EXTENSION_NOT_ALLOWED}
+        try{unlinkSync(fileObject.path);}catch(e){}
+        return {code: INVALID, data: VIDEO_EXTENSION_NOT_ALLOWED}
     }
     return {code: INVALID, data: IMAGE_NOT_UPLOADED}
 }

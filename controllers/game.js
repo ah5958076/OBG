@@ -1,8 +1,9 @@
-const { NOT_FOUND, OK } = require("../constants/constants");
+const { NOT_FOUND, OK, INVALID } = require("../constants/constants");
 const { IMAGE_NOT_UPLOADED, GAME_ADDED, UNEXPECTED_ERROR, GAME_UPDATED, GAME_DELETED } = require("../constants/messages");
 const {unlinkSync}=require("fs");
-const { makeResponse, listData } = require("../services/general");
+const { makeResponse, listData, checkFile, searchData, writeExcelFile } = require("../services/general");
 const GameModel = require("../models/Game");
+const { isObjectIdOrHexString } = require("mongoose");
 
 
 
@@ -10,20 +11,24 @@ const GameModel = require("../models/Game");
 module.exports.store = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let givenObject = {
-        name: req.body?.name || "",
-        type: req.body?.type || "",
-        platform: req.body?.platform || "",
-        picture: req.file?.path || "",
-    }
-    if(!givenObject.name) return res.status(INVALID).send(makeResponse("Name is empty"));
-    if(!givenObject.type) return res.status(INVALID).send(makeResponse("Type is empty"));
-    if(!givenObject.platform) return res.status(INVALID).send(makeResponse("Platform is empty"));
-    if(!givenObject.picture) return res.status(INVALID).send(makeResponse(IMAGE_NOT_UPLOADED));
+    let response = checkFile(req.file);
+    if(response.code===OK){
+        let givenObject = {
+            name: req.body?.name || "",
+            type: req.body?.type || "",
+            platform: req.body?.platform || "",
+            picture: req.file.path,
+        }
+        if(!givenObject.name) return res.status(INVALID).send(makeResponse("Name is empty"));
+        if(!givenObject.type) return res.status(INVALID).send(makeResponse("Type is empty"));
+        if(!givenObject.platform) return res.status(INVALID).send(makeResponse("Platform is empty"));
+        if(!givenObject.picture) return res.status(INVALID).send(makeResponse(IMAGE_NOT_UPLOADED));
 
-    let value = await new GameModel(givenObject).save().catch((e) => {console.log(e)});
-    if(value) return res.status(OK).send(makeResponse(GAME_ADDED));
-    return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+        let value = await new GameModel(givenObject).save().catch((e) => {console.log(e)});
+        if(value) return res.status(OK).send(makeResponse(GAME_ADDED));
+        return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    }  
+    return res.status(response.code).send(makeResponse(response.data));
 }
 
 module.exports.update = async (req, res) => {
@@ -53,11 +58,16 @@ module.exports.delete = async (req, res) => {
 
     let id = req.params?.id || "";
     if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
 
     let value=await GameModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    if(value) unlinkSync(value.picture);
-    value = await GameModel.deleteOne({_id: id}).catch((e) => {console.log(e)});
+    if(value) {
+        try{
+            unlinkSync(value.picture);
+        }catch(e){}
+    }
 
+    value = await GameModel.deleteOne({_id: id}).catch((e) => {console.log(e)});
     if(value.deletedCount) return res.status(OK).send(makeResponse(GAME_DELETED));
     return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
 }
@@ -67,9 +77,11 @@ module.exports.show = async (req, res) => {
 
     let id = req.params?.id || "";
     if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
 
     let value = await GameModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    return res.status(OK).send(makeResponse("", value));
+    if(value) return res.status(OK).send(makeResponse("", value));
+    return res.status(NOT_FOUND).send(makeResponse("No data found"));
 }
 
 module.exports.list = async (req, res) => {
@@ -86,7 +98,7 @@ module.exports.list = async (req, res) => {
 module.exports.searchData = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let filter = req.body.filter.toLowerCase() || "";
+    let filter = req.body.filter?.toLowerCase() || "";
     let fields = ["name", "type", "platform"];
     return res.status(OK).send(makeResponse("", {searchedData: await searchData(GameModel, filter, fields)}));
 }
@@ -94,10 +106,7 @@ module.exports.searchData = async (req, res) => {
 module.exports.downloadExcel = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
+    let fields = ["name", "size"];
     let value = await GameModel.find({}).catch((e) => {console.log(e)});
-    if(!value) return res.status(OK).send(makeResponse(NO_DATA));
-
-    let response = await writeExcelFile(value, ["name", "size"]);
-    if(response) return res.status(OK).send(makeResponse("File written successfully", response));
-    return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    return res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(value, fields)));
 }

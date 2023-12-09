@@ -1,8 +1,10 @@
 const { ALLOWED_EXTENSIONS, INVALID, OK, NOT_FOUND, PAGINATION_MAX_RECORD_SIZE, UNAUTHORIZED } = require("../constants/constants");
 const userModel = require("../models/User");
 const {unlinkSync} = require("fs");
+const {registerNewUser} = require("../services/user");
 const { EXTENSION_NOT_ALLOWED, AUTH_FAILED, USER_UPDATED, UNEXPECTED_ERROR, USER_DELETED, NO_DATA, PASSWORD_CHANGED, INVALID_PASSWORD } = require("../constants/messages");
 const { makeResponse, encryptData, writeExcelFile, checkEncryptedData, listData, searchData } = require("../services/general");
+const { isObjectIdOrHexString } = require("mongoose");
 
 
 
@@ -43,18 +45,19 @@ module.exports.update = async (req, res) => {
     if(!givenObject.email) return res.status(INVALID).send(makeResponse("Email is empty"));
     if(!givenObject.about) return res.status(INVALID).send(makeResponse("About is empty"));
     
-    let result = await userModel.updateOne({email: email}, givenObject).catch((e) => {console.log(e)});
-    if(!result.modifiedCount) return res.status(OK).send(makeResponse(USER_UPDATED));
+    let result = await userModel.updateOne({email: givenObject.email}, givenObject).catch((e) => {console.log(e)});
+    if(result.modifiedCount) return res.status(OK).send(makeResponse(USER_UPDATED));
     return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
 }
 
 module.exports.delete = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let email = req.body?.email || "";
-    if(!email) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    let id = req.params?.id || "";
+    if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"))
 
-    let result = await userModel.updateOne({email: email}, {$set: {deletedAt: Date.now()}}).catch((e) => {console.log(e)});
+    let result = await userModel.updateOne({_id: id}, {$set: {deletedAt: Date.now()}}).catch((e) => {console.log(e)});
     if(result.modifiedCount) return res.status(OK).send(makeResponse(USER_DELETED));
     return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
 }
@@ -62,18 +65,20 @@ module.exports.delete = async (req, res) => {
 module.exports.show = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED))
 
-    let email = req.body?.email || "";
-    if(!email) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    let id = req.params?.id || "";
+    if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"))
 
-    let result = await userModel.findOne({email: email}).catch((e) => {console.log(e)});
-    return res.status(OK).send(makeResponse("", result));
+    let result = await userModel.findOne({_id: id, deletedAt: null}).catch((e) => {console.log(e)});
+    if(result) return res.status(OK).send(makeResponse("", result));
+    return res.status(NOT_FOUND).send(makeResponse("No data found"));
 }
 
 module.exports.list = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED))
 
     let page_number = req.query?.pageNum || 1;
-    return res.status(OK).send(makeResponse("", await listData(userModel, page_number)));
+    return res.status(OK).send(makeResponse("", await listData(userModel, page_number, {deletedAt: null})));
 }
 
 
@@ -83,7 +88,7 @@ module.exports.list = async (req, res) => {
 module.exports.searchData = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let filter = req.body.filter.toLowerCase() || "";
+    let filter = req.body.filter?.toLowerCase() || "";
     let fields = ["fullName", "username", "email", "about"];
     return res.status(OK).send(makeResponse("", {searchedData: await searchData(userModel, filter, fields)}));
 }
@@ -91,12 +96,10 @@ module.exports.searchData = async (req, res) => {
 module.exports.downloadExcel = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
+    let fields = ["fullName", "username", "email", "about"];
     let value = await userModel.find({}).catch((e) => {console.log(e)});
-    if(!value) return res.status(OK).send(makeResponse(NO_DATA));
 
-    let response = await writeExcelFile(value, ["fullName", "username", "email", "about"]);
-    if(response) return res.status(OK).send(makeResponse("File written successfully", response));
-    return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    return res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(value, fields)));
 }
 
 
@@ -106,16 +109,17 @@ module.exports.downloadExcel = async (req, res) => {
 module.exports.changePassword = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let email = req.body.email || "";
+    let email = req.user?.email || "";
     let oldPassword = req.body.oldPassword || "";
     let password = req.body.password || "";
+    
     if(!email) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
     if(!oldPassword) return res.status(INVALID).send(makeResponse("Old Password is empty"));
     if(!password) return res.status(INVALID).send(makeResponse("Password is empty"));
 
-    let value = await userModel.findOne({email:data.email}).catch((e) => {console.log(e)});
+    let value = await userModel.findOne({email:email}).catch((e) => {console.log(e)});
     if(value){
-        if(checkEncryptedData(oldPassword, value.password)){
+        if(await checkEncryptedData(oldPassword, value.password)){
             let hashedpassword = await encryptData(password);
             if(hashedpassword){
                 value = await userModel.updateOne({email: email}, {password: hashedpassword}).catch((e) => {console.log(e)});

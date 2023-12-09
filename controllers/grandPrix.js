@@ -1,5 +1,5 @@
-const { INVALID, OK, NOT_FOUND } = require("../constants/constants");
-const { GRAND_PRIX_ADDED, UNEXPECTED_ERROR, GRAND_PRIX_UPDATED, GRAND_PRIX_DELETED } = require("../constants/messages");
+const { INVALID, OK, NOT_FOUND, UNAUTHORIZED } = require("../constants/constants");
+const { GRAND_PRIX_ADDED, UNEXPECTED_ERROR, GRAND_PRIX_UPDATED, GRAND_PRIX_DELETED, AUTH_FAILED } = require("../constants/messages");
 const { makeResponse, listData, searchData, writeExcelFile } = require("../services/general");
 const GrandPrixModel = require("../models/GrandPrix");
 
@@ -75,7 +75,8 @@ module.exports.show = async (req, res) => {
     if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
 
     let value = await GrandPrixModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    return res.status(OK).send(makeResponse("", value));
+    if(value) return res.status(OK).send(makeResponse("", value));
+    return res.status(NOT_FOUND).send(makeResponse("No Data found"));
 }
 
 module.exports.list = async (req, res) => {
@@ -92,10 +93,10 @@ module.exports.list = async (req, res) => {
 module.exports.searchData = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let filter = req.body?.filter.toLowerCase() || "";
+    let filter = req.body?.filter?.toLowerCase() || "";
     let fields = ["name","grandPrixOwner","ownerOccupation","ownerYearlyIncome","ownerAddress"];
     
-    return res.status(OK).send(makeResponse("", searchData(GrandPrixModel, filter, fields)))
+    return res.status(OK).send(makeResponse("", await searchData(GrandPrixModel, filter, fields)))
 }
 
 module.exports.downloadExcel = async (req, res) => {

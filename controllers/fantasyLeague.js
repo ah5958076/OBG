@@ -1,7 +1,10 @@
-const { INVALID, OK, NOT_FOUND } = require("../constants/constants");
-const { FANTASY_LEAGUE_ADDED, UNEXPECTED_ERROR, FANTASY_LEAGUE_UPDATED, FANTASY_LEAGUE_DELETED } = require("../constants/messages");
+const { isObjectIdOrHexString } = require("mongoose");
+const { INVALID, OK, NOT_FOUND, UNAUTHORIZED } = require("../constants/constants");
+const { FANTASY_LEAGUE_ADDED, UNEXPECTED_ERROR, FANTASY_LEAGUE_UPDATED, FANTASY_LEAGUE_DELETED, AUTH_FAILED } = require("../constants/messages");
 const FantasyLeagueModel = require("../models/FantasyLeague");
 const { makeResponse, listData, searchData, writeExcelFile } = require("../services/general");
+
+
 
 
 
@@ -55,7 +58,8 @@ module.exports.delete = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
     let id = req.params?.id || "";
-    if(!id) return res.status(NOT_FOUND).send(UNEXPECTED_ERROR);
+    if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"))
 
     let value = await FantasyLeagueModel.deleteOne({_id: id}).catch((e) => {console.log(e)});
     if(value.deletedCount) return res.status(OK).send(makeResponse(FANTASY_LEAGUE_DELETED));
@@ -67,9 +71,11 @@ module.exports.show = async (req, res) => {
 
     let id = req.params?.id || "";
     if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"))
 
     let value = await FantasyLeagueModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    return res.status(OK).send(makeResponse("", value));
+    if(value) return res.status(OK).send(makeResponse("", value));
+    return res.status(NOT_FOUND).send(makeResponse("No data found"));
 }
 
 module.exports.list = async (req, res) => {
@@ -85,7 +91,7 @@ module.exports.list = async (req, res) => {
 module.exports.searchData = async (req, res) => {
     if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
-    let filter = req.body?.filter.toLowerCase() || "";
+    let filter = req.body?.filter?.toLowerCase() || "";
     let fields = ["name", "grandPrixLeague", "type"];
     return res.status(OK).send(makeResponse("", await searchData(FantasyLeagueModel, filter, fields)));
 }
@@ -95,5 +101,5 @@ module.exports.downloadExcel = async (req, res) => {
 
     let fields = ["name", "grandPrixLeague", "type", "year", "totalTeams", "teamSize", "draftDateTime", "winner"];
     let value = await FantasyLeagueModel.find().catch((e) => {console.log(e)});
-    res.status(OK).send(makeResponse("File written successfully", writeExcelFile(value, fields)));
+    res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(value, fields)));
 }
