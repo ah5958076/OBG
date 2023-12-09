@@ -1,6 +1,6 @@
 .dialogs {
     display: none;
-    align-items: center;
+    padding-top: 30px;
     justify-content: center;
     position: fixed;
     left: 0;
@@ -9,6 +9,7 @@
     height: 100%;
     z-index: 90;
     backdrop-filter: blur(5px);
+    overflow-y: auto;
 }
 .dialogs:has(.dialog.show) {
     display: flex;
@@ -25,17 +26,17 @@
 
 .dialogs .dialog {
     display: none;
+    position: relative;
     flex-direction: column;
     align-items: center;
     background-color: black;
     border: 1px solid #1a1a1a;
     max-width: 40%;
-    min-width: 260px;
-    width: 100%;
-    max-height: 90vh;
+    min-width:400px;
+    width: fit-content;
+    height: fit-content;
     padding: 20px;
     border-radius: 10px;
-    overflow-y: auto;
 }
 
 .dialogs .dialog::-webkit-scrollbar {
@@ -57,7 +58,15 @@
 }
 
 
-
+.side_by_side{
+    display: flex !important;
+    width: 100%;
+    align-items: center;
+    gap: 30px;
+}
+.side_by_side>div{
+    width: 100%;
+}
 
 
 
@@ -72,7 +81,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 30px;
-    width: 80%;
+    width: 95%;
     position: relative;
 }
 
@@ -137,7 +146,7 @@
     border: none;
     outline: none;
     padding: 10px;
-    font-size: 17px;
+    font-size: 16px;
     width: 100%;
     cursor: pointer;
 }
@@ -165,7 +174,20 @@
 
 
 
-@media(max-width: 350px) {
+
+@media(max-width: 450px){
+    .dialogs .dialog{
+        min-width: 250px;
+        max-width: 90%;
+        width: 100%;
+    }
+    .side_by_side{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .side_by_side>div:nth-child(2){
+        width: auto;
+    }
     .dialog .controls:not(.no-wrap) {
         flex-direction: column-reverse;
     }

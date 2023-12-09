@@ -13,8 +13,6 @@ export const ConfirmationDialog = (props:any) => {
 
             <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.confirmation_dialog} ${dialogStyles.show}`}>
 
-                <h2>Confirmation Dialog</h2>
-
                 <p>Are you Sure?</p>
                 
                 <div className={`${dialogStyles.controls} no-wrap`}>

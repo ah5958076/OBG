@@ -29,15 +29,13 @@ export const AddFantasyLeague = (props:any) => {
 
             <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
-                <h2>Add Fantasy League</h2>
-
                 <form method="post" onSubmit={addNewHandler}>
 
                     <Input name='name' title='Fantasy League Name *' required={true} />
                     <Select options={dummy_leagues} name='grandPrix_league' title='Grand Prix League *' required={true} />
                     <Input name='total_teams' title='Total Teams *' required={true} />
                     <Select options={teamSize} name='team_size' title='Team Size *' required={true} />
-                    <Input type='number' name='year' title='Year *' required={true} />
+                    <Input type='datetime-local' name='draftDateTime' title='Draft Date & Time' required={true} />
 
                     <div className={dialogStyles.controls}>
                         <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type='button'>Cancel</button>
@@ -66,8 +64,6 @@ export const UpdateFantasyLeague = (props:any) => {
 
             <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
-                <h2>Update Fantasy League</h2>
-
                 <form method="post" onSubmit={ updateLeagueHanlder }>
 
                     <input type="hidden" name="id" value={props.data._id}/>
@@ -76,7 +72,7 @@ export const UpdateFantasyLeague = (props:any) => {
                     <Select name='grandPrix_league' title='Grand Prix League *' required={true} value={grandPrix} onChnage={(e:any)=>setGrandPrix(e.target.value)} options={dummy_leagues} />
                     <Input name='total_teams' title='Total Teams *' required={true} value={totalTeams} onChnage={(e:any)=>{setTotalTeams(e.target.value)}}/>
                     <Select name='team_size' title='Team Size *' required={true} value={teamSize} onChnage={(e:any)=>setTeamSize(e.target.value)} options={teamSize} />
-                    <Input type='number' name='year' title='Year *' required={true} value={year} onChnage={(e:any)=>{setYear(e.target.value)}}/>
+                    <Input type='datetime-local' name='draftDateTime' title='Draft Date & Time *' required={true} value={year} onChnage={(e:any)=>{setYear(e.target.value)}}/>
                     
                     <div className={dialogStyles.controls}>
                         <button onClick={()=>store.dispatch(hideDialog())} style={{backgroundColor: "gray"}} type='button'>Cancel</button>

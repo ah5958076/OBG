@@ -32,23 +32,23 @@ const ChangePasswordAtLogin = () => {
 
       <div className={styles.left}>
 
-        <div className={styles.top}>
-          <h1 style={{color: "black", fontSize: "30px"}}>ONLINE BATTLEGROUND</h1>
-          <p style={{color: "lightgray", fontSize: "25px"}}>Best user experience of online gaming</p>
-        </div>
-        
-        <div className={styles.bottom}>
-          <h1 style={{color: "white", fontSize: "25px"}}>Play & Compete</h1>
-          <p style={{color: "white", fontSize: "15px"}}>Create an account today to compete against different opponents</p>
-        </div>
+            <div className={styles.top}>
+                <h1 style={{color: "black", fontSize: "50px", fontFamily:"bebas-neue"}}>ONLINE<br/>BATTLEGROUND</h1>
+                <p style={{color: "lightgray", fontSize: "28px"}}>Best user experience of online gaming</p>
+            </div>
+            
+            <div className={styles.bottom}>
+                <h1 style={{color: "white", fontSize: "38px"}}>Play & Compete</h1>
+                <p style={{color: "white", fontSize: "18px"}}>Create an account today to compete against different opponents</p>
+            </div>
 
-      </div>
+        </div>
 
       <div className={styles.right}>
 
         <div className={styles.navigation}>
-          <h2>Change Password</h2>
-          <p>Please fill in the email that you used to register. You will be sent a code with which you can change your password.</p>
+          <h2 style={{fontSize:"16px",}}>Change Password</h2>
+          <p style={{textAlign:"center",fontSize:"14px",width:"70%",marginTop:"60px"}}>Now, You can reset your password to enter into your dashabord</p>
         </div>
 
         <form className={styles.auth_form} method="post" onSubmit={ changePasswordAtLoginHandler }>

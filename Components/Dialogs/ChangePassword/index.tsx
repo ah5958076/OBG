@@ -15,8 +15,6 @@ export const ChangePassword = () => {
 
             <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
-                <h2>Change Password</h2>
-
                 <form method="post" onSubmit={ changePasswordHandler } >
 
                     <Input type='password' title='Old Password *' icon={faKey} name='old_password' required={true} />

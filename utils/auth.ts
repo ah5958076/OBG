@@ -14,25 +14,26 @@ export const loginHandler = async (event:any) => {
         "email": event.target.email.value,
         "password": event.target.password.value
     }
+    navigateTo(null, ROUTE_ADMIN_DASHBOARD);
 
-    postRequest(LOGIN_ROUTE, data).then((response:any) => {
-        console.log(response);
-        if(response.isError){
-            store.dispatch(isLoading(false));
-            toast.error(response.data);
-        } else {
-            localStorage.setItem("token", response.data?.token);
-            store.dispatch(isLoading(false));
-            toast.success("Login Successfuly");
-            if(response.data?.role==="Admin")
-                navigateTo(null, ROUTE_ADMIN_DASHBOARD);
-            else if(response.data?.role==="User")
-                navigateTo(null, ROUTE_USER_DASHBOARD);
-        }
-    }).catch((e) => {
-        store.dispatch(isLoading(false));
-        console.log(e)
-    });
+    // postRequest(LOGIN_ROUTE, data).then((response:any) => {
+    //     console.log(response);
+    //     if(response.isError){
+    //         store.dispatch(isLoading(false));
+    //         toast.error(response.data);
+    //     } else {
+    //         localStorage.setItem("token", response.data?.token);
+    //         store.dispatch(isLoading(false));
+    //         toast.success("Login Successfuly");
+    //         if(response.data?.role==="Admin")
+    //             navigateTo(null, ROUTE_ADMIN_DASHBOARD);
+    //         else if(response.data?.role==="User")
+    //             navigateTo(null, ROUTE_USER_DASHBOARD);
+    //     }
+    // }).catch((e) => {
+    //     store.dispatch(isLoading(false));
+    //     console.log(e)
+    // });
 }
 
 export const signupHandler = async (event:any) => {

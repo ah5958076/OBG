@@ -3,7 +3,7 @@
     position: relative;
     border-bottom: 2px solid #292529;
     gap: 5px;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 .input>div{
     position: absolute;
@@ -26,7 +26,7 @@
     color: transparent;
     background-color: transparent;
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
 }
 .input select:valid,
 .input select:focus {
@@ -37,6 +37,6 @@
 }
 .input select:valid ~ div,
 .input select:focus ~ div {
-    transform: translateY(-20px);
+    transform: translateY(-15px);
     font-size: 15px;
 }

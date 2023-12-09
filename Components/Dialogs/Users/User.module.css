@@ -19,3 +19,217 @@
   font-size: 30px;
   background-color: transparent;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.closeBtn{
+  width: 50px !important;
+  height: 50px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.closeBtn svg{
+  font-size: 20px;
+}
+
+
+.inventories{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: 20px;
+  margin-top: 30px;
+  align-items: center;
+}
+.inventories .inventory{
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.inventories .inventory button{
+  width: fit-content;
+  padding: 10px 20px;
+}
+.inventories .inventory div{grid-area: image;}
+.inventories .inventory p{grid-area: name;}
+.inventories .inventory button{grid-area: addBtn;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dpImage{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.info{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  font-size: 14px;
+  justify-content: center;
+}
+.info p{
+  width: 100%;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.tabs{
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 30px;
+  width: 80%;
+}
+.tabs .tab{
+  padding-bottom: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+.tabs .tab:hover,
+.tabs .tab.active{
+  color: var(--site-clr);
+  border-bottom: 1px solid var(--site-clr);
+}
+
+
+.table{
+  margin-top: 30px;
+  width: 80%;
+}
+.table tbody{
+  width: 100%;
+}
+.table tbody tr,
+.table tbody td{
+  width: fit-content;
+}
+
+
+
+
+
+
+
+
+
+
+
+.table.info tbody tr td:nth-child(1){
+  width: 150px;
+  color: #DFDFDF;
+}
+.table.info tbody tr td:nth-child(2){
+  color: #A4A4A4;
+}
+.table.info tbody tr td:has(.drop_down){
+  position: relative;
+}
+.table.info tbody tr td:has(.drop_down) svg{
+  margin-left: 5px;
+}
+
+.table.info{display: none;}
+.table.Transaction{display: none;}
+.table.matchHistory{display: none;} 
+
+.table.info.show{display: initial;}
+.table.Transaction.show{display: initial;}
+.table.matchHistory.show{display: initial;} 
+
+.table.info td .drop_down{
+  display: none;
+  background-color: #232323;
+  border: 1px solid var(--site-clr);
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 15px;
+  gap: 5px;
+  flex-direction: column;
+}
+.table.info td .drop_down>div{
+  color: #DFDFDF;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+.table.info td .drop_down>div span{
+  color: #A4A4A4;
+}
+.table.info td .drop_down.show{
+  display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:450px){
+  .inventories{
+    width: 95%;
+  }
+  .inventories .inventory{
+    display: grid;
+    grid-template-areas: 'image name' 'image addBtn';
+    justify-content: flex-start;
+    gap: 10px;
+  }
+  .tabs{
+    gap: 5px;
+  }
+  .table.info tr td{
+    width: fit-content !important;
+  }
+}

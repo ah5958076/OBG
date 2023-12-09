@@ -11,22 +11,22 @@ import { ROUTE_SIGNIN } from '@/constants/routes';
 import { ADMIN_DASHBOARD_ROUTE } from '@/constants/backend-routes';
 
 const Dashboard = (props:any) => {
-  const [data, setData]:any = useState();
+  const [data, setData]:any = useState("hello");
 
   useEffect(() => {    
-    store.dispatch(isLoading(true));
-    getRequest(ADMIN_DASHBOARD_ROUTE).then((data:any) => {
-      if(data.auth?.auth===true){
-        setData(data);
-      }else{
-        navigateTo(null, ROUTE_SIGNIN);
-      }
-      store.dispatch(isLoading(false));
-    }).catch((e) => {
-      console.log(e);
-      navigateTo(null, ROUTE_SIGNIN);
-      store.dispatch(isLoading(false));
-    });
+    // store.dispatch(isLoading(true));
+    // getRequest(ADMIN_DASHBOARD_ROUTE).then((data:any) => {
+    //   if(data.auth?.auth===true){
+    //     setData(data);
+    //   }else{
+    //     navigateTo(null, ROUTE_SIGNIN);
+    //   }
+    //   store.dispatch(isLoading(false));
+    // }).catch((e) => {
+    //   console.log(e);
+    //   navigateTo(null, ROUTE_SIGNIN);
+    //   store.dispatch(isLoading(false));
+    // });
   }, []);
 
   return (

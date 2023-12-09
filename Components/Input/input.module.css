@@ -3,7 +3,7 @@
     position: relative;
     border-bottom: 2px solid #292529;
     gap: 5px;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 .input>div{
     position: absolute;
@@ -18,6 +18,9 @@
     pointer-events: none;
     transition: 0.5s;
 }
+.input div {
+    font-size: 14px;
+}
 .input input{
     border: none;
     outline: none;
@@ -26,7 +29,7 @@
     color: transparent;
     background-color: transparent;
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
 }
 .input input:valid,
 .input input:focus{
@@ -34,12 +37,13 @@
 }
 .input input:valid ~ div,
 .input input:focus ~ div{
-    transform: translateY(-20px);
-    font-size: 15px;
+    transform: translateY(-15px);
+    font-size: 14px;
 }
 .input input::-webkit-inner-spin-button{
   display: none;
 }
+.input input[type='datetime-local']::-webkit-calendar-picker-indicator,
 .input input[type='date']::-webkit-calendar-picker-indicator{
     filter: invert(1);
 }

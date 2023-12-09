@@ -5,6 +5,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
+    margin-right: 20px;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -72,11 +73,13 @@
 }
 
 .auth_form {
-    width: 250px;
+    min-width: 250px;
+    max-width: 270px;
 }
 .auth_form a.forgot_password {
     margin: 20px 0px;
     display: flex;
+    font-size: 14px;
     align-self: flex-end;
     color: gray;
     transition: 0.3s;
@@ -86,12 +89,13 @@
 }
 
 p.new_account{
-    font-size: 15px;
+    font-size: 14px;
     margin: 0;
 }
 p.new_account a{
     text-decoration: none;
-    color: gray;
+    color: var(--site-clr);
+    font-size: 14px;
     transition: 0.3s;
 }
 p.new_account a:hover{
@@ -116,12 +120,12 @@ p.new_account a:hover{
 
 
 
-@media(max-width: 850px){
+@media(max-width: 900px){
     .left .top,.left .bottom{
         padding-left: 10px;
     }
 }
-@media(max-width: 750px){
+@media(max-width: 850px){
     .left .top, .left .bottom{
         display: none;
     }

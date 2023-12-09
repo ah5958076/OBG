@@ -24,8 +24,11 @@
 .table table .right{
     text-align: right;
 }
+.table table tr {
+    font-size: 12px;
+}
 .table table th {
-    font-size: 14px;
+    font-size: 12px;
     background-color: #1A1A1A;
 }
 
@@ -36,7 +39,7 @@
 }
 
 .table table,
-.table table tr {
+.table table tr {   
     width: 100%;
 }
 .table table input[type='checkbox']{
@@ -73,7 +76,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 

@@ -26,13 +26,13 @@ const Auth = () => {
         <div className={styles.left}>
 
             <div className={styles.top}>
-                <h1 style={{color: "black", fontSize: "30px"}}>ONLINE BATTLEGROUND</h1>
-                <p style={{color: "lightgray", fontSize: "25px"}}>Best user experience of online gaming</p>
+                <h1 style={{color: "black", fontSize: "50px", fontFamily:"bebas-neue"}}>ONLINE<br/>BATTLEGROUND</h1>
+                <p style={{color: "lightgray", fontSize: "28px"}}>Best user experience of online gaming</p>
             </div>
             
             <div className={styles.bottom}>
-                <h1 style={{color: "white", fontSize: "25px"}}>Play & Compete</h1>
-                <p style={{color: "white", fontSize: "15px"}}>Create an account today to compete against different opponents</p>
+                <h1 style={{color: "white", fontSize: "38px"}}>Play & Compete</h1>
+                <p style={{color: "white", fontSize: "18px"}}>Create an account today to compete against different opponents</p>
             </div>
 
         </div>
@@ -50,7 +50,6 @@ const Auth = () => {
                 <Input name="username" title="Username" required={true} icon={faUser} />
                 <Input name="email" title="Email" required={true} icon={faEnvelope} />
                 <Input type="password" name="new_password" title="New Password" required={true} icon={faLock} />
-                <Input type="password" name="confirm_password" title="Confirm Password" required={true} icon={faLock} />
 
                 <button type="submit">Sign up</button>
                 <p className={styles.new_account}>

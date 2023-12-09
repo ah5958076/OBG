@@ -2,7 +2,7 @@ import { hideDialog, showDialog } from "../Redux/actions/dialogs";
 import { isLoading } from "../Redux/actions/loader";
 import { loadNewData } from "../Redux/actions/pagination";
 import store from "../Redux/store";
-import { DIALOG_ADD_FANTASY_LEAGUES, DIALOG_UPDATE_FANTASY_LEAGUES } from "../constants/dialog-names";
+import { DIALOG_ADD_FANTASY_LEAGUES, DIALOG_ADD_USER_INVENTORY, DIALOG_UPDATE_FANTASY_LEAGUES } from "../constants/dialog-names";
 import { TITLE_ADMIN_FANTASY_LEAGUES } from "../constants/page-titles";
 // import { makeXMLRequest, openEditDialog } from "./general";
 
