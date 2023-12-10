@@ -9,6 +9,7 @@ import PHOTO_PLACEHOLDER from "@/public/photo-placeholder.svg";
 import RED_CROSS from "@/public/red-cross.svg";
 import USER from "@/public/user.jpg";
 import FAVICON from "@/public/favicon.ico";
+import WHITE_CROSS from "@/public/white-cross.svg";
 
 
 export default {
@@ -22,5 +23,6 @@ export default {
     NO_PIC,
     PHOTO_PLACEHOLDER,
     USER,
-    FAVICON
+    FAVICON,
+    WHITE_CROSS
 }

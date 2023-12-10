@@ -5,7 +5,6 @@ import userStyles from "./User.module.css";
 import images from "@/constants/images";
 import store from '@/Redux/store';
 import { hideDialog } from '@/Redux/actions/dialogs';
-import Link from 'next/link';
 import Image from 'next/image';
 import Input from '@/Components/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +12,6 @@ import { faAngleDown, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const addUserHandler = (e:any) => {};
 const updateUserHandler = (e:any) => {};
-const userProfileHandler = (e:any) => {};
 
 
 
@@ -193,9 +191,11 @@ export const UserProfileDialog = () => {
         infoDropDownRef.current.classList.toggle(userStyles.show);
     }
     const manageDropdownsClosing = (e:any) => {
-        // dialogContainer && e.target===dialogContainer && e.target!==dialog
         if(!(infoDropDownRef.current.contains(e.target) || infoDropDownOpenerRef.current.contains(e.target)))
             infoDropDownRef.current.classList.remove(userStyles.show);
+    }
+    const openOrCloseMatchHistoryDropdown = (e:any) => {
+        e.currentTarget.parentElement.nextElementSibling.classList.toggle(userStyles.show);
     }
 
 
@@ -203,7 +203,7 @@ export const UserProfileDialog = () => {
 
         <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`} onClick={(e:any)=>{manageDropdownsClosing(e)}}>
+            <div id='dialog' className={`${dialogStyles.dialog} ${userStyles.profileDialog} ${dialogStyles.show}`} onClick={(e:any)=>{manageDropdownsClosing(e)}}>
 
                 <div className={userStyles.dpImage}>
                     <Image src={ images.USER } alt="..." width={100} height={100} />
@@ -263,101 +263,149 @@ export const UserProfileDialog = () => {
                     </tbody>
 
                 </table>
+
+                <div ref={transactionTableRef} className={`${userStyles.table} ${userStyles.Transaction}`}>
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>11/08/22- 10:30pm</td>
+                                <td>Deposit</td>
+                                <td>50$</td>
+                            </tr>
+
+                            <tr>
+                                <td>05/01/23- 08:30pm</td>
+                                <td>Deposit</td>
+                                <td>50$</td>
+                            </tr>
+
+                            <tr>
+                                <td>16/07/20- 11:30pm</td>
+                                <td>Withdraw</td>
+                                <td>50$</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
                 
-                <table ref={transactionTableRef} className={`${userStyles.table} ${userStyles.Transaction}`}>
+                <div ref={matchHistoryTableRef} className={`${userStyles.table} ${userStyles.matchHistory}`}>
 
-                    <tr>
-                        <th>Date & Time</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                    </tr>
+                    <select name="matchCatagory">
+                        <option value="">Match Catagory</option>
+                        <option value="Ladder">Ladder</option>
+                        <option value="GP League">GP League</option>
+                        <option value="1 to 1 Matches">1 to 1 Matches</option>
+                        <option value="Fantasy League">Fantasy League</option>
+                        <option value="Tournament">Tournament</option>
+                    </select>
 
-                    <tr>
-                        <td>11/08/22- 10:30pm</td>
-                        <td>Deposit</td>
-                        <td>50$</td>
-                    </tr>
+                    <div className={userStyles.mainTable}>
 
-                    <tr>
-                        <td>05/01/23- 08:30pm</td>
-                        <td>Deposit</td>
-                        <td>50$</td>
-                    </tr>
+                        <table>
+                            
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Game</th>
+                                    <th>Credits</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
 
-                    <tr>
-                        <td>16/07/20- 11:30pm</td>
-                        <td>Withdraw</td>
-                        <td>50$</td>
-                    </tr>
+                            <tbody>
+                                
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <Image src={ images.USER } alt="..." width={30} height={30} style={{borderRadius:"50%"}} />
+                                            <span>Elizabeth</span>
+                                        </div>
+                                    </td>
+                                    <td>call of Duty</td>
+                                    <td>50 Credits</td>
+                                    <td className={userStyles.win}>
+                                        <div> 
+                                            <div>
+                                                <Image src={ images.GOLDEN_CUP } alt="..." width={10} height={10}/>
+                                                <span>Won</span>
+                                            </div>
+                                            <div onClick={(e:any)=>{openOrCloseMatchHistoryDropdown(e)}}>
+                                                More Info
+                                            </div>
+                                        </div>
 
-                </table>
+                                        <div className={`${userStyles.more_info}`}>
+                                            <div>
+                                                <span>Match with: </span>
+                                                <span>Adam Lee</span>
+                                            </div>
+                                            <div>
+                                                <span>Result announce: </span>
+                                                <span>05 Jan 22(6:30am)</span>
+                                            </div>
+                                            <div>
+                                                <span>Winner: </span>
+                                                <span>Paul Semon</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                <table ref={matchHistoryTableRef} className={`${userStyles.table} ${userStyles.matchHistory}`}>
-                    <tr>
-                        <td> 
-                            Match Category 
-                            <i className="fa-solid fa-angle-down"></i>
-                            <div className="drop-down" id="match-cat">
-                            <div>Ladder</div>
-                            <div>GP Leagues</div>
-                            <div>1 to 1 Matches</div>
-                            <div>Fantacy League</div>
-                            <div>LeagueTournament</div>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <div className="dropdown">
-                        <button className="dropbtn">Dropdown</button>
-                        <div className="dropdown-content">
-                        <Link href="#">Link 1</Link>
-                        <Link href="#">Link 2</Link>
-                        <Link href="#">Link 3</Link>
-                        </div>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <Image src={ images.USER } alt="..." width={30} height={30} style={{borderRadius:"50%"}}/>
+                                            <span>Hamza</span>
+                                        </div>
+                                    </td>
+                                    <td>call of Duty</td>
+                                    <td>50 Credits</td>
+                                    <td className={userStyles.loss}>
+                                        <div> 
+                                            <div>
+                                                <Image src={ images.WHITE_CROSS } alt="..." width={7} height={7}/>
+                                                <span>Loss</span>
+                                            </div>
+                                            <div onClick={(e:any)=>{openOrCloseMatchHistoryDropdown(e)}}>
+                                                More Info
+                                            </div>
+                                        </div>
+                                        <div className={`${userStyles.more_info}`}>
+                                            <div>
+                                                <span>Match with: </span>
+                                                <span>Adam Lee</span>
+                                            </div>
+                                            <div>
+                                                <span>Result announce: </span>
+                                                <span>05 Jan 22(6:30am)</span>
+                                            </div>
+                                            <div>
+                                                <span>Winner: </span>
+                                                <span>Paul Semon</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            
+                        </table>
+
                     </div>
-                    
-                    <tr>
-                        <th>Name</th>
-                        <th>Game</th>
-                        <th>Credits</th>
-                        <th>Result</th>
-                    </tr>
 
-                    <tr>
-                        <td><Image src={ images.USER } alt="" layout='fill' />Elizabeth</td>
-                        <td>call of Duty</td>
-                        <td>50 Credits</td>
-                        <td className="result-box" style={{backgroundColor: "#33582d"}}>
-                            <div> <img src={ images.GOLDEN_CUP } alt="" />Won</div>
-                            <div id="more-info">
-                                More Info
-                                <div className="drop-down" id="more-info-drop-down-won">
-                                    <div>Match with<span>Adam Lee</span></div>
-                                    <div>Result announce<span>05 Jan 22(6:30am)</span></div>
-                                    <div>Winner<span>Paul Semon</span></div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><Image src={ images.USER } alt="" layout='fill' /> Hamza</td>
-                        <td>call of Duty</td>
-                        <td>50 Credits</td>
-                        <td className="result-box" style={{backgroundColor:"#FF2E2E"}}>
-                            <div><img src={ images.RED_CROSS } alt="" /> Lost</div>
-                            <div id="more-info">
-                                More info
-                                <div className="drop-down" id="more-info-drop-down-lost">
-                                    <div>Match with<span>Adam Lee</span></div>
-                                    <div>Result announce<span>05 Jan 22(6:30am)</span></div>
-                                    <div>Winner<span>Paul Semon</span></div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                </table>
+                </div>
 
             </div>
 

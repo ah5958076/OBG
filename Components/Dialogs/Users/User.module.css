@@ -136,9 +136,12 @@
   margin-top: 30px;
   width: 80%;
 }
+.table thead,
 .table tbody{
   width: 100%;
 }
+.table thead tr,
+.table thead th,
 .table tbody tr,
 .table tbody td{
   width: fit-content;
@@ -174,7 +177,7 @@
 
 .table.info.show{display: initial;}
 .table.Transaction.show{display: initial;}
-.table.matchHistory.show{display: initial;} 
+.table.matchHistory.show{display: flex;} 
 
 .table.info td .drop_down{
   display: none;
@@ -213,6 +216,188 @@
 
 
 
+.table.Transaction{
+  width: 90%;
+  border-radius: 10px;
+  overflow: auto;
+  border: 1px solid #4A4A4A;
+}
+.table.Transaction table{
+  border-spacing: 0;
+}
+.table.Transaction thead{
+  background-color: #4A4A4A;
+}
+.table.Transaction tbody tr:nth-child(1) td{
+  border-top: 20px solid transparent;
+}
+.table.Transaction tbody tr:last-child td{
+  border-bottom: 20px solid transparent;
+}
+.table.Transaction th{
+  font-size: 16px;
+  padding: 5px 10px;
+}
+.table.Transaction td{
+  font-size: 14px;
+  padding: 0px 10px 10px 10px;
+}
+.table.Transaction th,
+.table.Transaction td{
+  text-align: left;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.table.matchHistory{
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  width: 90%;
+}
+.table.matchHistory select{
+  background-color: transparent;
+  border: 1px solid #686868;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.table.matchHistory select option{
+  background-color: #232323;
+  color: var(--fg);
+}
+.table.matchHistory .mainTable{
+  width: 100%;
+  border: 1px solid #4A4A4A;
+  border-radius: 10px;
+  overflow: auto;
+}
+.table.matchHistory .mainTable table{
+  border-spacing: 0;
+}
+.table.matchHistory .mainTable thead{
+  background-color: #4A4A4A;
+}
+.table.matchHistory .mainTable tbody tr:nth-child(1) td{
+  border-top: 20px solid transparent;
+}
+.table.matchHistory .mainTable tbody tr:last-child td{
+  border-bottom: 20px solid transparent;
+}
+.table.matchHistory .mainTable th{
+  font-size: 13px;
+  padding: 5px 10px;
+}
+.table.matchHistory .mainTable td{
+  font-size: 12px;
+  padding: 0px 10px 10px 10px;
+}
+.table.matchHistory .mainTable td:has(img) div{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.table.matchHistory .mainTable th,
+.table.matchHistory .mainTable td{
+  text-align: left;
+  width: 100%;
+}
+.table.matchHistory .mainTable table td.win,
+.table.matchHistory .mainTable table td.loss{
+  position: relative;
+}
+.table.matchHistory .mainTable table td.win>div,
+.table.matchHistory .mainTable table td.loss>div{
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+  gap: 0;
+  border: 1px solid var(--fg);  
+}
+.table.matchHistory .mainTable table td.loss>div>div,
+.table.matchHistory .mainTable table td.win>div>div{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+.table.matchHistory .mainTable table td.loss>div>div:first-child,
+.table.matchHistory .mainTable table td.win>div>div:first-child{
+  padding: 5px; 
+  gap: 2px;
+}
+.table.matchHistory .mainTable table td.win>div>div:last-child,
+.table.matchHistory .mainTable table td.loss>div>div:last-child{
+  font-size: 8px;
+  color: var(--site-clr);
+  border-top: 1px solid var(--fg);
+  cursor: pointer;
+}
+.table.matchHistory .mainTable table td.loss>div>div:first-child{
+  background-color: red;
+}
+.table.matchHistory .mainTable table td.win>div>div:first-child{
+  background-color: #33582D;
+}
+.table.matchHistory .mainTable table td .more_info{
+  display: none !important;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid var(--site-clr);
+  border-radius: 10px;
+  font-size: 10px;
+  width: fit-content !important;
+  position: absolute !important;
+  right: 5px !important;
+  top: 0 !important;
+  transform: translateY(45px);
+  background-color: #232323;
+  z-index: 2;
+}
+.table.matchHistory .mainTable table td .more_info.show{
+  display: flex !important;
+}
+.table.matchHistory .mainTable table td .more_info>div{
+  display: flex !important;
+  gap: 5px;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: var(--fg) !important;
+}
+.table.matchHistory .mainTable table td .more_info>div span{
+  white-space: nowrap;
+  width: 100%;
+}
+.table.matchHistory .mainTable table td .more_info>div span:last-child{
+  color: #A1A1A1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -231,5 +416,11 @@
   }
   .table.info tr td{
     width: fit-content !important;
+  }
+  .table.info tr td .drop_down{
+    right: -25px;
+  }
+  .table.Transaction table{
+    width: 350px;
   }
 }
