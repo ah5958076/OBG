@@ -11,7 +11,7 @@ import { ROUTE_SIGNIN } from '@/constants/routes';
 import { ADMIN_DASHBOARD_ROUTE } from '@/constants/backend-routes';
 
 const Dashboard = (props:any) => {
-  const [data, setData]:any = useState("gu");
+  const [data, setData]:any = useState("hello");
 
   useEffect(() => {    
     // store.dispatch(isLoading(true));

@@ -10,7 +10,7 @@ import { TITLE_ADMIN_USERS } from '@/constants/page-titles'
 import { openDeleteDialog, openEditDialog, select_all, select_individual } from '@/utils/general';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faMedal, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { fetchGrandPrixforEditDialog } from '@/utils/fantasyLeagues';
+import { showProfile, manageInventory } from '@/utils/users';
 
 
 const Users = () => {
@@ -64,11 +64,11 @@ const Users = () => {
                 <td>About</td>
                 <td>Status</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_USERS, "/api/users/delete", "")}}>
+                  <button className='not-a-button' onClick={()=>{manageInventory("")}}>
                     <FontAwesomeIcon icon={faMedal} rotation={180} style={{color: "var(--site-clr)"}}/>
                   </button>
-                  <button className='not-a-button' onClick={()=>{fetchGrandPrixforEditDialog("")}}>
-                    <FontAwesomeIcon icon={faEye} style={{color: "#89bfeb"}}/>
+                  <button className='not-a-button' onClick={()=>{showProfile('userID')}}>
+                    <FontAwesomeIcon icon={faEye} style={{color: "var(--green)"}}/>
                   </button>
                   <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_USERS, "", "/api/users/show")}}>
                     <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
@@ -92,11 +92,11 @@ const Users = () => {
                 <td>About</td>
                 <td>Status</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_USERS, "/api/users/delete", "")}}>
+                  <button className='not-a-button' onClick={()=>{manageInventory("")}}>
                     <FontAwesomeIcon icon={faMedal} rotation={180} style={{color: "var(--site-clr)"}}/>
                   </button>
-                  <button className='not-a-button' onClick={()=>{fetchGrandPrixforEditDialog("")}}>
-                    <FontAwesomeIcon icon={faEye} style={{color: "#89bfeb"}}/>
+                  <button className='not-a-button' onClick={()=>{showProfile('userID')}}>
+                    <FontAwesomeIcon icon={faEye} style={{color: "var(--green)"}}/>
                   </button>
                   <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_USERS, "", "/api/users/show")}}>
                     <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>

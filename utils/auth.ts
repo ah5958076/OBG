@@ -14,7 +14,6 @@ export const loginHandler = async (event: any) => {
         "email": event.target.email.value,
         "password": event.target.password.value
     }
-
     navigateTo(null, ROUTE_ADMIN_DASHBOARD);
 
     // postRequest(LOGIN_ROUTE, data).then((response:any) => {

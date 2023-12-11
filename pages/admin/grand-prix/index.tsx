@@ -19,19 +19,20 @@ import { ADMIN_GRAND_PRIX_DOWNLOAD_RECORD_ROUTE, ADMIN_GRAND_PRIX_LIST_ROUTE, AD
 
 
 const GrandPrix = () => {
-  const data = useSelector((state:any) => { return state.pagination?.title===TITLE_ADMIN_GRANDPRIX?state.pagination:"hu" });
+  const data = useSelector((state:any) => { return state.pagination?.title===TITLE_ADMIN_GRANDPRIX?state.pagination:"ok" });
+
   useEffect(() => {
-  //   if(!data?.data){
-  //     store.dispatch(isLoading(true));
-  //     getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?pageNum=${data?data.page_num:1}`).then((response:any) => {
-  //       store.dispatch(isLoading(false));
-  //       if(response.auth?.auth===true){
-  //         store.dispatch(setLoadedData(TITLE_ADMIN_GRANDPRIX, response, data?data.page_num:1));
-  //       } else{ navigateTo(null, ROUTE_SIGNIN) }
-  //     }).catch((e) => {
-  //       console.log(e)
-  //       navigateTo(null, ROUTE_SIGNIN)
-  //     });
+    // if(!data?.data){
+    //   store.dispatch(isLoading(true));
+    //   getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?pageNum=${data?data.page_num:1}`).then((response:any) => {
+    //     store.dispatch(isLoading(false));
+    //     if(response.auth?.auth===true){
+    //       store.dispatch(setLoadedData(TITLE_ADMIN_GRANDPRIX, response, data?data.page_num:1));
+    //     } else{ navigateTo(null, ROUTE_SIGNIN) }
+    //   }).catch((e) => {
+    //     console.log(e)
+    //     navigateTo(null, ROUTE_SIGNIN)
+    //   });
     // }
   }, [data]);
 
@@ -55,7 +56,7 @@ const GrandPrix = () => {
 
                 <thead>
                   <tr>
-                    <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
+                    {/* <th><input type="checkbox" name="select_all" onChange={ select_all } /></th> */}
                     <th>Name</th>
                     <th>Grand Prix Owner's</th>
                     <th>Total Teams</th>
@@ -72,7 +73,7 @@ const GrandPrix = () => {
                   { data?.data?.data?.map((obj:any, index:number) => (
 
                     <tr key={index}>
-                      <td><input type="checkbox" name="selection-box" value={obj._id} onChange={ select_individual } /></td>
+                      {/* <td><input type="checkbox" name="selection-box" value={obj._id} onChange={ select_individual } /></td> */}
                       <td>{obj.name}</td>
                       <td>{obj.grandPrixOwner}</td>
                       <td>{obj.totalTeams}</td>

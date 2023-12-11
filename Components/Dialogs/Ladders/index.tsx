@@ -24,23 +24,27 @@ export const AddLadders = () => {
 
                 <form method="post" onSubmit={addLadderHandler}>
 
-                    <Input name='name' title='Ladder Name *' required={true} />
-                    <Select options={[]} name='gameName' title='Game Name *' required={true} />
-                    <Input name='entryFee' title='Entry Fee *' required={true} />
-                    <Input name='prize' title='Prize *' required={true} />
-                    <Input name='teamSize' title='Team Size *' required={true} />
-                    <Input name='totalTeams' title='Total Teams *' required={true} />
-                    <Select options={[]} name='status' title='Status *' required={true} />
-                    <Input type='date' name='startingDate' title='Starting Date & Time *' required={true} />
-                    <Input type='date' name='endingDate' title='Ending Date & Time *' required={true} />
-
-                    <div className="league-photo">
-                        <label>Tournament Photo*</label>
-                        <div className={dialogStyles.file_input}>
-                            <Image src={ images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
-                            <input type="file" name="picture" onChange={upload_image_preview} accept="image/*" />
+                    <div className={dialogStyles.side_by_side}>
+                        <div>
+                            <Input name='name' title='Ladder Name *' required={true} />
+                            <Select options={[]} name='gameName' title='Game Name *' required={true} />
+                            <Input name='entryFee' title='Entry Fee *' required={true} />
+                            <Input name='prize' title='Prize *' required={true} />
+                            <Input name='teamSize' title='Team Size *' required={true} />
+                            <Input name='totalTeams' title='Total Teams *' required={true} />
+                            <Select options={[]} name='status' title='Status *' required={true} />
+                            <Input type='date' name='startingDate' title='Starting Date & Time *' required={true} />
+                            <Input type='date' name='endingDate' title='Ending Date & Time *' required={true} />
+                        </div>
+                        <div className="league-photo">
+                            <label>Tournament Photo*</label>
+                            <div className={dialogStyles.file_input}>
+                                <Image src={ images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
+                                <input type="file" name="picture" onChange={upload_image_preview} accept="image/*" />
+                            </div>
                         </div>
                     </div>
+
 
                     <div className={dialogStyles.controls}>
                         <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type="button">Cancel</button>
@@ -70,23 +74,27 @@ export const UpdateLadders = () => {
 
             <form method="post" onSubmit={updateLadderHandler}>
 
-                <Input name='name' title='Ladder Name *' required={true} />
-                <Select options={[]} name='gameName' title='Game Name *' required={true} />
-                <Input name='entryFee' title='Entry Fee *' required={true} />
-                <Input name='prize' title='Prize *' required={true} />
-                <Input name='teamSize' title='Team Size *' required={true} />
-                <Input name='totalTeams' title='Total Teams *' required={true} />
-                <Select options={[]} name='status' title='Status *' required={true} />
-                <Input type='date' name='startingDate' title='Starting Date & Time *' required={true} />
-                <Input type='date' name='endingDate' title='Ending Date & Time *' required={true} />
-
-                <div className="league-photo">
-                    <label htmlFor="imageInput">Tournament Photo*</label>
-                    <div className={dialogStyles.file_input}>
-                        <Image src={ images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
-                        <input type="file" name="picture" id="imageInput" accept="image/*" />
+                <div className={dialogStyles.side_by_side}>
+                    <div>
+                        <Input name='name' title='Ladder Name *' required={true} />
+                        <Select options={[]} name='gameName' title='Game Name *' required={true} />
+                        <Input name='entryFee' title='Entry Fee *' required={true} />
+                        <Input name='prize' title='Prize *' required={true} />
+                        <Input name='teamSize' title='Team Size *' required={true} />
+                        <Input name='totalTeams' title='Total Teams *' required={true} />
+                        <Select options={[]} name='status' title='Status *' required={true} />
+                        <Input type='date' name='startingDate' title='Starting Date & Time *' required={true} />
+                        <Input type='date' name='endingDate' title='Ending Date & Time *' required={true} />
+                    </div>
+                    <div className="league-photo">
+                        <label htmlFor="imageInput">Tournament Photo*</label>
+                        <div className={dialogStyles.file_input}>
+                            <Image src={ images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
+                            <input type="file" name="picture" id="imageInput" accept="image/*" />
+                        </div>
                     </div>
                 </div>
+
 
                 <div className={dialogStyles.controls}>
                     <button style={{backgroundColor: "gray"}} type="button">Cancel</button>
