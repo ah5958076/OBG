@@ -19,20 +19,20 @@ import { ADMIN_GRAND_PRIX_DOWNLOAD_RECORD_ROUTE, ADMIN_GRAND_PRIX_LIST_ROUTE, AD
 
 
 const GrandPrix = () => {
-  const data = useSelector((state:any) => { return state.pagination?.title===TITLE_ADMIN_GRANDPRIX?state.pagination:null });
+  const data = useSelector((state:any) => { return state.pagination?.title===TITLE_ADMIN_GRANDPRIX?state.pagination:"hu" });
   useEffect(() => {
-    if(!data?.data){
-      store.dispatch(isLoading(true));
-      getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?pageNum=${data?data.page_num:1}`).then((response:any) => {
-        store.dispatch(isLoading(false));
-        if(response.auth?.auth===true){
-          store.dispatch(setLoadedData(TITLE_ADMIN_GRANDPRIX, response, data?data.page_num:1));
-        } else{ navigateTo(null, ROUTE_SIGNIN) }
-      }).catch((e) => {
-        console.log(e)
-        navigateTo(null, ROUTE_SIGNIN)
-      });
-    }
+  //   if(!data?.data){
+  //     store.dispatch(isLoading(true));
+  //     getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?pageNum=${data?data.page_num:1}`).then((response:any) => {
+  //       store.dispatch(isLoading(false));
+  //       if(response.auth?.auth===true){
+  //         store.dispatch(setLoadedData(TITLE_ADMIN_GRANDPRIX, response, data?data.page_num:1));
+  //       } else{ navigateTo(null, ROUTE_SIGNIN) }
+  //     }).catch((e) => {
+  //       console.log(e)
+  //       navigateTo(null, ROUTE_SIGNIN)
+  //     });
+    // }
   }, [data]);
 
 
