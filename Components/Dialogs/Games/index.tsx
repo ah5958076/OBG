@@ -1,6 +1,5 @@
 import React from 'react'
 import dialogStyles from "@/styles/dialogs.module.css";
-
 import images from "@/constants/images";
 import store from '@/Redux/store';
 import { hideDialog } from '@/Redux/actions/dialogs';

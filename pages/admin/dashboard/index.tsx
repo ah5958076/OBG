@@ -31,10 +31,8 @@ const Dashboard = (props:any) => {
 
   return (
     <>
-
       {data?
         <>
-        
           <Navbar index={0}/>
           
           <title>{TITLE_ADMIN_DASHBOARD}</title>

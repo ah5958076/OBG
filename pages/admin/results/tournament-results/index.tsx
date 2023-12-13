@@ -14,16 +14,16 @@ import { TITLE_ADMIN_TOURNAMENTS_RESULTS } from '@/constants/page-titles'
 import { openDeleteDialog, select_all, select_individual } from '@/utils/general';
 
 
-const TournamentsResults = (props:any) => {
-  
+const TournamentsResults = (props: any) => {
+
   return (
 
     <>
-    
+
       <Navbar index={9} />
 
       <title>{TITLE_ADMIN_TOURNAMENTS_RESULTS}</title>
-      
+
       <div className={tableStyles.container}>
 
         <NameAndExportData url="/api/tournament-results/download-record" title="Tournament Results">
@@ -39,79 +39,94 @@ const TournamentsResults = (props:any) => {
 
             <thead>
               <tr>
-                <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
+                <th><input type="checkbox" name="select_all" onChange={select_all} /></th>
                 <th>User/Team</th>
                 <th>Game</th>
                 <th>Tournament</th>
                 <th>Score</th>
                 <th className={tableStyles.center}>Video/Image</th>
-                <th colSpan={2}>Win/Loss</th>
+                <th  >Win/Loss</th>
                 <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
-
               <tr>
                 <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>XYZ</td>
                 <td>Call of Duty</td>
                 <td>Call of Duty Championship</td>
                 <td>33</td>
-                <td className={tableStyles.center}>
-                  <Image src={ images.USER } alt="" width={50} height={50} />
+                <td className={tableStyles.imgCenter}>
+                  <Image src={images.USER} alt="" width={50} height={50} />
                 </td>
-                <td className={tableStyles.Win} style={{width: "60px"}}>
-                  <span>Win</span>
+                <td className={tableStyles.Win}  >
+                  <span className='mr-4'>Win</span>
+                  <a className='not-a-button'>
+                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                  </a>
                 </td>
+                
                 <td>
-                  <button className='not-a-button'>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                </td>
-                <td>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_TOURNAMENTS_RESULTS, "/api/tournament-results/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_TOURNAMENTS_RESULTS, "/api/tournament-results/delete", "") }}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                  </a>
                 </td>
               </tr>
-
               <tr>
-                <td><input type="checkbox" name="selection-box" value={2} onChange={select_individual} /></td>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>XYZ</td>
                 <td>Call of Duty</td>
                 <td>Call of Duty Championship</td>
                 <td>33</td>
-                <td className={tableStyles.center}>
-                  <Image src={ images.USER } alt="" width={50} height={50} />
+                <td className={tableStyles.imgCenter}>
+                  <Image src={images.USER} alt="" width={50} height={50} />
                 </td>
-                <td className={tableStyles.Loss} style={{width: "60px"}}>
-                  <span>Loss</span>
-                </td>
-                <td>
-                  <button className='not-a-button'>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
+                <td className={tableStyles.Loss}  >
+                  <span className='mr-4'>Loss</span>
+                  <a className='not-a-button'>
+                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                  </a>
                 </td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_TOURNAMENTS_RESULTS, "/api/tournament-results/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_TOURNAMENTS_RESULTS, "/api/tournament-results/delete", "") }}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
+                <td>XYZ</td>
+                <td>Call of Duty</td>
+                <td>Call of Duty Championship</td>
+                <td>33</td>
+                <td className={tableStyles.imgCenter}>
+                  <Image src={images.USER} alt="" width={50} height={50} />
+                </td>
+                <td className={tableStyles.Loss}  >
+                  <span className='mr-4'>Loss</span>
+                  <a className='not-a-button'>
+                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                  </a>
+                </td>
+                
+                <td>
+                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_TOURNAMENTS_RESULTS, "/api/tournament-results/delete", "") }}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                  </a>
                 </td>
               </tr>
 
+             
             </tbody>
-
           </table>
-
         </div>
-
         <Pagination start={0} end={0} total={0} />
 
       </div>
 
     </>
-    
+
   )
 
 }

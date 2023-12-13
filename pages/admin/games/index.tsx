@@ -1,6 +1,5 @@
 import React from 'react'
 import tableStyles from "@/styles/pagesTables.module.css";
-
 import { Pagination } from '@/Components/Pagination/Pagination'
 import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
 import { SearchBar } from '@/Components/SearchBar/SearchBar'
@@ -15,13 +14,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
-const Games = (props:any) => {
+const Games = (props: any) => {
 
   return (
     <>
-
       <Navbar index={5} />
-
       <title>{TITLE_ADMIN_GAMES}</title>
 
       <div className={tableStyles.container}>
@@ -34,7 +31,7 @@ const Games = (props:any) => {
 
             <thead>
               <tr>
-                <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
+                <th><input type="checkbox" name="select_all" onChange={select_all} /></th>
                 <th>Game</th>
                 <th>Game Type</th>
                 <th>Picture</th>
@@ -47,40 +44,40 @@ const Games = (props:any) => {
             <tbody>
 
               <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>Name 1</td>
                 <td>Game Type 1</td>
-                <td>
-                  <Image src={ images.NO_PIC } alt="..." width={50} height={50} />
+                <td className={tableStyles.imgCenter} >
+                  <Image src={images.NO_PIC} alt="..." width={50} height={50} />
                 </td>
                 <td>IoS</td>
                 <td>{computeDate(Date.now())}</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_GAMES, "", "/api/games/show")}}>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_GPLEAGUES, "/api/gp-league/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  <a className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_GAMES, "", "/api/games/show") }}>
+                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                  </a>
+                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_GPLEAGUES, "/api/gp-league/delete", "") }}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                  </a>
                 </td>
               </tr>
-              
+
               <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>Name 1</td>
                 <td>Game Type 1</td>
-                <td>
-                  <Image src={ images.NO_PIC } alt="..." width={50} height={50} />
+                <td className={tableStyles.imgCenter} >
+                  <Image src={images.NO_PIC} alt="..." width={50} height={50} />
                 </td>
                 <td>IoS</td>
                 <td>{computeDate(Date.now())}</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_GAMES, "", "/api/games/show")}}>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_GPLEAGUES, "/api/gp-league/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  <a className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_GAMES, "", "/api/games/show") }}>
+                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                  </a>
+                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_GPLEAGUES, "/api/gp-league/delete", "") }}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                  </a>
                 </td>
               </tr>
 

@@ -19,48 +19,48 @@ const Auth = () => {
 
 
     return (
-    <>
-        
-        <title>Signup - OBG</title>
+        <>
+            <title>Signup - OBG</title>
+            <div className={styles.left}>
+                <div className={styles.top}>
+                    <h1 style={{ marginTop: "37px", width: "231px", lineHeight: "60px", color: "#1A1A1A", opacity: "1", fontSize: "50px", fontStyle: "normal", fontFamily: "bebas-neue", fontWeight: '300' }}>ONLINE
+                        BATTLEGROUND</h1>
+                    <div style={{ marginTop: "37px", width: "307px", height: "67px", color: "#FFFFFF", opacity: "1", fontWeight: "300", fontSize: "30px", fontFamily: "roboto-light" }}>
+                        Best user experience of online gaming
+                    </div>
+                </div>
 
-        <div className={styles.left}>
+                <div className={styles.bottom}>
+                    <h1 style={{ color: "white", fontSize: "38px", fontFamily: "roboto", opacity: '1', fontStyle: "normal", fontWeight: "300" }}>Play & Compete</h1>
+                    <p style={{ marginTop: "20px", color: "#fff", fontSize: "18px", fontFamily: "roboto-light", fontWeight: "100" }}>Create an account today to compete against different opponents</p>
+                </div>
 
-            <div className={styles.top}>
-                <h1 style={{color: "black", fontSize: "50px", fontFamily:"bebas-neue"}}>ONLINE<br/>BATTLEGROUND</h1>
-                <p style={{color: "lightgray", fontSize: "28px"}}>Best user experience of online gaming</p>
-            </div>
-            
-            <div className={styles.bottom}>
-                <h1 style={{color: "white", fontSize: "38px"}}>Play & Compete</h1>
-                <p style={{color: "white", fontSize: "18px"}}>Create an account today to compete against different opponents</p>
-            </div>
+            </div >
 
-        </div>
+            <div className={styles.right}>
 
-        <div className={styles.right}>
+                <div className={`${styles.navigation}  ${styles.robotoLight}`} style={{ marginTop: "50px" }}>
+                    <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_SIGNIN) }}>Sign in</Link> &nbsp; &nbsp;
+                    <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_SIGNUP) }} className={styles.active}>Sign up</Link>
+                </div>
 
-            <div className={styles.navigation}>
-                <Link href="#" onClick={(e)=>{navigateTo(e, ROUTE_SIGNIN)}}>Sign in</Link>
-                <Link href="#" onClick={(e)=>{navigateTo(e, ROUTE_SIGNUP)}} className={styles.active}>Sign up</Link>
-            </div>
+                <form className={styles.aut_form} method="post" onSubmit={signupHandler}>
 
-            <form className={styles.aut_form} method="post" onSubmit={ signupHandler }>
+                    <Input id='name' name="name" title="Full Name" required={true} icon={faUser} />
+                    <Input id='username' name="username" title="Username" required={true} icon={faUser} />
+                    <Input id='email' name="email" title="Email" required={true} icon={faEnvelope} />
+                    <Input id='password' type="password" name="new_password" title="Password" required={true} icon={faLock} />
 
-                <Input name="name" title="Full Name" required={true} icon={faUser} />
-                <Input name="username" title="Username" required={true} icon={faUser} />
-                <Input name="email" title="Email" required={true} icon={faEnvelope} />
-                <Input type="password" name="new_password" title="New Password" required={true} icon={faLock} />
+                    <button type="submit">Sign up</button>
+                    <p className={`${styles.new_account} ${styles.robotoLight}`}>
+                        <span>Already have an account?</span>&nbsp; &nbsp;
+                        <Link style={{ color: '#FFD4A0' }} onClick={(e) => { navigateTo(e, ROUTE_SIGNIN) }} href="#">Sign in instead</Link>
+                    </p>
 
-                <button type="submit">Sign up</button>
-                <p className={styles.new_account}>
-                    <span>Already have an account?</span>
-                    <Link onClick={(e)=>{navigateTo(e, ROUTE_SIGNIN)}} href="#">Sign in instead</Link>
-                </p>
+                </form>
 
-            </form>
-
-        </div>
-    </>
+            </div >
+        </>
     )
 }
 

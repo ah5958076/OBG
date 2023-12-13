@@ -11,9 +11,10 @@
 }
 
 .navbar h1 {
-    font-family: roboto;
+    font-family: bebas-neue;
     letter-spacing: 1px;
     font-size: 30px;
+    line-height: 30px;
 }
 
 img.profile_pic {
@@ -33,18 +34,25 @@ img.profile_pic {
 
 .navbar>div {
     display: flex;
-    gap: 20px;
+    gap: 25px;
+    font-size:18px;
     align-items: center;
     justify-content: center;
+    font-family: 'roboto';
+    font-weight: 400;
 }
 
+
 .navbar>div>div {
-    position: relative;
+
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 5px;
+    font-family:"roboto"
 }
+
+
 .navbar .sub_menu {
     display: none;
     flex-direction: column;
@@ -72,17 +80,6 @@ img.profile_pic {
 .navbar>div>div.show .sub_menu {
     display: flex;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .nav_small {
     position: relative;
@@ -185,18 +182,6 @@ img.profile_pic {
     background-color: var(--fg);
     color: var(--site-clr);
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @media(max-width: 1250px) {

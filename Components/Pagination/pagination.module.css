@@ -7,6 +7,7 @@
     padding: 5px 30px;
     gap: 10px;
     margin-bottom: 100px;
+    font-family: "roboto-light";
 }
 
 .pagination button {

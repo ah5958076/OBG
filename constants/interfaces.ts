@@ -21,23 +21,24 @@ export interface TYPE_PAGINATION_STATE {
 
 export interface TYPE_INPUT {
     title: string,
-    name:string, 
-    required:boolean, 
-    type?:string,
-    icon?:any,
-    onChnage?:any,
-    value?:string
+    id: string,
+    name: string,
+    required: boolean,
+    type?: string,
+    icon?: any,
+    onChnage?: any,
+    value?: string
 }
 export interface TYPE_SELECT {
     title: string,
     options: any[]
-    name:string, 
-    required:boolean,
-    icon?:any,
-    onChnage?:any,
-    value?:string,
+    name: string,
+    required: boolean,
+    icon?: any,
+    onChnage?: any,
+    value?: string,
 }
 
-export interface TYPE_USER_NAVBAR{
+export interface TYPE_USER_NAVBAR {
     auth: boolean
 }

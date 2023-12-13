@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
 import dialogStyles from "@/styles/dialogs.module.css";
 import userStyles from "./User.module.css";
-
 import images from "@/constants/images";
 import store from '@/Redux/store';
 import { hideDialog } from '@/Redux/actions/dialogs';
@@ -10,15 +9,15 @@ import Input from '@/Components/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-const addUserHandler = (e:any) => {};
-const updateUserHandler = (e:any) => {};
+const addUserHandler = (e: any) => { };
+const updateUserHandler = (e: any) => { };
 
 
 
 
 
 export const AddUser = () => {
-    
+
     const [credit, setCredit] = useState(50);
 
 
@@ -33,9 +32,9 @@ export const AddUser = () => {
                     <div className={userStyles.credit}>
                         <div>
                             <sup>$</sup>
-                            <input autoComplete='off' type="number" min="0" value={credit} onChange={(e:any)=>{setCredit(e.target.value)}} name="credit" required />
+                            <input autoComplete='off' type="number" min="0" value={credit} onChange={(e: any) => { setCredit(e.target.value) }} name="credit" required />
                         </div>
-                        <p style={{fontSize:"10px"}}>Enter only numbers</p>
+                        <p >Enter only numbers</p>
                     </div>
 
                     <Input name='name' title='Full Name *' required={true} />
@@ -45,8 +44,8 @@ export const AddUser = () => {
                     <Input name='about' title='About *' required={true} />
 
                     <div className={dialogStyles.controls}>
-                        <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type='button'>Cancel</button>
-                        <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Add User</button>
+                        <button onClick={() => { store.dispatch(hideDialog()) }} style={{ backgroundColor: "gray" }} type='button'>Cancel</button>
+                        <button style={{ backgroundColor: "var(--site-clr)" }} type="submit">Add User</button>
                     </div>
 
                 </form>
@@ -68,15 +67,15 @@ export const UpdateUser = () => {
         <div id='dialogs' className={dialogStyles.dialogs}>
 
             <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
-                
+
                 <form method="post" onSubmit={updateUserHandler}>
 
                     <div className={userStyles.credit}>
                         <div>
                             <sup>$</sup>
-                            <input  autoComplete='off' type="number" min="0" value={credit} onChange={(e:any)=>{setCredit(e.target.value)}} name="credit" required />
+                            <input autoComplete='off' type="number" min="0" value={credit} onChange={(e: any) => { setCredit(e.target.value) }} name="credit" required />
                         </div>
-                        <p style={{fontSize: "10px"}}>Enter only numbers</p>
+                        <p >Enter only numbers</p>
                     </div>
 
                     <Input name='name' title='Full Name *' required={true} />
@@ -86,14 +85,14 @@ export const UpdateUser = () => {
                     <Input name='about' title='About *' required={true} />
 
                     <div className={dialogStyles.controls}>
-                        <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type='button'>Cancel</button>
-                        <button style={{backgroundColor: "#ff7700"}} type="submit">Update User</button>
+                        <button onClick={() => { store.dispatch(hideDialog()) }} style={{ backgroundColor: "gray" }} type='button'>Cancel</button>
+                        <button style={{ backgroundColor: "#ff7700" }} type="submit">Update User</button>
                     </div>
 
                 </form>
 
             </div>
-        
+
         </div>
 
     )
@@ -107,35 +106,36 @@ export const AddUserInventoryDialog = () => {
 
         <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
+            <div id='dialog' style={{height:'85%'}} className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
-                <button className={userStyles.closeBtn} onClick={(e)=>{store.dispatch(hideDialog())}}>
-                    <FontAwesomeIcon icon={faXmark}/>
+                <button className={userStyles.closeBtn} onClick={(e) => { store.dispatch(hideDialog()) }}>
+                    <FontAwesomeIcon icon={faXmark} />
                 </button>
-                
+
                 <div className={userStyles.inventories}>
                     <div className={userStyles.inventory}>
-                        <div><Image src={ images.USER } alt="..." width={80} height={80} style={{borderRadius: "5px"}}/></div>
+                        <div><Image src={images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
                         <p>akindseries_green</p>
-                        <button style={{backgroundColor: "var(--site-clr)"}}>ADD</button>
+                        <button style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
                     </div>
                     <div className={userStyles.inventory}>
-                        <div><Image src={ images.USER } alt="..." width={80} height={80} style={{borderRadius: "5px"}}/></div>
+                        <div><Image src={images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
                         <p>akindseries_green</p>
-                        <button style={{backgroundColor: "var(--site-clr)"}}>ADD</button>
+                        <button style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
                     </div>
                     <div className={userStyles.inventory}>
-                        <div><Image src={ images.USER } alt="..." width={80} height={80} style={{borderRadius: "5px"}}/></div>
+                        <div><Image src={images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
                         <p>akindseries_green</p>
-                        <button style={{backgroundColor: "var(--site-clr)"}}>ADD</button>
+                        <button style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
                     </div>
                     <div className={userStyles.inventory}>
-                        <div><Image src={ images.USER } alt="..." width={80} height={80} style={{borderRadius: "5px"}}/></div>
+                        <div><Image src={images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
                         <p>akindseries_green</p>
-                        <button style={{backgroundColor: "var(--site-clr)"}}>ADD</button>
+                        <button style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
                     </div>
+
                 </div>
-                            
+
             </div>
 
         </div>
@@ -147,23 +147,23 @@ export const AddUserInventoryDialog = () => {
 
 export const UserProfileDialog = () => {
 
-    const infoTabRef:any = useRef();
-    const transactionTabRef:any = useRef();
-    const matchHistoryTabRef:any = useRef();
-    
-    const infoTableRef:any = useRef();
-    const transactionTableRef:any = useRef();
-    const matchHistoryTableRef:any = useRef();
+    const infoTabRef: any = useRef();
+    const transactionTabRef: any = useRef();
+    const matchHistoryTabRef: any = useRef();
 
-    const infoDropDownOpenerRef:any = useRef();
-    const infoDropDownRef:any = useRef();
+    const infoTableRef: any = useRef();
+    const transactionTableRef: any = useRef();
+    const matchHistoryTableRef: any = useRef();
+
+    const infoDropDownOpenerRef: any = useRef();
+    const infoDropDownRef: any = useRef();
 
 
     const manageInfoTab = () => {
         infoTabRef.current.classList.add(userStyles.active)
         transactionTabRef.current.classList.remove(userStyles.active)
         matchHistoryTabRef.current.classList.remove(userStyles.active)
-        
+
         infoTableRef.current.classList.add(userStyles.show);
         transactionTableRef.current.classList.remove(userStyles.show);
         matchHistoryTableRef.current.classList.remove(userStyles.show);
@@ -172,16 +172,16 @@ export const UserProfileDialog = () => {
         infoTabRef.current.classList.remove(userStyles.active)
         transactionTabRef.current.classList.add(userStyles.active)
         matchHistoryTabRef.current.classList.remove(userStyles.active)
-        
+
         infoTableRef.current.classList.remove(userStyles.show);
         transactionTableRef.current.classList.add(userStyles.show);
-        matchHistoryTableRef.current.classList.remove(userStyles.show);    
+        matchHistoryTableRef.current.classList.remove(userStyles.show);
     }
     const manageMatchHistoryTab = () => {
         infoTabRef.current.classList.remove(userStyles.active)
         transactionTabRef.current.classList.remove(userStyles.active)
         matchHistoryTabRef.current.classList.add(userStyles.active)
-        
+
         infoTableRef.current.classList.remove(userStyles.show);
         transactionTableRef.current.classList.remove(userStyles.show);
         matchHistoryTableRef.current.classList.add(userStyles.show);
@@ -190,11 +190,11 @@ export const UserProfileDialog = () => {
     const openInfoTableDropDown = () => {
         infoDropDownRef.current.classList.toggle(userStyles.show);
     }
-    const manageDropdownsClosing = (e:any) => {
-        if(!(infoDropDownRef.current.contains(e.target) || infoDropDownOpenerRef.current.contains(e.target)))
+    const manageDropdownsClosing = (e: any) => {
+        if (!(infoDropDownRef.current.contains(e.target) || infoDropDownOpenerRef.current.contains(e.target)))
             infoDropDownRef.current.classList.remove(userStyles.show);
     }
-    const openOrCloseMatchHistoryDropdown = (e:any) => {
+    const openOrCloseMatchHistoryDropdown = (e: any) => {
         e.currentTarget.parentElement.nextElementSibling.classList.toggle(userStyles.show);
     }
 
@@ -203,45 +203,43 @@ export const UserProfileDialog = () => {
 
         <div id='dialogs' className={dialogStyles.dialogs}>
 
-            <div id='dialog' className={`${dialogStyles.dialog} ${userStyles.profileDialog} ${dialogStyles.show}`} onClick={(e:any)=>{manageDropdownsClosing(e)}}>
+            <div style={{height:'auto'}} id='dialog' className={`${dialogStyles.dialog} ${userStyles.profileDialog} ${dialogStyles.show}`} onClick={(e: any) => { manageDropdownsClosing(e) }}>
 
                 <div className={userStyles.dpImage}>
-                    <Image src={ images.USER } alt="..." width={100} height={100} />
+                    <Image src={images.USER} alt="..." width={100} height={100} />
                 </div>
 
                 <div className={userStyles.info}>
                     <p>
-                        <span style={{fontSize: "20px", color: "white"}}>Chrismix</span>
-                        <span style={{fontSize: "12px", color: "#9a9a9a"}}>( Chrismix112 )</span>
+                        <span style={{ fontSize: "20px", color: "white" }}>Chrismix</span>
+                        <span style={{ fontSize: "12px", color: "#9a9a9a" }}>( Chrismix112 )</span>
                     </p>
                     <p>
-                        <span style={{fontSize: "16px", color: "white"}}>Total Credits</span>
-                        <span style={{fontSize: "18px", color: "#9a9a9a"}}>$ 100</span>
+                        <span style={{ fontSize: "16px", color: "white" }}>Total Credits</span>
+                        <span style={{ fontSize: "18px", color: "#9a9a9a", }}>$ 100</span>
                     </p>
                 </div>
 
 
-                <div className={userStyles.tabs}>
-                    <div ref={infoTabRef} onClick={()=>{manageInfoTab()}} className={`${userStyles.tab} ${userStyles.active}`}>Info</div>
-                    <div ref={transactionTabRef} onClick={()=>{manageTransactionTab()}} className={`${userStyles.tab}`}>Transaction</div>
-                    <div ref={matchHistoryTabRef} onClick={()=>{manageMatchHistoryTab()}} className={`${userStyles.tab}`}>Match History</div>
+                <div  className={userStyles.tabs}>
+                    <div ref={infoTabRef} onClick={() => { manageInfoTab() }} className={`${userStyles.tab} ${userStyles.active}`}>Info</div>
+                    <div ref={transactionTabRef} onClick={() => { manageTransactionTab() }} className={`${userStyles.tab}`}>Transaction</div>
+                    <div ref={matchHistoryTabRef} onClick={() => { manageMatchHistoryTab() }} className={`${userStyles.tab}`}>Match History</div>
                 </div>
 
 
                 <table ref={infoTableRef} className={`${userStyles.table} ${userStyles.info} ${userStyles.show}`}>
-
                     <thead></thead>
                     <tbody>
                         <tr>
                             <td>Friends</td>
                             <td>20</td>
                         </tr>
-
                         <tr>
                             <td>
                                 <div>
-                                    <span>Teams</span> 
-                                    <FontAwesomeIcon style={{cursor:"pointer"}} ref={infoDropDownOpenerRef} icon={faAngleDown} onClick={() => {openInfoTableDropDown()}}/>
+                                    <span>Teams</span>
+                                    <FontAwesomeIcon style={{ cursor: "pointer" }} ref={infoDropDownOpenerRef} icon={faAngleDown} onClick={() => { openInfoTableDropDown() }} />
                                 </div>
                                 <div className={`${userStyles.drop_down}`} ref={infoDropDownRef}>
                                     <div>Grand Prix <span>07</span></div>
@@ -299,7 +297,7 @@ export const UserProfileDialog = () => {
                     </table>
 
                 </div>
-                
+
                 <div ref={matchHistoryTableRef} className={`${userStyles.table} ${userStyles.matchHistory}`}>
 
                     <select name="matchCatagory">
@@ -314,7 +312,7 @@ export const UserProfileDialog = () => {
                     <div className={userStyles.mainTable}>
 
                         <table>
-                            
+
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -325,23 +323,23 @@ export const UserProfileDialog = () => {
                             </thead>
 
                             <tbody>
-                                
+
                                 <tr>
                                     <td>
                                         <div>
-                                            <Image src={ images.USER } alt="..." width={30} height={30} style={{borderRadius:"50%"}} />
+                                            <Image src={images.USER} alt="..." width={30} height={30} style={{ borderRadius: "50%" }} />
                                             <span>Elizabeth</span>
                                         </div>
                                     </td>
                                     <td>call of Duty</td>
                                     <td>50 Credits</td>
                                     <td className={userStyles.win}>
-                                        <div> 
+                                        <div>
                                             <div>
-                                                <Image src={ images.GOLDEN_CUP } alt="..." width={10} height={10}/>
+                                                <Image src={images.GOLDEN_CUP} alt="..." width={10} height={10} />
                                                 <span>Won</span>
                                             </div>
-                                            <div onClick={(e:any)=>{openOrCloseMatchHistoryDropdown(e)}}>
+                                            <div onClick={(e: any) => { openOrCloseMatchHistoryDropdown(e) }}>
                                                 More Info
                                             </div>
                                         </div>
@@ -366,19 +364,19 @@ export const UserProfileDialog = () => {
                                 <tr>
                                     <td>
                                         <div>
-                                            <Image src={ images.USER } alt="..." width={30} height={30} style={{borderRadius:"50%"}}/>
+                                            <Image src={images.USER} alt="..." width={30} height={30} style={{ borderRadius: "50%" }} />
                                             <span>Hamza</span>
                                         </div>
                                     </td>
                                     <td>call of Duty</td>
                                     <td>50 Credits</td>
                                     <td className={userStyles.loss}>
-                                        <div> 
+                                        <div>
                                             <div>
-                                                <Image src={ images.WHITE_CROSS } alt="..." width={7} height={7}/>
+                                                <Image src={images.WHITE_CROSS} alt="..." width={7} height={7} />
                                                 <span>Loss</span>
                                             </div>
-                                            <div onClick={(e:any)=>{openOrCloseMatchHistoryDropdown(e)}}>
+                                            <div onClick={(e: any) => { openOrCloseMatchHistoryDropdown(e) }}>
                                                 More Info
                                             </div>
                                         </div>
@@ -400,7 +398,7 @@ export const UserProfileDialog = () => {
                                 </tr>
 
                             </tbody>
-                            
+
                         </table>
 
                     </div>

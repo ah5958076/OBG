@@ -3,36 +3,32 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'roboto-bold';
+  color:#A1A1A1;
+
 }
 .credit p{
   font-size: 15px;
+  font-size:14px;
+  font-weight: 300;
+ 
 }
 .credit>div{
   display: flex;
+  margin-left: 50px;
+ 
 }
 .credit>div sup{
-  font-size: 20px;
+  font-size: 25px;
+  margin-top:20px;
 }
 .credit>div input{
   width: 100px;
   border: none;
   font-size: 30px;
   background-color: transparent;
+  color:#A1A1A1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .closeBtn{
   width: 50px !important;
@@ -54,8 +50,9 @@
   flex-direction: column;
   width: 90%;
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 70px;
   align-items: center;
+  
 }
 .inventories .inventory{
   display: flex;
@@ -71,19 +68,6 @@
 .inventories .inventory div{grid-area: image;}
 .inventories .inventory p{grid-area: name;}
 .inventories .inventory button{grid-area: addBtn;}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .dpImage{
   width: 100px;
@@ -103,6 +87,7 @@
   align-items: flex-start;
   font-size: 14px;
   justify-content: center;
+  font-weight:bold;
 }
 .info p{
   width: 100%;
@@ -136,6 +121,7 @@
   margin-top: 30px;
   width: 80%;
 }
+
 .table thead,
 .table tbody{
   width: 100%;
@@ -148,18 +134,12 @@
 }
 
 
-
-
-
-
-
-
-
-
-
 .table.info tbody tr td:nth-child(1){
   width: 150px;
   color: #DFDFDF;
+  padding-bottom: 8px;
+   
+
 }
 .table.info tbody tr td:nth-child(2){
   color: #A4A4A4;
@@ -205,15 +185,6 @@
 .table.info td .drop_down.show{
   display: flex;
 }
-
-
-
-
-
-
-
-
-
 
 
 .table.Transaction{
@@ -386,18 +357,6 @@
 .table.matchHistory .mainTable table td .more_info>div span:last-child{
   color: #A1A1A1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

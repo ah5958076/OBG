@@ -94,11 +94,8 @@ const GrandPrix = () => {
                       </td>
                     </tr>
                   ))}
-
                 </tbody>
-
               </table>
-
             </div>
 
             <Pagination title={TITLE_ADMIN_GRANDPRIX} page_num={data?data?.page_num:1} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end))?data?.data?.data?.length:data?.data?.total} />

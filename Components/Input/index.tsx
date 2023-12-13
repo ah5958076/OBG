@@ -3,19 +3,19 @@ import styles from "@/Components/Input/input.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 
-function Input({type="text", title="", icon, name, required, onChnage, value=""}:TYPE_INPUT) {
+function Input({ type = "text", title = "", id, icon, name, required, onChnage, value = "" }: TYPE_INPUT) {
     const [data, setData] = useState(value);
 
-    const handleInput = (e:any) => {
-        if(onChnage)  onChnage.call(null,e);
+    const handleInput = (e: any) => {
+        if (onChnage) onChnage.call(null, e);
         setData(e.target.value);
     }
 
     return (
         <div className={styles.input}>
-            <input type={type} name={name} required={required?true:false} onChange={handleInput} value={data} />
+            <input id={id} type={type} name={name} required={required ? true : false} onChange={handleInput} value={data} />
             <div>
-                {icon?<FontAwesomeIcon icon={icon} />:null}
+                {icon ? <FontAwesomeIcon icon={icon} /> : null}
                 <span>{title}</span>
             </div>
         </div>

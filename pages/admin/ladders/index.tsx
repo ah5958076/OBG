@@ -59,7 +59,7 @@ const Ladders = (props:any) => {
                 <td>Call of Duty 5*5 tournament</td>
                 <td>General</td>
                 <td>Call of Duty</td>
-                <td>
+                <td className={tableStyles.imgCenter} >
                   <Image src={ images.USER } alt="" width={50} height={50} />
                 </td>
                 <td>$500</td>
@@ -68,12 +68,12 @@ const Ladders = (props:any) => {
                 <td>04</td>
                 <td>2022-02-13,06:30AM</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_LADDERS, "", "/api/ladders/show")}}>
+                  <a className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_LADDERS, "", "/api/ladders/show")}}>
                     <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_LADDERS, "/api/ladders/delete", "")}}>
+                  </a>
+                  <a className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_LADDERS, "/api/ladders/delete", "")}}>
                     <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  </a>
                 </td>
               </tr>
 
@@ -82,7 +82,7 @@ const Ladders = (props:any) => {
                 <td>PUBG ThunderStorm</td>
                 <td>Grand Prix</td>
                 <td>PUBG</td>
-                <td>
+                <td className={tableStyles.imgCenter} >
                   <Image src={ images.USER } alt="" width={50} height={50} />
                 </td>
                 <td>$500</td>
@@ -91,12 +91,12 @@ const Ladders = (props:any) => {
                 <td>02</td>
                 <td>2023-02-13,10:30AM</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_LADDERS, "", "/api/ladders/show")}}>
+                  <a className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_LADDERS, "", "/api/ladders/show")}}>
                     <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_LADDERS, "/api/ladders/delete", "")}}>
+                  </a>
+                 <a className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_LADDERS, "/api/ladders/delete", "")}}>
                     <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  </a>
                 </td>
               </tr>
 

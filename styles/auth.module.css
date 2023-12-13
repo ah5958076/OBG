@@ -20,7 +20,7 @@
     color: white;
     background-color: #111213af;
     backdrop-filter: blur(10px);
-    max-width: 450px;
+    max-width: 550px;
     width: 100%;
     overflow: hidden;
 }
@@ -28,7 +28,7 @@
 .left .top,
 .left .bottom{
     width: calc(100% - 450px);
-    padding: 20px 0px 20px 70px;
+    padding: 20px 0px 50px 200px;
 }
 
 .navigation{
@@ -40,9 +40,20 @@
     padding: 10px;
     align-items: center;
     text-align: center;
+    margin-top:40px;
+    font-size: 18px; 
 }
 .navigation:has(a){
     flex-direction: row;
+}
+.navigation .resetText{
+    margin-top: 10px;
+    width: 292px; 
+    font-size: 14px; 
+    font-style: normal;
+    font-family:"roboto";
+    text-align: center; 
+    opacity: 1;
 }
 .navigation:has(a)::before{
     content: '';
@@ -50,7 +61,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
+    height: 3px;
     border-radius: 50px;
     background-color: gray;
 }
@@ -61,7 +72,7 @@
     left: 0;
     background-color: var(--site-clr);
     width: 50%;
-    height: 4px;
+    height: 3px;
     border-radius: 50px;
     transition: 0.5s;
 }
@@ -73,8 +84,8 @@
 }
 
 .auth_form {
-    min-width: 250px;
-    max-width: 270px;
+    min-width: 300px;
+    max-width: 330px;
 }
 .auth_form a.forgot_password {
     margin: 20px 0px;
@@ -83,14 +94,30 @@
     align-self: flex-end;
     color: gray;
     transition: 0.3s;
+    text-decoration: underline;
 }
 .auth_form a:hover {
     color: rgb(0, 98, 255);
 }
 
+p.reEmail{
+    font-size: 14px;
+    margin-top: 10px;
+}
+p.reEmail a{
+    text-decoration: none;
+    color: var(--site-clr);
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+p.reEmail a:hover{
+    text-decoration: underline;
+     
+}
 p.new_account{
     font-size: 14px;
-    margin: 0;
+    margin-top: 10px;
 }
 p.new_account a{
     text-decoration: none;
@@ -110,15 +137,13 @@ p.new_account a:hover{
     text-decoration: underline;
 }
 
-
-
-
-
-
-
-
-
-
+.robotoLight{
+    font-family: roboto-light;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 30px;
+    opacity: 1;
+}
 
 @media(max-width: 900px){
     .left .top,.left .bottom{
@@ -132,5 +157,33 @@ p.new_account a:hover{
     .right{
         width: 100%;
         max-width: 100%;
+    }
+}
+
+@media(max-height:565px){
+
+    .navigation{
+        font-size:14px;
+        margin-top: 10px;
+    }
+    p.reEmail{
+        font-size: 11px;
+        margin-top: 0;
+    }
+    p.reEmail a{
+        text-decoration: none;
+        color: var(--site-clr);
+        font-size: 11px;
+        transition: 0.3s;
+    }
+    .navigation .resetText{
+        margin-top: 10px;
+        width: 292px; 
+        font-size: 12px; 
+        font-style: normal;
+        font-family :roboto-light;
+        font-weight: 300; 
+        text-align: center; 
+        opacity: 1;
     }
 }

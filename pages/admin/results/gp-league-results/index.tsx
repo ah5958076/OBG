@@ -1,5 +1,5 @@
 import React from 'react'
-import tableStyles from "@/styles/pagesTables.module.css"; 
+import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images";
 import Navbar from '@/Components/Navbar/Navbar'
@@ -17,7 +17,7 @@ import { select_all, select_individual } from '@/utils/general';
 const GPLeagueResults = () => {
 
   return (
-    
+
     <>
 
       <Navbar index={12} />
@@ -36,58 +36,75 @@ const GPLeagueResults = () => {
             <thead>
 
               <tr>
-                <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
+                <th><input type="checkbox" name="select_all" onChange={select_all} /></th>
                 <th>League</th>
                 <th>Game</th>
                 <th>Team</th>
                 <th>Score</th>
                 <th>Video/Image</th>
                 <th>Total Points(Kill+Place)</th>
-                <th colSpan={2}>Results</th>
+                <th  >Results</th>
               </tr>
-              
             </thead>
-
-
             <tbody>
-              
               <tr>
                 <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>XYZ</td>
                 <td>Call of Duty</td>
                 <td>Team4</td>
                 <td>33</td>
-                <td>
-                  <Image src={ images.USER } alt="" width={50} height={50} />
+                <td className={tableStyles.imgCenter}>
+                  <Image src={images.USER} alt="" width={50} height={50} />
                 </td>
                 <td>71</td>
-                <td className={tableStyles.Win} style={{width:"60px"}}>
-                  <span>Win</span>
+                <td className={`${tableStyles.Win} `}  >
+                  <div className='flex justify-center'>
+                    <span className='mr-2'>Win</span>
+                    <a className='not-a-button'>
+                      <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                    </a>
+                  </div>
                 </td>
-                <td>
-                  <button className='not-a-button'>
-                    <FontAwesomeIcon icon={faPen} style={{color:"#89bfeb"}} />
-                  </button>
-                </td>
-
               </tr>
-
               <tr>
-                <td><input type="checkbox" name="selection-box" value={2} onChange={select_individual} /></td>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>XYZ</td>
                 <td>Call of Duty</td>
                 <td>Team4</td>
                 <td>33</td>
-                <td><Image src={ images.USER } alt="" width={50} height={50} /></td>
-                <td>71</td>
-                <td className={tableStyles.Win} style={{width:"60px"}}>
-                  <span>Win</span>
+                <td className={tableStyles.imgCenter}>
+                  <Image src={images.USER} alt="" width={50} height={50} />
                 </td>
-                <td className={tableStyles.Loss}>
-                  <span>Loss</span>
+                <td>71</td>
+                <td className={`${tableStyles.Win} `}  >
+                  <div className='flex justify-center'>
+                    <span className='mr-2'>Win</span>
+                    <a className='not-a-button'>
+                      <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                    </a>
+                  </div>
                 </td>
               </tr>
+              <tr>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
+                <td>XYZ</td>
+                <td>Call of Duty</td>
+                <td>Team4</td>
+                <td>33</td>
+                <td className={tableStyles.imgCenter}>
+                  <Image src={images.USER} alt="" width={50} height={50} />
+                </td>
+                <td>71</td>
+                <td className={`${tableStyles.Win} `}  >
+                  <div className='flex justify-center'>
+                    <span className='mr-2'>Win</span>
+                    <a className='not-a-button'>
+                      <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                    </a>
+                  </div>
+                </td>
 
+              </tr>
             </tbody>
 
           </table>
@@ -97,7 +114,7 @@ const GPLeagueResults = () => {
         <Pagination start={0} end={0} total={0} />
 
       </div>
-    
+
     </>
 
   )

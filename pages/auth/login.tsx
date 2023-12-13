@@ -43,44 +43,36 @@ const Login = () => {
             <title>Login - OBG</title>
 
             <div className={styles.left}>
-
                 <div className={styles.top}>
-                    <h1 style={{ color: "black", fontSize: "30px" }}>ONLINE BATTLEGROUND</h1>
-                    <p style={{ color: "lightgray", fontSize: "25px" }}>Best user experience of online gaming</p>
+                    <h1 style={{ marginTop: "37px", width: "231px", lineHeight: "60px", color: "#1A1A1A", opacity: "1", fontSize: "50px", fontStyle: "normal", fontFamily: "bebas-neue", fontWeight: '300' }}>ONLINE
+                        BATTLEGROUND</h1>
+                    <div style={{ marginTop: "37px", width: "307px", height: "67px", color: "#FFFFFF", opacity: "1", fontWeight: "300", fontSize: "30px", fontFamily: "roboto-light" }}>
+                        Best user experience of online gaming
+                    </div>
                 </div>
 
                 <div className={styles.bottom}>
-                    <h1 style={{ color: "white", fontSize: "25px" }}>Play & Compete</h1>
-                    <p style={{ color: "white", fontSize: "15px" }}>Create an account today to compete against different opponents</p>
+                    <h1 style={{ color: "white", fontSize: "38px", fontFamily: "roboto", opacity: '1', fontStyle: "normal", fontWeight: "300" }}>Play & Compete</h1>
+                    <p style={{ marginTop: "20px", color: "#fff", fontSize: "18px", fontFamily: "roboto-light", fontWeight: "100" }}>Create an account today to compete against different opponents</p>
                 </div>
-            </div>
 
-            <div className={styles.top}>
-                <h1 style={{ color: "black", fontSize: "50px", fontFamily: "bebas-neue" }}>ONLINE<br />sBATTLEGROUND</h1>
-                <p style={{ color: "lightgray", fontSize: "28px" }}>Best user experience of online gaming</p>
-            </div>
-
-            <div className={styles.bottom}>
-                <h1 style={{ color: "white", fontSize: "38px" }}>Play & Compete</h1>
-                <p style={{ color: "white", fontSize: "18px" }}>Create an account today to compete against different opponents</p>
-            </div>
-
+            </div >
             <div className={styles.right}>
 
-                <div className={styles.navigation}>
-                    <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_SIGNIN) }} className={styles.active}>Sign in</Link>
-                    <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_SIGNUP) }}>Sign up</Link>
+                <div className={`${styles.navigation}  ${styles.robotoLight}`} style={{ marginTop: "70px" }}>
+                    <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_SIGNIN) }} className={styles.active}>Sign in</Link> &nbsp; &nbsp;
+                    <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_SIGNUP) }} >Sign up</Link>
                 </div>
 
                 <form className={styles.auth_form} method="post" onSubmit={loginHandler}>
 
-                    <Input type="email" name="email" icon={faEnvelope} title="Email" required={true} />
-                    <Input type="password" name="password" icon={faLock} title="Password" required={true} />
+                    <Input id='email' type="email" name="email" icon={faEnvelope} title="Email" required={true} />
+                    <Input id='password' type="password" name="password" icon={faLock} title="Password" required={true} />
 
                     <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_FORGOT_PASSWORD) }} className={styles.forgot_password}>Forgot Password?</Link>
                     <button type="submit">Sign in</button>
                     <p className={styles.new_account}>
-                        <span>New on our Platform?</span>
+                        <span>New on our Platform?</span> &nbsp;
                         <Link onClick={(e) => { navigateTo(e, ROUTE_SIGNUP) }} href="#">Create an account</Link>
                     </p>
 
