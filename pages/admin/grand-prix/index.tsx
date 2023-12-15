@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images";
@@ -7,7 +7,7 @@ import Navbar from '@/Components/Navbar/Navbar'
 import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
 import { Pagination } from '@/Components/Pagination/Pagination'
 import { block, unblock } from '@/utils/grandprix'
-import {getRequest, navigateTo, select_all, select_individual} from "@/utils/general"
+import { getRequest, navigateTo, select_all, select_individual } from "@/utils/general"
 import { useSelector } from 'react-redux';
 import { TITLE_ADMIN_GRANDPRIX } from '@/constants/page-titles';
 import Image from 'next/image';
@@ -19,29 +19,33 @@ import { ADMIN_GRAND_PRIX_DOWNLOAD_RECORD_ROUTE, ADMIN_GRAND_PRIX_LIST_ROUTE, AD
 
 
 const GrandPrix = () => {
-  const data = useSelector((state:any) => { return state.pagination?.title===TITLE_ADMIN_GRANDPRIX?state.pagination:"ok" });
-
+  const data = useSelector((state: any) => { return state.pagination?.title === TITLE_ADMIN_GRANDPRIX ? state.pagination : "ok" });
+  const [resultData, setResultData] = useState<any>();
   useEffect(() => {
-    // if(!data?.data){
-    //   store.dispatch(isLoading(true));
-    //   getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?pageNum=${data?data.page_num:1}`).then((response:any) => {
-    //     store.dispatch(isLoading(false));
-    //     if(response.auth?.auth===true){
-    //       store.dispatch(setLoadedData(TITLE_ADMIN_GRANDPRIX, response, data?data.page_num:1));
-    //     } else{ navigateTo(null, ROUTE_SIGNIN) }
-    //   }).catch((e) => {
-    //     console.log(e)
-    //     navigateTo(null, ROUTE_SIGNIN)
-    //   });
-    // }
+    if (!data?.data) {
+      store.dispatch(isLoading(true));
+      getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}`).then((response: any) => {
+        store.dispatch(isLoading(false));
+        if (response.result) {
+          store.dispatch(setLoadedData(TITLE_ADMIN_GRANDPRIX, response, data ? data.page_num : 1));
+          store.dispatch(isLoading(false));
+          setResultData(response.result);
+        } else {
+          navigateTo(null, ROUTE_SIGNIN)
+        }
+      }).catch((e) => {
+        console.log(e)
+        navigateTo(null, ROUTE_SIGNIN)
+      });
+    }
   }, [data]);
 
 
   return (
     <>
-      {data?
+      {data ?
         <>
-          <Navbar index={1}/>
+          <Navbar index={1} />
 
           <title>{TITLE_ADMIN_GRANDPRIX}</title>
 
@@ -67,10 +71,10 @@ const GrandPrix = () => {
                     <th>Actions</th>
                   </tr>
                 </thead>
-
                 <tbody>
 
-                  { data?.data?.data?.map((obj:any, index:number) => (
+                  {resultData?.data?.map((obj: any, index: number) => (
+                    // {data?.result?.data?.map((obj: any, index: number) => (
 
                     <tr key={index}>
                       {/* <td><input type="checkbox" name="selection-box" value={obj._id} onChange={ select_individual } /></td> */}
@@ -81,30 +85,28 @@ const GrandPrix = () => {
                       <td>{obj.ownerYearlyIncome}$</td>
                       <td>{obj.ownerAddress}</td>
                       <td className={tableStyles.center}>
-                        <Image width={25} height={25} src={obj.isBlock?images.CLOSE_LOCK:images.OPEN_LOCK} alt="" />
+                        <Image width={25} height={25} src={obj.isBlock ? images.CLOSE_LOCK : images.OPEN_LOCK} alt="" />
                       </td>
                       <td>
-                      {obj.isBlock?
-                            <button onClick={ ()=>{unblock(obj._id, data?data.page_num:1)} }>
-                              <Image title='Unblock this user' src={images.GREEN_TICK} alt="" style={{width:"30px", height: "30px"}} />
-                            </button>: 
-                            <button onClick={ ()=>{block(obj._id, data?data.page_num:1)} }>
-                              <Image title='Block this user' src={images.RED_CROSS} alt="" style={{width:"30px", height: "30px"}} />
-                            </button>}
+                        {obj.isBlock ?
+                          <a onClick={() => { unblock(obj._id, data ? data.page_num : 1) }}>
+                            <Image title='Unblock this user' src={images.GREEN_TICK} alt="" style={{ width: "30px", height: "30px" }} />
+                          </a> :
+                          <a onClick={() => { block(obj._id, data ? data.page_num : 1) }}>
+                            <Image title='Block this user' src={images.RED_CROSS} alt="" style={{ width: "30px", height: "30px" }} />
+                          </a>}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+            <Pagination title={TITLE_ADMIN_GRANDPRIX} page_num={data ? data?.page_num : 1} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end)) ? data?.data?.data?.length : data?.data?.total} />
 
-            <Pagination title={TITLE_ADMIN_GRANDPRIX} page_num={data?data?.page_num:1} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end))?data?.data?.data?.length:data?.data?.total} />
-
-            </div>
+          </div>
         </> : ""}
 
     </>
   )
 }
-
 export default GrandPrix;

@@ -10,31 +10,36 @@ import { getRequest, navigateTo } from '@/utils/general';
 import { ROUTE_SIGNIN } from '@/constants/routes';
 import { ADMIN_DASHBOARD_ROUTE } from '@/constants/backend-routes';
 
-const Dashboard = (props:any) => {
-  const [data, setData]:any = useState("hello");
+const Dashboard = (props: any) => {
+  const [data, setData]: any = useState("hello");
 
-  useEffect(() => {    
-    // store.dispatch(isLoading(true));
-    // getRequest(ADMIN_DASHBOARD_ROUTE).then((data:any) => {
-    //   if(data.auth?.auth===true){
-    //     setData(data);
-    //   }else{
-    //     navigateTo(null, ROUTE_SIGNIN);
-    //   }
-    //   store.dispatch(isLoading(false));
-    // }).catch((e) => {
-    //   console.log(e);
-    //   navigateTo(null, ROUTE_SIGNIN);
-    //   store.dispatch(isLoading(false));
-    // });
+  useEffect(() => {
+    store.dispatch(isLoading(true));
+    getRequest(ADMIN_DASHBOARD_ROUTE).then((data: any) => {
+      console.log("after api response")
+      console.log(data)
+      if (data.result) {
+        setData(data.result);
+      } else {
+        navigateTo(null, ROUTE_SIGNIN);
+      }
+      store.dispatch(isLoading(false));
+    }).catch((e) => {
+      console.log("Exception")
+      console.log(e);
+      navigateTo(null, ROUTE_SIGNIN);
+      store.dispatch(isLoading(false));
+    });
   }, []);
 
   return (
     <>
-      {data?
+
+      {data ?
         <>
-          <Navbar index={0}/>
-          
+
+          <Navbar index={0} />
+
           <title>{TITLE_ADMIN_DASHBOARD}</title>
 
           <div className={styles.real_time_values}>
@@ -51,9 +56,9 @@ const Dashboard = (props:any) => {
               <p>Total Games</p>
             </div>
           </div>
-      
+
         </> :
-      ""}
+        ""}
 
     </>
 

@@ -51,7 +51,7 @@ const Auth = () => {
                     <Input id='email' name="email" title="Email" required={true} icon={faEnvelope} />
                     <Input id='password' type="password" name="new_password" title="Password" required={true} icon={faLock} />
 
-                    <button type="submit">Sign up</button>
+                    <button style={{ fontWeight: "normal" }} type="submit">Sign up</button>
                     <p className={`${styles.new_account} ${styles.robotoLight}`}>
                         <span>Already have an account?</span>&nbsp; &nbsp;
                         <Link style={{ color: '#FFD4A0' }} onClick={(e) => { navigateTo(e, ROUTE_SIGNIN) }} href="#">Sign in instead</Link>

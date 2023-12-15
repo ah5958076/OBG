@@ -11,7 +11,11 @@ import { useSelector } from 'react-redux'
 import { computeDate, openDeleteDialog, select_all, select_individual } from '@/utils/general'
 import { fetchGamesforEditDialog, openAddNewDialog } from '@/utils/gpLeagues';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation'
+import { isLoading } from '@/Redux/actions/loader';
+import { setLoadedData } from '@/Redux/actions/pagination';
 import store from '@/Redux/store';
+// import { makeXMLRequest, openEditDialog } from "../";
 import { showDialog } from '@/Redux/actions/dialogs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -19,17 +23,17 @@ import { faPen, faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const GPLeagues = (props: any) => {
   const data = useSelector((state: any) => { return state.pagination?.title === TITLE_ADMIN_GPLEAGUES ? state.pagination : null });
-
+  const router = useRouter();
   useEffect(() => {
-    // if(!data?.data){
+    // if (!data?.data) {
     //   store.dispatch(isLoading(true));
-    //   makeXMLRequest(`/api/gp-league/list?page_num=${data?data.page_num:1}`, "get").then((response:any) => {
-    //     if(response.auth===true){
-    //       store.dispatch(setLoadedData(TITLE_ADMIN_GPLEAGUES, response, data?data.page_num:1));
+    //   makeXMLRequest(`/api/gp-league/list?page_num=${data ? data.page_num : 1}`, "get").then((response: any) => {
+    //     if (response.auth === true) {
+    //       store.dispatch(setLoadedData(TITLE_ADMIN_GPLEAGUES, response, data ? data.page_num : 1));
     //       store.dispatch(isLoading(false));
-    //     }else
+    //     } else
     //       router.push("/");
-    //   }).catch((e) => {
+    //   }).catch((e: any) => {
     //     console.log(e)
     //     store.dispatch(isLoading(false));
     //     // store.dispatch(showNotification("Something went wrong. Please try again", true));

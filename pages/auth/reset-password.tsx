@@ -49,7 +49,7 @@ const ChangePasswordAtLogin = () => {
 
         <div className={styles.navigation}>
           <h2 style={{ fontSize: "16px", }}>Change Password</h2>
-          <p style={{ textAlign: "center", fontSize: "14px", width: "70%", marginTop: "60px" }}>Now, You can reset your password to enter into your dashabord</p>
+          <p style={{ textAlign: "center", fontSize: "14px", width: "70%", marginTop: "30px" }}>Now, You can reset your password to enter into your dashabord</p>
         </div>
 
         <form className={styles.auth_form} method="post" onSubmit={changePasswordAtLoginHandler}>

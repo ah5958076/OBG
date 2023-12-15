@@ -100,6 +100,7 @@
     color: rgb(0, 98, 255);
 }
 
+
 p.reEmail{
     font-size: 14px;
     margin-top: 10px;
@@ -145,12 +146,12 @@ p.new_account a:hover{
     opacity: 1;
 }
 
-@media(max-width: 900px){
+@media(max-width: 1265px){
     .left .top,.left .bottom{
         padding-left: 10px;
     }
 }
-@media(max-width: 850px){
+@media(max-width: 1075px){
     .left .top, .left .bottom{
         display: none;
     }
@@ -159,7 +160,6 @@ p.new_account a:hover{
         max-width: 100%;
     }
 }
-
 @media(max-height:565px){
 
     .navigation{

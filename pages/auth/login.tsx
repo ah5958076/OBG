@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import styles from "@/styles/auth.module.css";
-
+import { toast } from "react-toastify";
 import Link from "next/link";
 import { ROUTE_ADMIN_DASHBOARD, ROUTE_FORGOT_PASSWORD, ROUTE_SIGNIN, ROUTE_SIGNUP, ROUTE_USER_DASHBOARD } from '@/constants/routes';
 import { loginHandler } from "@/utils/auth";
@@ -14,34 +14,31 @@ import { VERIFY_TOKEN_ROUTE } from "@/constants/backend-routes";
 
 
 const Login = () => {
-
     useEffect(() => {
-        //     store.dispatch(isLoading(true));
-        //     localStorage.removeItem("reset-data");
-        //     getRequest(VERIFY_TOKEN_ROUTE).then((data:any) => {
-        //         console.log(data);
-        //         store.dispatch(isLoading(false));
-        //         if(data.auth?.auth) {
-        //         if(data.auth?.role==="Admin")
-        //             navigateTo(null, ROUTE_ADMIN_DASHBOARD);
-        //         else if(data.auth?.role==="User")
-        //             navigateTo(null, ROUTE_USER_DASHBOARD);
-        //         }
-        //         else {localStorage.removeItem("token")}
-        //     }).catch((e) =>{
-        //         console.log(e);
-        //         store.dispatch(isLoading(false));
-        //         localStorage.removeItem("token");
-        //     });
+        store.dispatch(isLoading(true));
+        localStorage.removeItem("reset-data");
+        getRequest(VERIFY_TOKEN_ROUTE).then((data: any) => {
+            console.log("login data", data);
+            store.dispatch(isLoading(false));
+            if (data.auth?.auth) {
+                if (data.auth?.role === "Admin")
+                    navigateTo(null, ROUTE_ADMIN_DASHBOARD);
+                else if (data.auth?.role === "User")
+                    navigateTo(null, ROUTE_USER_DASHBOARD);
+            }
+            else {
+                localStorage.removeItem("token")
+            }
+        }).catch((e) => {
+            console.log(e);
+            store.dispatch(isLoading(false));
+            localStorage.removeItem("token");
+        });
 
     }, []);
-
-
     return (
         <>
-
             <title>Login - OBG</title>
-
             <div className={styles.left}>
                 <div className={styles.top}>
                     <h1 style={{ marginTop: "37px", width: "231px", lineHeight: "60px", color: "#1A1A1A", opacity: "1", fontSize: "50px", fontStyle: "normal", fontFamily: "bebas-neue", fontWeight: '300' }}>ONLINE
@@ -59,7 +56,7 @@ const Login = () => {
             </div >
             <div className={styles.right}>
 
-                <div className={`${styles.navigation}  ${styles.robotoLight}`} style={{ marginTop: "70px" }}>
+                <div className={`${styles.navigation}  `} style={{ marginTop: "70px" }}>
                     <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_SIGNIN) }} className={styles.active}>Sign in</Link> &nbsp; &nbsp;
                     <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_SIGNUP) }} >Sign up</Link>
                 </div>
@@ -70,14 +67,12 @@ const Login = () => {
                     <Input id='password' type="password" name="password" icon={faLock} title="Password" required={true} />
 
                     <Link href="#" onClick={(e) => { navigateTo(e, ROUTE_FORGOT_PASSWORD) }} className={styles.forgot_password}>Forgot Password?</Link>
-                    <button type="submit">Sign in</button>
+                    <button style={{ fontWeight: "normal" }} type="submit">Sign in</button>
                     <p className={styles.new_account}>
                         <span>New on our Platform?</span> &nbsp;
                         <Link onClick={(e) => { navigateTo(e, ROUTE_SIGNUP) }} href="#">Create an account</Link>
                     </p>
-
                 </form>
-
             </div>
         </>
     )

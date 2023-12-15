@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import styles from "@/styles/auth.module.css";
 import Link from "next/link";
 import { ROUTE_SIGNIN } from "@/constants/routes";
-import { forgotPassword } from "@/utils/auth";
+import { forgotPassword, resendCode } from "@/utils/auth";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import store from "@/Redux/store";
 import { isLoading } from "@/Redux/actions/loader";
@@ -42,13 +42,8 @@ const Auth = () => {
                     <p className={styles.resetText}>Please fill in the email that you used to register. You will be sent an email with instructions on how to reset your password.</p>
                 </div>
                 <form className={styles.auth_form} method="post" onSubmit={forgotPassword}>
-                    <Input id='email' type="email" name="email" title="Email" icon={faEnvelope} required={true}  />
+                    <Input id='email' type="email" name="email" title="Email" icon={faEnvelope} required={true} />
                     <button style={{ marginTop: '20px', borderRadius: "0" }} type="submit">Send email</button>
-                    <p className={`${styles.reEmail}`}>
-                        <span>Didn't receieved email?</span>&nbsp; &nbsp;
-                        {/* error over here */}
-                        <a style={{ color: '#FFD4A0' }} >Send it again</a>
-                    </p>
                 </form>
             </div>
         </>

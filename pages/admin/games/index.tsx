@@ -40,9 +40,7 @@ const Games = (props: any) => {
                 <th>Actions</th>
               </tr>
             </thead>
-
             <tbody>
-
               <tr>
                 <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>Name 1</td>
@@ -85,7 +83,6 @@ const Games = (props: any) => {
 
           </table>
         </div>
-
         <Pagination start={0} end={0} total={0} />
 
       </div>

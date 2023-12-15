@@ -11,7 +11,6 @@
 
 .table {
     width: 100%;
-   
 }
 
 .table table {
@@ -19,6 +18,9 @@
 }
 .table table .center{
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .table table .left{
     text-align: left;
@@ -88,7 +90,6 @@
     cursor: pointer;
     font-size: 15px;
     margin-right: 10px;
-    /* display:flex; */
     justify-content: center;
 }
 
