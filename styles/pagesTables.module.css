@@ -5,6 +5,7 @@
     justify-content: center;
     width: 100%;
     padding: 0px 50px;
+   
 }
 
 
@@ -17,24 +18,30 @@
 }
 .table table .center{
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .table table .left{
     text-align: left;
 }
 .table table .right{
-    text-align: right;
+    text-align: c;
 }
 .table table tr {
     font-size: 12px;
+    font-family:"roboto";
+    font-style: normal;
 }
 .table table th {
     font-size: 12px;
     background-color: #1A1A1A;
+    font-family: "roboto-bold";
 }
 
 .table table td,
 .table table th {
-    text-align: left;
+    text-align: center;
     padding: 10px;
 }
 
@@ -71,12 +78,19 @@
     gap: 5px;
 }
 
-.table table td button {
+.table table  td img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.table table td a {
     background: transparent;
     border: none;
     outline: none;
     cursor: pointer;
     font-size: 15px;
+    margin-right: 10px;
+    justify-content: center;
 }
 
 
@@ -90,13 +104,10 @@
     padding: 5px 10px;
     border-radius: 10px;
 }
-
-
-
-
-
-
-
+.imgCenter{
+    display: flex;
+    justify-content: center;
+}
 
 @media(max-width: 1000px) {
     .table {

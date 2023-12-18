@@ -7,6 +7,7 @@ export const RESET_PASSWORD_ROUTE = "/api/change-password";
 export const LOGOUT_ROUTE = "/api/logout";
 
 export const ADMIN_DASHBOARD_ROUTE = "/api/admin/dashboard";
+export const USER_CHANGE_PASSWORD_ROUTE = '/api/user/change-password';
 
 export const ADMIN_GRAND_PRIX_STORE_ROUTE = "/api/grand-prix/store";
 export const ADMIN_GRAND_PRIX_UPDATE_ROUTE = "/api/grand-prix/update";

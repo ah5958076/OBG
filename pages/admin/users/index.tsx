@@ -18,19 +18,14 @@ const Users = () => {
   return (
 
     <>
-
       <Navbar index={4} />
-
       <title>{TITLE_ADMIN_USERS}</title>
-
       <div className={tableStyles.container}>
-        
         <NameAndExportData url="/api/users/download-record" title="Users" />
         <SearchBar url="/api/users/search" addDialog={DIALOG_ADD_USERS} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className={tableStyles.table}>
           <table>
-
             <thead>
               <tr>
                 <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
@@ -47,10 +42,7 @@ const Users = () => {
                 <th>Actions</th>
               </tr>
             </thead>
-
-
             <tbody>
-
               <tr>
                 <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
                 <td>Name</td>
@@ -64,55 +56,23 @@ const Users = () => {
                 <td>About</td>
                 <td>Status</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{manageInventory("")}}>
+                  <a className='not-a-button' onClick={()=>{manageInventory("")}}>
                     <FontAwesomeIcon icon={faMedal} rotation={180} style={{color: "var(--site-clr)"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{showProfile('userID')}}>
+                  </a>
+                  <a className='not-a-button' onClick={()=>{showProfile('userID')}}>
                     <FontAwesomeIcon icon={faEye} style={{color: "var(--green)"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_USERS, "", "/api/users/show")}}>
+                  </a>
+                  <a className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_USERS, "", "/api/users/show")}}>
                     <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_USERS, "/api/users/delete", "")}}>
+                  </a>
+                  <a className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_USERS, "/api/users/delete", "")}}>
                     <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  </a>
                 </td>
               </tr>
-              
-              <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
-                <td>Name</td>
-                <td>Username</td>
-                <td>Email</td>
-                <td>Credits</td>
-                <td>Matches</td>
-                <td>Wins</td>
-                <td>Losses</td>
-                <td>Win %</td>
-                <td>About</td>
-                <td>Status</td>
-                <td>
-                  <button className='not-a-button' onClick={()=>{manageInventory("")}}>
-                    <FontAwesomeIcon icon={faMedal} rotation={180} style={{color: "var(--site-clr)"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{showProfile('userID')}}>
-                    <FontAwesomeIcon icon={faEye} style={{color: "var(--green)"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_USERS, "", "/api/users/show")}}>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_USERS, "/api/users/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
-                </td>
-              </tr>
-
             </tbody>
-
-
           </table>
         </div>
-
           <Pagination start={0} end={0} total={0} />
 
       </div>

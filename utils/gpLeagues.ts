@@ -1,10 +1,10 @@
 import { hideDialog, showDialog } from "../Redux/actions/dialogs";
 import { isLoading } from "../Redux/actions/loader";
 import store from "../Redux/store";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import { DIALOG_ADD_GP_LEAGUES, DIALOG_UPDATE_GP_LEAGUES } from "../constants/dialog-names";
 
-let ALLOWED_EXTENSIONS:string = process.env.ALLOWED_EXTENSIONS || "";
+let ALLOWED_EXTENSIONS: string = process.env.ALLOWED_EXTENSIONS || "";
 
 
 export const openAddNewDialog = () => {
@@ -26,11 +26,11 @@ export const openAddNewDialog = () => {
     // });
 }
 
-export const addNewHandler = (e:any) => {
+export const addNewHandler = (e: any) => {
     e.preventDefault();
-    
+
     store.dispatch(isLoading(true));
-    let formData:any = new FormData()
+    let formData: any = new FormData()
     formData.append("name", e.target.elements.name.value);
     formData.append("gameName", e.target.elements.gameName.value);
     formData.append("entryFee", e.target.elements.entryFee.value);
@@ -41,8 +41,8 @@ export const addNewHandler = (e:any) => {
     formData.append("endingDate", e.target.elements.endingDate.value);
     formData.append("picture", e.target.elements.picture.files[0]);
 
-    const ext:any = formData?.get("picture").name.split(".").pop().toLowerCase();
-    if(!ALLOWED_EXTENSIONS.toLowerCase().includes(ext)) {
+    const ext: any = formData?.get("picture").name.split(".").pop().toLowerCase();
+    if (!ALLOWED_EXTENSIONS.toLowerCase().includes(ext)) {
         store.dispatch(isLoading(false));
         // store.dispatch(showNotification("Only Images with ("+ALLOWED_EXTENSIONS+") extensions are allowed", true));
         return;
@@ -70,9 +70,9 @@ export const addNewHandler = (e:any) => {
     // });
 }
 
-export const fetchGamesforEditDialog = (id:any) => {
+export const fetchGamesforEditDialog = (id: any) => {
     store.dispatch(isLoading(true));
-    
+
     let dummyData = {
         "name": "name",
         "gameName": {
@@ -85,7 +85,7 @@ export const fetchGamesforEditDialog = (id:any) => {
         "startingDate": Date.now().toLocaleString(),
         "endingDate": Date.now().toLocaleString(),
     }
-    
+
     store.dispatch(showDialog(DIALOG_UPDATE_GP_LEAGUES, dummyData));
     store.dispatch(isLoading(false));
     // makeXMLRequest("/api/game/list?page_num=-1", "get").then((response:any) => {
@@ -103,12 +103,12 @@ export const fetchGamesforEditDialog = (id:any) => {
     // });
 }
 
-export const updateLeagueHanlder = (e:any) => {
+export const updateLeagueHanlder = (e: any) => {
     e.preventDefault();
     store.dispatch(isLoading(true));
-    
+
     let data = e.target.elements;
-    let formData:any = new FormData();
+    let formData: any = new FormData();
     formData.set("id", data.id.value);
     formData.set("name", data.name.value);
     formData.set("gameName", data.gameName.value);

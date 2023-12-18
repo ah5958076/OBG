@@ -14,10 +14,10 @@ import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { openDeleteDialog, openEditDialog, select_all, select_individual } from '@/utils/general';
 
 
-const Tournaments = (props:any) => {
+const Tournaments = (props: any) => {
 
   return (
-    
+
     <>
 
       {/* <button>All</button>
@@ -30,7 +30,11 @@ const Tournaments = (props:any) => {
 
       <div className={tableStyles.container}>
 
-        <NameAndExportData url="/api/tournaments/download-record" title="Tournaments" />
+        <NameAndExportData url="/api/tournaments/download-record" title="Tournaments" >
+          <button data-active="yes">All</button>
+          <button data-active="no">General</button>
+          <button data-active="no">Grand Prix</button>
+        </NameAndExportData>
         <SearchBar url="/api/tournaments/search" addDialog={DIALOG_ADD_TOURNAMENTS} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className={tableStyles.table}>
@@ -39,7 +43,7 @@ const Tournaments = (props:any) => {
 
             <thead>
               <tr>
-                <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
+                <th><input type="checkbox" name="select_all" onChange={select_all} /></th>
                 <th>Tournament</th>
                 <th>Category</th>
                 <th>Game</th>
@@ -60,19 +64,19 @@ const Tournaments = (props:any) => {
                 <td>Call of Duty 5*5 tournament</td>
                 <td>General</td>
                 <td>Call of Duty</td>
-                <td className="td-pic"><Image src={ images.USER } alt="" width={50} height={50} /></td>
+                <td className={tableStyles.imgCenter} ><Image src={images.USER} alt="" width={50} height={50} /></td>
                 <td>$500</td>
                 <td>$500</td>
                 <td>06</td>
                 <td>04</td>
                 <td>2022-02-13,06:30AM</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_TOURNAMENTS, "", "/api/gp-league/show")}}>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}} />
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, "/api/gp-league/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  <a className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_TOURNAMENTS, "", "/api/gp-league/show") }}>
+                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                  </a>
+                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, "/api/gp-league/delete", "") }}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                  </a>
                 </td>
               </tr>
 
@@ -81,19 +85,19 @@ const Tournaments = (props:any) => {
                 <td>PUBG ThunderStorm</td>
                 <td>Grand Prix</td>
                 <td>PUBG</td>
-                <td className="td-pic"><Image src={ images.USER } alt="" width={50} height={50} /></td>
+                <td className={tableStyles.imgCenter} ><Image src={images.USER} alt="" width={50} height={50} /></td>
                 <td>$500</td>
                 <td>$500</td>
                 <td>02</td>
                 <td>02</td>
                 <td>2023-02-13,10:30AM</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{openEditDialog(DIALOG_UPDATE_TOURNAMENTS, "", "/api/gp-league/show")}}>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, "/api/gp-league/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                  <a className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_TOURNAMENTS, "", "/api/gp-league/show") }}>
+                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                  </a>
+                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, "/api/gp-league/delete", "") }}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -107,7 +111,7 @@ const Tournaments = (props:any) => {
       </div>
 
     </>
-    
+
   )
 
 }

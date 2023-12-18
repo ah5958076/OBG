@@ -15,8 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
-const FantasyLeagues = (props:any) => {
-  const data = useSelector((state:any) => {return state.pagination.title===TITLE_ADMIN_FANTASY_LEAGUES?state.pagination:null});
+const FantasyLeagues = (props: any) => {
+  const data = useSelector((state: any) => { return state.pagination.title === TITLE_ADMIN_FANTASY_LEAGUES ? state.pagination : null });
   const router = useRouter();
 
   useEffect(() => {
@@ -40,23 +40,23 @@ const FantasyLeagues = (props:any) => {
   return (
 
     <>
-    
-      <Navbar index={3}/>
+
+      <Navbar index={3} />
 
       <title>{TITLE_ADMIN_FANTASY_LEAGUES}</title>
 
       <div className={tableStyles.container}>
 
         <NameAndExportData url="/api/fantasy-league/download-record" title="Fantasy Leagues" />
-        <SearchBar AddNewHandler={ null } url="/api/fantasy-league/search" title={TITLE_ADMIN_FANTASY_LEAGUES} addDialog={DIALOG_ADD_FANTASY_LEAGUES} deleteDialog={DIALOG_CONFIRMATION} />
-        
+        <SearchBar AddNewHandler={null} url="/api/fantasy-league/search" title={TITLE_ADMIN_FANTASY_LEAGUES} addDialog={DIALOG_ADD_FANTASY_LEAGUES} deleteDialog={DIALOG_CONFIRMATION} />
+
 
         <div className={tableStyles.table}>
           <table>
 
             <thead>
               <tr>
-                <th><input type="checkbox" name="select_all" onChange={ select_all } /></th>
+                <th><input type="checkbox" name="select_all" onChange={select_all} /></th>
                 <th>Name</th>
                 <th>Grand Prix League</th>
                 <th>Type</th>
@@ -71,9 +71,8 @@ const FantasyLeagues = (props:any) => {
 
             <tbody>
 
-
               <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
+                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
                 <td>Name 1</td>
                 <td>Grand Prix 1</td>
                 <td>Type</td>
@@ -83,41 +82,26 @@ const FantasyLeagues = (props:any) => {
                 <td>{computeDate(Date.now())}</td>
                 <td>Yes</td>
                 <td>
-                  <button className='not-a-button' onClick={()=>{fetchGrandPrixforEditDialog("")}}>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
-                </td>
-              </tr>
+                  <a onClick={(e) => {
+                    e.preventDefault();
+                    console.log("click")
+                    fetchGrandPrixforEditDialog("");
+                  }}>
 
-              <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual}/></td>
-                <td>Name 1</td>
-                <td>Grand Prix 1</td>
-                <td>Type</td>
-                <td>2001</td>
-                <td>4</td>
-                <td>4</td>
-                <td>{computeDate(Date.now())}</td>
-                <td>Yes</td>
-                <td>
-                  <button className='not-a-button' onClick={()=>{fetchGrandPrixforEditDialog("")}}>
-                    <FontAwesomeIcon icon={faPen} style={{color: "#89bfeb"}}/>
-                  </button>
-                  <button className='not-a-button' onClick={()=>{openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", "")}}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{color: "#df4646"}}/>
-                  </button>
+                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                  </a>
+                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", "") }}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                  </a>
                 </td>
               </tr>
 
 
 
-              {data?.data?
-                data?.data.data.map((obj:any, index:number) => (
+              {data?.data ?
+                data?.data.data.map((obj: any, index: number) => (
                   <tr key={index}>
-                    <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual}/></td>
+                    <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
                     <td>{obj.name}</td>
                     <td>{obj.grandPrixLeague.name}</td>
                     <td>{obj.type}</td>
@@ -127,22 +111,22 @@ const FantasyLeagues = (props:any) => {
                     <td>{computeDate(obj.createdAt)}</td>
                     <td>{obj.winner}</td>
                     <td>
-                      <button onClick={()=>{fetchGrandPrixforEditDialog(obj._id)}}>
-                        <i className="fa-solid fa-pen" style={{color: "#89bfeb"}}></i>
-                      </button>
-                      <button onClick={()=>{openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", obj._id)}}>
-                        <i className="fa-solid fa-trash-can" style={{color: "#df4646"}}></i>
-                      </button>
+                      <a onClick={(e) => { fetchGrandPrixforEditDialog(obj._id) }}>
+                        <i className="fa-solid fa-pen" style={{ color: "#89bfeb" }}></i>
+                      </a>
+                      <a onClick={() => { openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", obj._id) }}>
+                        <i className="fa-solid fa-trash-can" style={{ color: "#df4646" }}></i>
+                      </a>
                     </td>
                   </tr>
-                )):(<tr></tr>)
+                )) : (<tr></tr>)
               }
             </tbody>
 
           </table>
         </div>
 
-        <Pagination title={TITLE_ADMIN_FANTASY_LEAGUES} page_num={data?.data?data.data.page_num:1} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end))?data?.data?.data.length:data?.data?.total} />
+        <Pagination title={TITLE_ADMIN_FANTASY_LEAGUES} page_num={data?.data ? data.data.page_num : 1} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end)) ? data?.data?.data.length : data?.data?.total} />
 
       </div>
 

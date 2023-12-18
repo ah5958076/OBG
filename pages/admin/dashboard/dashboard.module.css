@@ -8,10 +8,13 @@
 }
 
 .real_values {
-  width: 92px;
-  height: 92px;
-  border: 1px solid #707070;
+  width: 106px;
+  height: 106px;
+  margin-right: 25px;
+  margin-top: 10px;
   position: relative;
+  border-radius: 3px;
+  border:1px solid #707070;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,16 +23,22 @@
 
 .real_values p {
   position: absolute;
-  bottom: 0;
+  bottom: -20px;
   width: 100%;
   padding: 0;
-  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
   text-align: center;
+  font-family: roboto-light;
   transform: translateY(105%);
 }
 
 .real_values span {
-  font-weight: bold;
+  font-weight: normal;
+  font-family: roboto;
+  font-size: 24px;
+  
 }
 
 

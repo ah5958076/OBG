@@ -1,6 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: roboto;
-  src: url("./RobotoMedium.ttf");
+  src: url("./Roboto-Medium.ttf");
+}
+@font-face {
+  font-family: roboto-light;
+  src: url("./Roboto-Light.ttf");
 }
 @font-face {
   font-family: roboto-bold;
@@ -25,13 +33,10 @@
   --dark-green: #156502;
 }
 
-
-
-
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg);
+  background-color: var(--dark-bg);
   color: var(--fg);
   font-family: roboto;
   box-sizing: border-box;
@@ -42,8 +47,6 @@ body {
 body:has(#dialogs){
   overflow: hidden;
 }
-
-
 
 h1,
 h2,
@@ -77,11 +80,6 @@ button:not(.Toastify__close-button) {
   color: var(--site-clr);
 }
 
-
-
-
-
-
 form{
   display: flex;
   position: relative;
@@ -109,16 +107,6 @@ input::-webkit-inner-spin-button{
   border: none;
   outline: none;
 }
-
-
-
-
-
-
-
-
-
-
 .container{
   display: flex;
   width: 100%;
