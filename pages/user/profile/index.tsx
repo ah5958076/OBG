@@ -11,7 +11,7 @@ function Profile() {
 
         <>
 
-            <UserNavBar auth={false} />
+            <UserNavBar auth={true} />
         
             <div className="container">
 
