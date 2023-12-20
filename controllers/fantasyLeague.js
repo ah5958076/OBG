@@ -1,15 +1,15 @@
 const { isObjectIdOrHexString } = require("mongoose");
-const { INVALID, OK, NOT_FOUND, UNAUTHORIZED } = require("../constants/constants");
-const { FANTASY_LEAGUE_ADDED, UNEXPECTED_ERROR, FANTASY_LEAGUE_UPDATED, FANTASY_LEAGUE_DELETED, AUTH_FAILED } = require("../constants/messages");
+const { INVALID, OK, NOT_FOUND } = require("../constants/constants");
+const { UNEXPECTED_ERROR, INVALID_ID, NAME_EMPTY, GRAND_PRIX_NAME_EMPTY, TOTAL_TEAMS_EMPTY, TEAM_SIZE_EMPTY, DRAFT_DATETIME_EMPTY } = require("../constants/messages");
 const FantasyLeagueModel = require("../models/FantasyLeague");
-const { makeResponse, listData, searchData, writeExcelFile } = require("../services/general");
+const { makeResponse, writeExcelFile, computeDate, listDataWithPopulate, searchDataWithPopulate } = require("../services/general");
+const { store, update, deleteRecord, show } = require("../services/fantasyLeague");
 
 
 
 
 
 module.exports.store = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
     let givenObject = {
         name: req.body?.name || "",
@@ -19,22 +19,21 @@ module.exports.store = async (req, res) => {
         draftDateTime: req.body?.draftDateTime || "",
     }
 
-    if(!givenObject.name) return res.status(INVALID).send(makeResponse("Name is empty"));
-    if(!givenObject.grandPrixLeague) return res.status(INVALID).send(makeResponse("Grand Prix League Name is empty"));
-    if(!givenObject.totalTeams) return res.status(INVALID).send(makeResponse("Total Teams is empty"));
-    if(!givenObject.teamSize) return res.status(INVALID).send(makeResponse("Team Size is empty"));
-    if(!givenObject.draftDateTime) return res.status(INVALID).send(makeResponse("Draft Date and Time is empty"));
+    if(!givenObject.name) return res.status(INVALID).send(makeResponse(NAME_EMPTY));
+    if(!givenObject.grandPrixLeague) return res.status(INVALID).send(makeResponse(GRAND_PRIX_NAME_EMPTY));
+    if(!givenObject.totalTeams) return res.status(INVALID).send(makeResponse(TOTAL_TEAMS_EMPTY));
+    if(!givenObject.teamSize) return res.status(INVALID).send(makeResponse(TEAM_SIZE_EMPTY));
+    if(!givenObject.draftDateTime) return res.status(INVALID).send(makeResponse(DRAFT_DATETIME_EMPTY));
 
-    let value = await new FantasyLeagueModel(givenObject).save().catch((e) => {console.log(e)});
-    if(value) return res.status(OK).send(makeResponse(FANTASY_LEAGUE_ADDED));
-    return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    let response = await store(givenObject);
+    return res.status(response.code).send(response.data);
 }
+
+
 
 module.exports.update = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
+    let id = req.body?.id || "";
     let givenObject = {
-        id: req.body?.id || "",
         name: req.body?.name || "",
         grandPrixLeague: req.body?.grandPrixLeague || "",
         totalTeams: req.body?.totalTeams || "",
@@ -42,64 +41,79 @@ module.exports.update = async (req, res) => {
         draftDateTime: req.body?.draftDateTime || "",
     }
 
-    if(!givenObject.id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
-    if(!givenObject.name) return res.status(INVALID).send(makeResponse("Name is empty"));
-    if(!givenObject.grandPrixLeague) return res.status(INVALID).send(makeResponse("Grand Prix League Name is empty"));
-    if(!givenObject.totalTeams) return res.status(INVALID).send(makeResponse("Total Teams is empty"));
-    if(!givenObject.teamSize) return res.status(INVALID).send(makeResponse("Team Size is empty"));
-    if(!givenObject.draftDateTime) return res.status(INVALID).send(makeResponse("Draft Date and Time is empty"));
+    if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    if(!givenObject.name) return res.status(INVALID).send(makeResponse(NAME_EMPTY));
+    if(!givenObject.grandPrixLeague) return res.status(INVALID).send(makeResponse(GRAND_PRIX_NAME_EMPTY));
+    if(!givenObject.totalTeams) return res.status(INVALID).send(makeResponse(TOTAL_TEAMS_EMPTY));
+    if(!givenObject.teamSize) return res.status(INVALID).send(makeResponse(TEAM_SIZE_EMPTY));
+    if(!givenObject.draftDateTime) return res.status(INVALID).send(makeResponse(DRAFT_DATETIME_EMPTY));
 
-    let value = await FantasyLeagueModel.updateOne({_id: givenObject.id}, givenObject).catch((e) => {console.log(e)});
-    if(value.modifiedCount) return res.status(OK).send(makeResponse(FANTASY_LEAGUE_UPDATED));
-    return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    let response = await update(id, givenObject);
+    return res.status(response.code).send(response.data);
 }
+
+
 
 module.exports.delete = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
+    let ids = req?.body?.ids || [];
+    if(!ids?.length) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    for(i of ids){
+        if(!isObjectIdOrHexString(i)) return res.status(INVALID).send(makeResponse(INVALID_ID));
+    }
 
-    let id = req.params?.id || "";
-    if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
-    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"))
-
-    let value = await FantasyLeagueModel.deleteOne({_id: id}).catch((e) => {console.log(e)});
-    if(value.deletedCount) return res.status(OK).send(makeResponse(FANTASY_LEAGUE_DELETED));
-    return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    let response = await deleteRecord(ids);
+    return res.status(response.code).send(response.data);
 }
+
+
 
 module.exports.show = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let id = req.params?.id || "";
     if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
-    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"))
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse(INVALID_ID))
 
-    let value = await FantasyLeagueModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    if(value) return res.status(OK).send(makeResponse("", value));
-    return res.status(NOT_FOUND).send(makeResponse("No data found"));
+    let response = await show(id);
+    return res.status(response.code).send(response.data);
 }
+
+
 
 module.exports.list = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
     let page_number = req.query?.pageNum || 1;
-    res.status(OK).send(makeResponse("", await listData(FantasyLeagueModel, page_number)));
+    console.log(page_number)
+    let population_fields = ['grandPrixLeague']
+    res.status(OK).send(makeResponse("", await listDataWithPopulate(FantasyLeagueModel, page_number, population_fields)));
 }
-
-
 
 
 
 module.exports.searchData = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let filter = req.body?.filter?.toLowerCase() || "";
-    let fields = ["name", "grandPrixLeague", "type"];
-    return res.status(OK).send(makeResponse("", await searchData(FantasyLeagueModel, filter, fields)));
+    let fields = ["name", "grandPrixLeague->name,", "type"];
+    let population_fields = ["grandPrixLeague"];
+    return res.status(OK).send(makeResponse("", await searchDataWithPopulate(FantasyLeagueModel, filter, fields, population_fields)));
 }
 
-module.exports.downloadExcel = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
 
+
+module.exports.downloadExcel = async (req, res) => {
     let fields = ["name", "grandPrixLeague", "type", "year", "totalTeams", "teamSize", "draftDateTime", "winner"];
-    let value = await FantasyLeagueModel.find().catch((e) => {console.log(e)});
-    res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(value, fields)));
+    let value = await FantasyLeagueModel.find().populate(["grandPrixLeague"]).catch((e) => {console.log(e)});
+
+    let data = [];
+    value.forEach((obj) => {
+        let datum = {
+            name: obj.name,
+            grandPrixLeague: obj.grandPrixLeague.name,
+            type: obj.type,
+            year: obj.year,
+            totalTeams: obj.totalTeams,
+            teamSize: obj.teamSize,
+            draftDateTime: computeDate(obj.draftDateTime),
+            winner: obj.winner
+        }
+        data.push(datum);
+    })
+
+    res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(data, fields)));
 }

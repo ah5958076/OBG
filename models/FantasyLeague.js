@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 let schema = new mongoose.Schema({
     name: {type: String, require: true, default: ""},
-    grandPrixLeague: {type: String, require: true, default: ""},
+    grandPrixLeague: {type: String, require: true, default: "", ref: "grandPrixes"},
     totalTeams: {type: Number, require: true, default: 0},
     teamSize: {type: Number, require: true, default: 0},
     draftDateTime: {type: Date, require: true, default: null},

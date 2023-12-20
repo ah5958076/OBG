@@ -7,7 +7,7 @@ let uploads = uploadImageConfigs();
 
 router.post("/store", uploads.single("picture"), GPLeague.store);
 router.post("/update", uploads.single("picture"), GPLeague.update);
-router.get("/delete/:id", GPLeague.delete);
+router.post("/delete", GPLeague.delete);
 router.get("/show/:id", GPLeague.show);
 router.get("/list", GPLeague.list);
 

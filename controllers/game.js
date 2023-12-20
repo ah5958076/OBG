@@ -1,5 +1,5 @@
-const { NOT_FOUND, OK, INVALID } = require("../constants/constants");
-const { IMAGE_NOT_UPLOADED, GAME_ADDED, UNEXPECTED_ERROR, GAME_UPDATED, GAME_DELETED } = require("../constants/messages");
+const { NOT_FOUND, OK, INVALID, UNAUTHORIZED } = require("../constants/constants");
+const { IMAGE_NOT_UPLOADED, GAME_ADDED, UNEXPECTED_ERROR, GAME_UPDATED, GAME_DELETED, AUTH_FAILED } = require("../constants/messages");
 const {unlinkSync}=require("fs");
 const { makeResponse, listData, checkFile, searchData, writeExcelFile } = require("../services/general");
 const GameModel = require("../models/Game");
@@ -85,8 +85,6 @@ module.exports.show = async (req, res) => {
 }
 
 module.exports.list = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED))
-
     let page_number = req.query?.pageNum || 1;
     return res.status(OK).send(makeResponse("", await listData(GameModel, page_number)));
 }

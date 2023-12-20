@@ -9,7 +9,7 @@ let uploads = uploadImageConfigs();
 
 router.post("/store", userController.store);
 router.post("/update", userController.update);
-router.get("/delete/:id", userController.delete);
+router.post("/delete", userController.delete);
 router.get("/show/:id", userController.show);
 router.get("/list", userController.list);
 

@@ -5,7 +5,7 @@ const grandPrix=require("../controllers/grandPrix");
 
 router.post("/store", grandPrix.store);
 router.post("/update", grandPrix.update);
-router.get("/delete/:id", grandPrix.delete);
+router.post("/delete", grandPrix.delete);
 router.get("/show/:id", grandPrix.show);
 router.get("/list", grandPrix.list);
 

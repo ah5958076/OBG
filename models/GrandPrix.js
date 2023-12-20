@@ -10,4 +10,4 @@ let schema = new mongoose.Schema({
     isBlock: {type: Boolean, require: true, default: false}
 }, {timestamps: true});
 
-module.exports=mongoose.model("grandPrix", schema);
+module.exports=mongoose.model("grandPrixes", schema);

@@ -5,21 +5,21 @@ var cookieParser = require("cookie-parser");
 let cors = require("cors");
 require("dotenv").config();
 
+const { authenticateUser } = require("./middlewares/auth");
 var authenticationRouter = require('./routes/authentication');
-var userRouter = require('./routes/user');
-var teamRouter = require('./routes/team');
-var gameRouter = require("./routes/game");
+var grandPrixRouter = require("./routes/grandPrix");
 var GPLeagueRouter = require("./routes/GPLeague");
 var fantasyLeagueRouter = require("./routes/fantasyLeague");
-var grandPrixRouter = require("./routes/grandPrix");
+var userRouter = require('./routes/user');
+var gameRouter = require("./routes/game");
 var tournamentRouter = require("./routes/tournament");
 var ladderRouter = require("./routes/ladder");
 var inventoryRouter = require("./routes/inventory");
 var ladderResultRouter = require("./routes/ladderResult");
 var tournamentResultRouter = require("./routes/tournamentResult");
 var matchResultRouter = require("./routes/matchResult");
+var teamRouter = require('./routes/team');
 var matchRouter = require("./routes/match");
-const { authenticateUser } = require("./middlewares/auth");
 
 
 mongoose.connect(process.env.DB_URL || "mongodb:127.0.0.1:27017").then((val) => {
