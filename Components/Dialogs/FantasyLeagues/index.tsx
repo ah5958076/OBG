@@ -7,13 +7,6 @@ import { addNewHandler, updateLeagueHanlder } from '@/utils/fantasyLeagues'
 import Input from '@/Components/Input';
 import Select from '@/Components/Select';
 
-let dummy_leagues = [
-    {"1":"League 1"},
-    {"2":"League 2"},
-    {"3":"League 3"},
-    {"4":"League 4"},
-    {"5":"League 5"},
-]
 
 let teamSize = [
     {"4":"4"},
@@ -22,7 +15,14 @@ let teamSize = [
     {"32":"32"},
 ]
 
+
 export const AddFantasyLeague = (props:any) => {
+    let data:any = [];
+    props.data?.data?.map((grandPrix:any) => {
+        let datum:any = {}
+        datum[`${grandPrix._id}`]=grandPrix.name;
+        data.push(datum);
+    });
 
     return (
         <div id='dialogs' className={dialogStyles.dialogs}>
@@ -32,9 +32,9 @@ export const AddFantasyLeague = (props:any) => {
                 <form method="post" onSubmit={addNewHandler}>
 
                     <Input name='name' title='Fantasy League Name *' required={true} />
-                    <Select options={dummy_leagues} name='grandPrix_league' title='Grand Prix League *' required={true} />
-                    <Input name='total_teams' title='Total Teams *' required={true} />
-                    <Select options={teamSize} name='team_size' title='Team Size *' required={true} />
+                    <Select options={data} name='grandPrixLeague' title='Grand Prix League *' required={true} />
+                    <Input name='totalTeams' title='Total Teams *' required={true} />
+                    <Select options={teamSize} name='teamSize' title='Team Size *' required={true} />
                     <Input type='datetime-local' name='draftDateTime' title='Draft Date & Time' required={true} />
 
                     <div className={dialogStyles.controls}>
@@ -52,12 +52,22 @@ export const AddFantasyLeague = (props:any) => {
 
 
 export const UpdateFantasyLeague = (props:any) => {
-    console.log(props)  
-    const [name, setName] = useState(props.data.name)
-    const [grandPrix, setGrandPrix] = useState(props.data.grandPrixLeague._id);
-    const [totalTeams, setTotalTeams] = useState(props.data.totalTeams);
-    const [teamSize, setTeamSize] = useState(props.data.teamSize);
-    const [year, setYear] = useState(props.data.year)
+    let fantasyLeague = props?.data?.fantasyLeague?._doc;
+    let grandPrix_list = props?.data?.grandPrix?.data;
+    let data:any = [];
+    grandPrix_list.map((grandPrix:any) => {
+        let datum:any = {}
+        datum[`${grandPrix._id}`]=grandPrix.name;
+        data.push(datum);
+    });
+
+
+    const [name, setName] = useState(fantasyLeague.name)
+    const [grandPrix, setGrandPrix] = useState(fantasyLeague.grandPrixLeague._id);
+    const [totalTeams, setTotalTeams] = useState(fantasyLeague.totalTeams);
+    const [totalTeamSize, setTeamSize] = useState(fantasyLeague.teamSize);
+    const [draftDateTime, setDraftDateTime] = useState(fantasyLeague.draftDateTime?.substring(0, 16))
+
 
     return (
         <div id='dialogs' className={dialogStyles.dialogs}>
@@ -66,14 +76,14 @@ export const UpdateFantasyLeague = (props:any) => {
 
                 <form method="post" onSubmit={ updateLeagueHanlder }>
 
-                    <input type="hidden" name="id" value={props.data._id}/>
+                    <input type="hidden" name="id" value={fantasyLeague._id}/>
 
                     <Input name='name' title='Fantasy League Name *' required={true} value={name} onChnage={(e:any)=>{setName(e.target.value)}}/>
-                    <Select name='grandPrix_league' title='Grand Prix League *' required={true} value={grandPrix}
-                     onChnage={(e:any)=>setGrandPrix(e.target.value)} options={dummy_leagues} />
-                    <Input name='total_teams' title='Total Teams *' required={true} value={totalTeams} onChnage={(e:any)=>{setTotalTeams(e.target.value)}}/>
-                    <Select name='team_size' title='Team Size *' required={true} value={teamSize} onChnage={(e:any)=>setTeamSize(e.target.value)} options={teamSize} />
-                    <Input type='datetime-local' name='draftDateTime' title='Draft Date & Time *' required={true} value={year} onChnage={(e:any)=>{setYear(e.target.value)}}/>
+                    <Select name='grandPrixLeague' title='Grand Prix League *' required={true} value={grandPrix}
+                     onChnage={(e:any)=>setGrandPrix(e.target.value)} options={data} />
+                    <Input name='totalTeams' title='Total Teams *' required={true} value={totalTeams} onChnage={(e:any)=>{setTotalTeams(e.target.value)}}/>
+                    <Select name='teamSize' title='Team Size *' required={true} value={totalTeamSize} onChnage={(e:any)=>setTeamSize(e.target.value)} options={teamSize} />
+                    <Input type='datetime-local' name='draftDateTime' title='Draft Date & Time *' required={true} value={draftDateTime} onChnage={(e:any)=>{setDraftDateTime(e.target.value)}}/>
                     
                     <div className={dialogStyles.controls}>
                         <button onClick={()=>store.dispatch(hideDialog())} style={{backgroundColor: "gray"}} type='button'>Cancel</button>

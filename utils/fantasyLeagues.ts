@@ -1,121 +1,113 @@
+import { ADMIN_FANTASY_LEAGUE_SHOW_ROUTE, ADMIN_FANTASY_LEAGUE_STORE_ROUTE, ADMIN_FANTASY_LEAGUE_UPDATE_ROUTE, ADMIN_GRAND_PRIX_LIST_ROUTE } from "@/constants/backend-routes";
 import { hideDialog, showDialog } from "../Redux/actions/dialogs";
 import { isLoading } from "../Redux/actions/loader";
 import { loadNewData } from "../Redux/actions/pagination";
 import store from "../Redux/store";
-import { DIALOG_ADD_FANTASY_LEAGUES, DIALOG_ADD_USER_INVENTORY, DIALOG_UPDATE_FANTASY_LEAGUES } from "../constants/dialog-names";
+import { DIALOG_ADD_FANTASY_LEAGUES, DIALOG_UPDATE_FANTASY_LEAGUES } from "../constants/dialog-names";
 import { TITLE_ADMIN_FANTASY_LEAGUES } from "../constants/page-titles";
-// import { makeXMLRequest, openEditDialog } from "./general";
+import { getRequest, navigateTo, postRequest } from "./general";
+import { UNAUTHORIZED } from "@/constants/constants";
+import { ROUTE_SIGNIN } from "@/constants/routes";
+import { toast } from "react-toastify";
 
-let ALLOWED_EXTENSIONS:string=process.env.ALLOWED_EXTENSIONS || "";
+
+
+
 
 export const openAddNewDialog = () => {
     store.dispatch(isLoading(true));
-    // makeXMLRequest("/api/grand-prix/list?page_num=-1", "get").then((response) => {
-    //     store.dispatch(isLoading(false));
-    //     if(!response.auth)
-    //         window.location.replace("/");
-    //     else if(response?.data)
-    //         store.dispatch(showDialog(DIALOG_ADD_FANTASY_LEAGUES, response.data));
-    //     else
-    //         store.dispatch(showNotification("There is unexpected error. Please refresh and try again", true));
-    // }).catch((err) => {
-    //     console.log(err)
-    //     store.dispatch(isLoading(false));
-    //     store.dispatch(showNotification("Something went wrong. Please try again", true));
-    // });
+    getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?page_num=-1`).then((response:any) => {
+        store.dispatch(showDialog(DIALOG_ADD_FANTASY_LEAGUES, response?.data?.result));
+        store.dispatch(isLoading(false));
+    }).catch((err) => {
+        if(err?.status===UNAUTHORIZED){
+            localStorage.removeItem("token");
+            return navigateTo(null, ROUTE_SIGNIN);
+        }
+        store.dispatch(isLoading(false));
+        toast.error(err?.data?.message);
+    });
 }
 
 export const addNewHandler = (e:any) => {
     e.preventDefault();
     
     store.dispatch(isLoading(true));
-    let data = {
+    let data:any = {
         "name": e.target.elements.name.value,
-        "grandPrixLeague": e.target.elements.grandPrix_league.value,
-        "totalTeams": e.target.elements.total_teams.value,
-        "teamSize": e.target.elements.team_size.value,
-        "year": e.target.elements.year.value,
+        "grandPrixLeague": e.target.elements.grandPrixLeague.value,
+        "totalTeams": e.target.elements.totalTeams.value,
+        "teamSize": e.target.elements.teamSize.value,
+        "draftDateTime": e.target.elements.draftDateTime.value,
     }
     
-    // makeXMLRequest("/api/fantasy-league/store/", "post", data).then((response) => {
-    //     if(!response.auth)
-    //         window.location.replace("/")
-    //     else if(response.isError){
-    //         store.dispatch(isLoading(false));
-    //         store.dispatch(showNotification(response.data, response.isError));
-    //     }else{
-    //         store.dispatch(hideDialog());
-    //         store.dispatch(loadNewData(TITLE_ADMIN_FANTASY_LEAGUES, store.getState().PagesLoading.page_num));
-    //     }
-    // }).catch(async (err) => {
-    //     let error = await err;
-    //     if(error.includes("Only Images are allowed")){
-    //         store.dispatch(isLoading(false));
-    //         store.dispatch(showNotification("Only "+ALLOWED_EXTENSIONS+" are allowed", true));
-    //     }else{
-    //         store.dispatch(isLoading(false));
-    //         store.dispatch(showNotification("Something went wrong. Please try again", true));
-    //     }
-    // });
+    postRequest(ADMIN_FANTASY_LEAGUE_STORE_ROUTE, data).then((response:any) => {
+        store.dispatch(hideDialog());
+        store.dispatch(loadNewData(TITLE_ADMIN_FANTASY_LEAGUES, store.getState().pagination.page_num));
+    }).catch((err:any) => {
+        if(err?.status===UNAUTHORIZED){
+            localStorage.removeItem("token");
+            return navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+    });
 }
 
-export const fetchGrandPrixforEditDialog = (id:any) => {
+export const updateDialogDisplayHandler = (id:any) => {
     store.dispatch(isLoading(true));
-
-    // let dummyData = {
-    //     "name":"Name",
-    //     "grandPrixLeague": {
-    //         "_id":"-"
-    //     },
-    //     "totalTeams":"4",
-    //     "teamSize":"4",
-    //     "year":"2022"
-    // }
-    // store.dispatch(showDialog(DIALOG_UPDATE_FANTASY_LEAGUES, dummyData))
-
-    store.dispatch(isLoading(false));
     
-    // makeXMLRequest("/api/grand-prix/list?page_num=-1", "get").then((response) => {
-    //     if(!response.auth)
-    //         window.location.replace("/")
-    //     else if(response.isError){
-    //         store.dispatch(isLoading(false));
-    //         store.dispatch(showNotification(response.data, true));
-    //     }else
-    //         openEditDialog(DIALOG_UPDATE_FANTASY_LEAGUES, id, "/api/fantasy-league/show", {grandPrix: response.data});
-    // }).catch((err) => {
-    //     console.log(err);
-    //     store.dispatch(isLoading(false));
-    //     store.dispatch(showNotification("Something went wrong. Please try again", true));
-    // });
+    getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?page_num=-1`).then((response1:any) => {
+        getRequest(`${ADMIN_FANTASY_LEAGUE_SHOW_ROUTE}/${id}`).then((response2:any) => {
+            let data = {
+                "grandPrix": response1?.data?.result,
+                "fantasyLeague": response2?.data?.result,
+            }
+            store.dispatch(showDialog(DIALOG_UPDATE_FANTASY_LEAGUES, data));
+            store.dispatch(isLoading(false));
+        }).catch((err:any) => {
+            if(err?.status===UNAUTHORIZED){
+                localStorage.removeItem("token");
+                return navigateTo(null,ROUTE_SIGNIN);
+            }
+            toast.error(err?.data?.message);
+            store.dispatch(isLoading(false));            
+        })
+    }).catch((err:any) => {
+        if(err?.status===UNAUTHORIZED){
+            localStorage.removeItem("token");
+            return navigateTo(null,ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+    });
 }
 
 export const updateLeagueHanlder = (e:any) => {
     e.preventDefault();
     store.dispatch(isLoading(true));
 
-    let data={
+    let data:any = {
         "id": e.target.elements.id.value,
         "name": e.target.elements.name.value,
-        "grandPrixLeague": e.target.elements.grandPrix_league.value,
-        "teamSize": e.target.elements.team_size.value,
-        "totalTeams": e.target.elements.total_teams.value,
-        "year": e.target.elements.year.value,
+        "grandPrixLeague": e.target.elements.grandPrixLeague.value,
+        "teamSize": e.target.elements.teamSize.value,
+        "totalTeams": e.target.elements.totalTeams.value,
+        "draftDateTime": e.target.elements.draftDateTime.value,
     }
 
-    // makeXMLRequest("/api/fantasy-league/update", "post", data).then((response) => {
-    //     if(!response.auth)
-    //         window.location.replace("/");
-    //     else if(response.isError){
-    //         store.dispatch(isLoading(false));
-    //         store.dispatch(showNotification(response.data, response.isError));
-    //     }else{
-    //         store.dispatch(hideDialog());
-    //         store.dispatch(loadNewData(TITLE_ADMIN_FANTASY_LEAGUES, store.getState().PagesLoading.page_num));
-    //     }
-    // }).catch((err) => {
-    //     console.log(err);
-    //     store.dispatch(isLoading(false));
-    //     store.dispatch(showNotification("Something went wrong. Please try again", true));
-    // })
+    postRequest(ADMIN_FANTASY_LEAGUE_UPDATE_ROUTE, data).then((response:any) => {
+        toast.success(response?.data?.message);
+        store.dispatch(loadNewData(TITLE_ADMIN_FANTASY_LEAGUES, store.getState().pagination.page_num));
+        store.dispatch(hideDialog());
+        store.dispatch(isLoading(false));
+    }).catch((err:any) => {
+        console.log(err);
+        if(err?.status===UNAUTHORIZED){
+            localStorage.removeItem("token");
+            return navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+    });
 }

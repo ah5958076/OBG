@@ -50,7 +50,7 @@ const DialogRendering = () => {
             {state.name===DIALOG_ADD_FANTASY_LEAGUES? <AddFantasyLeague data={state.data} /> : null }
             {state.name===DIALOG_UPDATE_FANTASY_LEAGUES? <UpdateFantasyLeague data={state.data} /> : null }
             {state.name===DIALOG_ADD_USERS? <AddUser /> : null }
-            {state.name===DIALOG_UPDATE_USERS? <UpdateUser /> : null }
+            {state.name===DIALOG_UPDATE_USERS? <UpdateUser data={state.data} /> : null }
             {state.name===DIALOG_ADD_USER_INVENTORY? <AddUserInventoryDialog /> : null }
             {state.name===DIALOG_USER_PROFILE? <UserProfileDialog /> : null }
             {state.name===DIALOG_ADD_GAMES? <AddGames /> : null }

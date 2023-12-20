@@ -5,37 +5,46 @@ import { NameAndExportData } from "@/Components/NameAndExportData/NameAndExportD
 import Navbar from "@/Components/Navbar/Navbar"
 import { SearchBar } from "@/Components/SearchBar/SearchBar"
 import { Pagination } from '@/Components/Pagination/Pagination'
-import { DIALOG_ADD_FANTASY_LEAGUES, DIALOG_CONFIRMATION } from '@/constants/dialog-names'
+import { DIALOG_CONFIRMATION } from '@/constants/dialog-names'
 import { TITLE_ADMIN_FANTASY_LEAGUES } from '@/constants/page-titles'
-import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
-import { computeDate, openDeleteDialog, select_all, select_individual } from '@/utils/general'
-import { fetchGrandPrixforEditDialog, openAddNewDialog } from '@/utils/fantasyLeagues';
+import { computeDate, getRequest, navigateTo, openDeleteDialog, select_all, select_individual } from '@/utils/general'
+import { addNewHandler, openAddNewDialog, updateDialogDisplayHandler } from '@/utils/fantasyLeagues';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import store from '@/Redux/store';
+import { isLoading } from '@/Redux/actions/loader';
+import { ADMIN_FANTASY_LEAGUE_DELETE_ROUTE, ADMIN_FANTASY_LEAGUE_DOWNLOAD_RECORD_ROUTE, ADMIN_FANTASY_LEAGUE_LIST_ROUTE, ADMIN_FANTASY_LEAGUE_SEARCH_ROUTE } from '@/constants/backend-routes';
+import { setLoadedData } from '@/Redux/actions/pagination';
+import { UNAUTHORIZED } from '@/constants/constants';
+import { ROUTE_SIGNIN } from '@/constants/routes';
+import { toast } from 'react-toastify';
+import Link from 'next/link';
 
 
-const FantasyLeagues = (props: any) => {
+
+
+
+const FantasyLeagues = () => {
   const data = useSelector((state: any) => { return state.pagination.title === TITLE_ADMIN_FANTASY_LEAGUES ? state.pagination : null });
-  const router = useRouter();
 
   useEffect(() => {
-    // if(!data?.data){
-    //   store.dispatch(isLoading(true));
-    //   makeXMLRequest(`/api/fantasy-league/list?page_num=${data?data.page_num:1}`, "get").then((response:any) => {
-    //     if(response.auth===true){
-    //       store.dispatch(setLoadedData(TITLE_ADMIN_FANTASY_LEAGUES, response, data?data.page_num:1));
-    //       store.dispatch(isLoading(false));
-    //     }else
-    //       router.push("/");
-    //   }).catch((e) => {
-    //     console.log(e)
-    //     store.dispatch(isLoading(false));
-    //     // store.dispatch(showNotification("Something went wrong. Please try again", true));
-    //   });
-    // }
+    if (!data?.data) {
+      store.dispatch(isLoading(true));
+      getRequest(`${ADMIN_FANTASY_LEAGUE_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}`).then((response: any) => {
+          store.dispatch(setLoadedData(TITLE_ADMIN_FANTASY_LEAGUES, response?.data?.result, data?data.page_num : 1));
+          store.dispatch(isLoading(false));
+      }).catch((err: any) => {
+        if(err?.status===UNAUTHORIZED){
+          localStorage.removeItem("token");
+          navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+      });
+    }
   }, [data]);
-
+  
 
   return (
 
@@ -47,8 +56,8 @@ const FantasyLeagues = (props: any) => {
 
       <div className={tableStyles.container}>
 
-        <NameAndExportData url="/api/fantasy-league/download-record" title="Fantasy Leagues" />
-        <SearchBar AddNewHandler={null} url="/api/fantasy-league/search" title={TITLE_ADMIN_FANTASY_LEAGUES} addDialog={DIALOG_ADD_FANTASY_LEAGUES} deleteDialog={DIALOG_CONFIRMATION} />
+        <NameAndExportData url={ADMIN_FANTASY_LEAGUE_DOWNLOAD_RECORD_ROUTE} title={TITLE_ADMIN_FANTASY_LEAGUES} />
+        <SearchBar AddNewHandler={openAddNewDialog} url={ADMIN_FANTASY_LEAGUE_SEARCH_ROUTE} title={TITLE_ADMIN_FANTASY_LEAGUES} addDialog={addNewHandler} deleteDialog={DIALOG_CONFIRMATION} />
 
 
         <div className={tableStyles.table}>
@@ -71,35 +80,8 @@ const FantasyLeagues = (props: any) => {
 
             <tbody>
 
-              <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
-                <td>Name 1</td>
-                <td>Grand Prix 1</td>
-                <td>Type</td>
-                <td>2001</td>
-                <td>4</td>
-                <td>4</td>
-                <td>{computeDate(Date.now())}</td>
-                <td>Yes</td>
-                <td>
-                  <a onClick={(e) => {
-                    e.preventDefault();
-                    console.log("click")
-                    fetchGrandPrixforEditDialog("");
-                  }}>
-
-                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
-                  </a>
-                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", "") }}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
-                  </a>
-                </td>
-              </tr>
-
-
-
-              {data?.data ?
-                data?.data.data.map((obj: any, index: number) => (
+              {(data?.data && data?.data?.total)?
+                data?.data?.data?.map((obj: any, index: number) => (
                   <tr key={index}>
                     <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
                     <td>{obj.name}</td>
@@ -111,22 +93,22 @@ const FantasyLeagues = (props: any) => {
                     <td>{computeDate(obj.createdAt)}</td>
                     <td>{obj.winner}</td>
                     <td>
-                      <a onClick={(e) => { fetchGrandPrixforEditDialog(obj._id) }}>
-                        <i className="fa-solid fa-pen" style={{ color: "#89bfeb" }}></i>
-                      </a>
-                      <a onClick={() => { openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, "/api/fantasy-league/delete", obj._id) }}>
-                        <i className="fa-solid fa-trash-can" style={{ color: "#df4646" }}></i>
-                      </a>
+                      <Link href="#" onClick={(e) => { updateDialogDisplayHandler(obj._id) }}>
+                        <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }}/>
+                      </Link>
+                      <Link href="#" onClick={() => { openDeleteDialog(TITLE_ADMIN_FANTASY_LEAGUES, ADMIN_FANTASY_LEAGUE_DELETE_ROUTE, obj._id) }}>
+                        <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }}/>
+                      </Link>
                     </td>
                   </tr>
-                )) : (<tr></tr>)
+                )) : <tr><td colSpan={10}>No data found</td></tr>
               }
             </tbody>
 
           </table>
         </div>
 
-        <Pagination title={TITLE_ADMIN_FANTASY_LEAGUES} page_num={data?.data ? data.data.page_num : 1} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end)) ? data?.data?.data.length : data?.data?.total} />
+        <Pagination title={TITLE_ADMIN_FANTASY_LEAGUES} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end)) ? data?.data?.data.length : data?.data?.total} />
 
       </div>
 

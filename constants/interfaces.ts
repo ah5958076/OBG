@@ -21,9 +21,9 @@ export interface TYPE_PAGINATION_STATE {
 
 export interface TYPE_INPUT {
     title: string,
-    id: string,
     name: string,
     required: boolean,
+    id?: string,
     type?: string,
     icon?: any,
     onChnage?: any,

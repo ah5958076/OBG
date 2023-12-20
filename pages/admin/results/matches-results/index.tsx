@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import tableStyles from "@/styles/pagesTables.module.css";
 import styles from "./MatchesResults.module.css"
 
@@ -13,16 +13,47 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { TITLE_ADMIN_MATCHES_RESULTS } from '@/constants/page-titles';
-import { openDeleteDialog, select_all, select_individual } from '@/utils/general';
+import { getRequest, navigateTo, openDeleteDialog, select_all, select_individual } from '@/utils/general';
+import { useSelector } from 'react-redux';
+import store from '@/Redux/store';
+import { isLoading } from '@/Redux/actions/loader';
+import { ADMIN_MATCHES_RESULTS_LIST_ROUTE } from '@/constants/backend-routes';
+import { setLoadedData } from '@/Redux/actions/pagination';
+import { UNAUTHORIZED } from '@/constants/constants';
+import { ROUTE_SIGNIN } from '@/constants/routes';
+import { toast } from 'react-toastify';
 
 
 const MatchesResults = () => {
+  const data = useSelector((state: any) => { return state.pagination.title === TITLE_ADMIN_MATCHES_RESULTS ? state.pagination : null });
+
+  useEffect(() => {
+    if (!data?.data) {
+      store.dispatch(isLoading(true));
+      getRequest(`${ADMIN_MATCHES_RESULTS_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
+          store.dispatch(setLoadedData(TITLE_ADMIN_MATCHES_RESULTS, response?.data?.result, data?data.page_num : 1));
+          store.dispatch(isLoading(false));
+      }).catch((err: any) => {
+        if(err?.status===UNAUTHORIZED){
+          localStorage.removeItem("token");
+          navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+      });
+    }
+  }, [data]);
+
+
+
 
   const toggleAccordian = (e: any) => {
     e.preventDefault();
     let accordianBody = e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.querySelector("tbody");
     accordianBody.classList.toggle(styles.show);
   }
+
+
   return (
     <>
       <Navbar index={11} />

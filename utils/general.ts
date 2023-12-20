@@ -1,14 +1,17 @@
 import fileDownload from "js-file-download";
-import { isLoading } from "../Redux/actions/loader";
-import store from "../Redux/store";
+import { isLoading } from "@/Redux/actions/loader";
+import store from "@/Redux/store";
 import { loadNewData, setLoadedData } from "../Redux/actions/pagination";
 import { hideDialog, showDialog } from "../Redux/actions/dialogs";
 import { DIALOG_CONFIRMATION } from "../constants/dialog-names";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { ROUTE_SIGNIN } from "@/constants/routes";
+import { BASE_URL } from "@/constants/backend-routes";
+import { UNAUTHORIZED } from "@/constants/constants";
 
-axios.defaults.baseURL = "http://localhost:4000/";
-// axios.defaults.baseURL=process.env.BACKEND_BASE_URL || "http://localhost:3001/";
+
+axios.defaults.baseURL=BASE_URL;
 
 
 const month_array = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -23,8 +26,13 @@ export const navigateTo = (event: any, url: string) => {
 
 export const upload_image_preview = (e: any) => {
     e.preventDefault();
-    let url = URL.createObjectURL(e.target.files[0]);
-    e.target.parentElement.querySelector("img").src = url;
+    try{
+        let url = URL.createObjectURL(e?.target?.files[0]);
+        if(e?.imageViewer)
+            e.imageViewer(url);
+        else
+            e.target.parentElement.querySelector("img").src = url;
+    }catch(e){}
 }
 
 export const select_all = (e: any) => {
@@ -44,31 +52,25 @@ export const select_individual = (e: any) => {
     selectAll_check.checked = all_checked;
 }
 
-export const export_data = (e: any) => {
+export const export_data = (e: any, url: string) => {
     e.preventDefault();
     store.dispatch(isLoading(true));
     let file_name = e.currentTarget.title + ".xlsx";
-    let url = e.currentTarget.name;
+
     getRequest(url).then((response: any) => {
-        if (!response.auth)
-            window.location.replace("/")
-        else if (response.isError) {
+        let filePath = response?.data?.result?.path;
+        
+        fetch(BASE_URL+filePath).then(async (res) => {
+            fileDownload(await res.arrayBuffer(), file_name);
+            toast.success(response?.data?.message);
             store.dispatch(isLoading(false));
-            // store.dispatch(showNotification(response.data, response.isError));
-        } else {
-            fetch("/" + response.data).then(async (res) => {
-                fileDownload(await res.arrayBuffer(), file_name);
-                store.dispatch(isLoading(false));
-            }).catch((err) => {
-                console.log(err);
-                store.dispatch(isLoading(false));
-                // store.dispatch(showNotification("Something went wrong. Please try again", true));
-            });
-        }
+        }).catch((err) => {
+            toast.error(err?.data?.message);
+            store.dispatch(isLoading(false));
+        });
     }).catch((err) => {
-        console.log(err)
+        toast.error(err?.data?.message);
         store.dispatch(isLoading(false));
-        // store.dispatch(showNotification("Something went wrong. Please try again", true));
     });
 }
 
@@ -77,38 +79,25 @@ export const searchData = (value: string, title: any, url: any) => {
         filter: value,
     }
     if (value) {
-        getRequest(url).then((response: any) => {
-            if (response.auth) {
-                if (response.isError) {
-                    // store.dispatch(showNotification("Unexpected Error", true));
-                } else {
-                    store.dispatch(setLoadedData(title, response, 1));
-                }
-            } else
-                window.location.replace("/");
+        postRequest(url, data).then((response: any) => {
+            let response_data = {
+                data: response?.data?.result.filteredData,
+                start: 0,
+                end: 0,
+                total: response?.data?.result?.filteredData?.length
+            }
+            
+            store.dispatch(setLoadedData(title, response_data, 1));
         }).catch((err) => {
-            console.log(err)
+            if(err?.status===400){
+                localStorage.removeItem("token");
+                navigateTo(null, ROUTE_SIGNIN);
+            }
+            toast.error(err?.data?.message);
             store.dispatch(isLoading(false));
-            // store.dispatch(showNotification("Something went wrong. Please try again", true));
         });
     } else {
-        let newURL = url.split("/");
-        newURL.pop();
-        newURL = newURL.join("/") + "/list"
-        // getRequest(newURL+"?page_num="+page_num).then((response:any) => {
-        //     if(response.auth){
-        //         if(response.isError){
-        //             // store.dispatch(showNotification("Unexpected Error", true));
-        //         }else{
-        //             store.dispatch(setLoadedData(title, response, 1));
-        //         }
-        //     }else
-        //         window.location.replace("/");
-        // }).catch((err) => {
-        //     console.log(err)
-        //     store.dispatch(isLoading(false));
-        //     // store.dispatch(showNotification("Something went wrong. Please try again", true));
-        // });
+        store.dispatch(loadNewData(title, 1));
     }
 }
 
@@ -117,29 +106,20 @@ export const computeDate = (date: any) => {
     return month_array[_date.getMonth()] + " " + ((_date.getDate() < 10) ? "0" : "") + _date.getDate() + ", " + _date.getFullYear();
 }
 
-export const openEditDialog = (dialog_name: any, id: any, url: any = null, extendedData: any = null) => {
+export const openEditDialog = (dialog_name: any, id: any, url: any = null) => {
     store.dispatch(isLoading(true));
-    let data: any = { id: id }
 
-    store.dispatch(showDialog(dialog_name))
-    store.dispatch(isLoading(false));
-
-
-    // postRequest(url, data).then((response:any) => {
-    //     if(!response.auth)
-    //         window.location.replace("/")
-    //     else if(!response.isError){
-    //         store.dispatch(showDialog(dialog_name, {...extendedData, ...response.data}));
-    //         store.dispatch(isLoading(false));
-    //     }else{
-    //         store.dispatch(isLoading(false));
-    //         // store.dispatch(showNotification(response.data, true));
-    //     }
-    // }).catch((err) => {
-    //     console.log(err)
-    //     store.dispatch(isLoading(false));
-    //     // store.dispatch(showNotification("Something went wrong. Please try again", true));
-    // })
+    getRequest(`${url}/${id}`).then((response:any) => {
+        store.dispatch(showDialog(dialog_name, response?.data?.result));
+        store.dispatch(isLoading(false));
+    }).catch((err:any) => {
+        if(err?.status===UNAUTHORIZED){
+            localStorage.removeItem("token");
+            return navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+    })
 }
 
 export const openDeleteDialog = (page_title: any, url: any = null, id: any = null) => {
@@ -170,27 +150,23 @@ export const openDeleteDialog = (page_title: any, url: any = null, id: any = nul
 
 export const confirmationHandler = async (options: any) => {
     store.dispatch(isLoading(true));
-    toast.success("Deleted Successfully. Its prototype 😊")
-    // if(/*options?.mode===OPENED_FOR_DELETION &&*/ options?.ids){
-    //     let data:any = {ids: options.ids};
-    //     getRequest(options.url).then((response:any) => {
-    //         if(!response.auth)
-    //         window.location.replace("/")
-    //         else if(response.isError){
-    //             store.dispatch(isLoading(false));
-    //             // store.dispatch(showNotification(response.data, response.isError));
-    //         }else{
-    //             store.dispatch(hideDialog());
-    //             // store.dispatch(loadNewData(options.pageTitle, store.getState().PagesLoading.page_num));
-    //         }
-    //     }).catch((err) => {console.log(err)});
-    // }else{
-    //     store.dispatch(isLoading(false));
-    //     // store.dispatch(showNotification("Nothing to do with dialog. Please refresh and try again", true));
-    //     store.dispatch(hideDialog());
-    // }
-    store.dispatch(hideDialog());
-    store.dispatch(isLoading(false));
+    if(options?.ids?.length>0){
+        let data:any = {ids: options.ids};
+        postRequest(options.url, data).then((response:any) => {
+            let checkbox:any = document.querySelector("input[name='select_all']");
+            checkbox.checked=false;
+            store.dispatch(loadNewData(options.pageTitle, store.getState().pagination.page_num));
+            store.dispatch(hideDialog());
+            toast.success(response?.data?.message);
+        }).catch((err) => {
+            store.dispatch(isLoading(false));
+            toast.error(err?.data?.message);
+        });
+    }else{
+        store.dispatch(hideDialog());
+        store.dispatch(isLoading(false));
+        toast.error("Unexpected Error. Please try again");
+    }
 }
 
 export const getRequest = (url: string) => {
@@ -198,12 +174,13 @@ export const getRequest = (url: string) => {
         let token = localStorage.getItem("token") || "";
         let response: any = await axios.get(url, {
             headers: {
-                "Authorization": `${token}`
+                "Authorization": `Bearer ${token}`
             }
-        }).catch((e: any) => console.log(e));
+        }).catch((e: any) => {
+            reject(e.response);
+        });
         if (response?.status === 200)
-            resolve(response?.data);
-        reject(response?.message);
+            resolve(response);
     });
 }
 
@@ -212,16 +189,12 @@ export const postRequest = (url: any, data = null) => {
         let token = localStorage.getItem("token") || "";
         let response: any = await axios.post(url, data, {
             headers: {
-                "Authorization": `${token}`
+                "Authorization": `Bearer ${token}`
             }
         }).catch((e: any) => {
-            toast.error(e.response.data.message);
-            // console.log(e)
+            reject(e.response);
         });
         if (response?.status === 200)
-            resolve(response?.data);
-        reject(response?.message);
-
-
+            resolve(response);
     });
 }

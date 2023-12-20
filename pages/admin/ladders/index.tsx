@@ -1,21 +1,51 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import tableStyles from "@/styles/pagesTables.module.css";
 
 import Navbar from '@/Components/Navbar/Navbar'
 import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData'
 import { SearchBar } from '@/Components/SearchBar/SearchBar'
 import { Pagination } from '@/Components/Pagination/Pagination'
-
 import images from "@/constants/images";
 import { DIALOG_ADD_LADDERS, DIALOG_CONFIRMATION, DIALOG_UPDATE_LADDERS } from '@/constants/dialog-names'
 import Image from 'next/image'
 import { TITLE_ADMIN_LADDERS } from '@/constants/page-titles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { openDeleteDialog, openEditDialog, select_all, select_individual } from '@/utils/general';
+import { getRequest, navigateTo, openDeleteDialog, openEditDialog, select_all, select_individual } from '@/utils/general';
+import { useSelector } from 'react-redux';
+import store from '@/Redux/store';
+import { isLoading } from '@/Redux/actions/loader';
+import { ADMIN_LADDERS_LIST_ROUTE } from '@/constants/backend-routes';
+import { setLoadedData } from '@/Redux/actions/pagination';
+import { UNAUTHORIZED } from '@/constants/constants';
+import { ROUTE_SIGNIN } from '@/constants/routes';
+import { toast } from 'react-toastify';
 
 
-const Ladders = (props:any) => {
+
+
+
+const Ladders = () => {
+  const data = useSelector((state: any) => { return state.pagination.title === TITLE_ADMIN_LADDERS ? state.pagination : null });
+
+  useEffect(() => {
+    if (!data?.data) {
+      store.dispatch(isLoading(true));
+      getRequest(`${ADMIN_LADDERS_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
+          store.dispatch(setLoadedData(TITLE_ADMIN_LADDERS, response?.data?.result, data?data.page_num : 1));
+          store.dispatch(isLoading(false));
+      }).catch((err: any) => {
+        if(err?.status===UNAUTHORIZED){
+          localStorage.removeItem("token");
+          navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+      });
+    }
+  }, [data]);
+
+
 
   return (
     

@@ -10,9 +10,9 @@ import Dialogs from "@/Components/Dialogs";
 export default function App({ Component, pageProps }: AppProps) {
   return (
       <Provider store={store}>
+        <ToastContainer />
         <Loader/>
         <Dialogs />
-        <ToastContainer />
         <Component {...pageProps} />
       </Provider>
     )

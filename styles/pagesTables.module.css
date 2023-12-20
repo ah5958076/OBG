@@ -82,6 +82,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 .table table td a {
     background: transparent;

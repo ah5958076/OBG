@@ -8,9 +8,7 @@ import Image from 'next/image';
 import Input from '@/Components/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faXmark } from '@fortawesome/free-solid-svg-icons';
-
-const addUserHandler = (e: any) => { };
-const updateUserHandler = (e: any) => { };
+import { addUserHandler, updateUserHandler } from '@/utils/users';
 
 
 
@@ -59,8 +57,14 @@ export const AddUser = () => {
 }
 
 
-export const UpdateUser = () => {
-    const [credit, setCredit] = useState(50);
+export const UpdateUser = (props:any) => {
+
+    let id= props.data?._doc?._id;
+    const [credit, setCredit] = useState(props.data?._doc?.balance);
+    const [name, setName] = useState(props.data?._doc?.fullName);
+    const [username, setUsername] = useState(props.data?._doc?.username);
+    const [email, setEmail] = useState(props.data?._doc?.email);
+    const [about, setAbout] = useState(props.data?._doc?.about);
 
     return (
 
@@ -70,6 +74,8 @@ export const UpdateUser = () => {
 
                 <form method="post" onSubmit={updateUserHandler}>
 
+                    <input type="hidden" name="id" value={id} />
+
                     <div className={userStyles.credit}>
                         <div>
                             <sup>$</sup>
@@ -78,11 +84,10 @@ export const UpdateUser = () => {
                         <p >Enter only numbers</p>
                     </div>
 
-                    <Input name='name' title='Full Name *' required={true} />
-                    <Input name='username' title='Username *' required={true} />
-                    <Input type='password' name='password' title='Password *' required={true} />
-                    <Input type='email' name='email' title='Email *' required={true} />
-                    <Input name='about' title='About *' required={true} />
+                    <Input name='name' value={name} onChnage={(e:any)=>{setName(e.target?.value)}} title='Full Name *' required={true} />
+                    <Input name='username' value={username} onChnage={(e:any)=>{setUsername(e.target?.value)}} title='Username *' required={true} />
+                    <Input type='email' value={email} onChnage={(e:any)=>{setEmail(e.target?.value)}} name='email' title='Email *' required={true} />
+                    <Input name='about' value={about} onChnage={(e:any)=>{setAbout(e.target?.value)}} title='About *' required={true} />
 
                     <div className={dialogStyles.controls}>
                         <button onClick={() => { store.dispatch(hideDialog()) }} style={{ backgroundColor: "gray" }} type='button'>Cancel</button>

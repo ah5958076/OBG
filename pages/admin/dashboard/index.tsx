@@ -9,25 +9,23 @@ import { TITLE_ADMIN_DASHBOARD } from '@/constants/page-titles';
 import { getRequest, navigateTo } from '@/utils/general';
 import { ROUTE_SIGNIN } from '@/constants/routes';
 import { ADMIN_DASHBOARD_ROUTE } from '@/constants/backend-routes';
+import { toast } from 'react-toastify';
+import {UNAUTHORIZED} from "@/constants/constants";
 
-const Dashboard = (props: any) => {
-  const [data, setData]: any = useState("hello");
+const Dashboard = () => {
+  const [data, setData]: any = useState({});
 
   useEffect(() => {
     store.dispatch(isLoading(true));
-    getRequest(ADMIN_DASHBOARD_ROUTE).then((data: any) => {
-      console.log("after api response")
-      console.log(data)
-      if (data.result) {
-        setData(data.result);
-      } else {
-        navigateTo(null, ROUTE_SIGNIN);
-      }
+    getRequest(ADMIN_DASHBOARD_ROUTE).then((response: any) => {
+      setData(response?.data?.result);
       store.dispatch(isLoading(false));
-    }).catch((e) => {
-      console.log("Exception")
-      console.log(e);
-      navigateTo(null, ROUTE_SIGNIN);
+    }).catch((err) => {
+      if(err?.status===UNAUTHORIZED){
+        localStorage.removeItem("token");
+        return navigateTo(null, ROUTE_SIGNIN);
+      }
+      toast.error(err?.data?.message);
       store.dispatch(isLoading(false));
     });
   }, []);
@@ -44,15 +42,15 @@ const Dashboard = (props: any) => {
 
           <div className={styles.real_time_values}>
             <div className={styles.real_values}>
-              <span>{data.totalUsers || 0}</span>
+              <span>{data?.totalUsers || 0}</span>
               <p>Total Users</p>
             </div>
             <div className={styles.real_values}>
-              <span>{data.activeUsers || 0}</span>
+              <span>{data?.activeUsers || 0}</span>
               <p>Active Users</p>
             </div>
             <div className={styles.real_values}>
-              <span>{data.totalGames || 0}</span>
+              <span>{data?.totalGames || 0}</span>
               <p>Total Games</p>
             </div>
           </div>

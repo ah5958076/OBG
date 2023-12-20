@@ -10,6 +10,7 @@ import RED_CROSS from "@/public/red-cross.svg";
 import USER from "@/public/user.jpg";
 import FAVICON from "@/public/favicon.ico";
 import WHITE_CROSS from "@/public/white-cross.svg";
+import DOWNLOADIMAGE from '@/public/download.png';
 
 
 export default {
@@ -24,5 +25,6 @@ export default {
     PHOTO_PLACEHOLDER,
     USER,
     FAVICON,
-    WHITE_CROSS
+    WHITE_CROSS,
+    DOWNLOADIMAGE
 }

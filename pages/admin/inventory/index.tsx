@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import tableStyles from "@/styles/pagesTables.module.css";
 import styles from "./inventory.module.css";
 
@@ -11,10 +11,39 @@ import Image from 'next/image';
 import { TITLE_ADMIN_INVENTORY } from '@/constants/page-titles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { openDeleteDialog, openEditDialog } from '@/utils/general';
+import { getRequest, navigateTo, openDeleteDialog, openEditDialog } from '@/utils/general';
+import { useSelector } from 'react-redux';
+import store from '@/Redux/store';
+import { isLoading } from '@/Redux/actions/loader';
+import { ADMIN_INVENTORY_LIST_ROUTE } from '@/constants/backend-routes';
+import { setLoadedData } from '@/Redux/actions/pagination';
+import { UNAUTHORIZED } from '@/constants/constants';
+import { ROUTE_SIGNIN } from '@/constants/routes';
+import { toast } from 'react-toastify';
 
 
-const Inventory = (props:any) => {
+
+
+const Inventory = () => {
+  const data = useSelector((state: any) => { return state.pagination.title === TITLE_ADMIN_INVENTORY ? state.pagination : null });
+
+  useEffect(() => {
+    if (!data?.data) {
+      store.dispatch(isLoading(true));
+      getRequest(`${ADMIN_INVENTORY_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
+          store.dispatch(setLoadedData(TITLE_ADMIN_INVENTORY, response?.data?.result, data?data.page_num : 1));
+          store.dispatch(isLoading(false));
+      }).catch((err: any) => {
+        if(err?.status===UNAUTHORIZED){
+          localStorage.removeItem("token");
+          navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+      });
+    }
+  }, [data]);
+
 
   return (
     

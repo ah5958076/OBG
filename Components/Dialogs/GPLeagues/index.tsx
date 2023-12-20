@@ -9,16 +9,19 @@ import { addNewHandler, updateLeagueHanlder } from '@/utils/gpLeagues';
 import Input from '@/Components/Input';
 import Image from 'next/image';
 import Select from '@/Components/Select';
+import { BASE_URL } from '@/constants/backend-routes';
 
-let gameNames = [
-    {"1":"Takken 3"},
-    {"2":"Takken 5"},
-    {"3":"Sand and Riaz"},
-    {"4":"Snake Game"},
-    {"5":"OBG"}
-]
+
+
+
 
 export const AddGPLeagues = (props:any) => {
+    let games:any = [];
+    props?.data?.data?.forEach((elem:any) => {
+        let data:any ={};
+        data[`${elem._id}`] = elem.name;
+        games.push(data);
+    })
 
     return (
 
@@ -31,7 +34,7 @@ export const AddGPLeagues = (props:any) => {
                     <div className={dialogStyles.side_by_side}>
                         <div>
                             <Input title='League Name *' name='name' required={true} />
-                            <Select title='Select Game *' name='gameName' required={true} options={gameNames} />                    
+                            <Select title='Select Game *' name='gameName' required={true} options={games} />                    
                             <Input title='Entry Fee *' name='entryFee' required={true} />
                             <Input title='Prize *' name='prize' required={true} />
                             <Input title='Team Size *' name='teamSize' required={true} />
@@ -65,14 +68,26 @@ export const AddGPLeagues = (props:any) => {
 
 
 export const UpdateGPLeagues = (props:any) => {
-    const [name, setName] = useState(props.data.name);
-    const [gameName, setGameName] = useState(props.data.gameName._id);
-    const [entryFee, setEntryFee] = useState(props.data.entryFee);
-    const [prize, setPrize] = useState(props.data.prize);
-    const [teamSize, setTeamSize] = useState(props.data.teamSize);
-    const [totalTeams, setTotalTeams] = useState(props.data.totalTeams);
-    const [startingDate, setStartingDate] = useState(props.data.startingDate);
-    const [endingDate, setEndingDate] = useState(props.data.endingDate);
+
+    let gpleague_data = props?.data?.gpLeagues._doc;
+    let games:any = [];
+    props?.data?.games?.data?.forEach((elem:any) => {
+        let data:any ={};
+        data[`${elem._id}`] = elem.name;
+        games.push(data);
+    });
+
+
+    const [name, setName] = useState(gpleague_data.name);
+    const [gameName, setGameName] = useState(gpleague_data.gameName._id);
+    const [entryFee, setEntryFee] = useState(gpleague_data.entryFee);
+    const [prize, setPrize] = useState(gpleague_data.prize);
+    const [teamSize, setTeamSize] = useState(gpleague_data.teamSize);
+    const [totalTeams, setTotalTeams] = useState(gpleague_data.totalTeams);
+    const [startingDate, setStartingDate] = useState(gpleague_data.startingDate);
+    const [endingDate, setEndingDate] = useState(gpleague_data.endingDate);
+    const [image, setImage] = useState(BASE_URL+gpleague_data.picture);
+    const id = gpleague_data._id;
 
     return (
         
@@ -84,11 +99,11 @@ export const UpdateGPLeagues = (props:any) => {
 
                     <div className={dialogStyles.side_by_side}>
                         <div>
-                            <input type="hidden" name="id" value={props.data._id} />
+                            <input type="hidden" name="id" value={id} />
 
                             <Input name='name' title='League Name *' value={name} onChnage={(e:any)=>{setName(e.target.value)}} required={true} />
 
-                            <Select title='Select Game *' name='gameName' required={true} options={gameNames} value={gameName} onChnage={(e:any)=>setGameName(e.target.value)} />                    
+                            <Select title='Select Game *' name='gameName' required={true} options={games} value={gameName} onChnage={(e:any)=>setGameName(e.target.value)} />                    
 
                             <Input name='entryFee' title='Entry Fee *' value={entryFee} onChnage={(e:any)=>{setEntryFee(e.target.value)}} required={true} />
                             <Input name='prize' title='Prize *' value={prize} onChnage={(e:any)=>{setPrize(e.target.value)}} required={true} />
@@ -101,17 +116,17 @@ export const UpdateGPLeagues = (props:any) => {
                         <div>
                             <label>League Photo*</label>
                             <div className={dialogStyles.file_input}>
-                                <Image src={ props.data.picture?`/${props.data.picture}`:images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
-                                <input type="file" name="picture" accept="image/*" onChange={ upload_image_preview } />
+                                <Image src={ image?image:images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
+                                <input type="file" name="picture" accept="image/*" onChange={ (e:any) => {e.imageViewer=setImage;upload_image_preview(e)} } />
                             </div>
-                            <input type="hidden" name="old_picture" value={props.data.picture} required />
+                            <input type="hidden" name="old_picture" value={image} required />
                         </div>
                     </div>
                     
 
                     <div className={dialogStyles.controls}>
                         <button onClick={()=>store.dispatch(hideDialog())} style={{backgroundColor:"gray"}} type="button">Cancel</button>
-                        <button style={{backgroundColor:"var(--site-clr"}} type="submit">UPDATE LEAGUE</button>
+                        <button style={{backgroundColor:"var(--site-clr)"}} type="submit">UPDATE LEAGUE</button>
                     </div>
 
                 </form>

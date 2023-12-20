@@ -12,17 +12,18 @@ export const Pagination = (props:any) => {
     start=props.start?props.start:1;
     end=props.end?props.end:props.total?props.total:0;
     total=props.total?props.total:0;
+    let page_num = store.getState().pagination.page_num;
     
     return (
     
         <div className={styles.pagination}>
             <p>{(!(props.start && props.end))?total+" Records":start+" - "+end+" of "+total}</p>
 
-            <button onClick={()=>{store.dispatch(loadNewData(props.title, props.page_num-1))}} className={styles.prev_page} disabled={(start && start===1)?true:false}>
+            <button onClick={()=>{store.dispatch(loadNewData(props.title, page_num-1))}} className={styles.prev_page} disabled={(start && start===1)?true:false}>
                 <FontAwesomeIcon icon={faCircleChevronLeft} />
             </button>
 
-            <button onClick={()=>{store.dispatch(loadNewData(props.title, props.page_num+1))}} className={styles.next_page} disabled={(end===total)?true:false}>
+            <button onClick={()=>{store.dispatch(loadNewData(props.title, page_num+1))}} className={styles.next_page} disabled={(end===total)?true:false}>
                 <FontAwesomeIcon icon={faCircleChevronLeft} className="fa-rotate-180" />
             </button>
 

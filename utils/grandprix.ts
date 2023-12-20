@@ -1,10 +1,11 @@
 import { isLoading } from "../Redux/actions/loader";
 import store from "../Redux/store";
 import { toast } from "react-toastify";
-import { postRequest } from "./general";
+import { navigateTo, postRequest } from "./general";
 import { ADMIN_GRAND_PRIX_STATUS_ROUTE } from "@/constants/backend-routes";
 import { TITLE_ADMIN_GRANDPRIX } from "@/constants/page-titles";
 import { loadNewData } from "@/Redux/actions/pagination";
+import { ROUTE_SIGNIN } from "@/constants/routes";
 
 
 export const unblock = (id: any, page_num: any) => {
@@ -13,20 +14,16 @@ export const unblock = (id: any, page_num: any) => {
         id: id,
         isBlocked: false,
     };
-    //error over here
+
     postRequest(ADMIN_GRAND_PRIX_STATUS_ROUTE, data).then((response: any) => {
-        // console.log("Admin grand prix data =", response);
-        if (response.isError) {
-            toast.error(response.data);
-            store.dispatch(isLoading(false));
-        } else {
-            store.dispatch(loadNewData(TITLE_ADMIN_GRANDPRIX, page_num));
-        }
+        toast.success(response?.data?.message);
+        store.dispatch(loadNewData(TITLE_ADMIN_GRANDPRIX, page_num));
     }).catch((err) => {
-        // console.log("error in unblock")
-        console.log(err)
-    }
-    );
+        if(err?.status===400)
+            return navigateTo(null, ROUTE_SIGNIN);
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+    });
 }
 
 export const block = (id: any, page_num: any) => {
@@ -36,12 +33,13 @@ export const block = (id: any, page_num: any) => {
         isBlocked: true,
     };
     postRequest(ADMIN_GRAND_PRIX_STATUS_ROUTE, data).then((response: any) => {
-        if (response.isError) {
-            store.dispatch(isLoading(false));
-            toast.error(response.data);
-        } else {
-            store.dispatch(loadNewData(TITLE_ADMIN_GRANDPRIX, page_num));
-        }
-    }).catch((err) => { console.log(err) });
+        toast.success(response?.data?.message);
+        store.dispatch(loadNewData(TITLE_ADMIN_GRANDPRIX, page_num));
+    }).catch((err) => {
+        if(err?.status===400)
+            return navigateTo(null, ROUTE_SIGNIN);
+        toast.success(err?.data?.message);
+        store.dispatch(isLoading(false));
+    });
 }
 

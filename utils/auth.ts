@@ -4,7 +4,7 @@ import { isLoading } from "@/Redux/actions/loader";
 import { getRequest, navigateTo, postRequest } from "./general";
 import { toast } from "react-toastify";
 import { FORGOT_PASSWORD_ROUTE, USER_CHANGE_PASSWORD_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, RESET_PASSWORD_ROUTE, SIGNUP_ROUTE, VERIFY_CODE_ROUTE } from "@/constants/backend-routes";
-import { NEW_AND_CONFIRM_PASSWORD_ERROR, USER_NOT_FOUND } from "@/constants/messages";
+import { NEW_AND_CONFIRM_PASSWORD_ERROR } from "@/constants/messages";
 
 
 // before login functions...
@@ -15,23 +15,18 @@ export const loginHandler = async (event: any) => {
         "email": event.target.email.value,
         "password": event.target.password.value
     }
-    postRequest(LOGIN_ROUTE, data).then((response: any) => {
-        if (response.isError) {
-            store.dispatch(isLoading(false));
-            toast.error(response.data);
-        } else {
-            localStorage.setItem("token", response.result?.token);
-            localStorage.setItem("email", response.result?.email);
-            store.dispatch(isLoading(false));
-            toast.success("Login Successfuly");
-            if (response.result?.role === "Admin")
-                navigateTo(null, ROUTE_ADMIN_DASHBOARD);
-            else if (response.result?.role === "User")
-                navigateTo(null, ROUTE_USER_DASHBOARD);
-        }
-    }).catch((e) => {
+
+    postRequest(LOGIN_ROUTE, data).then((response: any) => {;
+        localStorage.setItem("token", response.data?.result?.token);
         store.dispatch(isLoading(false));
-        toast.error("Either email or password is wrong")
+        toast.success(response?.data?.message);
+        if (response.data?.result?.user?.role === "Admin")
+            navigateTo(null, ROUTE_ADMIN_DASHBOARD);
+        else if (response.data?.result?.user?.role === "User")
+            navigateTo(null, ROUTE_USER_DASHBOARD);
+    }).catch((err) => {
+        store.dispatch(isLoading(false));
+        toast.error(err?.data?.message);
     });
 }
 
@@ -46,40 +41,26 @@ export const signupHandler = async (event: any) => {
         password: event.target.new_password.value,
     };
 
-    // if (data.password !== event.target.confirm_password.value) {
-    //     store.dispatch(isLoading(false));
-    //     toast.error("New and confirm password not matched");
-    //     return;
-    // }
-
     postRequest(SIGNUP_ROUTE, data).then((response: any) => {
-        if (response.isError) {
-            store.dispatch(isLoading(false));
-            toast.error(response.data);
-        } else {
-            toast.success(response.message);
-            navigateTo(null, ROUTE_SIGNIN);
-        }
+        toast.success(response?.data?.message);
+        navigateTo(null, ROUTE_SIGNIN);
     }).catch((err) => {
         store.dispatch(isLoading(false));
-        console.log(err);
+        toast.error(err?.data?.message);
     });
 }
 
 export const logoutUser = (event: any) => {
     event.preventDefault();
     store.dispatch(isLoading(true));
+
     getRequest(LOGOUT_ROUTE).then((response: any) => {
-        store.dispatch(isLoading(false));
-        if (response.isError) { toast.error(response.data) }
-        else {
-            toast.success(response.message);
-            localStorage.removeItem("token");
-            navigateTo(null, ROUTE_SIGNIN);
-        }
+        toast.success(response?.data?.message);
+        localStorage.removeItem("token");
+        navigateTo(null, ROUTE_SIGNIN);
     }).catch((err) => {
+        toast.error(err?.data?.message);
         store.dispatch(isLoading(false));
-        console.log(err)
     });
 }
 
@@ -92,17 +73,11 @@ export const forgotPassword = async (event: any) => {
     }
 
     postRequest(FORGOT_PASSWORD_ROUTE, data).then((response: any) => {
-        if (response.isError) {
-            store.dispatch(isLoading(false));
-            toast.error(response.data);
-        } else {
-            localStorage.setItem("reset-data", JSON.stringify(data));
-            toast.success(response.data);
-            navigateTo(null, ROUTE_VERIFY_CODE)
-        }
+        localStorage.setItem("reset-data", JSON.stringify(data));
+        toast.success(response?.data?.message);
+        navigateTo(null, ROUTE_VERIFY_CODE)
     }).catch((err: any) => {
-        store.dispatch(isLoading(true));
-        toast.error(USER_NOT_FOUND);
+        toast.error(err?.data?.message);
         store.dispatch(isLoading(false));
     });
 }
@@ -119,11 +94,10 @@ export const resendCode = (event: any): any => {
 
     postRequest(FORGOT_PASSWORD_ROUTE, data).then((response: any) => {
         store.dispatch(isLoading(false))
-        if (response.isError) { toast.error(response.data) }
-        else { toast.success(response.data) }
+        toast.success(response?.data?.message)
     }).catch((err) => {
+        toast.error(err?.data?.message);
         store.dispatch(isLoading(false))
-        console.log(err)
     });
 }
 
@@ -141,18 +115,13 @@ export const verifyCode = async (event: any) => {
     }
 
     postRequest(VERIFY_CODE_ROUTE, data).then((response: any) => {
-        if (response.isError) {
-            store.dispatch(isLoading(false));
-            toast.error(response.data);
-        } else {
-            session.isVerified = true;
-            localStorage.setItem("reset-data", JSON.stringify(session));
-            toast.success(response.data);
-            navigateTo(null, ROUTE_RESET_PASSWORD);
-        }
+        session.isVerified = true;
+        localStorage.setItem("reset-data", JSON.stringify(session));
+        toast.success(response?.data?.message);
+        navigateTo(null, ROUTE_RESET_PASSWORD);
     }).catch((err) => {
         store.dispatch(isLoading(false));
-        console.log(err);
+        toast.error(err?.data?.message);
     });
 }
 
@@ -180,17 +149,11 @@ export const changePasswordAtLoginHandler = async (event: any) => {
     }
 
     postRequest(RESET_PASSWORD_ROUTE, data).then((response: any) => {
-        if (response.isError) {
-            store.dispatch(isLoading(false));
-            toast.error(response.data);
-        } else {
-            store.dispatch(isLoading(false));
-            toast.success(response.data);
-            navigateTo(null, ROUTE_SIGNIN);
-        }
+        toast.success(response?.data?.message);
+        navigateTo(null, ROUTE_SIGNIN);
     }).catch((err) => {
         store.dispatch(isLoading(false));
-        console.log(err);
+        toast.error(err?.data?.message);
     });
 }
 
@@ -206,28 +169,13 @@ export const changePasswordHandler = async (event: any) => {
         "oldPassword": event.target.elements.old_password.value,
         "password": event.target.elements.new_password.value,
     }
-    let email = localStorage.getItem("email");
-    if (email)
-        data.email = email;
-    else {
-        toast.error("Unexpected Error. Please try again");
-        return;
-    }
 
-    console.log(data);
     postRequest(USER_CHANGE_PASSWORD_ROUTE, data).then((response: any) => {
-        console.log("response", response);
-        if (response.isError) {
-            store.dispatch(isLoading(false));
-            toast.error(response.data);
-        } else {
-            store.dispatch(isLoading(false));
-            toast.success(response.message);
-            navigateTo(null, ROUTE_SIGNIN);
-        }
+        toast.success(response?.data?.message);
+        navigateTo(null, ROUTE_SIGNIN);
     }).catch((err) => {
         store.dispatch(isLoading(false));
-        console.log(err);
+        toast.error(err?.data?.message);
     });
 
 }

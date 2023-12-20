@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import styles from "@/styles/auth.module.css";
-import { toast } from "react-toastify";
 import Link from "next/link";
 import { ROUTE_ADMIN_DASHBOARD, ROUTE_FORGOT_PASSWORD, ROUTE_SIGNIN, ROUTE_SIGNUP, ROUTE_USER_DASHBOARD } from '@/constants/routes';
 import { loginHandler } from "@/utils/auth";
@@ -14,28 +13,21 @@ import { VERIFY_TOKEN_ROUTE } from "@/constants/backend-routes";
 
 
 const Login = () => {
-    useEffect(() => {
-        store.dispatch(isLoading(true));
-        localStorage.removeItem("reset-data");
-        getRequest(VERIFY_TOKEN_ROUTE).then((data: any) => {
-            console.log("login data", data);
-            store.dispatch(isLoading(false));
-            if (data.auth?.auth) {
-                if (data.auth?.role === "Admin")
-                    navigateTo(null, ROUTE_ADMIN_DASHBOARD);
-                else if (data.auth?.role === "User")
-                    navigateTo(null, ROUTE_USER_DASHBOARD);
-            }
-            else {
-                localStorage.removeItem("token")
-            }
-        }).catch((e) => {
-            console.log(e);
-            store.dispatch(isLoading(false));
-            localStorage.removeItem("token");
-        });
 
+    useEffect(()=>{
+        store.dispatch(isLoading(true));
+        getRequest(VERIFY_TOKEN_ROUTE).then((response:any) => {
+            store.dispatch(isLoading(false));
+            if(response?.data?.result?.role==="Admin")
+                navigateTo(null, ROUTE_ADMIN_DASHBOARD);
+            else if(response?.data?.result?.role==="User")
+                navigateTo(null, ROUTE_USER_DASHBOARD);
+        }).catch((e) =>{
+            localStorage.removeItem("token");
+            store.dispatch(isLoading(false));
+        });
     }, []);
+
     return (
         <>
             <title>Login - OBG</title>

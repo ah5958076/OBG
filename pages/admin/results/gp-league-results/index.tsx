@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images";
@@ -11,10 +11,37 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { TITLE_ADMIN_GP_LEAGUE_RESULTS } from '@/constants/page-titles';
-import { select_all, select_individual } from '@/utils/general';
+import { getRequest, navigateTo, select_all, select_individual } from '@/utils/general';
+import { useSelector } from 'react-redux';
+import store from '@/Redux/store';
+import { isLoading } from '@/Redux/actions/loader';
+import { ADMIN_GPLEAGUE_RESULTS_LIST_ROUTE } from '@/constants/backend-routes';
+import { setLoadedData } from '@/Redux/actions/pagination';
+import { UNAUTHORIZED } from '@/constants/constants';
+import { ROUTE_SIGNIN } from '@/constants/routes';
+import { toast } from 'react-toastify';
 
 
 const GPLeagueResults = () => {
+  const data = useSelector((state: any) => { return state.pagination.title === TITLE_ADMIN_GP_LEAGUE_RESULTS ? state.pagination : null });
+
+  useEffect(() => {
+    if (!data?.data) {
+      store.dispatch(isLoading(true));
+      getRequest(`${ADMIN_GPLEAGUE_RESULTS_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
+          store.dispatch(setLoadedData(ADMIN_GPLEAGUE_RESULTS_LIST_ROUTE, response?.data?.result, data?data.page_num : 1));
+          store.dispatch(isLoading(false));
+      }).catch((err: any) => {
+        if(err?.status===UNAUTHORIZED){
+          localStorage.removeItem("token");
+          navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+      });
+    }
+  }, [data]);
+
 
   return (
 

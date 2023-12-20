@@ -2,16 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 80px;
-  gap: 15px;
-  color: #FF7700;
+  margin-top: 90px;
+  gap: 40px;
+  color: var(--site-clr);
 }
 
 .real_values {
   width: 106px;
   height: 106px;
-  margin-right: 25px;
-  margin-top: 10px;
   position: relative;
   border-radius: 3px;
   border:1px solid #707070;

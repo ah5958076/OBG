@@ -9,17 +9,14 @@ export default function Home() {
 
   useEffect(()=>{
     store.dispatch(isLoading(true));
-    getRequest(VERIFY_TOKEN_ROUTE).then((data:any) => {
-      if(data.auth?.auth) {
-        if(data.auth?.role==="Admin")
-          navigateTo(null, ROUTE_ADMIN_DASHBOARD);
-        else if(data.auth?.role==="User")
-          navigateTo(null, ROUTE_USER_DASHBOARD);
-      }
-      else {navigateTo(null, ROUTE_SIGNIN)}
-    }).catch((e) =>{
-      console.log(e);
-      navigateTo(null, ROUTE_SIGNIN);
+    getRequest(VERIFY_TOKEN_ROUTE).then((response:any) => {
+      if(response?.data?.result?.role==="Admin")
+        navigateTo(null, ROUTE_ADMIN_DASHBOARD);
+      else if(response?.data?.result?.role==="User")
+        navigateTo(null, ROUTE_USER_DASHBOARD);
+    }).catch((err) =>{
+      localStorage.removeItem("token");
+      navigateTo(null, ROUTE_SIGNIN)
     });
   });
 
