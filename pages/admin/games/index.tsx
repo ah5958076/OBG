@@ -13,12 +13,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import store from '@/Redux/store';
 import { isLoading } from '@/Redux/actions/loader';
-import { ADMIN_GAMES_LIST_ROUTE } from '@/constants/backend-routes';
+import { ADMIN_GAMES_DELETE_ROUTE, ADMIN_GAMES_DOWNLOAD_RECORD_ROUTE, ADMIN_GAMES_LIST_ROUTE, ADMIN_GAMES_SEARCH_ROUTE, ADMIN_GAMES_SHOW_ROUTE, BASE_URL } from '@/constants/backend-routes';
 import { setLoadedData } from '@/Redux/actions/pagination';
 import { UNAUTHORIZED } from '@/constants/constants';
 import { ROUTE_SIGNIN } from '@/constants/routes';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import { showDialog } from '@/Redux/actions/dialogs';
+import Link from 'next/link';
 
 
 const Games = () => {
@@ -43,7 +45,6 @@ const Games = () => {
   }, [data]);
 
 
-
   return (
     <>
       <Navbar index={5} />
@@ -51,8 +52,8 @@ const Games = () => {
 
       <div className={tableStyles.container}>
 
-        <NameAndExportData url="/api/games/download-record" title="Games" />
-        <SearchBar url="/api/games/search" addDialog={DIALOG_ADD_GAMES} deleteDialog={DIALOG_CONFIRMATION} />
+      <NameAndExportData url={ADMIN_GAMES_DOWNLOAD_RECORD_ROUTE} title={TITLE_ADMIN_GAMES} />
+      <SearchBar AddNewHandler={()=>{store.dispatch(showDialog(DIALOG_ADD_GAMES))}} url={ADMIN_GAMES_SEARCH_ROUTE} title={TITLE_ADMIN_GAMES} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className={tableStyles.table}>
           <table>
@@ -69,49 +70,35 @@ const Games = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
-                <td>Name 1</td>
-                <td>Game Type 1</td>
-                <td className={tableStyles.imgCenter} >
-                  <Image src={images.NO_PIC} alt="..." width={50} height={50} />
-                </td>
-                <td>IoS</td>
-                <td>{computeDate(Date.now())}</td>
-                <td>
-                  <a className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_GAMES, "", "/api/games/show") }}>
-                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
-                  </a>
-                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_GPLEAGUES, "/api/gp-league/delete", "") }}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
-                  </a>
-                </td>
-              </tr>
 
-              <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
-                <td>Name 1</td>
-                <td>Game Type 1</td>
-                <td className={tableStyles.imgCenter} >
-                  <Image src={images.NO_PIC} alt="..." width={50} height={50} />
-                </td>
-                <td>IoS</td>
-                <td>{computeDate(Date.now())}</td>
-                <td>
-                  <a className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_GAMES, "", "/api/games/show") }}>
-                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
-                  </a>
-                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_GPLEAGUES, "/api/gp-league/delete", "") }}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
-                  </a>
-                </td>
-              </tr>
+              {(data?.data && data?.data?.total)?
+              data?.data?.data?.map((obj: any, index: number) => (
+                <tr key={index}>
+                  <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
+                  <td>{obj.name}</td>
+                  <td>{obj.type}</td>
+                  <td className={tableStyles.imgCenter} >
+                    <Image src={obj.picture?BASE_URL+obj.picture:images.NO_PIC} alt="..." width={50} height={50} />
+                  </td>
+                  <td>{obj.platform}</td>
+                  <td>{computeDate(new Date(obj.createdAt))}</td>
+                  <td>
+                    <Link href="#" className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_GAMES, obj._id, ADMIN_GAMES_SHOW_ROUTE) }}>
+                      <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                    </Link>
+                    <Link href="#" className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_GAMES, ADMIN_GAMES_DELETE_ROUTE, obj._id) }}>
+                      <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                    </Link>
+                  </td>
+                </tr>
+              )) : <tr><td colSpan={7}>No Data Found</td></tr>}
 
             </tbody>
 
           </table>
         </div>
-        <Pagination start={0} end={0} total={0} />
+
+        <Pagination title={TITLE_ADMIN_GAMES} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end))? data?.data?.data?.length : data?.data?.total} />
 
       </div>
 

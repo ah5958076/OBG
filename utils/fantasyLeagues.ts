@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 
 export const openAddNewDialog = () => {
     store.dispatch(isLoading(true));
-    getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?page_num=-1`).then((response:any) => {
+    getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?pageNum=-1`).then((response:any) => {
         store.dispatch(showDialog(DIALOG_ADD_FANTASY_LEAGUES, response?.data?.result));
         store.dispatch(isLoading(false));
     }).catch((err) => {
@@ -57,7 +57,7 @@ export const addNewHandler = (e:any) => {
 export const updateDialogDisplayHandler = (id:any) => {
     store.dispatch(isLoading(true));
     
-    getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?page_num=-1`).then((response1:any) => {
+    getRequest(`${ADMIN_GRAND_PRIX_LIST_ROUTE}?pageNum=-1`).then((response1:any) => {
         getRequest(`${ADMIN_FANTASY_LEAGUE_SHOW_ROUTE}/${id}`).then((response2:any) => {
             let data = {
                 "grandPrix": response1?.data?.result,

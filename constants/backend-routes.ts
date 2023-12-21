@@ -55,6 +55,7 @@ export const ADMIN_USERS_SHOW_ROUTE = "/api/user/show";
 export const ADMIN_USERS_LIST_ROUTE = "/api/user/list";
 export const ADMIN_USERS_SEARCH_ROUTE = "/api/user/search";
 export const ADMIN_USERS_DOWNLOAD_RECORD_ROUTE = "/api/user/download-report";
+export const ADMIN_USERS_ADD_INVENTORY_ROUTE = "/api/user/add-inventory";
 
 
 

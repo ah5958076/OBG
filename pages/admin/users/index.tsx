@@ -10,7 +10,7 @@ import { TITLE_ADMIN_USERS } from '@/constants/page-titles'
 import { getRequest, navigateTo, openDeleteDialog, openEditDialog, select_all, select_individual } from '@/utils/general';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faMedal, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { showProfile, manageInventory } from '@/utils/users';
+import { showProfile, openInventoryDialog } from '@/utils/users';
 import { useSelector } from 'react-redux';
 import store from '@/Redux/store';
 import { isLoading } from '@/Redux/actions/loader';
@@ -91,7 +91,7 @@ const Users = () => {
                     <td>{obj.about}</td>
                     <td>{obj.status}</td>
                     <td>
-                      <a className='not-a-button' onClick={()=>{manageInventory(obj._id)}}>
+                      <a className='not-a-button' onClick={ ()=>{openInventoryDialog(obj._id)} }>
                         <FontAwesomeIcon icon={faMedal} rotation={180} style={{color: "var(--site-clr)"}}/>
                       </a>
                       <a className='not-a-button' onClick={()=>{showProfile(obj._id)}}>

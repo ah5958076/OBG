@@ -177,5 +177,4 @@ export const changePasswordHandler = async (event: any) => {
         store.dispatch(isLoading(false));
         toast.error(err?.data?.message);
     });
-
 }

@@ -8,7 +8,8 @@ import Image from 'next/image';
 import Input from '@/Components/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { addUserHandler, updateUserHandler } from '@/utils/users';
+import { addUserHandler, updateUserHandler, addInventoryToUser } from '@/utils/users';
+import { BASE_URL } from '@/constants/backend-routes';
 
 
 
@@ -60,10 +61,10 @@ export const AddUser = () => {
 export const UpdateUser = (props:any) => {
 
     let id= props.data?._doc?._id;
+    const email = props.data?._doc?.email;
     const [credit, setCredit] = useState(props.data?._doc?.balance);
     const [name, setName] = useState(props.data?._doc?.fullName);
     const [username, setUsername] = useState(props.data?._doc?.username);
-    const [email, setEmail] = useState(props.data?._doc?.email);
     const [about, setAbout] = useState(props.data?._doc?.about);
 
     return (
@@ -86,7 +87,8 @@ export const UpdateUser = (props:any) => {
 
                     <Input name='name' value={name} onChnage={(e:any)=>{setName(e.target?.value)}} title='Full Name *' required={true} />
                     <Input name='username' value={username} onChnage={(e:any)=>{setUsername(e.target?.value)}} title='Username *' required={true} />
-                    <Input type='email' value={email} onChnage={(e:any)=>{setEmail(e.target?.value)}} name='email' title='Email *' required={true} />
+                    <input type="hidden" name='email' value={email} />
+                    <span style={{color:"gray", width:"100%",borderBottom:"1px solid gray",paddingBottom:"5px"}}>{email}</span>
                     <Input name='about' value={about} onChnage={(e:any)=>{setAbout(e.target?.value)}} title='About *' required={true} />
 
                     <div className={dialogStyles.controls}>
@@ -105,7 +107,9 @@ export const UpdateUser = (props:any) => {
 }
 
 
-export const AddUserInventoryDialog = () => {
+export const AddUserInventoryDialog = (props:any) => {
+    let inventories = props.data?.data?.data || null;
+    let userID = props.data?.userID;
 
     return (
 
@@ -118,26 +122,17 @@ export const AddUserInventoryDialog = () => {
                 </button>
 
                 <div className={userStyles.inventories}>
-                    <div className={userStyles.inventory}>
-                        <div><Image src={images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
-                        <p>akindseries_green</p>
-                        <button style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
+
+                    {inventories?
+                        inventories.map((elem:any, index:number) => (
+                            <div key={index} className={userStyles.inventory}>
+                                <div><Image src={elem?.picture?BASE_URL+elem.picture:images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
+                                <p>{elem?.name || ""}</p>
+                            <button onClick={()=>{addInventoryToUser(userID, elem._id)}} style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
                     </div>
-                    <div className={userStyles.inventory}>
-                        <div><Image src={images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
-                        <p>akindseries_green</p>
-                        <button style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
-                    </div>
-                    <div className={userStyles.inventory}>
-                        <div><Image src={images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
-                        <p>akindseries_green</p>
-                        <button style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
-                    </div>
-                    <div className={userStyles.inventory}>
-                        <div><Image src={images.USER} alt="..." width={80} height={80} style={{ borderRadius: "5px" }} /></div>
-                        <p>akindseries_green</p>
-                        <button style={{ backgroundColor: "var(--site-clr)", width: "25%" }}>ADD</button>
-                    </div>
+                        )) : 
+                        <div className={userStyles.inventory}><p>No inventories found</p></div>
+                    }
 
                 </div>
 
