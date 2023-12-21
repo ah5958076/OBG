@@ -31,6 +31,8 @@ exports.STARTING_DATE_EMPTY="Starting date is empty";
 exports.ENDING_DATE_EMPTY="Ending date is empty";
 exports.GRAND_PRIX_NAME_EMPTY="Grand Prix League Name is empty";
 exports.DRAFT_DATETIME_EMPTY="Draft Date and Time is empty";
+exports.TYPE_EMPTY = "Type is empty";
+exports.PLATFORM_EMPTY = "Platform is empty";
 
 
 
@@ -62,6 +64,7 @@ exports.GPLEAGUE_DELETED = "GP League deleted successfully";
 // user messages...
 exports.USER_NOT_FOUND = "User not found against given email";
 exports.USER_ALREADY_EXIST = "User against given email already exists";
+exports.INVENTORY_ALREADY_EXISTS = "Inventory already added to user";
 exports.USER_ADDED = "Sign Up successfully";
 exports.USER_UPDATED = "User updated successfully";
 exports.USER_DELETED = "User deleted successfully";

@@ -1,6 +1,6 @@
 const UserModel = require("../models/User");
 const {INVALID, NOT_FOUND, OK}=require("../constants/constants");
-const { UNEXPECTED_ERROR, USER_ALREADY_EXIST, USER_ADDED, NO_DATA_FOUND, PASSWORD_CHANGED, PROFILE_PHOTO_UPLOADED, COVER_PHOTO_UPLOADED, USER_UPDATED } = require("../constants/messages");
+const { UNEXPECTED_ERROR, USER_ALREADY_EXIST, USER_ADDED, NO_DATA_FOUND, PASSWORD_CHANGED, PROFILE_PHOTO_UPLOADED, COVER_PHOTO_UPLOADED, USER_UPDATED, USER_DELETED, INVENTORY_ALREADY_EXISTS, INVENTORY_ADDED } = require("../constants/messages");
 const { makeResponse, encryptData, checkEncryptedData } = require("./general");
 
 
@@ -31,7 +31,7 @@ exports.update = async (id, object) => {
 
 
 exports.deleteRecord = async (ids) => {
-    let result = await UserModel.updateOne({_id: ids}, {$set: {deletedAt: Date.now()}}).catch((e) => {console.log(e)});
+    let result = await UserModel.updateMany({_id: ids}, {deletedAt: Date.now()}).catch((e) => {console.log(e)});
     if(result.modifiedCount) return {code: OK, data: makeResponse(USER_DELETED)};
     return {code: NOT_FOUND, data: makeResponse(UNEXPECTED_ERROR)};
 }
@@ -57,6 +57,25 @@ exports.changePassword = async (email, oldPassword, newPassword) => {
             }
         }
         return {code: INVALID, data: makeResponse(INVALID_PASSWORD)};
+    }
+    return {code: NOT_FOUND, data: makeResponse(UNEXPECTED_ERROR)};
+}
+
+
+
+module.exports.addInventory = async (userID, inventoryID) => {
+    let value = await UserModel.findOne({_id: userID}).catch((e)=>console.log(e))
+    if(value){
+        let inventories = value.inventories || [];
+        let filteredInventories = inventories?.filter((id, index) => {
+            return id===inventoryID;
+        });
+        if(filteredInventories.length>0){
+            return {code: INVALID, data: makeResponse(INVENTORY_ALREADY_EXISTS)};
+        }
+        inventories.push(inventoryID);
+        value = await UserModel.updateOne({_id: userID}, { inventories: inventories }).catch((e)=>console.log(e));
+        if(value.modifiedCount) return {code: OK, data: makeResponse(INVENTORY_ADDED)}
     }
     return {code: NOT_FOUND, data: makeResponse(UNEXPECTED_ERROR)};
 }

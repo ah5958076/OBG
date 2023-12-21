@@ -1,6 +1,6 @@
 const { OK, INVALID, NOT_FOUND, UNAUTHORIZED } = require("../constants/constants");
 const { INVENTORY_ADDED, UNEXPECTED_ERROR, INVENTORY_UPDATED, INVENTORY_DELETED, AUTH_FAILED } = require("../constants/messages");
-const { checkFile, makeResponse, listData, searchData } = require("../services/general");
+const { checkFile, makeResponse, searchData, listData } = require("../services/general");
 const InventoryModel = require("../models/Inventory");
 const {unlinkSync}=require("fs");
 const { isObjectIdOrHexString } = require("mongoose");
@@ -82,10 +82,9 @@ module.exports.show = async (req, res) => {
 }
 
 module.exports.list = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
+    let page_number = req.query?.pageNum || 1;
 
-    let value = await InventoryModel.find().catch((e) => {console.log(e)});
-    return res.status(OK).send(makeResponse("", value));
+    res.status(OK).send(makeResponse("", await listData(InventoryModel, page_number)))
 }
 
 

@@ -9,7 +9,7 @@ const UserModel = new mongoose.Schema({
     coverPhoto: {type: String, required: false, default: ""},
     balance: {type: Number, required: true, default: "20"},
     about: {type: String, required: false, default: ""},
-    inventories: {type: String, required: false, default: ""},
+    inventories: {type: Array, required: false, default: [], ref: "inventories"},
     deletedAt: {type: Date, required: false, default: ""},
     resetToken: {type: String, required: false, default: ""},
     resetTokenExpiration: {type: Date, required: false, default: ""},

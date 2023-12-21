@@ -91,12 +91,19 @@ module.exports.writeExcelFile = async (data=[], fields=[]) => {
 module.exports.listData = async (model, pageNum, query) => {
     let start = (PAGINATION_MAX_RECORD_SIZE*(pageNum-1));
     let end = start+PAGINATION_MAX_RECORD_SIZE;
-
-    let value = await model.find({...query}).skip(start).limit(end).catch((e) => {console.log(e)});
-    let count = await model.count({...query}).catch((e) => {console.log(e)});
-
-    if(end>count) end=count;
-    start+=1;
+    let value=[], count=0;
+    
+    if(pageNum<0){
+        value = await model.find({...query}).catch((e) => {console.log(e)});
+        count = await model.count({...query}).catch((e) => {console.log(e)});
+        start=0;
+        end=0;
+    }else{
+        value = await model.find({...query}).skip(start).limit(end).catch((e) => {console.log(e)});
+        count = await model.count({...query}).catch((e) => {console.log(e)});
+        if(end>count) end=count;
+        start+=1;
+    }
 
     return {data: value, start:start, end:end, total:count};
 }
@@ -104,12 +111,20 @@ module.exports.listData = async (model, pageNum, query) => {
 module.exports.listDataWithPopulate = async (model, pageNum, population_fields=[], query) => {
     let start = (PAGINATION_MAX_RECORD_SIZE*(pageNum-1));
     let end = start+PAGINATION_MAX_RECORD_SIZE;
+    let value=[], count=0;
 
-    let value = await model.find({...query}).skip(start).limit(end).populate(population_fields).catch((e) => {console.log(e)});
-    let count = await model.count({}).catch((e) => {console.log(e)});
+    if(pageNum<0){
+        value = await model.find({...query}).populate(population_fields).catch((e) => {console.log(e)});
+        count = await model.count({}).catch((e) => {console.log(e)});
+        start=0;
+        end=0;
+    }else{
+        value = await model.find({...query}).skip(start).limit(end).populate(population_fields).catch((e) => {console.log(e)});
+        count = await model.count({}).catch((e) => {console.log(e)});
+        if(end>count) end=count;
+        start+=1;
+    }
 
-    if(end>count) end=count;
-    start+=1;
 
     return {data: value, start:start, end:end, total:count};
 }
@@ -127,7 +142,7 @@ module.exports.searchData = async (model, filterText, fieldsBasedOnSearchApplied
             }
         }
     });
-    console.log(data);
+    
     return {filteredData: data};
 }
 

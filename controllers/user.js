@@ -2,7 +2,7 @@ const { INVALID, OK, NOT_FOUND } = require("../constants/constants");
 const userModel = require("../models/User");
 const { UNEXPECTED_ERROR, USERNAME_EMPTY, NAME_EMPTY, PASSWORD_EMPTY, EMAIL_EMPTY, INVALID_ID, OLD_PASSWORD_EMPTY } = require("../constants/messages");
 const { makeResponse, encryptData, writeExcelFile, listData, searchData, checkFile } = require("../services/general");
-const {registerNewUser, update, deleteRecord, show, changePassword, uploadProfilePhoto, uploadCoverPhoto } = require("../services/user");
+const {registerNewUser, update, deleteRecord, show, changePassword, uploadProfilePhoto, uploadCoverPhoto, addInventory } = require("../services/user");
 const { isObjectIdOrHexString } = require("mongoose");
 
 
@@ -109,6 +109,19 @@ module.exports.changePassword = async (req, res) => {
     if(!password) return res.status(INVALID).send(makeResponse(PASSWORD_EMPTY));
 
     let response = await changePassword(email, oldPassword, password);
+    return res.status(response.code).send(response.data);
+}
+
+
+
+module.exports.addInventory = async (req, res) => {
+    let inventoryID = req.body?.inventoryID;
+    let userID = req.body?.userID;
+
+    if(!inventoryID) return res.send(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    if(!userID) return res.send(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+
+    let response = await addInventory(userID, inventoryID);
     return res.status(response.code).send(response.data);
 }
 

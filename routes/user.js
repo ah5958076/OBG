@@ -1,7 +1,5 @@
 const router = require("express").Router();
 const userController = require("../controllers/user");
-const constantMsgs = require("../constants/constants");
-const multer = require("multer");
 const { uploadImageConfigs } = require("../services/general");
 
 
@@ -19,6 +17,7 @@ router.get("/download-report", userController.downloadExcel);
 
 
 router.post("/change-password", userController.changePassword);
+router.post("/add-inventory", userController.addInventory);
 router.post("/upload-profile-photo", uploads.single("profilePicture"), userController.uploadProfilePhoto);
 router.post("/upload-cover-photo", uploads.single("coverPicture"), userController.uploadCoverPhoto);
 

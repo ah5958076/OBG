@@ -94,8 +94,8 @@ module.exports.logout = async (req, res) => {
 
 module.exports.getDashbaordData = async (req, res) => {
 
-    let totalUsers = await UserModel.count({}).catch((e)=>{console.log(e)})
-    let activeUsers = await UserModel.count({status:"Active", email: {$nin:req.user?.email}}).catch((e)=>{console.log(e)})
+    let totalUsers = await UserModel.count({deletedAt: null}).catch((e)=>{console.log(e)})
+    let activeUsers = await UserModel.count({status:"Active", deletedAt: null, email: {$nin:req.user?.email}}).catch((e)=>{console.log(e)})
     let totalGames = await GameModel.count({}).catch((e)=>{console.log(e)})
 
     res.status(OK).send(makeResponse("", {totalUsers: totalUsers, activeUsers:activeUsers, totalGames: totalGames}));
