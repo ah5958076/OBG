@@ -113,6 +113,7 @@ export const UpdateLadders = (props: any) => {
                     <input type="hidden" name="id" value={id} />
 
                     <div className={dialogStyles.side_by_side}>
+
                         <div>
                             <Input name='name' title='Ladder Name *' value={name} onChnage={(e: any) => { setName(e.target?.value) }} required={true} />
                             <Select options={games} name='gameName' value={gameName} onChnage={(e: any) => { setGameName(e.target?.value) }} title='Game Name *' required={true} />
@@ -133,6 +134,7 @@ export const UpdateLadders = (props: any) => {
                             </div>
                             <input type="hidden" name="oldPicture" value={picture} />
                         </div>
+
                     </div>
 
 
