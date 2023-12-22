@@ -62,7 +62,7 @@ export const AddLadders = () => {
 }
 
 
-export const UpdateLadders = () => {
+export const UpdateLadders = (props:any) => {
 
     return (
 

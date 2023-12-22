@@ -46,7 +46,7 @@ export const AddInventory = () => {
 }
 
 
-export const UpdateInventory = () => {
+export const UpdateInventory = (props:any) => {
 
     return (
 

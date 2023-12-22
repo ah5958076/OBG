@@ -13,16 +13,16 @@ import { BASE_URL } from '@/constants/backend-routes';
 
 
 let dummy_game_types = [
-    {"1":"Franchise1"},
-    {"2":"Franchise2"},
-    {"3":"Franchise3"},
-    {"4":"Franchise4"},
+    {"Franchise 1":"Franchise 1"},
+    {"Franchise 2":"Franchise 2"},
+    {"Franchise 3":"Franchise 3"},
+    {"Franchise 4":"Franchise 4"},
 ]
 let dummy_platforms = [
-    {"1":"IoS"},
-    {"2":"Windows"},
-    {"3":"Mac"},
-    {"4":"Android"},
+    {"IoS":"IoS"},
+    {"Windows":"Windows"},
+    {"Mac":"Mac"},
+    {"Android":"Android"},
 ]
 
 export const AddGames = () => {

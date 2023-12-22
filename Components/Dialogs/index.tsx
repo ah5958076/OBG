@@ -55,12 +55,12 @@ const DialogRendering = () => {
             {state.name===DIALOG_USER_PROFILE? <UserProfileDialog /> : null }
             {state.name===DIALOG_ADD_GAMES? <AddGames /> : null }
             {state.name===DIALOG_UPDATE_GAMES? <UpdateGames data={state.data} /> : null }
-            {state.name===DIALOG_ADD_TOURNAMENTS? <AddTournaments /> : null }
-            {state.name===DIALOG_UPDATE_TOURNAMENTS? <UpdateTournaments /> : null }
+            {state.name===DIALOG_ADD_TOURNAMENTS? <AddTournaments data={state.data} /> : null }
+            {state.name===DIALOG_UPDATE_TOURNAMENTS? <UpdateTournaments data={state.data} /> : null }
             {state.name===DIALOG_ADD_LADDERS? <AddLadders /> : null }
-            {state.name===DIALOG_UPDATE_LADDERS? <UpdateLadders /> : null }
+            {state.name===DIALOG_UPDATE_LADDERS? <UpdateLadders data={state.data} /> : null }
             {state.name===DIALOG_ADD_INVENTORY? <AddInventory /> : null }
-            {state.name===DIALOG_UPDATE_INVENTORY? <UpdateInventory /> : null }
+            {state.name===DIALOG_UPDATE_INVENTORY? <UpdateInventory data={state.data} /> : null }
 
         </>   
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images";
@@ -11,11 +11,12 @@ import Image from 'next/image';
 import { TITLE_ADMIN_TOURNAMENTS } from '@/constants/page-titles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { getRequest, navigateTo, openDeleteDialog, openEditDialog, select_all, select_individual } from '@/utils/general';
+import { computeDate, getRequest, navigateTo, openDeleteDialog, select_all, select_individual } from '@/utils/general';
+import { openAddNewDialog, openTournamentEditDialog } from '@/utils/tournament';
 import { useSelector } from 'react-redux';
 import store from '@/Redux/store';
 import { isLoading } from '@/Redux/actions/loader';
-import { ADMIN_TOURNAMENTS_LIST_ROUTE } from '@/constants/backend-routes';
+import { ADMIN_TOURNAMENTS_DELETE_ROUTE, ADMIN_TOURNAMENTS_DOWNLOAD_RECORD_ROUTE, ADMIN_TOURNAMENTS_LIST_ROUTE, ADMIN_TOURNAMENTS_SEARCH_ROUTE, BASE_URL } from '@/constants/backend-routes';
 import { setLoadedData } from '@/Redux/actions/pagination';
 import { UNAUTHORIZED } from '@/constants/constants';
 import { ROUTE_SIGNIN } from '@/constants/routes';
@@ -28,7 +29,7 @@ const Tournaments = () => {
   useEffect(() => {
     if (!data?.data) {
       store.dispatch(isLoading(true));
-      getRequest(`${ADMIN_TOURNAMENTS_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
+      getRequest(`${ADMIN_TOURNAMENTS_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}`).then((response: any) => {
           store.dispatch(setLoadedData(TITLE_ADMIN_TOURNAMENTS, response?.data?.result, data?data.page_num : 1));
           store.dispatch(isLoading(false));
       }).catch((err: any) => {
@@ -43,6 +44,27 @@ const Tournaments = () => {
   }, [data]);
 
 
+  let tournamentCatagory_AllRef:any = useRef();
+  let tournamentCatagory_GeneralRef:any = useRef();
+  let tournamentCatagory_GrandPrixRef:any = useRef();
+
+  const manageClick = (e:any) => {
+    if(e.currentTarget===tournamentCatagory_AllRef.current){
+      tournamentCatagory_AllRef.current.setAttribute("data-active", "yes");
+      tournamentCatagory_GeneralRef.current.setAttribute("data-active", "no");
+      tournamentCatagory_GrandPrixRef.current.setAttribute("data-active", "no");
+    }
+    else if(e.currentTarget===tournamentCatagory_GeneralRef.current){
+      tournamentCatagory_AllRef.current.setAttribute("data-active", "no");
+      tournamentCatagory_GeneralRef.current.setAttribute("data-active", "yes");
+      tournamentCatagory_GrandPrixRef.current.setAttribute("data-active", "no");
+    }
+    else if(e.currentTarget===tournamentCatagory_GrandPrixRef.current){
+      tournamentCatagory_AllRef.current.setAttribute("data-active", "no");
+      tournamentCatagory_GeneralRef.current.setAttribute("data-active", "no");
+      tournamentCatagory_GrandPrixRef.current.setAttribute("data-active", "yes");
+    }
+  }
 
   return (
 
@@ -54,12 +76,13 @@ const Tournaments = () => {
 
       <div className={tableStyles.container}>
 
-        <NameAndExportData url="/api/tournaments/download-record" title="Tournaments" >
-          <button data-active="yes">All</button>
-          <button data-active="no">General</button>
-          <button data-active="no">Grand Prix</button>
+        <NameAndExportData url={ADMIN_TOURNAMENTS_DOWNLOAD_RECORD_ROUTE} title={TITLE_ADMIN_TOURNAMENTS} >
+          <button ref={tournamentCatagory_AllRef} data-active="yes" onClick={manageClick}>All</button>
+          <button ref={tournamentCatagory_GeneralRef} data-active="no" onClick={manageClick}>General</button>
+          <button ref={tournamentCatagory_GrandPrixRef} data-active="no" onClick={manageClick}>Grand Prix</button>
         </NameAndExportData>
-        <SearchBar url="/api/tournaments/search" addDialog={DIALOG_ADD_TOURNAMENTS} deleteDialog={DIALOG_CONFIRMATION} />
+
+        <SearchBar AddNewHandler={openAddNewDialog} url={ADMIN_TOURNAMENTS_SEARCH_ROUTE} title={TITLE_ADMIN_TOURNAMENTS} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className={tableStyles.table}>
 
@@ -83,54 +106,39 @@ const Tournaments = () => {
 
             <tbody>
 
-              <tr>
-                <td><input type="checkbox" name="selection-box" value={1} onChange={select_individual} /></td>
-                <td>Call of Duty 5*5 tournament</td>
-                <td>General</td>
-                <td>Call of Duty</td>
-                <td className={tableStyles.imgCenter} ><Image src={images.USER} alt="" width={50} height={50} /></td>
-                <td>$500</td>
-                <td>$500</td>
-                <td>06</td>
-                <td>04</td>
-                <td>2022-02-13,06:30AM</td>
-                <td>
-                  <a className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_TOURNAMENTS, "", "/api/gp-league/show") }}>
-                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
-                  </a>
-                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, "/api/gp-league/delete", "") }}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
-                  </a>
-                </td>
-              </tr>
-
-              <tr>
-                <td><input type="checkbox" name="selection-box" value={2} onChange={select_individual} /></td>
-                <td>PUBG ThunderStorm</td>
-                <td>Grand Prix</td>
-                <td>PUBG</td>
-                <td className={tableStyles.imgCenter} ><Image src={images.USER} alt="" width={50} height={50} /></td>
-                <td>$500</td>
-                <td>$500</td>
-                <td>02</td>
-                <td>02</td>
-                <td>2023-02-13,10:30AM</td>
-                <td>
-                  <a className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_TOURNAMENTS, "", "/api/gp-league/show") }}>
-                    <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
-                  </a>
-                  <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, "/api/gp-league/delete", "") }}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
-                  </a>
-                </td>
-              </tr>
+              {(data?.data && data?.data?.total)?
+              data?.data?.data?.map((obj: any, index: number) => (
+                <tr key={index}>
+                  <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
+                  <td>{obj.name}</td>
+                  <td>{obj.catagory}</td>
+                  <td>{obj.gameName.name}</td>
+                  <td className={tableStyles.imgCenter} >
+                    <Image src={obj.picture?BASE_URL+obj.picture:images.USER} alt="" width={50} height={50} />
+                  </td>
+                  <td>${obj.entryFee}</td>
+                  <td>${obj.prize}</td>
+                  <td>{obj.teamSize}</td>
+                  <td>{obj.totalTeams}</td>
+                  <td>{computeDate(obj.startingDate)}</td>
+                  <td>
+                    <a className='not-a-button' onClick={() => { openTournamentEditDialog(obj._id) }}>
+                      <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                    </a>
+                    <a className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_TOURNAMENTS, ADMIN_TOURNAMENTS_DELETE_ROUTE, obj._id) }}>
+                      <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                    </a>
+                  </td>
+                </tr>
+              )) : <tr><td colSpan={11}>No Data Found</td></tr>}
+              
             </tbody>
 
           </table>
 
         </div>
 
-        <Pagination start={0} end={0} total={0} />
+        <Pagination title={TITLE_ADMIN_TOURNAMENTS} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end))? data?.data?.data?.length : data?.data?.total} />
 
       </div>
 

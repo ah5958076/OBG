@@ -8,11 +8,26 @@ import { upload_image_preview } from "@/utils/general"
 import Input from '@/Components/Input';
 import Select from '@/Components/Select';
 import Image from 'next/image';
+import { addTournamentHandler, updateTournamentHandler } from '@/utils/tournament';
 
-const addTournamentHandler = (e:any) => {}
-const updateTournamentHandler = (e:any) => {}
 
-export const AddTournaments = () => {
+
+let catagories = [
+    {"General": "General"},
+    {"Grand Prix": "Grand Prix"}
+]
+
+
+
+export const AddTournaments = (props:any) => {
+
+    let rawData = props?.data?.data;
+    let games:any = [];
+    rawData.forEach((elem:any) => {
+        let datum:any = {};
+        datum[`${elem._id}`]=elem.name;
+        games.push(datum);
+    })
 
     return (
 
@@ -25,8 +40,8 @@ export const AddTournaments = () => {
                     <div className={dialogStyles.side_by_side}>
                         <div>
                             <Input name='name' title='Tournament Name *' required={true}/>
-                            <Select options={[]} name='type' title='Tournament Type *' required={true}/>
-                            <Select options={[]} name='gameName' title='Game Name *' required={true}/>
+                            <Select options={catagories} name='catagory' title='Tournament Type *' required={true}/>
+                            <Select options={games} name='gameName' title='Game Name *' required={true}/>
                             <Input name='entryFee' title='Entry Fee *' required={true}/>
                             <Input name='prize' title='Prize *' required={true}/>   
                             <Input name='teamSize' title='Team Size *' required={true}/>
@@ -59,7 +74,7 @@ export const AddTournaments = () => {
 }
 
 
-export const UpdateTournaments = () => {
+export const UpdateTournaments = (props:any) => {
 
     return (
 
