@@ -11,8 +11,6 @@ const { isObjectIdOrHexString } = require("mongoose");
 
 
 module.exports.store = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let response = checkFile(req.file);
     if(response.code===OK){
         let givenObject = {
@@ -47,8 +45,6 @@ module.exports.store = async (req, res) => {
 }
 
 module.exports.update = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-    
     let response = checkFile(req.file);
     if(response.code===OK){
         let id = req.body?.id || "";
@@ -90,8 +86,6 @@ module.exports.update = async (req, res) => {
 }
 
 module.exports.delete = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let id = req.params?.id || "";
     if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
     if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
@@ -109,8 +103,6 @@ module.exports.delete = async (req, res) => {
 }
 
 module.exports.show = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let id = req.params?.id || "";
     if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
     if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
@@ -121,8 +113,6 @@ module.exports.show = async (req, res) => {
 }
 
 module.exports.list = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let page_number = req.query?.pageNum || 1;
     res.status(OK).send(makeResponse("", await listData(LadderModel, page_number)));
 }
@@ -133,16 +123,12 @@ module.exports.list = async (req, res) => {
 
 
 module.exports.searchData = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let filter = req.body?.filter?.toLowerCase() || "";
     let fields = ["name", "gameName"];
     res.status(OK).send(makeResponse("", await searchData(LadderModel, filter, fields)));
 }
 
 module.exports.downloadExcel = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let fields = ["name", "gameName", "entryFee", "prize", "teamSize", "totalTeams", "status", "startingDate", "endingDate"];
     let value = await LadderModel.find().catch((e)=>{console.log(e)});
     return res.status(OK).send(makeResponse("File Written successfully", await writeExcelFile(value, fields)));

@@ -170,8 +170,8 @@ module.exports.searchDataWithPopulate = async (model, filterText, fieldsBasedOnS
                 if(found)
                     break;
             }else{
-                let field = elem[`${attribute}`].toLowerCase();
-                if(field.includes(filterText)) {
+                let field = elem[`${attribute}`]?.toLowerCase();
+                if(field?.includes(filterText)) {
                     data.push(elem);
                     break;
                 }

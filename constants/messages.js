@@ -33,6 +33,7 @@ exports.GRAND_PRIX_NAME_EMPTY="Grand Prix League Name is empty";
 exports.DRAFT_DATETIME_EMPTY="Draft Date and Time is empty";
 exports.TYPE_EMPTY = "Type is empty";
 exports.PLATFORM_EMPTY = "Platform is empty";
+exports.CATAGORY_EMPTY = "Catagory is Empty";
 
 
 

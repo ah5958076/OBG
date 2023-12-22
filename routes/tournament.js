@@ -7,7 +7,7 @@ let uploads = uploadImageConfigs();
 
 router.post("/store", uploads.single("picture"), tournament.store);
 router.post("/update", uploads.single("picture"), tournament.update);
-router.get("/delete/:id", tournament.delete);
+router.post("/delete", tournament.delete);
 router.get("/show/:id", tournament.show);
 router.get("/list", tournament.list);
 
