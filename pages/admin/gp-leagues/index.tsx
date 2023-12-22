@@ -83,7 +83,7 @@ const GPLeagues = () => {
                   <tr key={index}>
                     <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
                     <td>{obj.name}</td>
-                    <td>{obj.gameName.name}</td>
+                    <td>{obj.gameName?.name}</td>
                     <td className={tableStyles.imgCenter}>
                       <Image style={{objectFit: "contain"}} src={obj.picture?BASE_URL+obj.picture:images.NO_PIC} alt="" width={50} height={50} />
                     </td>

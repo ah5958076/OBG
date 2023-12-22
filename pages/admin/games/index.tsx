@@ -30,7 +30,7 @@ const Games = () => {
   useEffect(() => {
     if (!data?.data) {
       store.dispatch(isLoading(true));
-      getRequest(`${ADMIN_GAMES_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
+      getRequest(`${ADMIN_GAMES_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}`).then((response: any) => {
           store.dispatch(setLoadedData(TITLE_ADMIN_GAMES, response?.data?.result, data?data.page_num : 1));
           store.dispatch(isLoading(false));
       }).catch((err: any) => {

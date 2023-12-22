@@ -31,10 +31,12 @@ const Ladders = () => {
   useEffect(() => {
     if (!data?.data) {
       store.dispatch(isLoading(true));
-      getRequest(`${ADMIN_LADDERS_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
+      getRequest(`${ADMIN_LADDERS_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}`).then((response: any) => {
+          console.log(response);
           store.dispatch(setLoadedData(TITLE_ADMIN_LADDERS, response?.data?.result, data?data.page_num : 1));
           store.dispatch(isLoading(false));
-      }).catch((err: any) => {
+        }).catch((err: any) => {
+        console.log(err);
         if(err?.status===UNAUTHORIZED){
           localStorage.removeItem("token");
           navigateTo(null, ROUTE_SIGNIN);
@@ -136,7 +138,8 @@ const Ladders = () => {
 
         </div>
         
-        <Pagination start={0} end={0} total={0} />
+        <Pagination title={TITLE_ADMIN_LADDERS} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end))? data?.data?.data?.length : data?.data?.total} />
+
 
       </div>
 

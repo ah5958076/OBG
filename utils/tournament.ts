@@ -1,16 +1,18 @@
 import { isLoading } from "@/Redux/actions/loader"
 import store from "@/Redux/store"
-import { getRequest, navigateTo } from "./general";
-import { ADMIN_GAMES_LIST_ROUTE } from "@/constants/backend-routes";
+import { getRequest, navigateTo, postRequest } from "./general";
+import { ADMIN_GAMES_LIST_ROUTE, ADMIN_GAMES_STORE_ROUTE, ADMIN_TOURNAMENTS_STORE_ROUTE } from "@/constants/backend-routes";
 import { UNAUTHORIZED } from "@/constants/constants";
 import { ROUTE_SIGNIN } from "@/constants/routes";
 import { toast } from "react-toastify";
-import { showDialog } from "@/Redux/actions/dialogs";
+import { hideDialog, showDialog } from "@/Redux/actions/dialogs";
 import { DIALOG_ADD_TOURNAMENTS } from "@/constants/dialog-names";
+import { loadNewData } from "@/Redux/actions/pagination";
+import { TITLE_ADMIN_TOURNAMENTS } from "@/constants/page-titles";
 
-export const openTournamentEditDialog = (id:string) => {
 
-}
+
+
 
 
 
@@ -33,6 +35,31 @@ export const openAddNewDialog = () => {
 
 
 export const addTournamentHandler = (e:any) => {
+    e.preventDefault();
+    store.dispatch(isLoading(true));
+
+    let data:any = new FormData(e.target);
+    if(data.get("catagory")==="-") data.set("catagory", "");
+    if(data.get("gameName")==="-") data.set("gameName", "");
+
+    postRequest(ADMIN_TOURNAMENTS_STORE_ROUTE, data).then((response:any) => {
+        store.dispatch(loadNewData(TITLE_ADMIN_TOURNAMENTS, store.getState().pagination.page_num));
+        store.dispatch(hideDialog())
+        toast.success(response?.data?.message);
+        store.dispatch(isLoading(false));
+    }).catch((err:any) => { 
+        if(err?.status===UNAUTHORIZED){
+            localStorage.removeItem("token");
+            return navigateTo(null, ROUTE_SIGNIN);
+        }
+        toast.error(err?.data?.message);
+        store.dispatch(isLoading(false));
+    })
+}
+
+
+
+export const openTournamentEditDialog = (id:string) => {
 
 }
 
