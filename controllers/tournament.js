@@ -1,5 +1,5 @@
 const { INVALID, OK, NOT_FOUND } = require("../constants/constants");
-const { UNEXPECTED_ERROR, NAME_EMPTY, GAME_NAME_EMPTY, ENTRY_FEE_EMPTY, PRIZE_EMPTY, TEAM_SIZE_EMPTY, TOTAL_TEAMS_EMPTY, STARTING_DATE_EMPTY, ENDING_DATE_EMPTY } = require("../constants/messages");
+const { UNEXPECTED_ERROR, NAME_EMPTY, GAME_NAME_EMPTY, ENTRY_FEE_EMPTY, PRIZE_EMPTY, TEAM_SIZE_EMPTY, TOTAL_TEAMS_EMPTY, STARTING_DATE_EMPTY, ENDING_DATE_EMPTY, INVALID_ID } = require("../constants/messages");
 const { checkFile, makeResponse, listData, writeExcelFile, searchData } = require("../services/general");
 const TournamentModel = require("../models/Tournament");
 const { isObjectIdOrHexString } = require("mongoose");
@@ -33,7 +33,7 @@ module.exports.store = async (req, res) => {
         if(!givenObject.startingDate) return res.status(INVALID).send(makeResponse(STARTING_DATE_EMPTY))
         if(!givenObject.endingDate) return res.status(INVALID).send(makeResponse(ENDING_DATE_EMPTY))
 
-        resposne = await store(object);
+        response = await store(object);
         return res.status(response.code).send(response.data);
     }
     return res.status(response.code).send(makeResponse(response.data));
@@ -96,7 +96,7 @@ module.exports.delete = async (req, res) => {
 module.exports.show = async (req, res) => {
     let id = req.params?.id || ""
     if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));    
-    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse(INVALID_ID));
 
     let response = await show(id);
     return res.status(response.code).send(response.data);

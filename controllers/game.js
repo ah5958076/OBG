@@ -1,6 +1,5 @@
-const { NOT_FOUND, OK, INVALID, UNAUTHORIZED } = require("../constants/constants");
-const { IMAGE_NOT_UPLOADED, GAME_ADDED, UNEXPECTED_ERROR, GAME_UPDATED, GAME_DELETED, AUTH_FAILED, NAME_EMPTY, TYPE_EMPTY, PLATFORM_EMPTY } = require("../constants/messages");
-const {unlinkSync}=require("fs");
+const { NOT_FOUND, OK, INVALID } = require("../constants/constants");
+const { IMAGE_NOT_UPLOADED, UNEXPECTED_ERROR, NAME_EMPTY, TYPE_EMPTY, PLATFORM_EMPTY } = require("../constants/messages");
 const { makeResponse, listData, checkFile, searchData, writeExcelFile } = require("../services/general");
 const { store, update, deleteRecord, show } = require("../services/games");
 const GameModel = require("../models/Game");
@@ -100,7 +99,7 @@ module.exports.searchData = async (req, res) => {
 
 
 module.exports.downloadExcel = async (req, res) => {
-    let fields = ["name", "size"];
+    let fields = ["name", "type", "platform"];
     let value = await GameModel.find({}).catch((e) => {console.log(e)});
     return res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(value, fields)));
 }
