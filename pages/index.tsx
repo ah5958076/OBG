@@ -7,15 +7,14 @@ import { useEffect } from "react";
 
 export default function Home() {
 
-  useEffect(()=>{
+  useEffect(() => {
     store.dispatch(isLoading(true));
-    getRequest(VERIFY_TOKEN_ROUTE).then((response:any) => {
-      console.log(response);
-      if(response?.data?.result?.user?.role==="Admin")
+    getRequest(VERIFY_TOKEN_ROUTE).then((response: any) => {
+      if (response?.data?.result?.user?.role === "Admin")
         navigateTo(null, ROUTE_ADMIN_DASHBOARD);
-      else if(response?.data?.result?.user?.role==="User")
+      else if (response?.data?.result?.user?.role === "User")
         navigateTo(null, ROUTE_USER_DASHBOARD);
-    }).catch((err) =>{
+    }).catch((err) => {
       localStorage.removeItem("token");
       navigateTo(null, ROUTE_SIGNIN)
     });
