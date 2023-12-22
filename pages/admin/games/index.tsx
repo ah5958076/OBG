@@ -30,11 +30,11 @@ const Games = () => {
   useEffect(() => {
     if (!data?.data) {
       store.dispatch(isLoading(true));
-      getRequest(`${ADMIN_GAMES_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
-          store.dispatch(setLoadedData(TITLE_ADMIN_GAMES, response?.data?.result, data?data.page_num : 1));
-          store.dispatch(isLoading(false));
+      getRequest(`${ADMIN_GAMES_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}`).then((response: any) => {
+        store.dispatch(setLoadedData(TITLE_ADMIN_GAMES, response?.data?.result, data ? data.page_num : 1));
+        store.dispatch(isLoading(false));
       }).catch((err: any) => {
-        if(err?.status===UNAUTHORIZED){
+        if (err?.status === UNAUTHORIZED) {
           localStorage.removeItem("token");
           navigateTo(null, ROUTE_SIGNIN);
         }
@@ -52,8 +52,8 @@ const Games = () => {
 
       <div className={tableStyles.container}>
 
-      <NameAndExportData url={ADMIN_GAMES_DOWNLOAD_RECORD_ROUTE} title={TITLE_ADMIN_GAMES} />
-      <SearchBar AddNewHandler={()=>{store.dispatch(showDialog(DIALOG_ADD_GAMES))}} url={ADMIN_GAMES_SEARCH_ROUTE} title={TITLE_ADMIN_GAMES} deleteDialog={DIALOG_CONFIRMATION} />
+        <NameAndExportData url={ADMIN_GAMES_DOWNLOAD_RECORD_ROUTE} title={TITLE_ADMIN_GAMES} />
+        <SearchBar AddNewHandler={() => { store.dispatch(showDialog(DIALOG_ADD_GAMES)) }} url={ADMIN_GAMES_SEARCH_ROUTE} title={TITLE_ADMIN_GAMES} deleteDialog={DIALOG_CONFIRMATION} />
 
         <div className={tableStyles.table}>
           <table>
@@ -71,34 +71,34 @@ const Games = () => {
             </thead>
             <tbody>
 
-              {(data?.data && data?.data?.total)?
-              data?.data?.data?.map((obj: any, index: number) => (
-                <tr key={index}>
-                  <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
-                  <td>{obj.name}</td>
-                  <td>{obj.type}</td>
-                  <td className={tableStyles.imgCenter} >
-                    <Image src={obj.picture?BASE_URL+obj.picture:images.NO_PIC} alt="..." width={50} height={50} />
-                  </td>
-                  <td>{obj.platform}</td>
-                  <td>{computeDate(new Date(obj.createdAt))}</td>
-                  <td>
-                    <Link href="#" className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_GAMES, obj._id, ADMIN_GAMES_SHOW_ROUTE) }}>
-                      <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
-                    </Link>
-                    <Link href="#" className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_GAMES, ADMIN_GAMES_DELETE_ROUTE, obj._id) }}>
-                      <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
-                    </Link>
-                  </td>
-                </tr>
-              )) : <tr><td colSpan={7}>No Data Found</td></tr>}
+              {(data?.data && data?.data?.total) ?
+                data?.data?.data?.map((obj: any, index: number) => (
+                  <tr key={index}>
+                    <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
+                    <td>{obj.name}</td>
+                    <td>{obj.type}</td>
+                    <td className={tableStyles.imgCenter} >
+                      <Image src={obj.picture ? BASE_URL + obj.picture : images.NO_PIC} alt="..." width={50} height={50} />
+                    </td>
+                    <td>{obj.platform}</td>
+                    <td>{computeDate(new Date(obj.createdAt))}</td>
+                    <td>
+                      <Link href="#" className='not-a-button' onClick={() => { openEditDialog(DIALOG_UPDATE_GAMES, obj._id, ADMIN_GAMES_SHOW_ROUTE) }}>
+                        <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
+                      </Link>
+                      <Link href="#" className='not-a-button' onClick={() => { openDeleteDialog(TITLE_ADMIN_GAMES, ADMIN_GAMES_DELETE_ROUTE, obj._id) }}>
+                        <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
+                      </Link>
+                    </td>
+                  </tr>
+                )) : <tr><td colSpan={7}>No Data Found</td></tr>}
 
             </tbody>
 
           </table>
         </div>
 
-        <Pagination title={TITLE_ADMIN_GAMES} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end))? data?.data?.data?.length : data?.data?.total} />
+        <Pagination title={TITLE_ADMIN_GAMES} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end)) ? data?.data?.data?.length : data?.data?.total} />
 
       </div>
 

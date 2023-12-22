@@ -30,11 +30,11 @@ const GPLeagues = () => {
   useEffect(() => {
     if (!data?.data) {
       store.dispatch(isLoading(true));
-      getRequest(`${ADMIN_GP_LEAGUES_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
-          store.dispatch(setLoadedData(TITLE_ADMIN_GPLEAGUES, response?.data?.result, data?data.page_num : 1));
-          store.dispatch(isLoading(false));
+      getRequest(`${ADMIN_GP_LEAGUES_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}`).then((response: any) => {
+        store.dispatch(setLoadedData(TITLE_ADMIN_GPLEAGUES, response?.data?.result, data ? data.page_num : 1));
+        store.dispatch(isLoading(false));
       }).catch((err: any) => {
-        if(err?.status===UNAUTHORIZED){
+        if (err?.status === UNAUTHORIZED) {
           localStorage.removeItem("token");
           navigateTo(null, ROUTE_SIGNIN);
         }
@@ -78,14 +78,14 @@ const GPLeagues = () => {
             </thead>
 
             <tbody>
-              {(data?.data && data?.data?.total)?
+              {(data?.data && data?.data?.total) ?
                 data?.data?.data?.map((obj: any, index: any) => (
                   <tr key={index}>
                     <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
                     <td>{obj.name}</td>
-                    <td>{obj.gameName.name}</td>
+                    <td>{obj.gameName?.name}</td>
                     <td className={tableStyles.imgCenter}>
-                      <Image style={{objectFit: "contain"}} src={obj.picture?BASE_URL+obj.picture:images.NO_PIC} alt="" width={50} height={50} />
+                      <Image style={{ objectFit: "contain" }} src={obj.picture ? BASE_URL + obj.picture : images.NO_PIC} alt="" width={50} height={50} />
                     </td>
                     <td>{obj.entryFee}</td>
                     <td>{obj.prize}</td>
@@ -95,14 +95,14 @@ const GPLeagues = () => {
                     <td>{computeDate(obj.endingDate)}</td>
                     <td>
                       <Link href="#" onClick={() => { updateDialogDisplayHandler(obj._id) }}>
-                        <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }}/>
+                        <FontAwesomeIcon icon={faPen} style={{ color: "#89bfeb" }} />
                       </Link>
                       <Link href="#" onClick={() => { openDeleteDialog(TITLE_ADMIN_GPLEAGUES, ADMIN_GP_LEAGUES_DELETE_ROUTE, obj._id) }}>
-                        <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }}/>
+                        <FontAwesomeIcon icon={faTrashCan} style={{ color: "#df4646" }} />
                       </Link>
                     </td>
                   </tr>
-                )) : 
+                )) :
                 <tr><td colSpan={11}>No data found</td></tr>}
 
             </tbody>

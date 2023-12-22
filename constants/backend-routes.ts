@@ -1,4 +1,5 @@
-export const BASE_URL = "http://localhost:3001/";
+// export const BASE_URL = "http://localhost:3001/";
+export const BASE_URL = "http://192.168.1.236:3001/";
 
 
 
@@ -79,13 +80,13 @@ export const ADMIN_TOURNAMENTS_DOWNLOAD_RECORD_ROUTE = "/api/tournament/download
 
 
 
-export const ADMIN_LADDERS_STORE_ROUTE = "/api/ladders/store";
-export const ADMIN_LADDERS_UPDATE_ROUTE = "/api/ladders/update";
-export const ADMIN_LADDERS_DELETE_ROUTE = "/api/ladders/delete";
-export const ADMIN_LADDERS_SHOW_ROUTE = "/api/ladders/show";
-export const ADMIN_LADDERS_LIST_ROUTE = "/api/ladders/list";
-export const ADMIN_LADDERS_SEARCH_ROUTE = "/api/ladders/search";
-export const ADMIN_LADDERS_DOWNLOAD_RECORD_ROUTE = "/api/ladders/download-report";
+export const ADMIN_LADDERS_STORE_ROUTE = "/api/ladder/store";
+export const ADMIN_LADDERS_UPDATE_ROUTE = "/api/ladder/update";
+export const ADMIN_LADDERS_DELETE_ROUTE = "/api/ladder/delete";
+export const ADMIN_LADDERS_SHOW_ROUTE = "/api/ladder/show";
+export const ADMIN_LADDERS_LIST_ROUTE = "/api/ladder/list";
+export const ADMIN_LADDERS_SEARCH_ROUTE = "/api/ladder/search";
+export const ADMIN_LADDERS_DOWNLOAD_RECORD_ROUTE = "/api/ladder/download-report";
 
 
 

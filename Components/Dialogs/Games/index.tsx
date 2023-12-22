@@ -13,16 +13,16 @@ import { BASE_URL } from '@/constants/backend-routes';
 
 
 let dummy_game_types = [
-    {"Franchise 1":"Franchise 1"},
-    {"Franchise 2":"Franchise 2"},
-    {"Franchise 3":"Franchise 3"},
-    {"Franchise 4":"Franchise 4"},
+    { "Franchise 11": "Franchise 11" },
+    { "Franchise 2": "Franchise 2" },
+    { "Franchise 3": "Franchise 3" },
+    { "Franchise 4": "Franchise 4" },
 ]
 let dummy_platforms = [
-    {"IoS":"IoS"},
-    {"Windows":"Windows"},
-    {"Mac":"Mac"},
-    {"Android":"Android"},
+    { "IoS": "IoS" },
+    { "Windows": "Windows" },
+    { "Mac": "Mac" },
+    { "Android": "Android" },
 ]
 
 export const AddGames = () => {
@@ -44,16 +44,14 @@ export const AddGames = () => {
                         <div>
                             <label>Game Photo*</label>
                             <div className={dialogStyles.file_input}>
-                                <Image src={ images.PHOTO_PLACEHOLDER } alt="..." width={100} height={100} />
+                                <Image src={images.PHOTO_PLACEHOLDER} alt="..." width={100} height={100} />
                                 <input type="file" name="picture" accept="image/*" onChange={upload_image_preview} />
                             </div>
                         </div>
                     </div>
-
-
                     <div className={dialogStyles.controls}>
-                        <button onClick={()=>{store.dispatch(hideDialog())}} style={{backgroundColor: "gray"}} type="button">Cancel</button>
-                        <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Add League</button>
+                        <button onClick={() => { store.dispatch(hideDialog()) }} style={{ backgroundColor: "gray" }} type="button">Cancel</button>
+                        <button style={{ backgroundColor: "var(--site-clr)" }} type="submit">Add League</button>
                     </div>
 
                 </form>
@@ -68,20 +66,20 @@ export const AddGames = () => {
 
 
 
-export const UpdateGames = (props:any) => {
-    
+export const UpdateGames = (props: any) => {
+
     let data = props.data._doc
     const [name, setName] = useState(data.name);
     const [type, setType] = useState(data.type);
     const [platform, setPlatform] = useState(data.platform);
-    const [picture, setPicture] = useState(BASE_URL+data.picture);
+    const [picture, setPicture] = useState(BASE_URL + data.picture);
     const id = data._id
 
 
     return (
 
         <div id='dialogs' className={dialogStyles.dialogs}>
-        
+
             <div id='dialog' className={`${dialogStyles.dialog} ${dialogStyles.show}`}>
 
                 <form method="post" onSubmit={updateGameHandler}>
@@ -89,23 +87,23 @@ export const UpdateGames = (props:any) => {
                     <div className={dialogStyles.side_by_side}>
                         <input type="hidden" name="id" value={id} />
                         <div>
-                            <Input name='name' value={name} onChnage={(e:any)=>setName(e.target?.value)} title='Game Name *' required={true} />
-                            <Select options={dummy_game_types} value={type} onChnage={(e:any)=>setType(e.target?.value)} name='type' title='Game Type *' required={true} />
-                            <Select options={dummy_platforms} value={platform} onChnage={(e:any)=>setPlatform(e.target?.value)} name='platform' title='Game Platform' required={true} />
+                            <Input name='name' value={name} onChnage={(e: any) => setName(e.target?.value)} title='Game Name *' required={true} />
+                            <Select options={dummy_game_types} value={type} onChnage={(e: any) => setType(e.target?.value)} name='type' title='Game Type *' required={true} />
+                            <Select options={dummy_platforms} value={platform} onChnage={(e: any) => setPlatform(e.target?.value)} name='platform' title='Game Platform' required={true} />
                         </div>
                         <div>
                             <label htmlFor="imageInput">Game Photo*</label>
                             <div className={dialogStyles.file_input}>
-                                <Image width={100} height={100} src={ picture?picture:images.PHOTO_PLACEHOLDER } alt="..." />
-                                <input type="file" name="picture" accept="image/*" onChange={(e:any)=>{e.imageViewer=setPicture;upload_image_preview(e)}} />
+                                <Image width={100} height={100} src={picture ? picture : images.PHOTO_PLACEHOLDER} alt="..." />
+                                <input type="file" name="picture" accept="image/*" onChange={(e: any) => { e.imageViewer = setPicture; upload_image_preview(e) }} />
                                 <input type="hidden" name="oldPicture" value={picture} />
                             </div>
                         </div>
                     </div>
 
                     <div className={dialogStyles.controls}>
-                        <button style={{backgroundColor: "gray"}} type="button">Cancel</button>
-                        <button style={{backgroundColor: "var(--site-clr)"}} type="submit">Update League</button>
+                        <button style={{ backgroundColor: "gray" }} type="button">Cancel</button>
+                        <button style={{ backgroundColor: "var(--site-clr)" }} type="submit">Update League</button>
                     </div>
 
                 </form>

@@ -12,7 +12,7 @@ import { AddTournaments, UpdateTournaments } from "@/Components/Dialogs/Tourname
 import { AddLadders, UpdateLadders } from "@/Components/Dialogs/Ladders"
 import { AddInventory, UpdateInventory } from "@/Components/Dialogs/Inventory"
 
-import { 
+import {
     DIALOG_ADD_FANTASY_LEAGUES, DIALOG_ADD_GAMES, DIALOG_ADD_GP_LEAGUES, DIALOG_ADD_INVENTORY, DIALOG_ADD_LADDERS, DIALOG_ADD_TOURNAMENTS, DIALOG_ADD_USERS, DIALOG_ADD_USER_INVENTORY, DIALOG_CHANGE_PASSWORD, DIALOG_CONFIRMATION, DIALOG_LOGOUT, DIALOG_UPDATE_FANTASY_LEAGUES, DIALOG_UPDATE_GAMES, DIALOG_UPDATE_GP_LEAGUES, DIALOG_UPDATE_INVENTORY, DIALOG_UPDATE_LADDERS, DIALOG_UPDATE_TOURNAMENTS, DIALOG_UPDATE_USERS, DIALOG_USER_PROFILE
 } from '../../constants/dialog-names'
 import store from '@/Redux/store'
@@ -20,13 +20,13 @@ import { hideDialog } from '@/Redux/actions/dialogs'
 
 
 const DialogRendering = () => {
-    const state = useSelector((state:any) => {return state.dialogs})
+    const state = useSelector((state: any) => { return state.dialogs })
 
-    useEffect(()=>{
-        window.addEventListener("click", (e:any)=> {
+    useEffect(() => {
+        window.addEventListener("click", (e: any) => {
             let dialogContainer = document.querySelector("#dialogs");
             let dialog = document.querySelector("#dialog");
-            if(dialogContainer && e.target===dialogContainer && e.target!==dialog)
+            if (dialogContainer && e.target === dialogContainer && e.target !== dialog)
                 store.dispatch(hideDialog());
         });
 
@@ -34,35 +34,35 @@ const DialogRendering = () => {
 
 
 
-    if(!state.isShowing)
+    if (!state.isShowing)
         return null;
 
     return (
 
         <>
 
-            {state.name===DIALOG_CONFIRMATION? <ConfirmationDialog data={state.data} /> : null}
-            {state.name===DIALOG_CHANGE_PASSWORD?<ChangePassword />:null}
-            {state.name===DIALOG_LOGOUT?<Logout />:null}
+            {state.name === DIALOG_CONFIRMATION ? <ConfirmationDialog data={state.data} /> : null}
+            {state.name === DIALOG_CHANGE_PASSWORD ? <ChangePassword /> : null}
+            {state.name === DIALOG_LOGOUT ? <Logout /> : null}
 
-            {state.name===DIALOG_ADD_GP_LEAGUES? <AddGPLeagues data={state.data} /> : null }
-            {state.name===DIALOG_UPDATE_GP_LEAGUES? <UpdateGPLeagues data={state.data} /> : null }
-            {state.name===DIALOG_ADD_FANTASY_LEAGUES? <AddFantasyLeague data={state.data} /> : null }
-            {state.name===DIALOG_UPDATE_FANTASY_LEAGUES? <UpdateFantasyLeague data={state.data} /> : null }
-            {state.name===DIALOG_ADD_USERS? <AddUser /> : null }
-            {state.name===DIALOG_UPDATE_USERS? <UpdateUser data={state.data} /> : null }
-            {state.name===DIALOG_ADD_USER_INVENTORY? <AddUserInventoryDialog data={state.data} /> : null }
-            {state.name===DIALOG_USER_PROFILE? <UserProfileDialog /> : null }
-            {state.name===DIALOG_ADD_GAMES? <AddGames /> : null }
-            {state.name===DIALOG_UPDATE_GAMES? <UpdateGames data={state.data} /> : null }
-            {state.name===DIALOG_ADD_TOURNAMENTS? <AddTournaments data={state.data} /> : null }
-            {state.name===DIALOG_UPDATE_TOURNAMENTS? <UpdateTournaments data={state.data} /> : null }
-            {state.name===DIALOG_ADD_LADDERS? <AddLadders /> : null }
-            {state.name===DIALOG_UPDATE_LADDERS? <UpdateLadders data={state.data} /> : null }
-            {state.name===DIALOG_ADD_INVENTORY? <AddInventory /> : null }
-            {state.name===DIALOG_UPDATE_INVENTORY? <UpdateInventory data={state.data} /> : null }
+            {state.name === DIALOG_ADD_GP_LEAGUES ? <AddGPLeagues data={state.data} /> : null}
+            {state.name === DIALOG_UPDATE_GP_LEAGUES ? <UpdateGPLeagues data={state.data} /> : null}
+            {state.name === DIALOG_ADD_FANTASY_LEAGUES ? <AddFantasyLeague data={state.data} /> : null}
+            {state.name === DIALOG_UPDATE_FANTASY_LEAGUES ? <UpdateFantasyLeague data={state.data} /> : null}
+            {state.name === DIALOG_ADD_USERS ? <AddUser /> : null}
+            {state.name === DIALOG_UPDATE_USERS ? <UpdateUser data={state.data} /> : null}
+            {state.name === DIALOG_ADD_USER_INVENTORY ? <AddUserInventoryDialog data={state.data} /> : null}
+            {state.name === DIALOG_USER_PROFILE ? <UserProfileDialog /> : null}
+            {state.name === DIALOG_ADD_GAMES ? <AddGames /> : null}
+            {state.name === DIALOG_UPDATE_GAMES ? <UpdateGames data={state.data} /> : null}
+            {state.name === DIALOG_ADD_TOURNAMENTS ? <AddTournaments data={state.data} /> : null}
+            {state.name === DIALOG_UPDATE_TOURNAMENTS ? <UpdateTournaments data={state.data} /> : null}
+            {state.name === DIALOG_ADD_LADDERS ? <AddLadders data={state.data} /> : null}
+            {state.name === DIALOG_UPDATE_LADDERS ? <UpdateLadders data={state.data} /> : null}
+            {state.name === DIALOG_ADD_INVENTORY ? <AddInventory /> : null}
+            {state.name === DIALOG_UPDATE_INVENTORY ? <UpdateInventory data={state.data} /> : null}
 
-        </>   
+        </>
 
     )
 }
