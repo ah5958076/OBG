@@ -1,6 +1,6 @@
 const { INVALID, OK, NOT_FOUND } = require("../constants/constants");
-const { UNEXPECTED_ERROR, NAME_EMPTY, GAME_NAME_EMPTY, ENTRY_FEE_EMPTY, PRIZE_EMPTY, TEAM_SIZE_EMPTY, TOTAL_TEAMS_EMPTY, STARTING_DATE_EMPTY, ENDING_DATE_EMPTY, INVALID_ID, CATAGORY_EMPTY } = require("../constants/messages");
-const { checkFile, makeResponse, listData, writeExcelFile, searchData, listDataWithPopulate, searchDataWithPopulate } = require("../services/general");
+const { UNEXPECTED_ERROR, NAME_EMPTY, GAME_NAME_EMPTY, ENTRY_FEE_EMPTY, PRIZE_EMPTY, TEAM_SIZE_EMPTY, TOTAL_TEAMS_EMPTY, STARTING_DATE_EMPTY, INVALID_ID, CATAGORY_EMPTY } = require("../constants/messages");
+const { checkFile, makeResponse, writeExcelFile, listDataWithPopulate, searchDataWithPopulate, computeDate } = require("../services/general");
 const TournamentModel = require("../models/Tournament");
 const { isObjectIdOrHexString } = require("mongoose");
 const { store, update, deleteRecord, show } = require("../services/tournament");
@@ -49,14 +49,14 @@ module.exports.update = async (req, res) => {
     if(response.code===OK || (oldPicture && !req.file)){
         let givenObject={
             name: req.body?.name || "",
+            catagory: req.body?.catagory || "",
             gameName: req.body?.gameName || "",
             entryFee: req.body?.entryFee || "",
             prize: req.body?.prize || "",
             teamSize: req.body?.teamSize || "",
             totalTeams: req.body?.totalTeams || "",
             startingDate: req.body?.startingDate || "",
-            endingDate: req.body?.endingDate || "",
-            picture: req.file.path
+            picture: response.data
         }
 
         if(!req.file)   
@@ -64,13 +64,13 @@ module.exports.update = async (req, res) => {
 
         if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
         if(!givenObject.name) return res.status(INVALID).send(makeResponse(NAME_EMPTY))
+        if(!givenObject.catagory) return res.status(INVALID).send(makeResponse(CATAGORY_EMPTY))
         if(!givenObject.gameName) return res.status(INVALID).send(makeResponse(GAME_NAME_EMPTY))
         if(!givenObject.entryFee) return res.status(INVALID).send(makeResponse(ENTRY_FEE_EMPTY))
         if(!givenObject.prize) return res.status(INVALID).send(makeResponse(PRIZE_EMPTY))
         if(!givenObject.teamSize) return res.status(INVALID).send(makeResponse(TEAM_SIZE_EMPTY))
         if(!givenObject.totalTeams) return res.status(INVALID).send(makeResponse(TOTAL_TEAMS_EMPTY))
         if(!givenObject.startingDate) return res.status(INVALID).send(makeResponse(STARTING_DATE_EMPTY))
-        if(!givenObject.endingDate) return res.status(INVALID).send(makeResponse(ENDING_DATE_EMPTY))
 
         response = await update(id, givenObject);
         return res.status(response.code).send(response.data);
@@ -106,8 +106,11 @@ module.exports.show = async (req, res) => {
 
 module.exports.list = async (req, res) => {
     let page_number = req.query?.pageNum || 1;
+    let catagory = req.query?.catagory || {};
+    if(catagory==="All")
+        catagory=null;
     let population_fields = ['gameName'];
-    res.status(OK).send(makeResponse("", await listDataWithPopulate(TournamentModel, page_number, population_fields)));
+    res.status(OK).send(makeResponse("", await listDataWithPopulate(TournamentModel, page_number, population_fields, catagory?{catagory}:null)));
 }
 
 
@@ -123,6 +126,22 @@ module.exports.searchData = async (req, res) => {
 
 module.exports.downloadExcel = async (req, res) => {
     let fields = ["name", "type", "gameName", "entryFee", "prize", "teamSize", "totalTeams", "startingDate"];
-    let value = await TournamentModel.find({}).catch((e) => {console.log(e)});
-    return res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(value, fields)));
+    let value = await TournamentModel.find({}).populate(['gameName']).catch((e) => {console.log(e)});
+
+    let data = [];
+    value.forEach((elem) => {
+        let datum = {
+            "name": elem.name,
+            "catagory": elem.catagory,
+            "gameName": elem.gameName?.name,
+            "entryFee": elem.entryFee,
+            "prize": elem.prize,
+            "teamSize": elem.teamSize,
+            "totalTeams": elem.totalTeams,
+            "startingDate": computeDate(elem.startingDate)
+        }
+        data.push(datum);
+    })
+
+    return res.status(OK).send(makeResponse("File written successfully", await writeExcelFile(data, fields)));
 }

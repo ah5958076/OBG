@@ -7,7 +7,7 @@ let uploads = uploadImageConfigs();
 
 router.post("/store", uploads.single("picture"), ladder.store);
 router.post("/update", uploads.single("picture"), ladder.update);
-router.get("/delete/:id", ladder.delete);
+router.post("/delete", ladder.delete);
 router.get("/show/:id", ladder.show);
 router.get("/list", ladder.list);
 

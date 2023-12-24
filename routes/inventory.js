@@ -7,7 +7,7 @@ let uploads = uploadImageConfigs();
 
 router.post("/store", uploads.single("picture"), inventory.store);
 router.post("/update", uploads.single("picture"), inventory.update);
-router.get("/delete/:id", inventory.delete);
+router.post("/delete", inventory.delete);
 router.get("/show/:id", inventory.show);
 router.get("/list", inventory.list);
 

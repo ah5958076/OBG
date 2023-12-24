@@ -115,12 +115,12 @@ module.exports.listDataWithPopulate = async (model, pageNum, population_fields=[
 
     if(pageNum<0){
         value = await model.find({...query}).populate(population_fields).catch((e) => {console.log(e)});
-        count = await model.count({}).catch((e) => {console.log(e)});
+        count = await model.count({...query}).catch((e) => {console.log(e)});
         start=0;
         end=0;
     }else{
         value = await model.find({...query}).skip(start).limit(end).populate(population_fields).catch((e) => {console.log(e)});
-        count = await model.count({}).catch((e) => {console.log(e)});
+        count = await model.count({...query}).catch((e) => {console.log(e)});
         if(end>count) end=count;
         start+=1;
     }
@@ -161,7 +161,7 @@ module.exports.searchDataWithPopulate = async (model, filterText, fieldsBasedOnS
 
                 let found=false;                
                 for(i of childs){
-                    if(childObj[`${i.trim()}`].toLowerCase().includes(filterText)) {
+                    if(childObj && childObj[`${i?.trim()}`]?.toLowerCase().includes(filterText)) {
                         data.push(elem);
                         found=true;
                         break;

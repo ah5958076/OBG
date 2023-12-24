@@ -15,11 +15,13 @@ exports.store = async (object) => {
 
 
 exports.update = async (id, object) => {
-    let value=await GPLeagueModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    if(value && value.picture){ 
-        try{
-            unlinkSync(value.picture)
-        }catch(e){}
+    if(object.picture){
+        let value=await GPLeagueModel.findOne({_id: id}).catch((e) => {console.log(e)});
+        if(value && value.picture){ 
+            try{
+                unlinkSync(value.picture)
+            }catch(e){}
+        }
     }
 
     value = await GPLeagueModel.updateOne({_id: id}, object).catch((e) => {console.log(e)});

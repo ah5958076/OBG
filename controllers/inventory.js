@@ -1,99 +1,86 @@
-const { OK, INVALID, NOT_FOUND, UNAUTHORIZED } = require("../constants/constants");
-const { INVENTORY_ADDED, UNEXPECTED_ERROR, INVENTORY_UPDATED, INVENTORY_DELETED, AUTH_FAILED } = require("../constants/messages");
+const { OK, INVALID, NOT_FOUND } = require("../constants/constants");
+const { UNEXPECTED_ERROR, NAME_EMPTY, INVALID_ID } = require("../constants/messages");
 const { checkFile, makeResponse, searchData, listData } = require("../services/general");
 const InventoryModel = require("../models/Inventory");
-const {unlinkSync}=require("fs");
 const { isObjectIdOrHexString } = require("mongoose");
-
+const {store, update, deleteRecord, show} = require("../services/inventory");
 
 
 
 
 module.exports.store = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let response = checkFile(req.file);
     if(response.code===OK){
         let givenObject = {
             name: req.body?.name || "",
-            picture: req.file.path,
+            picture: response.data,
         }
-        if(!givenObject.name) return res.status(INVALID).send(makeResponse("Name is empty"));
+        if(!givenObject.name) return res.status(INVALID).send(makeResponse(NAME_EMPTY));
         
-        let value = await new InventoryModel(givenObject).save().catch((e) => {console.log(e)});
-        if(value) return res.status(OK).send(makeResponse(INVENTORY_ADDED));
-        return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+        response = await store(givenObject);
+        return res.status(response.code).send(response.data);
     }
-    res.status(response.code).send(makeResponse(response.data));
+    return res.status(response.code).send(makeResponse(response.data));
 }
+
+
 
 module.exports.update = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
+    let id = req.body?.id;
+    let oldPicture = req.body?.oldPicture;
     let response = checkFile(req.file);
-    if(response.code===OK){
+    if(response.code===OK || (!req.file && oldPicture)){
         let givenObject = {
-            id: req.body?.id || "",
             name: req.body?.name || "",
-            picture: req.file.path,
+            picture: response.data,
         }
-        if(!givenObject.name) return res.status(INVALID).send(makeResponse("Name is empty"));
-        if(!givenObject.id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
-        
-        let value=await InventoryModel.findOne({_id: givenObject.id}).catch((e) => {console.log(e)});
-        if(value && value.picture){ unlinkSync(value.picture) }
 
-        value = await InventoryModel.updateOne({_id: givenObject.id}, givenObject).catch((e) => {console.log(e)});
-        if(value.modifiedCount) return res.status(OK).send(makeResponse(INVENTORY_UPDATED));
-        return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+        if(!req.file)
+            delete givenObject.picture;
+
+        if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
+        if(!givenObject.name) return res.status(INVALID).send(makeResponse(NAME_EMPTY));
+        
+        response = await update(id, givenObject);
+        return res.status(response.code).send(response.data);
     }
-    res.status(response.code).send(makeResponse(response.data));
+    return res.status(response.code).send(makeResponse(response.data));
 }
+
+
 
 module.exports.delete = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
-    let id = req.params?.id || "";
-    if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
-    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
-    
-    let value=await InventoryModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    if(value && value.picture){ 
-        try{
-            unlinkSync(value.picture) 
-        }catch(e){}
+    let ids = req?.body?.ids || [];
+    if(!ids?.length) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    for(i of ids){
+        if(!isObjectIdOrHexString(i)) return res.status(INVALID).send(makeResponse(INVALID_ID));
     }
     
-    value = await InventoryModel.deleteOne({_id: id}).catch((e) => {console.log(e)});
-    if(value.deletedCount) return res.status(OK).send(makeResponse(INVENTORY_DELETED));
-    return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
+    let response = await deleteRecord(ids);
+    return res.status(response.code).send(response.data);
 }
+
+
 
 module.exports.show = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-    
     let id = req.params?.id || "";
     if(!id) return res.status(INVALID).send(makeResponse(UNEXPECTED_ERROR));
-    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse("Invalid ID"));
+    if(!isObjectIdOrHexString(id)) return res.status(INVALID).send(makeResponse(INVALID_ID));
 
-    let value = await InventoryModel.findOne({_id: id}).catch((e) => {console.log(e)});
-    if(value) return res.status(OK).send(makeResponse("", value));
-    return res.status(NOT_FOUND).send(makeResponse("No data found"));
+    let response = await show(id);
+    return res.status(response.code).send(response.data);
 }
+
+
 
 module.exports.list = async (req, res) => {
     let page_number = req.query?.pageNum || 1;
-
-    res.status(OK).send(makeResponse("", await listData(InventoryModel, page_number)))
+    return res.status(OK).send(makeResponse("", await listData(InventoryModel, page_number)))
 }
-
-
 
 
 
 module.exports.searchData = async (req, res) => {
-    if(!req.auth?.auth) return res.status(UNAUTHORIZED).send(makeResponse(AUTH_FAILED));
-
     let filter = req.body?.filter?.toLowerCase() || "";
     let fields = ["name"];
     return res.status(OK).send(makeResponse("", await searchData(InventoryModel, filter, fields)))

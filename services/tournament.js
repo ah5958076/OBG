@@ -39,7 +39,7 @@ exports.deleteRecord = async (ids) => {
 
 
 exports.show = async (id) => {
-    let value = await TournamentModel.findOne({_id: id}).catch((e) => {console.log(e)});
+    let value = await TournamentModel.findOne({_id: id}).populate(['gameName']).catch((e) => {console.log(e)});
     if(value) return {code: OK, data: makeResponse("", value)};
     return {code: NOT_FOUND, data: makeResponse(NO_DATA_FOUND)};
 }

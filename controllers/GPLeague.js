@@ -59,6 +59,9 @@ module.exports.update = async (req, res) => {
             picture: req.file?response.data:oldPicture,
         }
 
+        if(!req.file)
+            delete givenObject.picture;
+
         if(!id) return res.status(NOT_FOUND).send(makeResponse(UNEXPECTED_ERROR));
         if(!givenObject.name) return res.status(INVALID).send(makeResponse(NAME_EMPTY));
         if(!givenObject.gameName) return res.status(INVALID).send(makeResponse(GAME_NAME_EMPTY));
