@@ -96,8 +96,8 @@ export const UpdateLadders = (props: any) => {
     const [teamSize, setTeamSize] = useState(ladder.teamSize)
     const [totalTeams, setTotalTeams] = useState(ladder.totalTeams)
     const [status, setStatus] = useState(ladder.status)
-    const [startingDate, setStartingDate] = useState(ladder.startingDate)
-    const [endingDate, setEndingDate] = useState(ladder.endingDate)
+    const [startingDate, setStartingDate] = useState(ladder.startingDate?.substring(0, 10))
+    const [endingDate, setEndingDate] = useState(ladder.endingDate?.substring(0, 10))
     const [picture, setPicture] = useState(BASE_URL + ladder.picture)
 
     return (
@@ -129,8 +129,8 @@ export const UpdateLadders = (props: any) => {
                         <div className="league-photo">
                             <label htmlFor="imageInput">Tournament Photo*</label>
                             <div className={dialogStyles.file_input}>
-                                <Image src={picture ? picture : images.PHOTO_PLACEHOLDER} alt="..." width={100} height={100} />
-                                <input type="file" name="picture" id="imageInput" accept="image/*" onChange={(e: any) => { e.imageViewer = setPicture; upload_image_preview(e) }} />
+                                <Image src={(ladder?.picture || picture) ? picture : images.PHOTO_PLACEHOLDER} alt="..." width={100} height={100} />
+                                <input type="file" name="picture" accept="image/*" onChange={(e: any) => { e.imageViewer = setPicture; upload_image_preview(e) }} />
                             </div>
                             <input type="hidden" name="oldPicture" value={picture} />
                         </div>

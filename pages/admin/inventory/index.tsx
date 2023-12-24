@@ -6,7 +6,7 @@ import images from "@/constants/images";
 import Navbar from '@/Components/Navbar/Navbar';
 import { NameAndExportData } from '@/Components/NameAndExportData/NameAndExportData';
 import { SearchBar } from '@/Components/SearchBar/SearchBar';
-import { DIALOG_ADD_INVENTORY, DIALOG_UPDATE_INVENTORY } from '@/constants/dialog-names';
+import { DIALOG_ADD_INVENTORY, DIALOG_CONFIRMATION, DIALOG_UPDATE_INVENTORY } from '@/constants/dialog-names';
 import Image from 'next/image';
 import { TITLE_ADMIN_INVENTORY } from '@/constants/page-titles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +15,7 @@ import { getRequest, navigateTo, openDeleteDialog, openEditDialog } from '@/util
 import { useSelector } from 'react-redux';
 import store from '@/Redux/store';
 import { isLoading } from '@/Redux/actions/loader';
-import { ADMIN_INVENTORY_LIST_ROUTE } from '@/constants/backend-routes';
+import { ADMIN_INVENTORY_DELETE_ROUTE, ADMIN_INVENTORY_DOWNLOAD_RECORD_ROUTE, ADMIN_INVENTORY_LIST_ROUTE, ADMIN_INVENTORY_SEARCH_ROUTE, ADMIN_INVENTORY_SHOW_ROUTE, BASE_URL } from '@/constants/backend-routes';
 import { setLoadedData } from '@/Redux/actions/pagination';
 import { UNAUTHORIZED } from '@/constants/constants';
 import { ROUTE_SIGNIN } from '@/constants/routes';
@@ -30,8 +30,8 @@ const Inventory = () => {
   useEffect(() => {
     if (!data?.data) {
       store.dispatch(isLoading(true));
-      getRequest(`${ADMIN_INVENTORY_LIST_ROUTE}?page_num=${data ? data.page_num : 1}`).then((response: any) => {
-          store.dispatch(setLoadedData(TITLE_ADMIN_INVENTORY, response?.data?.result, data?data.page_num : 1));
+      getRequest(`${ADMIN_INVENTORY_LIST_ROUTE}?pageNum=-1`).then((response: any) => {
+          store.dispatch(setLoadedData(TITLE_ADMIN_INVENTORY, response?.data?.result, 1));
           store.dispatch(isLoading(false));
       }).catch((err: any) => {
         if(err?.status===UNAUTHORIZED){
@@ -54,96 +54,29 @@ const Inventory = () => {
       <title>{TITLE_ADMIN_INVENTORY}</title>
 
       <div className={tableStyles.container}>
-        <NameAndExportData url="/api/inventory/download-record" title="Inventory" />
-        <SearchBar url="/api/inventory/search" deleteAll={false} addDialog={DIALOG_ADD_INVENTORY} />
+
+        <NameAndExportData hasExport={false} url={ADMIN_INVENTORY_DOWNLOAD_RECORD_ROUTE} title={TITLE_ADMIN_INVENTORY} />
+        <SearchBar deleteAll={false} url={ADMIN_INVENTORY_SEARCH_ROUTE} title={TITLE_ADMIN_INVENTORY} addDialog={DIALOG_ADD_INVENTORY}/>
+
         <div className={styles.inventories}>
-          <div className={styles.inventory}>
-            <Image src={ images.USER } alt="..." />
-            <div className={styles.data}>
-              <p className="name">Random</p>
-              <div className={styles.controls}>
-                <button onClick={()=>{openEditDialog(DIALOG_UPDATE_INVENTORY, "", "/api/inventory/show")}}>
-                  <FontAwesomeIcon icon={faPencil} />
-                </button>
-                <button onClick={()=>{openDeleteDialog(TITLE_ADMIN_INVENTORY, "/api/inventory/delete", "")}}>
-                  <FontAwesomeIcon icon={faTrash} style={{color: "#df4646"}} />
-                </button>
-              </div>
-            </div>
-          </div>
 
-          <div className={styles.inventory}>
-            <Image src={ images.USER } alt="..." />
-            <div className={styles.data}>
-              <p className="name">Random</p>
-              <div className={styles.controls}>
-                <button onClick={()=>{openEditDialog(DIALOG_UPDATE_INVENTORY, "", "/api/inventory/show")}}>
-                  <FontAwesomeIcon icon={faPencil} />
-                </button>
-                <button onClick={()=>{openDeleteDialog(TITLE_ADMIN_INVENTORY, "/api/inventory/delete", "")}}>
-                  <FontAwesomeIcon icon={faTrash} style={{color: "#df4646"}} />
-                </button>
+        {(data?.data && data?.data?.total) ?
+          data?.data?.data?.map((obj: any, index: number) => (
+            <div className={styles.inventory} key={index}>
+              <Image src={ obj.picture?BASE_URL+obj.picture:images.USER } alt="..." width={100} height={100} />
+              <div className={styles.data}>
+                <p className="name">{obj.name}</p>
+                <div className={styles.controls}>
+                  <button onClick={()=>{openEditDialog(DIALOG_UPDATE_INVENTORY, obj._id, ADMIN_INVENTORY_SHOW_ROUTE)}}>
+                    <FontAwesomeIcon icon={faPencil} />
+                  </button>
+                  <button onClick={()=>{openDeleteDialog(TITLE_ADMIN_INVENTORY, ADMIN_INVENTORY_DELETE_ROUTE, obj._id)}}>
+                    <FontAwesomeIcon icon={faTrash} style={{color: "#df4646"}} />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.inventory}>
-            <Image src={ images.USER } alt="..." />
-            <div className={styles.data}>
-              <p className="name">Random</p>
-              <div className={styles.controls}>
-                <button onClick={()=>{openEditDialog(DIALOG_UPDATE_INVENTORY, "", "/api/inventory/show")}}>
-                  <FontAwesomeIcon icon={faPencil} />
-                </button>
-                <button onClick={()=>{openDeleteDialog(TITLE_ADMIN_INVENTORY, "/api/inventory/delete", "")}}>
-                  <FontAwesomeIcon icon={faTrash} style={{color: "#df4646"}} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.inventory}>
-            <Image src={ images.USER } alt="..." />
-            <div className={styles.data}>
-              <p className="name">Random</p>
-              <div className={styles.controls}>
-                <button onClick={()=>{openEditDialog(DIALOG_UPDATE_INVENTORY, "", "/api/inventory/show")}}>
-                  <FontAwesomeIcon icon={faPencil} />
-                </button>
-                <button onClick={()=>{openDeleteDialog(TITLE_ADMIN_INVENTORY, "/api/inventory/delete", "")}}>
-                  <FontAwesomeIcon icon={faTrash} style={{color: "#df4646"}} />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className={styles.inventory}>
-            <Image src={ images.USER } alt="..." />
-            <div className={styles.data}>
-              <p className="name">Random</p>
-              <div className={styles.controls}>
-                <button onClick={()=>{openEditDialog(DIALOG_UPDATE_INVENTORY, "", "/api/inventory/show")}}>
-                  <FontAwesomeIcon icon={faPencil} />
-                </button>
-                <button onClick={()=>{openDeleteDialog(TITLE_ADMIN_INVENTORY, "/api/inventory/delete", "")}}>
-                  <FontAwesomeIcon icon={faTrash} style={{color: "#df4646"}} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.inventory}>
-            <Image src={ images.USER } alt="..." />
-            <div className={styles.data}>
-              <p className="name">Random</p>
-              <div className={styles.controls}>
-                <button onClick={()=>{openEditDialog(DIALOG_UPDATE_INVENTORY, "", "/api/inventory/show")}}>
-                  <FontAwesomeIcon icon={faPencil} />
-                </button>
-                <button onClick={()=>{openDeleteDialog(TITLE_ADMIN_INVENTORY, "/api/inventory/delete", "")}}>
-                  <FontAwesomeIcon icon={faTrash} style={{color: "#df4646"}} />
-                </button>
-              </div>
-            </div>
-          </div>
+          )) : <p className={styles.no_data}>No Data Found</p>}
 
         </div>
 

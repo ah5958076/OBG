@@ -9,7 +9,11 @@
   font-family: "roboto";
   font-style: normal;
 }
-
+.inventories:has(.no_data){
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .inventories .inventory {
   display: flex;
   align-items: center;

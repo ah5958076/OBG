@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import tableStyles from "@/styles/pagesTables.module.css";
 
 import images from "@/constants/images";
@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import store from '@/Redux/store';
 import { isLoading } from '@/Redux/actions/loader';
 import { ADMIN_TOURNAMENTS_DELETE_ROUTE, ADMIN_TOURNAMENTS_DOWNLOAD_RECORD_ROUTE, ADMIN_TOURNAMENTS_LIST_ROUTE, ADMIN_TOURNAMENTS_SEARCH_ROUTE, BASE_URL } from '@/constants/backend-routes';
-import { setLoadedData } from '@/Redux/actions/pagination';
+import { loadNewData, setLoadedData } from '@/Redux/actions/pagination';
 import { UNAUTHORIZED } from '@/constants/constants';
 import { ROUTE_SIGNIN } from '@/constants/routes';
 import { toast } from 'react-toastify';
@@ -26,10 +26,12 @@ import { toast } from 'react-toastify';
 const Tournaments = () => {
   const data = useSelector((state: any) => { return state.pagination.title === TITLE_ADMIN_TOURNAMENTS ? state.pagination : null });
 
+  const[selectedCatagory, setSelectedCatagory] = useState("All");
+
   useEffect(() => {
     if (!data?.data) {
       store.dispatch(isLoading(true));
-      getRequest(`${ADMIN_TOURNAMENTS_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}`).then((response: any) => {
+      getRequest(`${ADMIN_TOURNAMENTS_LIST_ROUTE}?pageNum=${data ? data.page_num : 1}&catagory=${selectedCatagory}`).then((response: any) => {
           store.dispatch(setLoadedData(TITLE_ADMIN_TOURNAMENTS, response?.data?.result, data?data.page_num : 1));
           store.dispatch(isLoading(false));
       }).catch((err: any) => {
@@ -44,28 +46,6 @@ const Tournaments = () => {
   }, [data]);
 
 
-  let tournamentCatagory_AllRef:any = useRef();
-  let tournamentCatagory_GeneralRef:any = useRef();
-  let tournamentCatagory_GrandPrixRef:any = useRef();
-
-  const manageClick = (e:any) => {
-    if(e.currentTarget===tournamentCatagory_AllRef.current){
-      tournamentCatagory_AllRef.current.setAttribute("data-active", "yes");
-      tournamentCatagory_GeneralRef.current.setAttribute("data-active", "no");
-      tournamentCatagory_GrandPrixRef.current.setAttribute("data-active", "no");
-    }
-    else if(e.currentTarget===tournamentCatagory_GeneralRef.current){
-      tournamentCatagory_AllRef.current.setAttribute("data-active", "no");
-      tournamentCatagory_GeneralRef.current.setAttribute("data-active", "yes");
-      tournamentCatagory_GrandPrixRef.current.setAttribute("data-active", "no");
-    }
-    else if(e.currentTarget===tournamentCatagory_GrandPrixRef.current){
-      tournamentCatagory_AllRef.current.setAttribute("data-active", "no");
-      tournamentCatagory_GeneralRef.current.setAttribute("data-active", "no");
-      tournamentCatagory_GrandPrixRef.current.setAttribute("data-active", "yes");
-    }
-  }
-
   return (
 
     <>
@@ -77,9 +57,9 @@ const Tournaments = () => {
       <div className={tableStyles.container}>
 
         <NameAndExportData url={ADMIN_TOURNAMENTS_DOWNLOAD_RECORD_ROUTE} title={TITLE_ADMIN_TOURNAMENTS} >
-          <button ref={tournamentCatagory_AllRef} data-active="yes" onClick={manageClick}>All</button>
-          <button ref={tournamentCatagory_GeneralRef} data-active="no" onClick={manageClick}>General</button>
-          <button ref={tournamentCatagory_GrandPrixRef} data-active="no" onClick={manageClick}>Grand Prix</button>
+          <button data-active={selectedCatagory==="All"?"yes":"no"} onClick={()=>{setSelectedCatagory("All");store.dispatch(loadNewData(TITLE_ADMIN_TOURNAMENTS, store.getState().pagination.page_num))}}>All</button>
+          <button data-active={selectedCatagory==="General"?"yes":"no"} onClick={()=>{setSelectedCatagory("General");store.dispatch(loadNewData(TITLE_ADMIN_TOURNAMENTS, store.getState().pagination.page_num))}}>General</button>
+          <button data-active={selectedCatagory==="Grand Prix"?"yes":"no"} onClick={()=>{setSelectedCatagory("Grand Prix");store.dispatch(loadNewData(TITLE_ADMIN_TOURNAMENTS, store.getState().pagination.page_num))}}>Grand Prix</button>
         </NameAndExportData>
 
         <SearchBar AddNewHandler={openAddNewDialog} url={ADMIN_TOURNAMENTS_SEARCH_ROUTE} title={TITLE_ADMIN_TOURNAMENTS} deleteDialog={DIALOG_CONFIRMATION} />
@@ -112,7 +92,7 @@ const Tournaments = () => {
                   <td><input type="checkbox" name="selection-box" value={obj._id} onChange={select_individual} /></td>
                   <td>{obj.name}</td>
                   <td>{obj.catagory}</td>
-                  <td>{obj.gameName.name}</td>
+                  <td>{obj.gameName?.name}</td>
                   <td className={tableStyles.imgCenter} >
                     <Image src={obj.picture?BASE_URL+obj.picture:images.USER} alt="" width={50} height={50} />
                   </td>

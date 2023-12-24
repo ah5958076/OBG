@@ -6,7 +6,7 @@ import { export_data } from "@/utils/general";
 import images from '@/constants/images';
 
 
-export const NameAndExportData = ({title, children, url}:any) => {
+export const NameAndExportData = ({title, children, url, hasExport=true}:any) => {
     return (
 
         <div className={styles.controls_under_nav}>
@@ -19,11 +19,12 @@ export const NameAndExportData = ({title, children, url}:any) => {
                     {children}
                 </div>
             </div>
-
-            <Link href="#" onClick={(e)=>{export_data(e, url)}} id="export_data" title={title}>
-                <span >Export Data</span>
-                <Image src={images.DOWNLOADIMAGE} alt='...' height={20} width={20} />
-            </Link>
+            {hasExport? 
+                <Link href="#" onClick={(e)=>{export_data(e, url)}} id="export_data" title={title}>
+                    <span >Export Data</span>
+                    <Image src={images.DOWNLOADIMAGE} alt='...' height={20} width={20} />
+                </Link> : null
+            }
 
         </div>
 

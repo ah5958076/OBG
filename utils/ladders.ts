@@ -1,7 +1,7 @@
 import { isLoading } from "@/Redux/actions/loader";
 import store from "@/Redux/store";
 import { ADMIN_GAMES_LIST_ROUTE, ADMIN_LADDERS_STORE_ROUTE, ADMIN_LADDERS_SHOW_ROUTE, ADMIN_LADDERS_UPDATE_ROUTE } from "@/constants/backend-routes";
-import { DIALOG_ADD_GP_LEAGUES, DIALOG_ADD_LADDERS, DIALOG_UPDATE_LADDERS } from "@/constants/dialog-names";
+import { DIALOG_ADD_LADDERS, DIALOG_UPDATE_LADDERS } from "@/constants/dialog-names";
 import { getRequest, navigateTo, postRequest } from "./general";
 import { hideDialog, showDialog } from "@/Redux/actions/dialogs";
 import { UNAUTHORIZED } from "@/constants/constants";
@@ -62,8 +62,7 @@ export const addLadderHandler = (e: any) => {
 export const openEditDialog = (id: string) => {
     store.dispatch(isLoading(true));
 
-    getRequest(ADMIN_GAMES_LIST_ROUTE + "?pageNum=-1").then((response1: any) => {
-
+    getRequest(`${ADMIN_GAMES_LIST_ROUTE}?pageNum=-1`).then((response1: any) => {
         getRequest(`${ADMIN_LADDERS_SHOW_ROUTE}/${id}`).then((response2: any) => {
             let data = {
                 "ladder": response2?.data?.result,

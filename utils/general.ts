@@ -68,7 +68,11 @@ export const export_data = (e: any, url: string) => {
             toast.error(err?.data?.message);
             store.dispatch(isLoading(false));
         });
-    }).catch((err) => {
+    }).catch((err:any) => {
+        if(err?.status===UNAUTHORIZED){
+            localStorage.removeItem("token");
+            return navigateTo(null, ROUTE_SIGNIN);
+        }
         toast.error(err?.data?.message);
         store.dispatch(isLoading(false));
     });
@@ -89,7 +93,7 @@ export const searchData = (value: string, title: any, url: any) => {
             
             store.dispatch(setLoadedData(title, response_data, 1));
         }).catch((err) => {
-            if(err?.status===400){
+            if(err?.status===UNAUTHORIZED){
                 localStorage.removeItem("token");
                 navigateTo(null, ROUTE_SIGNIN);
             }
@@ -154,11 +158,15 @@ export const confirmationHandler = async (options: any) => {
         let data:any = {ids: options.ids};
         postRequest(options.url, data).then((response:any) => {
             let checkbox:any = document.querySelector("input[name='select_all']");
-            checkbox.checked=false;
+            if(checkbox) checkbox.checked=false;
             store.dispatch(loadNewData(options.pageTitle, store.getState().pagination.page_num));
             store.dispatch(hideDialog());
             toast.success(response?.data?.message);
-        }).catch((err) => {
+        }).catch((err:any) => {
+            if(err?.status===UNAUTHORIZED){
+                localStorage.removeItem("token");
+                return navigateTo(null, ROUTE_SIGNIN);
+            }
             store.dispatch(isLoading(false));
             toast.error(err?.data?.message);
         });

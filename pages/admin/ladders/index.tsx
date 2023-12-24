@@ -115,7 +115,7 @@ const Ladders = () => {
 
         </div>
 
-        <Pagination start={0} end={0} total={0} />
+        <Pagination title={TITLE_ADMIN_LADDERS} start={data?.data?.start} end={data?.data?.end} total={(!(data?.data?.start && data?.data?.end))? data?.data?.data?.length : data?.data?.total} />
 
       </div>
 

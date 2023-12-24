@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import dialogStyles from "@/styles/dialogs.module.css";
 
 import images from "@/constants/images";
@@ -7,9 +7,12 @@ import store from '@/Redux/store';
 import { hideDialog } from '@/Redux/actions/dialogs';
 import Image from 'next/image';
 import Input from '@/Components/Input';
+import {addInventoryHandler, updateInventoryHandler} from "@/utils/inventory";
+import { BASE_URL } from '@/constants/backend-routes';
 
-const addInventoryHandler = (e: any) => { }
-const updateInventoryHandler = (e: any) => { }
+
+
+
 
 export const AddInventory = () => {
 
@@ -46,7 +49,13 @@ export const AddInventory = () => {
 }
 
 
+
 export const UpdateInventory = (props:any) => {
+
+    let inventory = props?.data?._doc;
+    const id = inventory._id;
+    const [name, setName] = useState(inventory.name);
+    const [picture, setPicture] = useState(BASE_URL+inventory.picture);
 
     return (
 
@@ -56,15 +65,18 @@ export const UpdateInventory = (props:any) => {
 
                 <form method="post" onSubmit={updateInventoryHandler}>
 
+                    <input type="hidden" name="id" value={id} />
+
                     <div style={{width:"40%"}}>
                         <p>Inventory Photo*</p>
                         <div className={dialogStyles.file_input}>
-                            <Image src={images.PHOTO_PLACEHOLDER} alt="..." width={100} height={100} />
-                            <input type="file" name="picture" onChange={upload_image_preview} required />
+                            <Image src={(inventory.picture || picture)?picture : images.PHOTO_PLACEHOLDER} alt="..." width={100} height={100} />
+                            <input type="file" name="picture" onChange={(e:any)=>{e.imageViewer=setPicture;upload_image_preview(e)}} />
                         </div>
+                        <input type="hidden" name="oldPicture" value={picture} />
                     </div>
                     <div style={{ width: "60%" }}>
-                        <Input id='name' name='name' title='Inventory Name *' required={true} />
+                        <Input name='name' title='Inventory Name *' value={name} onChnage={(e:any)=>setName(e.target?.value)} required={true} />
                     </div>
 
                     <div className={dialogStyles.controls}>
