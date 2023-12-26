@@ -5,6 +5,8 @@ import { getRequest, navigateTo, postRequest } from "./general";
 import { toast } from "react-toastify";
 import { FORGOT_PASSWORD_ROUTE, USER_CHANGE_PASSWORD_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, RESET_PASSWORD_ROUTE, SIGNUP_ROUTE, VERIFY_CODE_ROUTE } from "@/constants/backend-routes";
 import { NEW_AND_CONFIRM_PASSWORD_ERROR } from "@/constants/messages";
+import { UNAUTHORIZED } from "@/constants/constants";
+import { hideDialog } from "@/Redux/actions/dialogs";
 
 
 // before login functions...
@@ -140,7 +142,6 @@ export const changePasswordAtLoginHandler = async (event: any) => {
     }
 
     let session = JSON.parse(localStorage.getItem("reset-data") || "{}");
-    console.log('session', session);
     if (session?.email)
         data.email = session.email;
     else {
@@ -160,6 +161,8 @@ export const changePasswordAtLoginHandler = async (event: any) => {
 // after login function...
 export const changePasswordHandler = async (event: any) => {
     event.preventDefault();
+    store.dispatch(isLoading(true));
+
     if (event.target.new_password.value !== event.target.confirm_password.value) {
         store.dispatch(isLoading(false));
         toast.error(NEW_AND_CONFIRM_PASSWORD_ERROR);
@@ -172,8 +175,13 @@ export const changePasswordHandler = async (event: any) => {
 
     postRequest(USER_CHANGE_PASSWORD_ROUTE, data).then((response: any) => {
         toast.success(response?.data?.message);
-        navigateTo(null, ROUTE_SIGNIN);
-    }).catch((err) => {
+        store.dispatch(hideDialog());
+        store.dispatch(isLoading(false));
+    }).catch((err:any) => {
+        if(err?.status===UNAUTHORIZED){
+            localStorage.removeItem("token");
+            return navigateTo(null, ROUTE_SIGNIN);
+        }
         store.dispatch(isLoading(false));
         toast.error(err?.data?.message);
     });

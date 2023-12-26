@@ -1,5 +1,5 @@
 @tailwind base;
-@tailwind components;
+/* @tailwind components; */
 @tailwind utilities;
 
 @font-face {
@@ -109,7 +109,10 @@ input::-webkit-inner-spin-button{
 }
 .container{
   display: flex;
-  width: 100%;
+  width: 100% !important;
   height: auto;
   gap: 20px;
+}
+.container>.main_body{
+  flex: 1;
 }

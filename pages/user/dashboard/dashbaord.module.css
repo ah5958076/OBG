@@ -1,20 +1,3 @@
-body{
-    margin: 0;
-    padding: 0;
-    background-color: #1A1A1A;
-    overflow-x: hidden;
-   
-}
-
-
-.container {
-    margin-left: 250px;
-    margin-right: 100px;
-    width: calc(100% - 250px - 100px);
-  
-  }
-
-  /* Game Navs */
   .tournaments{
     display: flex;
     width:calc(100% - 20px) ;
@@ -48,11 +31,11 @@ body{
     background-color: #F26826;
     color: white;
 }
-  /*  */
+  
 
 
 
-/* Crads Area */
+
 .cards{
   width: calc(100% - 10px);
     background-color: #1A1A1A;
@@ -84,8 +67,9 @@ body{
 
 
 
-/* Dialogs */
-/*  */
+
+
+
 .dialogs {
     display: none;
     align-items: center;
@@ -152,15 +136,15 @@ body{
   
   }
   
-  /* Withdraw Amount */
+
   
   #withdraw-amount{
     display: none;
   }
 
 
-
-  /* Add Credits */
+  
+  
 #add-credits{
   display: flex;
 }

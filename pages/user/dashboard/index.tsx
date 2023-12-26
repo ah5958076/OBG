@@ -1,110 +1,26 @@
+import UserLeftNav from '@/Components/UserLeftNav'
+import UserNavBar from '@/Components/UserNavbar'
+import UserRightNav from '@/Components/UserRightNav'
+import Link from 'next/link'
 import React from 'react'
 
 function Dashboard() {
     return (
         <>
-            
-            
-            <nav className="right-nav">
-                
-                <div className="public-private">
-                    <a className="active" href="#" onClick={()=>{"toggleChats('chats', 'public-chats'); this.parentElement.children[0].classList.add('active'); this.parentElement.children[1].classList.remove('active')"}}>Private</a>
-                    <a href="#" onClick={()=>{"toggleChats('public-chats', 'chats'); this.parentElement.children[0].classList.remove('active'); this.parentElement.children[1].classList.add('active')"}}>Public</a>
 
+            <UserNavBar auth={true} />
+
+            <div className='container'>
+
+                <UserLeftNav />
+
+                <div className="main_body">
+                    {/* remaining body goes here... */}
                 </div>
 
-                <div className="top">
-                    
-                    <span>
-                        <i className="fa-solid fa-angle-right"></i>
-                    </span>
-                    <div className="search">
-                        <i className="fa-solid fa-magnifying-glass" style={{"color": "#707070"}}></i>
-                        <input  type="text" placeholder="search"/>
-                    </div>
-                    <img src="./images/Mask Group 281@2x.png" alt=""/>
-                </div>
-                
-                <div className="chats" id="chats">
-                    <a href="#" onClick={()=>{"open_chat(event)"}}>
-                        <span><img src="./images/Ellipse 5@2x.png" alt=""/></span>
-                        <p>Random</p>
-                    </a>
-                    <a href="#" onClick={()=>{"open_chat(event)"}}>
-                        <span><img src="./images/Delta Babes.png" alt=""/></span>
-                        <p>Random</p>
-                    </a>
-                    <a href="#" onClick={()=>{"open_chat(event)"}}>
-                        <span><img src="./images/Dr pickachu (1).png" alt=""/></span>
-                        <p>Random</p>
-                    </a>
-                    <a href="#" onClick={()=>{"open_chat(event)"}}>
-                        <span><img src="./images/Gamer Girl (1).png" alt=""/></span>
-                        <p>Random</p>
-                    </a>
-                    <a href="#" onClick={()=>{"open_chat(event)"}}>
-                        <span><img src="./images/Dr pickachu (1).png" alt=""/></span>
-                        <p>Random</p>
-                    </a>
-                </div>
-                
+                <UserRightNav />
 
-                <div className="public-chats" id="public-chats">
-                    <div className="main-public-chats">
-                        
-                    <div className="group-message">
-                        <span  className="border"><img src="./images/Ellipse 5.png" alt=""/></span>
-                        <div className="name-time">
-                            <a  href="#" id="green" >Nymo  <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
-                            <p>Hyy! New Message</p>
-                        </div>
-                    </div>
-                    <div className="group-message">
-                        <span  className="border" ><img src="./images/Ellipse 5.png" alt=""/></span>
-                        <div className="name-time">
-                            <a  href="#" id="orange">Dynamo <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
-                            <p>Hyy! New Message</p>
-                        </div>
-                    </div>
-                    <div className="group-message">
-                        <span  className="border"><img src="./images/Ellipse 5.png" alt=""/></span>
-                        <div className="name-time">
-                            <a  href="#" id="red">Gamer  <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
-                            <p>Hyy! New Message</p>
-                        </div>
-                    </div>
-
-                    <div className="divider">Today</div>                             
-
-                    <div className="group-message">
-                        <span  className="border" ><img src="./images/Ellipse 5.png" alt=""/></span>
-                        <div className="name-time">
-                            <a  href="#" id="orange">Dynamo <span id="small-gray-time">Yesterday at 1:20 PM</span></a>
-                            <p>Hyy! New Message</p>
-                        </div>
-                    </div>
-                    <div className="group-message">
-                        <span  className="border"><img src="./images/Ellipse 5.png" alt=""/></span>
-                        <div className="name-time">
-                            <a  href="#" id="red">Gamer<span id="small-gray-time">Yesterday at 1:20 PM</span></a>
-                            <p>Hyy! New Message</p>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div className="right-eye-chat">
-                        
-                    <button className="eye-button" id="eye-button"  onClick={()=>{"hideShow()"}}><i className="fa-solid fa-eye-slash"></i></button>
-                    <div className="eye-chats" id="eye-chats" >
-                        <a href="#" ><img src="./images/Dr pickachu (1).png" alt=""/></a>
-                        <a href="#"><img src="./images/Gamer Girl (1).png" alt=""/></a>
-                        <a href="#"><img src="./images/Ellipse 5.png" alt=""/></a>
-                        <a href="#"><img src="./images/Dynamo large.png" alt=""/></a>
-                    </div>
-                    </div> 
-                </div>
-
-            </nav>
+            </div>
 
 
             {/* <div className="container">

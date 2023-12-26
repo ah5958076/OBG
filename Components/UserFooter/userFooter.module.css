@@ -12,14 +12,26 @@
     flex-direction: column;
 }
 
-.footer .left span{
-    font-size: 12px;
+.footer .left h2{
+    font-size: 30px;
+    font-family: bebas-neue;
+    line-height: 30px;
 }
 
-.footer .right{   
+.footer .left span{
+    font-size: 10px;
+    color: #b1b1b1;
+}
+
+.footer .right{
     display: flex;
     justify-content: right;
     gap: 15px;
+}
+
+.footer .right a{
+    font-family: bebas-neue;
+    font-size: 18px;
 }
 
 .footer .right a.active,
@@ -47,10 +59,11 @@
         gap: 10px;
     }
     .footer .left h2{
-        font-size: 16px;
+        font-size: 25px;
+        line-height: 25px;
     }
     .footer .right a{
-        font-size: 12px;
+        font-size: 16px;
     }
 }
 @media(max-width:350px){
@@ -60,6 +73,7 @@
         gap: 50px;
     }
     .footer .right a{
+        font-size: 18px;
         text-align: center;
     }
     .footer .left {

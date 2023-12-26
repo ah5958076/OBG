@@ -1,4 +1,5 @@
 // Auth Routes
+export const ROUTE_HOME = "/";
 export const ROUTE_SIGNIN = "/auth/login";
 export const ROUTE_SIGNUP = "/auth/signup";
 export const ROUTE_FORGOT_PASSWORD = "/auth/forgot-password";

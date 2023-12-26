@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faBell, faClose, faRightFromBracket, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TYPE_USER_NAVBAR } from '@/constants/interfaces';
-import { ROUTE_SIGNIN } from '@/constants/routes';
+import { ROUTE_HOME, ROUTE_SIGNIN } from '@/constants/routes';
+import { navigateTo } from '@/utils/general';
 
 
 
@@ -24,6 +25,7 @@ function UserNavBar({auth}:TYPE_USER_NAVBAR) {
         window.addEventListener("click", manageSubMenuClosing);
     });    
 
+
     return (
         
         <>
@@ -31,10 +33,10 @@ function UserNavBar({auth}:TYPE_USER_NAVBAR) {
             <nav className={`${styles.navbar} ${auth?styles.login:""}`}>
                 <h1>ONLINE<br/>BATTLEGROUND</h1>
                 <div className={styles.links}>
-                    <Link className={`${styles.before_login} ${styles.active}`} href="#">Home</Link>
-                    <Link href="./Games.html">Games</Link>
-                    <Link href="./Grand Prix1.html">Grand Prix</Link>
-                    <Link href="./Rules General.html">Rules</Link>
+                    <Link className={`${styles.before_login} ${styles.active}`} href="#" onClick={(e)=>{navigateTo(e, ROUTE_HOME)}}>Home</Link>
+                    <Link href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_SIGNIN):null}}>Games</Link>
+                    <Link href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_SIGNIN):null}}>Grand Prix</Link>
+                    <Link href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_SIGNIN):null}}>Rules</Link>
                     <div className={`${styles.search_bar} ${styles.after_login}`}>
                         <FontAwesomeIcon icon={faSearch} />
                         <input type="text" name="search" placeholder='Search...' />
@@ -43,7 +45,7 @@ function UserNavBar({auth}:TYPE_USER_NAVBAR) {
                     <Link className={styles.after_login} href="#"><FontAwesomeIcon icon={faRightFromBracket} /></Link>
                     <Link href="#" className={`${styles.after_login} site_clr`}>Support</Link>
                     <Link href="#" className={`${styles.after_login} ${styles.link_btn}`}>Tour</Link>
-                    <Link href={ROUTE_SIGNIN} className={`${styles.before_login} ${styles.link_btn}`}>Login</Link>
+                    <Link href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_SIGNIN):null}} className={`${styles.before_login} ${styles.link_btn}`}>Login</Link>
                 </div>
             </nav>
 
@@ -68,13 +70,13 @@ function UserNavBar({auth}:TYPE_USER_NAVBAR) {
                 </div>
                 
                 <div className={styles.links} ref={navDropDownRef}>
-                    <Link className={`${styles.before_login} ${styles.active}`} href="#">Home</Link>
-                    <Link href="./Games.html">Games</Link>
-                    <Link href="./Grand Prix1.html">Grand Prix</Link>
-                    <Link href="./Rules General.html">Rules</Link>
+                    <Link className={`${styles.before_login} ${styles.active}`} href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_HOME):null}}>Home</Link>
+                    <Link href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_SIGNIN):null}}>Games</Link>
+                    <Link href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_SIGNIN):null}}>Grand Prix</Link>
+                    <Link href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_SIGNIN):null}}>Rules</Link>
                     <Link href="#" className={`${styles.after_login} site_clr`}>Support</Link>
                     <Link href="#" className={`${styles.after_login} ${styles.link_btn}`}>Tour</Link>
-                    <Link href={ROUTE_SIGNIN} className={`${styles.before_login} ${styles.link_btn}`}>Login</Link>
+                    <Link href="#" onClick={(e)=>{!auth?navigateTo(e, ROUTE_SIGNIN):null}} className={`${styles.before_login} ${styles.link_btn}`}>Login</Link>
                 </div>
             </nav>
         

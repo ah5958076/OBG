@@ -1,6 +1,6 @@
 .main_img{
   width: 100%;
-  height: 60vh;
+  height: 90vh;
   background-image: url("/index-1.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -18,13 +18,15 @@
 }
 
 .main_img h1 {
-  font-size: 50px;
+  font-size: 80px;
+  font-family: bebas-neue !important;
   color: var(--site-clr);
 }
 
 .main_img h2{
   color: var(--fg);
-  font-size: 35px;
+  font-family: bebas-neue !important;
+  font-size: 60px;
 }
 
 
@@ -44,11 +46,14 @@
   flex-direction: column;
 }
 
+.container h2{
+  font-size: 24px;
+}
+
 .cards{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
-  background-color: var(--bg);
 }
 
 .card{
@@ -59,6 +64,10 @@
   flex-direction: column;
   gap: 10px;
   padding: 15px;
+}
+
+.card.clickable{
+  cursor: pointer;
 }
 
 .card .card_img{
@@ -77,11 +86,15 @@
   font-size: 14px;
 }
 
+.card .body{
+  font-size: 14px;
+}
+
 .card .footer{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .card .footer div{
@@ -112,8 +125,13 @@
 .updates{
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 20px;
   background-color: black;
+}
+
+.updates h2{
+  font-family: bebas-neue;
 }
 
 .updates button{
@@ -122,6 +140,7 @@
   width: fit-content;
   padding: 10px 30px;
   border-radius: 2px;
+  font-size: 18px;
 }
 
 
@@ -150,7 +169,7 @@
 
 .WinToEarn .card span.body {
   color: var(--secondary-clr);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .WinToEarn .card button{
@@ -158,6 +177,7 @@
   display: flex;
   align-self: center;
   margin-top: 10px;
+  font-size: 14px;
   border: 2px solid var(--fg);
   background-color: transparent;
   transition: 0.3s;
@@ -209,7 +229,10 @@
 }
 
 .banner>div h1{
-  font-size: 25px;
+  font-size: 40px;
+  text-align: right;
+  font-family: bebas-neue;
+  line-height: 40px;
 }
 
 .banner>div h1 span{
@@ -220,6 +243,7 @@
 .banner>div button{
   width: fit-content;
   padding: 10px 40px;
+  font-size: 18px;
 }
 
 .card .img-text{
@@ -250,10 +274,8 @@
 
 
 
-@media(max-width:800px){
-  .main_img h2{
-    font-size: 28px;
-  }
+
+@media(max-width:900px){
   .banner {
     margin-top: 100px;
     flex-direction: column;
@@ -273,17 +295,34 @@
     text-align: center;
   }
 }
+@media(max-width: 850px){
+  .banner{
+    padding: 10px;
+  }
+  .banner>div h1{
+    font-size: 30px;
+    line-height: 30px;
+  }
+}
+@media(max-width:800px){
+  .main_img h1{
+    font-size: 60px;
+  }
+  .main_img h2{
+    font-size: 40px;
+  }
+}
 @media(max-width:600px){
   .updates h2{
     font-size: 18px;
   }
 }
-@media(max-width:650px){
+@media(max-width:550px){
   .main_img h1{
-    font-size: 30px;
+    font-size: 40px;
   }
   .main_img h2{
-    font-size: 19px;
+    font-size: 25px;
   }
 }
 @media(max-width:500px){
@@ -298,12 +337,6 @@
   .main_img>div{
     padding: 10px;
   }
-  .main_img h1{
-    font-size: 25px;
-  }
-  .main_img h2{
-    font-size: 14px;
-  }
   .updates{
     flex-direction: column !important;
     gap: 10px !important;
@@ -313,5 +346,17 @@
   }
   .updates button{
     width:100% !important;
+  }
+}
+@media(max-width: 350px){
+  .main_img h1{
+    font-size: 30px;
+  }
+  .main_img h2{
+    font-size: 20px;
+  }
+  .banner>div h1{
+    font-size: 25px;
+    line-height: 25px;
   }
 }

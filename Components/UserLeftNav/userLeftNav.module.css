@@ -1,6 +1,4 @@
 .navbar{
-    margin-top: 20px;
-    border-radius: 0px 10px 10px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -152,6 +150,7 @@
         position: absolute;
         left: 0;
         top: 0;
+        background-color: var(--bg);
         width: 200px;
         transform: translateX(55px);
         border-color: var(--site-clr);
