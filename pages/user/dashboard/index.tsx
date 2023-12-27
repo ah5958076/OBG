@@ -1,30 +1,20 @@
-import UserLeftNav from '@/Components/UserLeftNav'
-import UserNavBar from '@/Components/UserNavbar'
-import UserRightNav from '@/Components/UserRightNav'
-import Link from 'next/link'
+import UserMainLayout from '@/Components/UserMainLayout'
 import React from 'react'
+
+
+
 
 function Dashboard() {
     return (
-        <>
+        <UserMainLayout>
 
-            <UserNavBar auth={true} />
-
-            <div className='container'>
-
-                <UserLeftNav />
-
-                <div className="main_body">
-                    {/* remaining body goes here... */}
-                </div>
-
-                <UserRightNav />
-
-            </div>
+            {/* remaining body goes here... */}
 
 
+
+            
             {/* <div className="container">
-
+            
                 <div className="tournaments">
                     <span style={{"fontWeight": "bold"}}>Games</span> 
                     <div className="tournament-buttons">
@@ -34,7 +24,7 @@ function Dashboard() {
                     </div>       
                 </div>
             
-
+            
                 <div className="cards">
                     <div className="card-line">
                     <!--  -->
@@ -88,13 +78,13 @@ function Dashboard() {
                         <span>UNCHARTED</span>
                     </div>
                     
-
+            
                         <div className="card">
                         <img src="./images/Counter Strike.png" width="160x" height="160px" alt="">
                         <span>STRIKE</span>
                     </div>
                     
-
+            
                         <div className="card">
                         <img src="./images/Dota2.png" width="160x" height="160px" alt="">
                         <span>DOTA2</span>
@@ -139,11 +129,11 @@ function Dashboard() {
                     </div>
                     <!-- Line -->
                 </div>
-        
+            
             </div> */}
-
-
-
+            
+            
+            
             {/* <div className="dialogs">
                 <div className="dialog" id="withdraw-amount">
                     <form action="#" method="post">
@@ -154,7 +144,7 @@ function Dashboard() {
                             <input type="text" placeholder="Email*">
                             <input type="text" placeholder="Address*">
                             <input type="text" placeholder="Enter Amount*">
-
+            
                             <div className="confirm-btns">
                                 <button className="active" type="submit">WITHDRAW</button>
                             </div>
@@ -162,14 +152,14 @@ function Dashboard() {
                     </form>
                 </div>
                     
-
+            
                 <div className="dialog" id="add-credits">
                     <form action="#" method="post">
                         <div className="main">
                             <p>Add Credits</p>
                             <img src="./images/paypal.png" alt="">
                             <input type="text" placeholder="Enter Amount*">
-
+            
                             <div className="confirm-btns">
                                 <button className="active" type="submit">ADD</button>
                             </div>
@@ -178,8 +168,10 @@ function Dashboard() {
                 </div>
             </div> */}
 
-        
-        </>
+        </UserMainLayout>
+
+
+
     )
 }
 
